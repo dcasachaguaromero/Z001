@@ -1,0 +1,1077 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>&amp;T001-BUTXT&amp;,,Ergebnistabelle &amp;RF130-BZSBVERF&amp;,,Zeit</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;SYST-UZEIT&amp;,,Datum &amp;SYST-DATUM&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>&amp;T001-ORT01&amp;,,&amp;RF130-ABSTIDAT&amp;/&amp;RF130-LAUFI&amp;,,&amp;RF130-REPID&amp;/&amp;SYST-UNAME&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Seite,,&amp;PAGE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>800</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*  Ereignisse für die Ergebnistabelle                                 *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>805</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Ausstellungsdatum und Rueckantwortdatum ---------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum:,,&amp;RF130-AUSSTDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Rückantwortdatum:,,&amp;RF130-RUECKDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>806</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Daten der Abmahnung zu Bestätigungsersuchen -----------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Abmahnung:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum alt:,,&amp;RF130-UAUSTDAT&amp;,,Rückantwortdatum alt:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RF130-URUECKDA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum neu:,,&amp;RF130-AUSSTDAT&amp;,,Rückantwortdatum neu:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RF130-RUECKDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>810</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Spaltenüberschriften der Ergebnistabelle ------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,davon,,,,,,Haus-,,,,Beleg-</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,Anzahl,,%,,Null-,,Anzahl,,Betrag,,Wäh-,,%,,Betrag,,Wäh-,,%</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,salden,,Posten,,,,rung-,,,,,,rung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(102)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>820</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Erbetene Saldenbestätigungen (1. Zeile) -------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Erbetene</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Saldenbestätigungen,,&amp;RF130-ANZSALDB&amp;,,100,00,,&amp;RF130-ANZNULLS&amp;,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-PROZS&amp;,,&amp;RF130-SALDO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RF130-WAERS(C)&amp;,,&amp;RF130-PROZW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>821</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Erbetene Saldenmitteilungen (1. Zeile) --------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Erbetene</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Saldenmitteilungen,,&amp;RF130-ANZSALDB&amp;,,100,00,,&amp;RF130-ANZNULLS&amp;,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-PROZS&amp;,,&amp;RF130-SALDO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RF130-WAERS(C)&amp;,,&amp;RF130-PROZW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>822</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Erbetene Saldenanforderungen (1. Zeile) -------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Saldenanforderungen,,&amp;RF130-ANZSALDB&amp;,,100,00,,&amp;RF130-ANZNULLS&amp;,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-PROZS&amp;,,&amp;RF130-SALDO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RF130-WAERS(C)&amp;,,&amp;RF130-PROZW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>823</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 820, 821, 822 bei mehreren Währungen ----- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-PROZS&amp;,,&amp;RF130-SALDO&amp;,,&amp;RF130-WAERS(C)&amp;,,&amp;RF130-PROZW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>824</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Erbetene Saldenbestätigungen bei Nullsaldolauf ------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Erbetene</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Saldenbestätigungen,,&amp;RF130-ANZSALDB&amp;,,100,00,,&amp;RF130-ANZNULLS&amp;,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>825</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Erbetene Saldenmitteilungen bei Nullsaldolauf ------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Erbetene</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Saldenmitteilungen,,&amp;RF130-ANZSALDB&amp;,,100,00,,&amp;RF130-ANZNULLS&amp;,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>826</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Erbetene Saldenanforderungen bei nullsaldolauf ------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Saldenanforderungen,,&amp;RF130-ANZSALDB&amp;,,100,00,,&amp;RF130-ANZNULLS&amp;,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>827</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsumme in Hauswährung --------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Gesamtsumme in</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Hauswährung,,,,,,,,,,&amp;RF130-GSALDB&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-PROZS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>828</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsumme in Hauswährung bei Nullsaldenlauf und bei ------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- unterschiedlichen Vorzeichen von Salden bei mehreren Währungen---- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Gesamtsumme in Hauswährung,,,,,,,,,,&amp;RF130-GSALDB&amp;,,&amp;RF130-HWAER(C)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>829</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zusatzzeilen Gesamtsumme in Hauswährung bei positiven und -------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- negativen Salden bei unterschiedlichen Währungen ----------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&amp;RF130-GSALDB&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-PROZS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>830</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- nicht zurückgekommene Rückantworten ------------------------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Saldenbestätigungen und Saldenanforderungen ------------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>nicht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>zurückgekommen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>831</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignissen 830 bei mehreren Währungen ------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Saldenbestätigungen und Saldenanforderungen ------------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>832</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- nicht zurückgekommene Rückantworten bei Nullsaldenlauf ----------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Saldenbestätigungen und Saldenanforderungen ------------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>nicht zurückgekommen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>833</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- nicht zurückgekommene Rückantworten ------------------------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Saldenmitteilungen-------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>nicht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>zurückgekommen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>834</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignissen 833 bei mehreren Währungen ------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Saldenmitteilungen-------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,,,&amp;RF130-WAERS(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>835</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- nicht zurückgekommene Rückantworten bei Nullsaldenlauf ----------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Saldenmitteilungen-------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>nicht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>zurückgekommen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>840</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- ohne Bestätigung zurückgekommene Schreiben ----------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>ohne Bestätigung zurückgekommen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>841</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- keine Beantwortung wegen Unzustellbarkeit ------------------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- wegen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Unzustellbarkeit,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>842</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignissen 841 bei mehreren Währungen ------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>843</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- keine Beantwortung wegen Unzustellbarkeit bei Nullsaldenlauf ----- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- wegen Unzustellbarkeit,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>844</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Davon-Vermerk 1 für Rückantworten ohne Bestätigung nach Mahnung -- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  - davon nach Mahnung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>    am &lt;NP&gt;&amp;ULINE(10)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>845</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- keine Beantwortung aus sonstigen Gründen ------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- aus sonstigen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Gründen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>846</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignissen 845 bei mehreren Währungen ------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>847</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- keine Beantwortung aus sonstigen Gründen bei Nullsaldenlauf ------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- aus sonstigen Gründen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>848</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Davon-Vermerk 2 für Rückantworten ohne Bestätigung nach Mahnung -- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  - davon nach Mahnung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>    am &lt;NP&gt;&amp;ULINE(10)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>850</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Rückantworten mit Bestätigungen für Salden ----------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>mit Bestätigung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>zurückgekommen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt; ,,&amp;RF130-WAERS(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>851</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 850 bei mehreren Währungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>852</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Rückantworten mit Bestätigungen für Salden bei Nullsaldenlauf ---- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>mit Bestätigung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>zurückgekommen,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>853</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Davon-Vermerk für Rückantworten mit Bestätigung nach Mahnung ----- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>davon nach Mahnung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>am &lt;NP&gt;&amp;ULINE(10)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>854</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- gleichlautende Bestätigungen ------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- gleichlautend</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>bestätigt,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>855</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 854 bei mehreren Währungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,,,&amp;RF130-WAERS(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>856</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- gleichlautende Bestätigungen bei Nullsaldenlauf ------------------ *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- gleichlautend</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>bestätigt,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>860</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Abweichende Bestätigungen ---------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- nicht gleichlautend</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  bestätigt,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>861</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 860 bei mehreren Währungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>862</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Abweichende Bestätigungen bei Nullsaldenlauf --------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>- nicht gleichlautend</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  bestätigt,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,100,00</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,100,00</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(6)&amp;&lt;/&gt;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,100,00</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>863</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Davon-Vermerk zu nicht gleichlautenden Bestätigungen ------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  davon bis zum &lt;NP&gt;&amp;ULINE(10)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>870</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- keine Klärung von bzw. keine Einigung über Abweichungen ---------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  - nicht geklärt bzw. noch</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>    keine Einigung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>erzielt,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>871</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 870 bei mehreren Währungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>872</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- keine Klärung von bzw. keine Einigung über Abweichungen ---------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Nullsaldenlauf ----------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  - nicht geklärt bzw. noch</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>    keine Einigung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>erzielt,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>880</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- geklärte Abweichungen -------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>  - geklärt</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>881</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- vom Geschäftspartner zu korrigierende Abweichungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>    - vom Geschäftspartner</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>      zu</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>korrigieren,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>882</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 881 bei mehreren Währungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>883</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- vom Geschäftspartner zu korrigierende Abweichungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Nullsaldenlauf ----------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>    - vom Geschäftspartner</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>      zu</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>korrigieren,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>890</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- vom Unternehmen für das die Bestätigungen erfolgten zu korrigieren *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>    - vom Unternehmen für das die &amp;RF130-BZSBVERF&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>      erfolgten zu korrigieren</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>891</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- ergebnisneutral zu korrigierte Abweichungen ---------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>      -</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ergebnisneutral,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>892</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 891 bei mehreren Währungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>893</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- ergebnisneutral zu korrigierte Abweichungen ---------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Nullsaldenlauf ----------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>      -</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ergebnisneutral,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>894</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- ergebniswirksam korrigierte Abweichungen ------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>      -</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ergebniswirksam,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>895</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Folgezeilen zu Ereignis 894 bei mehreren Währungen --------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>896</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- ergebniswirksam zu korrigierte Abweichungen ---------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- bei Nullsaldenlauf ----------------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>      -</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ergebniswirksam,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&amp;RF130-HWAER(C)&amp;,,,,&lt;NP&gt;&amp;ULINE(12)&amp;&lt;/&gt;,,&lt;NP&gt;&amp;ULINE(4)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>899</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Frei für eigenen Text--------------------------------------------- *</TDLINE>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

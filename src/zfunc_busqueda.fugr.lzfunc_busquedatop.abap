@@ -1,0 +1,2 @@
+FUNCTION-POOL ZFUNC_BUSQUEDA.               "MESSAGE-ID ..
+

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Verificar Acceso del usuario SAP</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZBC_USER_LOGONTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZBC_USER_LOGON</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZBC_USER_LOGON</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Verifica el acceso del Usuario de SAP</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>USUARIO</PARAMETER>
+       <TYP>RSYST-BNAME</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>PASWORD</PARAMETER>
+       <TYP>RSYST-BCODE</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <TYP>CHAR40</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>USUARIO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nombre de usuario</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>PASWORD</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Clave de acceso del usuario</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campo character, longitud 40</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

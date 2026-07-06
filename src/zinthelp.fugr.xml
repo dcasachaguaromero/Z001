@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Intefaces Help</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZINTHELPTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZINTHELP</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZOBT_FOLIO_DTE</FUNCNAME>
+     <SHORT_TEXT>Obtiene el folio para DTE</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <DBFIELD>IDCN_BOMA-BUKRS</DBFIELD>
+       <REFERENCE>X</REFERENCE>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_LOTNO</PARAMETER>
+       <DBFIELD>IDCN_BOMA-LOTNO</DBFIELD>
+       <REFERENCE>X</REFERENCE>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BOKNO</PARAMETER>
+       <DBFIELD>IDCN_BOMA-BOKNO</DBFIELD>
+       <REFERENCE>X</REFERENCE>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_LIINV</PARAMETER>
+       <DBFIELD>IDCN_BOMA-LIINV</DBFIELD>
+       <REFERENCE>X</REFERENCE>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_LOTNO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de pila interno</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BOKNO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nº libro</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_LIINV</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Último número de documento asignado</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZWS_CREA_CLIENTES</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>WebServices de Clientes</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>STR_CLIENTE</PARAMETER>
+       <DBFIELD>ZSD_BI_CLIENTES</DBFIELD>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_ID_CLIENTE_SAP</PARAMETER>
+       <TYP>CHAR10</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>STR_CLIENTE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura BI Clientes</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_ID_CLIENTE_SAP</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campo de texto, longitud 10</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZWS_CREA_CONTRATOS</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>WebServices Creación de contratos</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>STR_CONTRATO</PARAMETER>
+       <TYP>ZSD_CONTRATO</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>STR_CONTRATO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura de contratos</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZWS_ELI_AGR_INT_CLIENTES</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>WebServices Elimina/Agrega Interlocutores a Clientes</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>ACTION</PARAMETER>
+       <TYP>CHAR01</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_INT_CLI</PARAMETER>
+       <DBSTRUCT>ZSD_BI_CLI_INT</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>ACTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura Carga F.Interlocutor Clientes(Contratos)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_INT_CLI</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura Carga F.Interlocutor Clientes(Contratos)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZWS_ELI_AGR_INT_CONTRATOS</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Webservices Elimina/Agrega Interlocutores a Clientes</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>ACTION</PARAMETER>
+       <TYP>CHAR01</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_INT_CLI</PARAMETER>
+       <DBSTRUCT>ZSD_BI_CLI_INT</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>ACTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura Carga F.Interlocutor Clientes(Contratos)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_INT_CLI</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura Carga F.Interlocutor Clientes(Contratos)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZWS_MOD_CLIENTES</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Webservices de Modificación de Clientes</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>STR_CLIENTE</PARAMETER>
+       <DBFIELD>ZSD_BI_CLIENTES</DBFIELD>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>L_MESSAGE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>STR_CLIENTE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura BI Clientes</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>L_MESSAGE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Texto de mensaje</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZWS_MOD_CONTRATOS</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>WebServices de Modificación de contratos</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>STR_CONTRATO</PARAMETER>
+       <TYP>ZSD_CONTRATO</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>STR_CONTRATO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura de contratos</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

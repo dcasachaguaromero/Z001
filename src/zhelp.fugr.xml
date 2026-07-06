@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Ayudas</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZHELPTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZHELP</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZF4_ZAHLLAUF</FUNCNAME>
+     <SHORT_TEXT>F4 für das Laufdatum und die Laufidentifikation eines Zahllaufs</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>F1TYP</PARAMETER>
+       <DEFAULT>&apos;D&apos;</DEFAULT>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>F1NME</PARAMETER>
+       <DEFAULT>SPACE</DEFAULT>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>F2NME</PARAMETER>
+       <DEFAULT>&apos;F110V-LAUFI&apos;</DEFAULT>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>DISPLAY_LAUFK</PARAMETER>
+       <DEFAULT>&apos;X&apos;</DEFAULT>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>EXPLAIN_LAUFK</PARAMETER>
+       <DEFAULT>SPACE</DEFAULT>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>BUKRS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>BANCO</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>UBNKL</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>LAUFD</PARAMETER>
+       <DBFIELD>F110V-LAUFD</DBFIELD>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>LAUFI</PARAMETER>
+       <DBFIELD>F110V-LAUFI</DBFIELD>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>LAUFK</PARAMETER>
+       <DBSTRUCT>ILAUFK</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>F1TYP</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>F1NME</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>F2NME</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DISPLAY_LAUFK</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EXPLAIN_LAUFK</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANCO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Código bancario de nuestro banco</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LAUFD</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LAUFI</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LAUFK</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+   <LONGTEXTS_ZF4_ZAHLLAUF>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZF4_ZAHLLAUF</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0008</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00028</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZF4_ZAHLLAUF</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00008</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;FUNCTIONALITY&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wird auf Laufdatum bzw. Laufidentifikation eines Zahlungslaufs die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Werthilfetaste betätigt, so erscheint eine Liste aller Zahlungsläufe</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>mit dem zugehörigen Status. Dazu muß übergeben werden, auf welchem Feld</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>F4 gedrückt wurde (&apos;D&apos; für das Datum, &apos;I&apos; für die Identifikation).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Ferner ist der Name des Feldes zu übergeben, das ebenfalls versorgt</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden soll (also beispielsweise der Name des Feldes für die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Identifikation, wenn der Anwender F4 auf dem Datum gedrückt hat).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Zusätzlich kann bestimmt werden, welche Zahlungsläufe anzeigbar sein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>sollen. Dabei ist eine Tabelle der Struktur ILAUFK zu füllen, die die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>in den Festwerten der Domäne LAUFK_F110 hinterlegten Werte beinhalten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>kann. (Anmerkung: Die Laufkennung ist die sechste Stelle der</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Laufidentifikation.) Durch das Feld SIGN wird analog zu einem Range</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>bestimmt, ob die Laufkennung selektiert oder nicht selektiert werden</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>soll. Ist die Tabelle leer, so werden alle Laufkennungen selektiert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;EXAMPLE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>F4 auf dem Feld &apos;Laufdatum&apos; des Programms RFCHKN00, auf dem die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Parameter ZW_LAUFI und ZW_LAUFD versorgt werden sollen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+       <TDLINE>CALL FUNCTION &apos;F4_ZAHLLAUF&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+       <TDLINE>     EXPORTING</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+       <TDLINE>          F1TYP = &apos;D&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+       <TDLINE>          F2NME = &apos;ZW_LAUFI&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+       <TDLINE>     IMPORTING</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+       <TDLINE>          LAUFD = ZW_LAUFD</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+       <TDLINE>          LAUFI = ZW_LAUFI.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/(</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;HINTS&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Es gibt keine Ausnahmen. Im Fehlerfall wird die Meldung ausgegeben, daß</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>keine Werte angezeigt werden konnten.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZF4_ZAHLLAUF                  LAUFI</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0002</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00006</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZF4_ZAHLLAUF                  LAUFI</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;MEANING&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wird auf einem der Felder &apos;Laufdatum&apos; oder &apos;Laufidentifikation&apos; die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Werthilfetaste gedrückt, so wird eine Liste aller Zahlungsläufe</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>angezeigt. Nach Auswahl eines LAufs werden beide Felder gefüllt.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;RANGE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;DEFAULT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS_ZF4_ZAHLLAUF>
+  </asx:values>
+ </asx:abap>
+</abapGit>

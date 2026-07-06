@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SHLP" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD30V>
+    <SHLPNAME>Z_BANCOSBIF</SHLPNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DDTEXT>Seleccion de còdigo de banco SBIF</DDTEXT>
+    <ISSIMPLE>X</ISSIMPLE>
+    <SELMETHOD>ZBANCOSSBIF</SELMETHOD>
+    <SELMTYPE>T</SELMTYPE>
+    <DIALOGTYPE>D</DIALOGTYPE>
+   </DD30V>
+   <DD32P_TABLE>
+    <DD32P>
+     <SHLPNAME>Z_BANCOSBIF</SHLPNAME>
+     <FIELDNAME>BANCO</FIELDNAME>
+     <FLPOSITION>0001</FLPOSITION>
+     <ROLLNAME>UBNKL</ROLLNAME>
+     <SHLPINPUT>X</SHLPINPUT>
+     <SHLPOUTPUT>X</SHLPOUTPUT>
+     <SHLPLISPOS>01</SHLPLISPOS>
+     <SCRLEN3>20</SCRLEN3>
+    </DD32P>
+    <DD32P>
+     <SHLPNAME>Z_BANCOSBIF</SHLPNAME>
+     <FIELDNAME>DESCR</FIELDNAME>
+     <FLPOSITION>0002</FLPOSITION>
+     <ROLLNAME>CHAR50</ROLLNAME>
+     <SHLPLISPOS>02</SHLPLISPOS>
+    </DD32P>
+   </DD32P_TABLE>
+  </asx:values>
+ </asx:abap>
+</abapGit>

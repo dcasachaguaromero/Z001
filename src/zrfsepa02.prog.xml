@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>ZRFSEPA02</NAME>
+    <SUBC>1</SUBC>
+    <APPL>F</APPL>
+    <SECU>F_005</SECU>
+    <RLOAD>D</RLOAD>
+    <FIXPT>X</FIXPT>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <ENTRY>Cuenta de mayor</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>002</KEY>
+     <ENTRY>Sociedad</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>B01</KEY>
+     <ENTRY>Log adicional</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>BE1</KEY>
+     <ENTRY>Doc.seleccionado</ENTRY>
+     <LENGTH>16</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>BE2</KEY>
+     <ENTRY>Doc.modificado</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>NB1</KEY>
+     <ENTRY>Cantidad doc.seleccionados</ENTRY>
+     <LENGTH>26</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>NB2</KEY>
+     <ENTRY>Cantidad doc.modificados</ENTRY>
+     <LENGTH>24</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>NSB</KEY>
+     <ENTRY>No se han encontrado entradas adecuadas</ENTRY>
+     <LENGTH>43</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>NX1</KEY>
+     <ENTRY>Número de PIs seleccionadas de la tabla &amp;TAB</ENTRY>
+     <LENGTH>48</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>NX2</KEY>
+     <ENTRY>Númro de PIs modificadas de la tabla &amp;TAB</ENTRY>
+     <LENGTH>45</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>S01</KEY>
+     <ENTRY>Nº doc.</ENTRY>
+     <LENGTH>8</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>S02</KEY>
+     <ENTRY>Ej.</ENTRY>
+     <LENGTH>4</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>S03</KEY>
+     <ENTRY>Coment.</ENTRY>
+     <LENGTH>9</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>XX1</KEY>
+     <ENTRY>PIs seleccionadas en tabla &amp;TAB</ENTRY>
+     <LENGTH>39</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>XX2</KEY>
+     <ENTRY>PIs modificadas en tabla &amp;TAB</ENTRY>
+     <LENGTH>37</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>XX3</KEY>
+     <ENTRY>PIs generadas en tabla &amp;TAB</ENTRY>
+     <LENGTH>36</LENGTH>
+    </item>
+    <item>
+     <ID>R</ID>
+     <ENTRY>Estructura de gestión de PA tras modificación de registro maestro</ENTRY>
+     <LENGTH>65</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_BELNR</KEY>
+     <ENTRY>Número de documento</ENTRY>
+     <LENGTH>27</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_BUKRS</KEY>
+     <ENTRY>Sociedad</ENTRY>
+     <LENGTH>21</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_LISTE</KEY>
+     <ENTRY>Log de lista</ENTRY>
+     <LENGTH>21</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_SAKNR</KEY>
+     <ENTRY>Cuenta de mayor</ENTRY>
+     <LENGTH>23</LENGTH>
+    </item>
+   </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>D</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>Sachkonto</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Buchungskreis</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>B01</KEY>
+       <ENTRY>Zusatzprotokoll</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>BE1</KEY>
+       <ENTRY>Beleg selektiert</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>BE2</KEY>
+       <ENTRY>Beleg geändert</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NB1</KEY>
+       <ENTRY>Anzahl selektierter Belege</ENTRY>
+       <LENGTH>26</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NB2</KEY>
+       <ENTRY>Anzahl geänderter Belege</ENTRY>
+       <LENGTH>24</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NSB</KEY>
+       <ENTRY>Es wurden keine passenden Einträge gefunden</ENTRY>
+       <LENGTH>43</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NX1</KEY>
+       <ENTRY>Anzahl selektierte Einzelposten aus Tabelle &amp;TAB</ENTRY>
+       <LENGTH>48</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NX2</KEY>
+       <ENTRY>Anzahl geänderte Einzelposten in Tabelle &amp;TAB</ENTRY>
+       <LENGTH>45</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>S01</KEY>
+       <ENTRY>Belegnr.</ENTRY>
+       <LENGTH>8</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>S02</KEY>
+       <ENTRY>Jahr</ENTRY>
+       <LENGTH>4</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>S03</KEY>
+       <ENTRY>Bemerkung</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>XX1</KEY>
+       <ENTRY>Einzelposten in Tabelle &amp;TAB selektiert</ENTRY>
+       <LENGTH>39</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>XX2</KEY>
+       <ENTRY>Einzelposten in Tabelle &amp;TAB geändert</ENTRY>
+       <LENGTH>37</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>XX3</KEY>
+       <ENTRY>Einzelposten in Tabelle &amp;TAB erzeugt</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Aufbau der Verwaltung offener Posten nach Stammsatzänderung</ENTRY>
+       <LENGTH>59</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_BELNR</KEY>
+       <ENTRY>Belegnummer</ENTRY>
+       <LENGTH>19</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_BUKRS</KEY>
+       <ENTRY>Buchungskreis</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_LISTE</KEY>
+       <ENTRY>Listprotokoll</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_SAKNR</KEY>
+       <ENTRY>Sachkonto</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>G/L account</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Company code</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>B01</KEY>
+       <ENTRY>Additional log</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>BE1</KEY>
+       <ENTRY>Document selected</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>BE2</KEY>
+       <ENTRY>Document changed</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NB1</KEY>
+       <ENTRY>Number of documents selected</ENTRY>
+       <LENGTH>28</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NB2</KEY>
+       <ENTRY>Number of documents changed</ENTRY>
+       <LENGTH>27</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NSB</KEY>
+       <ENTRY>No suitable entries were found</ENTRY>
+       <LENGTH>43</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NX1</KEY>
+       <ENTRY>Number of line items selected from table &amp;TAB</ENTRY>
+       <LENGTH>48</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>NX2</KEY>
+       <ENTRY>Number of line items changed in table &amp;TAB</ENTRY>
+       <LENGTH>45</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>S01</KEY>
+       <ENTRY>Doc. no.</ENTRY>
+       <LENGTH>8</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>S02</KEY>
+       <ENTRY>Year</ENTRY>
+       <LENGTH>4</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>S03</KEY>
+       <ENTRY>Remark</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>XX1</KEY>
+       <ENTRY>Line items selected in table &amp;TAB</ENTRY>
+       <LENGTH>39</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>XX2</KEY>
+       <ENTRY>Line items changed in table &amp;TAB</ENTRY>
+       <LENGTH>37</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>XX3</KEY>
+       <ENTRY>Line items generated in table &amp;TAB</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Switch On Open Item Management by Changing Master Record</ENTRY>
+       <LENGTH>59</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_BELNR</KEY>
+       <ENTRY>Document number</ENTRY>
+       <LENGTH>23</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_BUKRS</KEY>
+       <ENTRY>Company code</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_LISTE</KEY>
+       <ENTRY>List log</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_SAKNR</KEY>
+       <ENTRY>G/L account</ENTRY>
+       <LENGTH>19</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZRFSEPA02</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0018</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00023</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRFSEPA02</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00018</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Report schaltet die Verwaltung offener Posten (OP) für ein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Sachkonto ein und ändert die vorher gebuchten Belege entsprechend um.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Diese werden danach als offene Posten angezeigt. Es werden keine</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>weiteren Nacharbeiten an den offenen Posten ausgeführt. Im besonderen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden bei stornierten Belegen nicht nachträglich die Ausgleichsdaten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>in den Beleg eingetragen.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Von diesem Konto dürfen noch keine Posten archiviert worden sein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;ZH&gt;Achtung:&lt;/&gt; Dies müssen Sie durch organisatorische Maßnahmen selbst</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>sicherstellen.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Einige Sachkonten dürfen nicht offen Postenverwaltet geführt werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Dazu gehören insbesondere die Sachkonten, die in der Kontenfindung für</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>automatische Vorgänge verwendet werden (z.B. Konten für die Vorgänge</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>MVA, VVA, oder Konten auf die Buchungen mit Buchungssschlüssel für</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Kontoart M gebucht werden).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>&lt;ZH&gt;Achtung:&lt;/&gt; Prüfen Sie selbst vorher, ob das fragliche Sachkonto</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>wirklich offen Postenverwaltet werden darf.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>Im Zweifelsfall wenden Sie sich an Ihren SAP Berater.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>Das Konto muß vorher zum Buchen gesperrt werden, da bei gleichzeitiger</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Umsetzung von Belegen und Buchungen auf dieses Konto, die neu gebuchten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Belege eventuell nicht erfaßt würden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Bei der Verwendung des Listprotokoll wird jeder Beleg aufgelistet, der</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>geändert wurde. Zusätztlich wird die Summe der geänderten BSIS/BSAS</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Einträge und die der geänderten Belege aufgelistet.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;EXAMPLE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZRFSEPA02</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0018</VERSION>
+      <TXTLINES>00022</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRFSEPA02</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00018</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This program activates open item (OI) management for a G/L account and</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>makes the necessary changes to documents already posted. These are then</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>displayed afterwards as open items. It does not process the open items</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>any further. In reversed documents especially, it does not reenter</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>clearing data in the document.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>No items can already be archived from this account.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>&lt;ZH&gt;Caution:&lt;/&gt; Company policy must be in place to ensure that this</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>does not happen.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Some G/L accounts cannot be managed on an open item basis, especially</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>G/L accounts that are used in account determination for automatic</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>transactions (for example, accounts set up for transactions MVA or VVA,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>or accounts which are posted to using posting keys set up for account</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>type M).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>&lt;ZH&gt;Caution:&lt;/&gt; Before making any changes, check that the G/L account</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>can really be managed on an open item basis. If necessary, contact your</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>SAP consultant.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The account must be blocked from posting since any new documents posted</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>at the same time as converting documents and postings for this account</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>would not be entered.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>When using the list log, each document that was changed is listed. In</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>addition, the total of the changed BSIS/BSAS entries and the total of</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the changed documents is listed.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;EXAMPLE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZRFSEPA02</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0018</VERSION>
+      <TXTLINES>00023</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRFSEPA02</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00018</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El report activa la gestión de partidas abiertas (PA) para una cuenta</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>de mayor y modifica adecuadamente los documentos contabilizados antes.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Estos se visualizan posteriormente como partidas abiertas. No se</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ejecutarán tareas de retoque en las partidas abiertas. En particular no</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>se registran posteriormente datos de compensación en los documentos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>anulados.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>No deben haberse archivado aún partidas de dicha cuenta.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>&lt;ZH&gt;Atención:&lt;/&gt; Esto debe garantizarlo Ud. mismo a través de medidas</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>organizativas. Algunas cuentas de mayor no deben gestionarse por</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>partida abiertas. A estas pertenecen especialmente las cuentas que</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>utilizan procesos automáticos en la determinación de cuentas (por</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ejemplo, cuentas para las operaciones MVA, VVA o cuentas en las que se</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>contabilizan asientos para la clase de cuenta M).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>&lt;ZH&gt;Atención:&lt;/&gt;  Verifique primero si la cuenta de mayor en cuestión</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>puede realmente gestionarse por partidas abiertas.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>En caso de duda diríjase a su administrador SAP.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>La cuenta debe bloquearse antes para contabilización ya que al</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>convertir simultáneamente documentos y contabilizaciones en esta</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>cuenta, eventualmente no se registrarán los nuevos documentos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>contabilizados.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Al utilizar el log de lista se listará cada documento modificado.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Adicionalmente se listará el total de entradas BSIS/BSAS modificadas y</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>los documentos modificados.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;EXAMPLE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

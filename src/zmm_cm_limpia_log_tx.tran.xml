@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_TRAN" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TSTC>
+    <TCODE>ZMM_CM_LIMPIA_LOG_TX</TCODE>
+    <PGMNA>ZMM_CM_LIMPIA_LOG</PGMNA>
+    <DYPNO>1000</DYPNO>
+    <CINFO>gA==</CINFO>
+   </TSTC>
+   <TSTCC>
+    <TCODE>ZMM_CM_LIMPIA_LOG_TX</TCODE>
+   </TSTCC>
+   <TSTCT>
+    <SPRSL>S</SPRSL>
+    <TCODE>ZMM_CM_LIMPIA_LOG_TX</TCODE>
+    <TTEXT>Depuracion LOG cargas masivas</TTEXT>
+   </TSTCT>
+  </asx:values>
+ </asx:abap>
+</abapGit>

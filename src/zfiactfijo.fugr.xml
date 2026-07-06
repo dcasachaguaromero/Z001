@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Funciones de activo fijos</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIACTFIJOTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIACTFIJO</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFICREA_AFIJO</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Creacion de activo fijo</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>COMPANUCODE</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>ASSETCLASS</PARAMETER>
+       <TYP>ANLKL</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>QUANTITY</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>QUANTITY</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>BASE_UOM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>MEINS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>DESCRIPT</PARAMETER>
+       <TYP>TXA50_ANLT</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>VENDOR_NO</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>VENDOR</PARAMETER>
+       <TYP>NAME1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>COSTCENTER</PARAMETER>
+       <TYP>KOSTL</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>ASSET</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ASSETTYPE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>SUBN</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>SUB_TYPE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>REF_ASSET</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ASSETTYPE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>REF_SUBN</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>SUB_TYPE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>CREA_GRUPO</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>CREA_SUBNUM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>XUPDATE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>C1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>FECHA_CAP</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>DATS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>SERIAL_NO</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>SERNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>INVENT_NO</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>INVNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>X_ORD41</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ORD41</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>X_ORD42</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ORD42</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>X_ORD43</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ORD43</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>X_PURCH_NEW</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>XNEU_AM</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>X_ANLUE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ANLUE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>X_IZWEK</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>IZWEK</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ASSETMAINO</PARAMETER>
+       <DBFIELD>BAPI1022_1-ASSETMAINO</DBFIELD>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>SUBNUMBER</PARAMETER>
+       <DBFIELD>BAPI1022_1-ASSETSUBNO</DBFIELD>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>RETURN1</PARAMETER>
+       <DBFIELD>BAPIRET2</DBFIELD>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>DEPRECIATIONAREAS</PARAMETER>
+       <DBSTRUCT>BAPI1022_DEP_AREAS</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>DEPRECIATIONAREASX</PARAMETER>
+       <DBSTRUCT>BAPI1022_DEP_AREASX</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>COMPANUCODE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campos clave al crear</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ASSETCLASS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Grupo de campo lógico 001; datos generales</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>QUANTITY</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Grupo de campo lógico 001; datos generales</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BASE_UOM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Grupo de campo lógico 001; datos generales</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DESCRIPT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Grupo de campo lógico 001; datos generales</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VENDOR_NO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Grupo de campo lógico 009; origen</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VENDOR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Grupo de campo lógico 009; origen</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>COSTCENTER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Grupo de campo lógico 003; datos temporales</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ASSET</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estruc. ayuda para objetos de inmov. (pool trab.)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>SUBN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>SUB_TYPE</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>REF_ASSET</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estruc. ayuda para objetos de inmov. (pool trab.)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>REF_SUBN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>SUB_TYPE</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CREA_GRUPO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Crear grupo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CREA_SUBNUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Crear subgrupo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>XUPDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Si es update</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FECHA_CAP</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Total de partidas activas visualizadas</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>SERIAL_NO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de serie</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>INVENT_NO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de inventario</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>X_ORD41</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Torre</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>X_ORD42</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Zona</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>X_ORD43</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Niveles</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>X_PURCH_NEW</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Indicador: El activo fijo ha sido comprado nuevo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>X_ANLUE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Supranúmero de activo fijo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>X_IZWEK</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Destino de la inversión</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ASSETMAINO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número principal de activo fijo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>SUBNUMBER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Subnúmero de activo fijo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DEPRECIATIONAREAS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Áreas de valoración (todos los grupos de campo lógicos)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DEPRECIATIONAREASX</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Áreas de valoración (todos los grupos de campo lógicos)</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

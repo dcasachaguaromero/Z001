@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZZUNID_PRO</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>ZZUNID_PRO</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>39</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Códigos de Unidad y Códigos de Producto</DDTEXT>
+    <REPTEXT>Códigos de Unidad y Códigos de Producto</REPTEXT>
+    <SCRTEXT_S>Producto</SCRTEXT_S>
+    <SCRTEXT_M>Producto</SCRTEXT_M>
+    <SCRTEXT_L>Producto</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <SHLPNAME>ZUNID_PROD</SHLPNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

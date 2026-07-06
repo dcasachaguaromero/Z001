@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZDCTO_ESP_T</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>WERT7</DOMNAME>
+    <HEADLEN>24</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>24</SCRLEN3>
+    <DDTEXT>Descto Especial Temporal</DDTEXT>
+    <REPTEXT>Dcto. Especial Temporal</REPTEXT>
+    <SCRTEXT_S>Dcto. Tem</SCRTEXT_S>
+    <SCRTEXT_M>Dcto Esp. Tem.</SCRTEXT_M>
+    <SCRTEXT_L>Dcto. Especial Temporal</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

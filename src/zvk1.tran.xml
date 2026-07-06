@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_TRAN" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TSTC>
+    <TCODE>ZVK1</TCODE>
+    <CINFO>Ag==</CINFO>
+   </TSTC>
+   <TSTCC>
+    <TCODE>ZVK1</TCODE>
+    <S_WIN32>X</S_WIN32>
+    <S_PLATIN>X</S_PLATIN>
+   </TSTCC>
+   <TSTCT>
+    <SPRSL>S</SPRSL>
+    <TCODE>ZVK1</TCODE>
+    <TTEXT>BANMEDICA: Reporte I</TTEXT>
+   </TSTCT>
+   <TSTCP>
+    <TCODE>ZVK1</TCODE>
+    <PARAM>/*START_REPORT D_SREPOVARI-REPORTTYPE=RW;D_SREPOVARI-REPORT=ZVK1;</PARAM>
+   </TSTCP>
+  </asx:values>
+ </asx:abap>
+</abapGit>

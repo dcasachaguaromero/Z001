@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Reportes Query de Activos Fijos</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIAAREPORTETOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIAAREPORTE</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFIAA015NEW_EXTR</FUNCNAME>
+     <SHORT_TEXT>Módulos para selección de datos</SHORT_TEXT>
+     <CHANGING>
+      <RSCHA>
+       <PARAMETER>ZRTMODE</PARAMETER>
+       <TYP>AQLIMODE</TYP>
+      </RSCHA>
+     </CHANGING>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>ZSELOPT</PARAMETER>
+       <DBSTRUCT>RSPARAMS</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>ZDTAB</PARAMETER>
+       <DBSTRUCT>ZZFIAAREPORTE</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>ZSELOPT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>ABAP: Estructura general para PARAMETERs y SELECT OPTIONs</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZDTAB</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campos para reportes de Activo Fijo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZRTMODE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Query SAP (L): Modo de ejecución (interno)</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZFIAA015NEW_SHOW</FUNCNAME>
+     <SHORT_TEXT>Módulos para presentación de datos</SHORT_TEXT>
+     <CHANGING>
+      <RSCHA>
+       <PARAMETER>ZRTMODE</PARAMETER>
+       <TYP>AQLIMODE</TYP>
+      </RSCHA>
+     </CHANGING>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>ZDTAB</PARAMETER>
+       <DBSTRUCT>ZZFIAAREPORTE</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>ZDTAB</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campos para reportes de Activo Fijo</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZRTMODE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Query SAP (L): Modo de ejecución (interno)</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

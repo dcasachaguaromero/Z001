@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZCIUDAD_FACT</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>TEXT40</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>40</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Ciudad</DDTEXT>
+    <REPTEXT>Ciudad</REPTEXT>
+    <SCRTEXT_S>Ciudad</SCRTEXT_S>
+    <SCRTEXT_M>Ciudad</SCRTEXT_M>
+    <SCRTEXT_L>Ciudad</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <SHLPNAME>CLCITYNAME</SHLPNAME>
+    <SHLPFIELD>CITY_NAME</SHLPFIELD>
+    <DEFFDNAME>CITY</DEFFDNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+   <I18N_LANGS>
+    <LANGU>D</LANGU>
+    <LANGU>E</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>D</DDLANGUAGE>
+     <DDTEXT>Ciudad Factura</DDTEXT>
+     <REPTEXT>Ciudad Factura</REPTEXT>
+     <SCRTEXT_S>Ciudad Fac</SCRTEXT_S>
+     <SCRTEXT_M>Ciudad Factura</SCRTEXT_M>
+     <SCRTEXT_L>Ciudad Factura</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DDTEXT>City</DDTEXT>
+     <REPTEXT>City</REPTEXT>
+     <SCRTEXT_S>City</SCRTEXT_S>
+     <SCRTEXT_M>City</SCRTEXT_M>
+     <SCRTEXT_L>City</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZCIUDAD_FACT</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0004</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00006</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZCIUDAD_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00004</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Ortsname als Bestandteil der Adresse.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Ortsname wird in einem weiteren Datenbankfeld (redundant) in</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Großbuchstaben gespeichert, was für Suchhilfen benutzt wird.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wenn die &lt;DS:RE.SAPLSZAR&gt;Postalische Regionalstruktur&lt;/&gt; (&apos;Ortsdatei&apos;)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>aktiv ist, wird der Ortsname gegen die in der Regionalstruktur</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>definierten &lt;DS:RE.SAPLSZRC&gt;Orte&lt;/&gt; geprüft.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZCIUDAD_FACT</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0004</VERSION>
+      <TXTLINES>00006</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZCIUDAD_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00004</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>City name as part of the address.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The city name is saved redundantly in another database field in upper-</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>case letters, for search help.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If the &lt;DS:RE.SAPLSZAR&gt;Postal regional structure&lt;/&gt; (&apos;city file&apos;) is</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>active, the city name is checked against the &lt;DS:RE.SAPLSZRC&gt;Cities&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>defined in the regional structure.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZCIUDAD_FACT</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0004</VERSION>
+      <TXTLINES>00006</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZCIUDAD_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00004</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Nombre de la población como parte integrante de la dirección.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El nombre de la población se almacena en otro campo de la base de datos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>en mayúsculas, el cual se utilizará en Ayuda para búsqueda.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Si la &lt;DS:RE.SAPLSZAR&gt;estructura regional postal&lt;/&gt; (&quot;Fichero de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>población&quot;) está activada, se coteja el nombre de la población con los</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:RE.SAPLSZRC&gt;poblaciones&lt;/&gt; especificados en la estructura regional.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

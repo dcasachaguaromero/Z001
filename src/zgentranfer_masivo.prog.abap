@@ -1,0 +1,62 @@
+*&---------------------------------------------------------------------*
+*& Report   ZGENTRANFER MASIVO
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+
+REPORT  ZGENTRANFER_MASIVO.
+TABLES: REGUH.
+DATA: XSTATUS TYPE FLAG.
+
+TYPES: BEGIN OF T_PROP,
+     LAUFD TYPE REGUH-LAUFD,
+     LAUFI TYPE REGUH-LAUFI,
+     ZBUKR TYPE REGUH-ZBUKR,
+END OF T_PROP.
+DATA: GT_PROPUESTA  TYPE TABLE OF T_PROP,
+      GW_PROPUESTA  TYPE T_PROP,
+      VLINEA        TYPE I.
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-000.
+SELECT-OPTIONS: XZBUKR  FOR REGUH-ZBUKR OBLIGATORY,
+                XFECHA  FOR REGUH-LAUFD OBLIGATORY,
+                XNOMINA  FOR REGUH-LAUFI .
+SELECTION-SCREEN END OF BLOCK B1.
+
+PERFORM CONSULTA_PROPUESTAS.
+
+LOOP AT GT_PROPUESTA INTO GW_PROPUESTA.
+  CALL FUNCTION 'ZINSERTA_TRANSFER'
+    EXPORTING
+      BUKRS    = GW_PROPUESTA-ZBUKR
+      V_FECHA  = GW_PROPUESTA-LAUFD
+      V_NOMINA = GW_PROPUESTA-LAUFI
+    IMPORTING
+      STATUS   = XSTATUS.
+  CLEAR: GW_PROPUESTA.
+ENDLOOP.
+DESCRIBE TABLE GT_PROPUESTA LINES VLINEA.
+WRITE: / 'Proceso finalizado. Numero propuestas procesadas:', VLINEA.
+
+*&---------------------------------------------------------------------*
+*&      Form  CONSULTA_PROPUESTAS
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+FORM CONSULTA_PROPUESTAS .
+
+  SELECT LAUFD  LAUFI BUKRS
+    FROM ZFIPG002_DET
+    INTO TABLE GT_PROPUESTA
+    WHERE BUKRS IN XZBUKR AND
+          LAUFD IN XFECHA AND
+          LAUFI IN XNOMINA AND
+          ESTADO EQ 'P' .
+  "AND
+  "ZLSCH EQ 'T'.
+
+  SORT GT_PROPUESTA BY LAUFD LAUFI ZBUKR DESCENDING.
+  DELETE ADJACENT DUPLICATES FROM GT_PROPUESTA.
+ENDFORM.                    " CONSUL_PROP

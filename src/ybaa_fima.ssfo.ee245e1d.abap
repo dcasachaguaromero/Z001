@@ -1,0 +1,85 @@
+
+SALTAB-WAERS = MHND-WAERS.
+SALTAB-DMSHB = MHND-DMSHB.
+SALTAB-WRSHB = MHND-WRSHB.
+COLLECT SALTAB into T_SALTAB.
+
+IF INCL_ITEM = 'X'.
+CLEAR SUMTAB.
+SUMTAB-WAERS = MHND-WAERS.
+SUMTAB-WRSHB = MHND-WRSHB.
+SUMTAB-DMSHB = MHND-DMSHB.
+if mhnd-xzins = 'X'.
+SUMTAB-WZSBT = 0.
+SUMTAB-ZSBTR = 0.
+else.
+SUMTAB-WZSBT = MHND-WZSBT.
+SUMTAB-ZSBTR = MHND-ZSBTR.
+endif.
+IF MHND-XFAEL = 'X'.
+SUMTAB-FFSHB = MHND-WRSHB.
+SUMTAB-FHSHB = MHND-DMSHB.
+ENDIF.
+COLLECT SUMTAB into t_sumtab.
+endif.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

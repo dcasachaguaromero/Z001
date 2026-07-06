@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>ADDRESS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ADDRESS PARAGRAPH AS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  TITLE    &amp;VBLKK-ANRED&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  NAME     &amp;VBLKK-NAME1&amp;, &amp;VBLKK-NAME2&amp;, &amp;VBLKK-NAME3&amp;, &amp;VBLKK-NAME4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  STREET   &amp;VBLKK-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  POBOX    &amp;VBLKK-PFACH&amp; CODE &amp;VBLKK-PSTL2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  CITY     &amp;VBLKK-ORT01&amp;, &amp;VBLKK-ORT02&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  POSTCODE &amp;VBLKK-PSTLZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  COUNTRY  &amp;VBLKK-LAND1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  REGION   &amp;VBLKK-REGIO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  FROMCOUNTRY &amp;VBLKK-SLAND&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDADDRESS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>CONSGNEE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>L</TDFORMAT>
+     <TDLINE>Ship-to party          &amp;VBLKK-KUNNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>DATE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>HD</TDFORMAT>
+     <TDLINE>&amp;&apos;Picking date  &apos;VBLKP-MBDAT&amp;,,&amp;&apos;Bereitstellort &apos;VBLKK-BEROT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;&apos;Loading date          &apos;VBLKK-LDDAT&amp;,,&amp;&apos;Route          &apos;VBLKK-ROUTE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>FOOTLINE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TVST-TXNAM_FUS&amp; OBJECT TEXT ID SDVD LANGUAGE D</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>INFO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>L</TDFORMAT>
+     <TDLINE>&amp;&apos;Gross weight  &apos;VBLKK-BTGEW(14)&apos; &amp;VBLKK-GEWEI&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;&apos;Volume        &apos;VBLKK-VOLUM(14)&apos; &amp;VBLKK-VOLEH&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ITEM_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IL</TDFORMAT>
+     <TDLINE>Bin location,,,,Material,,Description,,Quantity,,,,Item</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;ULINE(78)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ITEM_LINE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IL</TDFORMAT>
+     <TDLINE>&amp;VBLKP-LGTYP&amp;,,&amp;VBLKP-LGPBE&amp;,,&amp;VBLKP-MATNR&amp;,,&amp;VBLKP-ARKTX+00(17)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;VBLKP-KOMNG(I13)&amp;,,&amp;VBLKP-MEINS(05)&amp;,,&amp;VBLKP-POSNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARGE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IL</TDFORMAT>
+     <TDLINE>,,,,&amp;VBLKP-CHARG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ITEM_LINE_SERIAL_NO_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IS</TDFORMAT>
+     <TDLINE>Serial nr.:,,&amp;KOMSER-SNRLN(50)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ITEM_LINE_SERIAL_NO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IS</TDFORMAT>
+     <TDLINE>,,&amp;KOMSER-SNRLN(50)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>ORGAN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>HO</TDFORMAT>
+     <TDLINE>Shipping point,,&amp;VBLKK-VSTEL&amp;,,&amp;&apos;Lagernummer &apos;VBLKP-LGNUM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Plant/Storage location,,&amp;VBLKP-WERKS&apos;/&apos;&amp;&amp;VBLKP-LGORT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>PAGECNT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>L</TDFORMAT>
+     <TDLINE>Page &amp;PAGE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>TITLE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TI</TDFORMAT>
+     <TDLINE>Picking request &amp;VBLKK-KOMAU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TI</TDFORMAT>
+     <TDLINE>Delivery &amp;VBLKK-VBELN&amp;</TDLINE>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

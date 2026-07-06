@@ -1,0 +1,2307 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>500</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*  Ereignisse für den Internen Beleg                                  *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>510</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Kopftext auf der 1. Seite der Belegausgabe-------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Interner Buchungsbeleg,,,,Seite,,&amp;PAGE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBSTAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AZ</TDFORMAT>
+     <TDLINE>&amp;RF140-TITLE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Individueller Vermerk zu internem Beleg ---------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- In der Zeile mit dem INCLUDE muß hierzu /* durch /: ersetzt werden-*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>INCLUDE &amp;RF140-TDNAME&amp; OBJECT BKORM ID FIKO LANGUAGE &amp;RF140-TDSPRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>520</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Belegkopfdaten-----------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Buchungskr.. &apos;BKPF-BUKRS&apos; &amp;T001-BUTXT&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Belegart.... &apos;BKPF-BLART&apos;   &amp;T003T-LTEXT&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Belegnummer. &apos;BKPF-BELNR&amp;,,&amp;&apos;Geschäftsj.. &apos;BKPF-GJAHR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Referenz.... &apos;BKPF-XBLNR&amp;,,&amp;&apos;Übergr.Nr... &apos;BKPF-BVORG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Belegdatum.. &apos;BKPF-BLDAT&amp;,,&amp;&apos;Währung..... &apos;BKPF-WAERS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Haus-Währung &apos;BKPF-HWAER&apos; &amp;RF140-BEZCURT1(40)&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Umrech.kurs. &apos;BKPF-KURSF&amp;,,&amp;&apos;Umrech.dat.. &apos;BKPF-WWERT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;2. Haus-Währ &apos;BKPF-HWAE2&apos; &amp;RF140-BEZCURT2(40)&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Umr.kurs 2.. &apos;BKPF-KURS2&amp;,,&amp;&apos;Umrech.dat.2 &apos;RF140-BEZUMRD2(20)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBASW2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;3. Haus-Währ &apos;BKPF-HWAE3&apos; &amp;RF140-BEZCURT3(40)&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Umr.kurs 3.. &apos;BKPF-KURS3&amp;,,&amp;&apos;Umrech.dat.3 &apos;RF140-BEZUMRD3(20)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBASW3&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Buchungsdat. &apos;BKPF-BUDAT&amp;,,&amp;&apos;Buchungsper. &apos;BKPF-MONAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Erfass.datum &apos;BKPF-CPUDT&amp;,,&amp;&apos;Erfasser.... &apos;BKPF-USNAM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geändert am. &apos;BKPF-AEDAT&amp;,,&amp;&apos;Ltzt.Fortsch &apos;BKPF-UPDDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Belegk.text. &apos;BKPF-BKTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Referenztyp. &apos;BKPF-AWTYP&amp;,,&amp;&apos;Referenzschl &apos;BKPF-AWKEY&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Belegkopfergänzung für Echtbelege aus Dauerbelegen-----------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Dauerbelegnr &apos;BKPF-DBBLG&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Belegkopfergänzung für Dauerbelege---------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Erste Ausf.. &apos;BKDF-DBBDT&amp;,,&amp;&apos;Ltzt. Ausf.. &apos;BKDF-DBEDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Nächste Ausf &apos;BKDF-DBATR&amp;,,&amp;&apos;Ausführ.plan &apos;BKDF-DBAKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Abst. in Mon &apos;BKDF-DBMON&amp;,,&amp;&apos;Tag der Ausf &apos;BKDF-DBTAG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Anzahl Ausf. &apos;BKDF-DBZHL&amp;,,&amp;&apos;Löschkennz.. &apos;BKDF-XDELT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>530</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Debitorenzeile-----------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBLPOS(37)&amp;,,&amp;RF140-BEZXAUTO(37)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>Buch.schl... &amp;BSEG-BSCHL&amp; &amp;&apos;SHB-Kennz. &apos;BSEG-UMSKZ&amp; &amp;TBSLT-LTEXT&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>Buch.zeile.. &amp;BSEG-BUZEI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Debitor..... &apos;BSEG-KUNNR&amp;,,&amp;ADRS-LINE0&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE3&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE5&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE6&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE7&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE8&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE9&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Filiale..... &apos;BSEG-FILKD&amp;,,&amp;ADDR-LINE0&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE3&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE5&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE6&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE7&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE8&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE9&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Hauptbuch... &apos;BSEG-HKONT&apos; &amp;SKAT-TXT50&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Betrag...... &amp;BSEG-WRBTR&amp; &amp;BKPF-WAERS&amp; &amp;RF140-BEZSHKZG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Betrag... &apos;BSEG-DMBTR&apos; &amp;RF140-HWAER&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT2&amp; &apos;BSEG-DMBE2&apos; &amp;RF140-HWAER13&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT3&amp; &apos;BSEG-DMBE3&apos; &amp;RF140-HWAER14&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerbetrag &apos;BSEG-WMWST&apos; &amp;RF140-WAERS6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Steuer... &apos;BSEG-MWSTS&apos; &amp;RF140-HWAER4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Steuer.. &apos;BSEG-MWST2&apos; &amp;RF140-HWAER15&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Steuer.. &apos;BSEG-MWST3&apos; &amp;RF140-HWAER16&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSEG-MWSKZ&amp; &amp;RF140-BEZMWSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Präf.Kennz.. &apos;BSEG-BLNKZ&amp; &amp;T057T-PRFTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Präf.Betr... &apos;BSEG-BLNTB&apos; &amp;RF140-HWAER2&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Präf.Proz...&lt;V&gt;_&lt;/&gt;&apos;BSEG-BLNPZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Qst.Kennz... &apos;BSEG-QSSKZ&amp; &amp;T059Q-QSBEZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Qst.Basis... &apos;BSEG-QSSHB&apos; &amp;RF140-WAERS&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Qst.Freibt.. &apos;BSEG-QSFBT&apos; &amp;RF140-WAERS7&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesch.ber... &apos;BSEG-GSBER&amp; &amp;TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerGsber &apos;BSEG-PARGB&amp; &amp;*TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Mahnbereich. &apos;BSEG-MABER&amp; &amp;T047N-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ltz. Mahng.. &apos;BSEG-MADAT&amp;,,&amp;&apos;Mahnstufe... &apos;BSEG-MANST&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Skontobasis. &apos;BSEG-SKFBT&apos; &amp;RF140-WAERS2&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Skontobetrag &apos;BSEG-WSKTO&apos; &amp;RF140-WAERS3&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Skonto... &apos;BSEG-SKNTO&apos; &amp;RF140-HWAER5&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Skonto.. &apos;BSEG-SKNT2&apos; &amp;RF140-HWAER17&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Skonto.. &apos;BSEG-SKNT3&apos; &amp;RF140-HWAER18&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlungsbed. &apos;BSEG-ZTERM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Tage/Proz... &apos;BSEG-ZBD1T&apos; &amp;BSEG-ZBD1P&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-ZBD2T&apos;&amp;SPACE(1)&amp;&amp;BSEG-ZBD2P&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-ZBD3T&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Basisdatum.. &apos;BSEG-ZFBDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Fällig am... &apos;RF140-ZFBDA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlbetrag.. &apos;BSEG-NEBTR&apos; &amp;RF140-HWAER6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlsperre.. &apos;BSEG-ZLSPR&amp; &amp;T008T-TEXTL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlweg..... &apos;BSEG-ZLSCH&amp; &amp;T042Z-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlw.zusatz &apos;BSEG-UZAWE&amp; &amp;T042H-TXT30&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;RechnBezug.. &apos;BSEG-REBZG&amp;&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-REBZJ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-REBZZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Abw.ZEmpf... &apos;RF140-REGUL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Auftrag..... &apos;BSEG-AUFNR&amp; &amp;AUFK-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;&apos;Anlage...... &apos;BSEG-ANLN1&apos; &amp;BSEG-ANLN2&amp;&apos;&amp; ,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>,,&amp;ANLA-TXA50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Kostenstelle &apos;BSEG-KOSTL&amp; &amp;CSKT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;EinkBeleg... &apos;BSEG-EBELN&apos; &amp;BSEG-EBELP&amp; &amp;BSEG-ZEKKN&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;StammNummer. &apos;BSEG-VERTN&amp; &amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-VERTT&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Bewegungsart &apos;BSEG-VBEWA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ausgleich... &apos;BSEG-AUGDT&amp; &amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-AUGBL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zuordnung... &apos;BSEG-ZUONR&amp;,,&amp;&apos;Sammelr.Nr.. &apos;BSEG-SAMNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Text........ &apos;BSEG-SGTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- CpD-Daten oder Daten des abweichenden Zahlungsempfängers-----------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZXCPDD&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE0&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE3&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE5&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE6&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE7&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE8&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE9&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Sprache..... &apos;BSEC-SPRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;BSEC-BANKL&amp;,,&amp;&apos;Bankland.... &apos;BSEC-BANKS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankkonto... &apos;BSEC-BANKN&amp;,,&amp;&apos;Kontr.schl.. &apos;BSEC-BKONT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;IBAN........ &apos;RF140-CPDIBAN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;SWIFT-Code.. &apos;*BNKA-SWIFT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;*BNKA-BANKA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;*BNKA-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;*BNKA-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuercode-1 &apos;BSEC-STCD1&amp;,,&amp;&apos;Ausgl.Steuer &apos;BSEC-STKZA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuercode-2 &apos;BSEC-STCD2&amp;,,&amp;&apos;Umsatzsteuer &apos;BSEC-STKZU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Wechseldaten-------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Fällig am... &apos;RF140-ZFBDW&amp;,,&amp;&apos;Ausgest..... &apos;BSED-WDATE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Sichtwechsel &apos;BSED-XSIWE&amp;,,&amp;&apos;Akzeptiert.. &apos;BSED-XAKTZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Wechsel Stat &apos;BSED-WSTAT&amp; &amp;T031T-TXT30T&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gebührenschl &apos;BSED-WGBKZ&amp; &amp;RF140-BEZWGBKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gepl.Verwd.. &apos;BSED-WEVWV&amp; &amp;DD07T-DDTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Aussteller..&lt;V&gt;_&lt;/&gt;&apos;BSED-WNAME&amp;&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSED-WORT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSED-REGIO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bezogener... &apos;BSED-WBZOG&amp;&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSED-WORT2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Domizil..... &apos;BSED-WBANK&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;LZB-Platz... &apos;BSED-WLZBP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;RF140-BANKL2&amp;,,&amp;&apos;Bankland.... &apos;RF140-BANKS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankkonto... &apos;RF140-BANKN2&amp;,,&amp;&apos;Kontr.schl.. &apos;RF140-BKONT2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;RF140-BANKA2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;RF140-ORT012&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;RF140-STRAS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;InkassoGeb.. &apos;BSED-WINFW&apos; &amp;RF140-WAERS4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;InkGeb.HW... &apos;BSED-WINHW&apos; &amp;RF140-HWAER3&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Diskontsatz. &apos;BSED-DISKP&amp;,,&amp;&apos;Diskonttage. &apos;BSED-DISKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSED-WMWKZ&amp; &amp;RF140-BEZWMWKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Wechselst.Kz &apos;BSED-WSTKZ&amp; &amp;T046T-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zusätze------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Mahnsperre.. &apos;BSEG-MANSP&amp; &amp;T040T-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Mahnschl.... &apos;BSEG-MSCHL&amp; &amp;T040A-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Hausbank.... &apos;BSEG-HBKID&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankland.... &apos;BNKA-BANKS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;BNKA-BANKL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;BNKA-BANKA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;BNKA-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;BNKA-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Part.banktyp &apos;BSEG-BVTYP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankland.... &apos;KNBK-BANKS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;KNBK-BANKL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankkonto... &apos;KNBK-BANKN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;IBAN........ &apos;RF140-IBAN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;SWIFT-Code.. &apos;RF140-SWIFT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Kontrollschl &apos;KNBK-BKONT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;RF140-BANKA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;RF140-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;RF140-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bewertg.diff &apos;BSEG-BDIFF&apos; &amp;RF140-HWAER7&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesich.Betr.&lt;V&gt;_&lt;/&gt;&apos;BSEG-GBETR&apos;&lt;V&gt;_&lt;/&gt;&amp;RF140-WAERS5&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 2. &apos;BSEG-BDIF2&apos; &amp;RF140-HWAER9&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 3. &apos;BSEG-BDIF3&apos; &amp;RF140-HWAER11&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Realis. Diff &apos;BSEG-RDIFF&apos; &amp;RF140-HWAER8&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Sich.Kurs...&lt;V&gt;_&lt;/&gt;&apos;BSEG-KURSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 2 &apos;BSEG-RDIF2&apos; &amp;RF140-HWAER10&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 3 &apos;BSEG-RDIF3&apos; &amp;RF140-HWAER12&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;USt-Id.Nr... &apos;BSEG-STCEG&amp;,,&amp;&apos;EG-Dreiecksg &apos;BSEG-XEGDR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Wechselanf.. &apos;BSEG-ANFBN&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;BuKrs./GJahr&lt;V&gt;_&lt;/&gt;&apos;BSEG-ANFBU&apos;/&amp;BSEG-ANFBJ&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Landeszbk.Kz &apos;BSEG-LZBKZ&amp;,,&amp;T015L-ZWCK1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T015L-ZWCK2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Lieferland.. &apos;BSEG-LANDL&amp;,,&amp;&apos;Dienstl.Kz.. &apos;BSEG-DIEKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Part. Gesell &apos;BSEG-VBUND&amp;  ,,&amp;T880-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-STRET&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-CNTRY&amp; &amp;T880-PSTLC&amp; &amp;T880-CITY&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zolldatum... &apos;BSEG-ZOLLD&amp;,,&amp;&apos;Zolltarifnr. &apos;BSEG-ZOLLT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Dispo-Datum. &apos;BSEG-FDTAG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Dispos.Ebene &apos;BSEG-FDLEV&amp; &amp;T036T-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Versich.Dat. &apos;BSEG-VRSDT&amp;,,&amp;&apos;Versich.Kz.. &apos;BSEG-VRSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zinssperre.. &apos;BSEG-ZINKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Hauptb.Zuord &apos;BSEG-HZUON&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>540</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Kreditorenzeile----------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBLPOS(37)&amp;,,&amp;RF140-BEZXAUTO(37)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>Buch.schl... &amp;BSEG-BSCHL&amp; &amp;&apos;SHB-Kennz. &apos;BSEG-UMSKZ&amp; &amp;TBSLT-LTEXT&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>Buch.zeile.. &amp;BSEG-BUZEI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Kreditor.... &apos;BSEG-LIFNR&amp;,,&amp;ADRS-LINE0&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE3&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE5&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE6&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE7&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE8&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADRS-LINE9&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Filiale..... &apos;BSEG-FILKD&amp;,,&amp;ADDR-LINE0&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE3&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE5&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE6&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE7&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE8&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;ADDR-LINE9&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Hauptbuch... &apos;BSEG-HKONT&apos; &amp;SKAT-TXT50&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Betrag...... &amp;BSEG-WRBTR&amp; &amp;BKPF-WAERS&amp; &amp;RF140-BEZSHKZG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Betrag... &apos;BSEG-DMBTR&apos; &amp;RF140-HWAER&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT2&amp; &apos;BSEG-DMBE2&apos; &amp;RF140-HWAER13&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT3&amp; &apos;BSEG-DMBE3&apos; &amp;RF140-HWAER14&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerbetrag &apos;BSEG-WMWST&apos; &amp;RF140-WAERS6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Steuer... &apos;BSEG-MWSTS&apos; &amp;RF140-HWAER4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Steuer.. &apos;BSEG-MWST2&apos; &amp;RF140-HWAER15&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Steuer.. &apos;BSEG-MWST3&apos; &amp;RF140-HWAER16&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSEG-MWSKZ&amp; &amp;RF140-BEZMWSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Präf.Kennz.. &apos;BSEG-BLNKZ&amp; &amp;T057T-PRFTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Präf.Betr... &apos;BSEG-BLNTB&apos; &amp;RF140-HWAER2&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Präf.Proz...&lt;V&gt;_&lt;/&gt;&apos;BSEG-BLNPZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Qst.Kennz... &apos;BSEG-QSSKZ&amp; &amp;T059Q-QSBEZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Qst.Basis... &apos;BSEG-QSSHB&apos; &amp;RF140-WAERS&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Qst.Freibt.. &apos;BSEG-QSFBT&apos; &amp;RF140-WAERS7&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesch.ber... &apos;BSEG-GSBER&amp; &amp;TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerGsber &apos;BSEG-PARGB&amp; &amp;*TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Mahnbereich. &apos;BSEG-MABER&amp; &amp;T047N-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ltz. Mahng.. &apos;BSEG-MADAT&amp;,,&amp;&apos;Mahnstufe... &apos;BSEG-MANST&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Skontobasis. &apos;BSEG-SKFBT&apos; &amp;RF140-WAERS2&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Skontobetrag &apos;BSEG-WSKTO&apos; &amp;RF140-WAERS3&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Skonto... &apos;BSEG-SKNTO&apos; &amp;RF140-HWAER5&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Skonto.. &apos;BSEG-SKNT2&apos; &amp;RF140-HWAER17&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Skonto.. &apos;BSEG-SKNT3&apos; &amp;RF140-HWAER18&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlungsbed. &apos;BSEG-ZTERM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Tage/Proz... &apos;BSEG-ZBD1T&apos; &amp;BSEG-ZBD1P&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-ZBD2T&apos;&amp;SPACE(1)&amp;&amp;BSEG-ZBD2P&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-ZBD3T&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Basisdatum.. &apos;BSEG-ZFBDT&amp;,,&amp;&apos;Fixiert..... &apos;BSEG-ZBFIX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Fällig am... &apos;RF140-ZFBDA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlbetrag.. &apos;BSEG-NEBTR&apos; &amp;RF140-HWAER6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlsperre.. &apos;BSEG-ZLSPR&amp; &amp;T008T-TEXTL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlweg..... &apos;BSEG-ZLSCH&amp; &amp;T042Z-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zahlw.zusatz &apos;BSEG-UZAWE&amp; &amp;T042H-TXT30&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;RechnBezug.. &apos;BSEG-REBZG&amp;&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-REBZJ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-REBZZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Abw.ZEmpf... &apos;RF140-REGUL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Auftrag..... &apos;BSEG-AUFNR&amp; &amp;AUFK-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;&apos;Anlage...... &apos;BSEG-ANLN1&apos; &amp;BSEG-ANLN2&amp;&apos;&amp; ,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>,,&amp;ANLA-TXA50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Kostenstelle &apos;BSEG-KOSTL&amp; &amp;CSKT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;EinkBeleg... &apos;BSEG-EBELN&apos; &amp;BSEG-EBELP&amp; &amp;BSEG-ZEKKN&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;StammNummer. &apos;BSEG-VERTN&amp;&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-VERTT&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Bewegungsart &apos;BSEG-VBEWA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;ESR-Nummer.. &apos;BSEG-ESRNR&apos; &amp;BSEG-ESRPZ&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;ESR-Refer... &apos;BSEG-ESRRE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ausgleich... &apos;BSEG-AUGDT&amp; &amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-AUGBL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zuordnung... &apos;BSEG-ZUONR&amp;,,&amp;&apos;Sammelr.Nr.. &apos;BSEG-SAMNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Text........ &apos;BSEG-SGTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- CpD-Daten oder Daten des abweichenden Zahlungsempfängers-----------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZXCPDD&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE0&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE3&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE5&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE6&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE7&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE8&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;*ADRS-LINE9&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Sprache..... &apos;BSEC-SPRAS&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;BSEC-BANKL&amp;,,&amp;&apos;Bankland.... &apos;BSEC-BANKS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankkonto... &apos;BSEC-BANKN&amp;,,&amp;&apos;Kontr.schl.. &apos;BSEC-BKONT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;IBAN........ &apos;RF140-CPDIBAN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;SWIFT-Code.. &apos;*BNKA-SWIFT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;*BNKA-BANKA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;*BNKA-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;*BNKA-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuercode-1 &apos;BSEC-STCD1&amp;,,&amp;&apos;Ausgl.Steuer &apos;BSEC-STKZA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuercode-2 &apos;BSEC-STCD2&amp;,,&amp;&apos;Umsatzsteuer &apos;BSEC-STKZU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Wechseldaten-------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Fällig am... &apos;RF140-ZFBDW&amp;,,&amp;&apos;Ausgest..... &apos;BSED-WDATE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Sichtwechsel &apos;BSED-XSIWE&amp;,,&amp;&apos;Akzeptiert.. &apos;BSED-XAKTZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Wechsel Stat &apos;BSED-WSTAT&amp; &amp;T031T-TXT30T&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gebührenschl &apos;BSED-WGBKZ&amp; &amp;RF140-BEZWGBKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gepl.Verwd.. &apos;BSED-WEVWV&amp; &amp;DD07T-DDTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Aussteller..&lt;V&gt;_&lt;/&gt;&apos;BSED-WNAME&amp;&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSED-WORT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSED-REGIO&amp; &amp;&apos;Bezogener... &apos;BSED-WBZOG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSED-WORT2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Domizil..... &apos;BSED-WBANK&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;LZB-Platz... &apos;BSED-WLZBP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;RF140-BANKL2&amp;,,&amp;&apos;Bankland.... &apos;RF140-BANKS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankkonto... &apos;RF140-BANKN2&amp;,,&amp;&apos;Kontr.schl.. &apos;RF140-BKONT2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;RF140-BANKA2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;RF140-ORT012&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;RF140-STRAS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;InkassoGeb.. &apos;BSED-WINFW&apos; &amp;RF140-WAERS4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;InkGeb.HW... &apos;BSED-WINHW&apos; &amp;RF140-HWAER3&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Diskontsatz. &apos;BSED-DISKP&amp;,,&amp;&apos;Diskonttage. &apos;BSED-DISKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSED-WMWKZ&amp; &amp;RF140-BEZWMWKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Wechselst.Kz &apos;BSED-WSTKZ&amp; &amp;T046T-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zusätze------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Mahnsperre.. &apos;BSEG-MANSP&amp; &amp;T040T-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Mahnschl.... &apos;BSEG-MSCHL&amp; &amp;T040A-TEXT1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Hausbank.... &apos;BSEG-HBKID&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankland.... &apos;BNKA-BANKS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;BNKA-BANKL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;BNKA-BANKA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;BNKA-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;BNKA-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Part.banktyp &apos;BSEG-BVTYP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankland.... &apos;LFBK-BANKS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankschl.... &apos;LFBK-BANKL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bankkonto... &apos;LFBK-BANKN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;IBAN........ &apos;RF140-IBAN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;SWIFT-Code.. &apos;RF140-SWIFT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Kontrollschl &apos;LFBK-BKONT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Geldinstitut &apos;RF140-BANKA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ort......... &apos;RF140-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Straße...... &apos;RF140-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bewertg.diff &apos;BSEG-BDIFF&apos; &amp;RF140-HWAER7&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesich.Betr.&lt;V&gt;_&lt;/&gt;&apos;BSEG-GBETR&apos;&lt;V&gt;_&lt;/&gt;&amp;RF140-WAERS5&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 2. &apos;BSEG-BDIF2&apos; &amp;RF140-HWAER9&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 3. &apos;BSEG-BDIF3&apos; &amp;RF140-HWAER11&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Realis. Diff &apos;BSEG-RDIFF&apos; &amp;RF140-HWAER8&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Sich.Kurs...&lt;V&gt;_&lt;/&gt;&apos;BSEG-KURSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 2 &apos;BSEG-RDIF2&apos; &amp;RF140-HWAER10&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 3 &apos;BSEG-RDIF3&apos; &amp;RF140-HWAER12&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&amp;&apos;USt-Id.Nr... &apos;BSEG-STCEG&amp;,,&amp;&apos;EG-Dreiecksg &apos;BSEG-XEGDR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Wechselanf.. &apos;BSEG-ANFBN&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;BuKrs./GJahr&lt;V&gt;_&lt;/&gt;&apos;BSEG-ANFBU&apos;/&amp;BSEG-ANFBJ&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Landeszbk.Kz &apos;BSEG-LZBKZ&amp;,,&amp;T015L-ZWCK1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T015L-ZWCK2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Lieferland.. &apos;BSEG-LANDL&amp;,,&amp;&apos;Dienstl.Kz.. &apos;BSEG-DIEKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Part. Gesell &apos;BSEG-VBUND&amp;,,&amp;T880-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-STRET&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-CNTRY&amp; &amp;T880-PSTLC&amp; &amp;T880-CITY&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zolldatum... &apos;BSEG-ZOLLD&amp;,,&amp;&apos;Zolltarifnr. &apos;BSEG-ZOLLT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Dispo-Datum. &apos;BSEG-FDTAG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Dispos.Ebene &apos;BSEG-FDLEV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Versich.Dat. &apos;BSEG-VRSDT&amp;,,&amp;&apos;Versich.Kz.. &apos;BSEG-VRSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zinssperre.. &apos;BSEG-ZINKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Hauptb.Zuord &apos;BSEG-HZUON&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>550</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Sachkontenzeile----------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBLPOS(37)&amp;,,&amp;RF140-BEZXAUTO(37)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>Buch.schl... &amp;BSEG-BSCHL&amp; &amp;TBSLT-LTEXT&amp;,,Buch.zeile.. &amp;BSEG-BUZEI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Konto....... &amp;BSEG-HKONT&amp; &amp;SKAT-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Betrag...... &amp;BSEG-WRBTR&amp; &amp;BKPF-WAERS&amp; &amp;RF140-BEZSHKZG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Betrag... &apos;BSEG-DMBTR&apos; &amp;RF140-HWAER&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT2&amp; &apos;BSEG-DMBE2&apos; &amp;RF140-HWAER13&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT3&amp; &apos;BSEG-DMBE3&apos; &amp;RF140-HWAER14&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerbetrag &apos;BSEG-WMWST&apos; &amp;RF140-WAERS6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Steuer... &apos;BSEG-MWSTS&apos; &amp;RF140-HWAER4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Steuer.. &apos;BSEG-MWST2&apos; &amp;RF140-HWAER15&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Steuer.. &apos;BSEG-MWST3&apos; &amp;RF140-HWAER16&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSEG-MWSKZ&amp; &amp;RF140-BEZMWSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Jurist. Code &apos;BSEG-TXJCD&amp;,,&amp;&apos;Ohne Skonto. &apos;BSEG-XSKRL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesch.ber... &apos;BSEG-GSBER&amp; &amp;TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerGsber &apos;BSEG-PARGB&amp; &amp;*TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Werk........ &apos;BSEG-WERKS&amp;,,&amp;T001W-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T001W-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T001W-LAND1&amp; &amp;T001W-PSTLZ&amp; &amp;T001W-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Kostenstelle &apos;BSEG-KOSTL&amp; &amp;CSKT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;ProfitCtr... &apos;BSEG-PRCTR&amp; &amp;CEPCT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerPrCtr &apos;BSEG-PPRCT&amp; &amp;*CEPCT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Auftrag..... &apos;BSEG-AUFNR&amp; &amp;AUFK-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;EinkBeleg... &apos;BSEG-EBELN&apos; &amp;BSEG-EBELP&amp; &amp;BSEG-ZEKKN&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Material.... &apos;BSEG-MATNR&amp; &amp;MAKT-MAKTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Menge....... &apos;BSEG-MENGE&apos; &amp;BSEG-MEINS&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;BewegArt.... &apos;BSEG-BEWAR&amp; &amp;T856T-TXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Verkaufsb... &apos;BSEG-VBEL2&apos; &amp;BSEG-POSN2&amp; &amp;BSEG-ETEN2&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Personalnr.. &apos;BSEG-PERNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Valutadatum. &apos;BSEG-VALUT&amp;,,&amp;&apos;Fällig am... &apos;BSEG-ZFBDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zinssperre.. &apos;BSEG-ZINKZ&amp;,,&amp;&apos;Anl.abgang.. &apos;BSEG-XAABG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ausgleich... &apos;BSEG-AUGDT&amp; &amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-AUGBL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zuordnung... &apos;BSEG-ZUONR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Text........ &apos;BSEG-SGTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zusätze------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;&apos;Anlage...... &apos;BSEG-ANLN1&amp; &amp;BSEG-ANLN2&amp;,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>,,&amp;ANLA-TXA50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bezugsdatum. &apos;BSEG-BZDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Abrechn.Per. &apos;BSEG-ABPER&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bewertg.diff &apos;BSEG-BDIFF&apos; &amp;RF140-HWAER7&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesich.Betr.&lt;V&gt;_&lt;/&gt;&apos;BSEG-GBETR&apos;&lt;V&gt;_&lt;/&gt;&amp;RF140-WAERS5&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 2. &apos;BSEG-BDIF2&apos; &amp;RF140-HWAER9&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 3. &apos;BSEG-BDIF3&apos; &amp;RF140-HWAER11&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Realis. Diff &apos;BSEG-RDIFF&apos; &amp;RF140-HWAER8&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Sich.Kurs...&lt;V&gt;_&lt;/&gt;&apos;BSEG-KURSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 2 &apos;BSEG-RDIF2&apos; &amp;RF140-HWAER10&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 3 &apos;BSEG-RDIF3&apos; &amp;RF140-HWAER12&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;USt-Id.Nr... &apos;BSEG-STCEG&amp;,,&amp;&apos;EG-Dreiecksg &apos;BSEG-XEGDR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Part. Gesell &apos;BSEG-VBUND&amp; ,,&amp;T880-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-STRET&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-CNTRY&amp; &amp;T880-PSTLC&amp; &amp;T880-CITY&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Menge in EME &apos;BSEG-ERFMG&apos; &amp;BSEG-ERFME&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>560</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Anlagenzeile-------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBLPOS(37)&amp;,,&amp;RF140-BEZXAUTO(37)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>Buch.schl... &amp;BSEG-BSCHL&amp; &amp;TBSLT-LTEXT&amp;,,Buch.zeile.. &amp;BSEG-BUZEI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Beweg.art... &amp;BSEG-ANBWA&amp; &amp;TABWT-BWATXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Hauptbuch... &apos;BSEG-HKONT&apos; &amp;SKAT-TXT50&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;&apos;Anlage...... &apos;BSEG-ANLN1&apos; &amp;BSEG-ANLN2&amp;&apos;&amp;,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>,,&amp;ANLA-TXA50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Betrag...... &amp;BSEG-WRBTR&amp; &amp;BKPF-WAERS&amp; &amp;RF140-BEZSHKZG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Betrag... &apos;BSEG-DMBTR&apos; &amp;RF140-HWAER&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT2&amp; &apos;BSEG-DMBE2&apos; &amp;RF140-HWAER13&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT3&amp; &apos;BSEG-DMBE3&apos; &amp;RF140-HWAER14&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerbetrag &apos;BSEG-WMWST&apos; &amp;RF140-WAERS6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Steuer... &apos;BSEG-MWSTS&apos; &amp;RF140-HWAER4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Steuer.. &apos;BSEG-MWST2&apos; &amp;RF140-HWAER15&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Steuer.. &apos;BSEG-MWST3&apos; &amp;RF140-HWAER16&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSEG-MWSKZ&amp; &amp;RF140-BEZMWSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Jurist. Code &apos;BSEG-TXJCD&amp;,,&amp;&apos;Ohne Skonto. &apos;BSEG-XSKRL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bezugsdatum. &apos;BSEG-BZDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Menge....... &apos;BSEG-MENGE&apos; &amp;BSEG-MEINS&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesch.ber... &apos;BSEG-GSBER&amp; ,,&amp;TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerGsber &apos;BSEG-PARGB&amp; &amp;*TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Auftrag..... &apos;BSEG-AUFNR&amp; &amp;AUFK-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ausgleich... &apos;BSEG-AUGDT&amp; &amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-AUGBL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zuordnung... &apos;BSEG-ZUONR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Text........ &apos;BSEG-SGTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zusätze------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesich.Betr. &apos;BSEG-GBETR&apos; &amp;RF140-WAERS5&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Sich.Kurs...&lt;V&gt;_&lt;/&gt;&apos;BSEG-KURSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Part. Gesell &apos;BSEG-VBUND&amp;,,&amp;T880-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-STRET&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-CNTRY&amp; &amp;T880-PSTLC&amp; &amp;T880-CITY&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>570</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Materialzeile------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBLPOS(37)&amp;,,&amp;RF140-BEZXAUTO(37)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>Buch.schl... &amp;BSEG-BSCHL&amp; &amp;TBSLT-LTEXT&amp;,,Buch.zeile.. &amp;BSEG-BUZEI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Konto....... &amp;BSEG-HKONT&amp; &amp;SKAT-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Betrag...... &amp;BSEG-WRBTR&amp; &amp;BKPF-WAERS&amp; &amp;RF140-BEZSHKZG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Betrag... &apos;BSEG-DMBTR&apos; &amp;RF140-HWAER&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT2&amp; &apos;BSEG-DMBE2&apos; &amp;RF140-HWAER13&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT3&amp; &apos;BSEG-DMBE3&apos; &amp;RF140-HWAER14&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerbetrag &apos;BSEG-WMWST&apos; &amp;RF140-WAERS6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Steuer... &apos;BSEG-MWSTS&apos; &amp;RF140-HWAER4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Steuer.. &apos;BSEG-MWST2&apos; &amp;RF140-HWAER15&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Steuer.. &apos;BSEG-MWST3&apos; &amp;RF140-HWAER16&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSEG-MWSKZ&amp; &amp;RF140-BEZMWSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Jurist. Code &apos;BSEG-TXJCD&amp;,,&amp;&apos;Ohne Skonto. &apos;BSEG-XSKRL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesch.ber... &apos;BSEG-GSBER&amp; ,,&amp;TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerGsber &apos;BSEG-PARGB&amp; &amp;*TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Werk........ &apos;BSEG-WERKS&amp; ,,&amp;T001W-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T001W-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T001W-LAND1&amp; &amp;T001W-PSTLZ&amp; &amp;T001W-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Kostenstelle &apos;BSEG-KOSTL&amp; &amp;CSKT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;ProfitCtr... &apos;BSEG-PRCTR&amp; &amp;CEPCT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerPrCtr &apos;BSEG-PPRCT&amp; &amp;*CEPCT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Auftrag..... &apos;BSEG-AUFNR&amp; &amp;AUFK-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;EinkBeleg... &apos;BSEG-EBELN&apos; &amp;BSEG-EBELP&amp; &amp;BSEG-ZEKKN&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Material.... &apos;BSEG-MATNR&amp; &amp;MAKT-MAKTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Menge....... &apos;BSEG-MENGE&apos; &amp;BSEG-MEINS&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;BewegArt.... &apos;BSEG-BEWAR&amp; &amp;T856T-TXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Verkaufsb... &apos;BSEG-VBEL2&apos; &amp;BSEG-POSN2&amp; &amp;BSEG-ETEN2&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Personalnr.. &apos;BSEG-PERNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Valutadatum. &apos;BSEG-VALUT&amp;,,&amp;&apos;Fällig am... &apos;BSEG-ZFBDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zinssperre.. &apos;BSEG-ZINKZ&amp;,,&amp;&apos;Anl.abgang.. &apos;BSEG-XAABG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ausgleich... &apos;BSEG-AUGDT&amp; &amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-AUGBL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zuordnung... &apos;BSEG-ZUONR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;&apos;Text........ &apos;BSEG-SGTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zusätze------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;&apos;Anlage......... &apos;BSEG-ANLN1&amp; &amp;BSEG-ANLN2&amp; ,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>,,&amp;ANLA-TXA50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bezugsdatum. &apos;BSEG-BZDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Abrechn.Per. &apos;BSEG-ABPER&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bewertg.diff &apos;BSEG-BDIFF&apos; &amp;RF140-HWAER7&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesich.Betr.&lt;V&gt;_&lt;/&gt;&apos;BSEG-GBETR&apos;&lt;V&gt;_&lt;/&gt;&amp;RF140-WAERS5&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 2. &apos;BSEG-BDIF2&apos; &amp;RF140-HWAER9&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 3. &apos;BSEG-BDIF3&apos; &amp;RF140-HWAER11&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Realis. Diff &apos;BSEG-RDIFF&apos; &amp;RF140-HWAER8&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Sich.Kurs...&lt;V&gt;_&lt;/&gt;&apos;BSEG-KURSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 2 &apos;BSEG-RDIF2&apos; &amp;RF140-HWAER10&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 3 &apos;BSEG-RDIF3&apos; &amp;RF140-HWAER12&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;USt-Id.Nr... &apos;BSEG-STCEG&amp;,,&amp;&apos;EG-Dreiecksg &apos;BSEG-XEGDR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Part. Gesell &apos;BSEG-VBUND&amp;,,&amp;T880-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-STRET&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-CNTRY&amp; &amp;T880-CITY&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Menge in EME &apos;BSEG-ERFMG&apos; &amp;BSEG-ERFME&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>575</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Bestellzeile--------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>Bestellung,,Buch.zeile.. &amp;BSEG-BUZEI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Konto....... &amp;BSEG-HKONT&amp; &amp;SKAT-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Betrag...... &amp;BSEG-WRBTR&amp; &amp;BKPF-WAERS&amp; &amp;RF140-BEZSHKZG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Betrag... &apos;BSEG-DMBTR&apos; &amp;RF140-HWAER&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT2&amp; &apos;BSEG-DMBE2&apos; &amp;RF140-HWAER13&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;&amp;RF140-TXTCURT3&amp; &apos;BSEG-DMBE3&apos; &amp;RF140-HWAER14&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerbetrag &apos;BSEG-WMWST&apos; &amp;RF140-WAERS6&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW-Steuer... &apos;BSEG-MWSTS&apos; &amp;RF140-HWAER4&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW2-Steuer.. &apos;BSEG-MWST2&apos; &amp;RF140-HWAER15&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;HW3-Steuer.. &apos;BSEG-MWST3&apos; &amp;RF140-HWAER16&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Steuerkennz. &apos;BSEG-MWSKZ&amp; &amp;RF140-BEZMWSKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Jurist. Code &apos;BSEG-TXJCD&amp;,,&amp;&apos;Ohne Skonto. &apos;BSEG-XSKRL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesch.ber... &apos;BSEG-GSBER&amp; ,,&amp;TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerGsber &apos;BSEG-PARGB&amp; &amp;*TGSBT-GTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Werk........ &apos;BSEG-WERKS&amp; ,,&amp;T001W-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T001W-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T001W-LAND1&amp; &amp;T001W-PSTLZ&amp; &amp;T001W-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Kostenstelle &apos;BSEG-KOSTL&amp; &amp;CSKT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;ProfitCtr... &apos;BSEG-PRCTR&amp; &amp;CEPCT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;PartnerPrCtr &apos;BSEG-PPRCT&amp; &amp;*CEPCT-LTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Auftrag..... &apos;BSEG-AUFNR&amp; &amp;AUFK-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;EinkBeleg... &apos;BSEG-EBELN&apos; &amp;BSEG-EBELP&amp; &amp;BSEG-ZEKKN&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Material.... &apos;BSEG-MATNR&amp; &amp;MAKT-MAKTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Menge....... &apos;BSEG-MENGE&apos; &amp;BSEG-MEINS&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;BewegArt.... &apos;BSEG-BEWAR&amp; &amp;T856T-TXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Verkaufsb... &apos;BSEG-VBEL2&apos; &amp;BSEG-POSN2&amp; &amp;BSEG-ETEN2&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Personalnr.. &apos;BSEG-PERNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Valutadatum. &apos;BSEG-VALUT&amp;,,&amp;&apos;Fällig am... &apos;BSEG-ZFBDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zinssperre.. &apos;BSEG-ZINKZ&amp;,,&amp;&apos;Anl.abgang.. &apos;BSEG-XAABG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Ausgleich... &apos;BSEG-AUGDT&amp; &amp;&apos;&amp;SPACE(1)&amp;/&amp;SPACE(1)&amp;&apos;BSEG-AUGBL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Zuordnung... &apos;BSEG-ZUONR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;&apos;Text........ &apos;BSEG-SGTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zusätze------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;&apos;Anlage......... &apos;BSEG-ANLN1&amp; &amp;BSEG-ANLN2&amp; ,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>,,&amp;ANLA-TXA50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bezugsdatum. &apos;BSEG-BZDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Abrechn.Per. &apos;BSEG-ABPER&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bewertg.diff &apos;BSEG-BDIFF&apos; &amp;RF140-HWAER7&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Gesich.Betr.&lt;V&gt;_&lt;/&gt;&apos;BSEG-GBETR&apos;&lt;V&gt;_&lt;/&gt;&amp;RF140-WAERS5&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 2. &apos;BSEG-BDIF2&apos; &amp;RF140-HWAER9&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Bew.diff. 3. &apos;BSEG-BDIF3&apos; &amp;RF140-HWAER11&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Realis. Diff &apos;BSEG-RDIFF&apos; &amp;RF140-HWAER8&amp;&apos;&amp; ,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;&apos;Sich.Kurs...&lt;V&gt;_&lt;/&gt;&apos;BSEG-KURSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 2 &apos;BSEG-RDIF2&apos; &amp;RF140-HWAER10&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Real. Diff 3 &apos;BSEG-RDIF3&apos; &amp;RF140-HWAER12&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;USt-Id.Nr... &apos;BSEG-STCEG&amp;,,&amp;&apos;EG-Dreiecksg &apos;BSEG-XEGDR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;&apos;Part. Gesell &apos;BSEG-VBUND&amp;,,&amp;T880-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-STRET&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>,,&amp;T880-CNTRY&amp; &amp;T880-CITY&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Menge in EME &apos;BSEG-ERFMG&apos; &amp;BSEG-ERFME&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>576</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Erweiterte Quellensteuer für Debitoren und Kreditoren -------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;QSt.Typ..... &apos;T059P-WITHT&apos; &amp;T059U-TEXT40&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;QSt.Kz...... &apos;T059Z-WT_WITHCD&apos; &amp;T059ZT-TEXT40&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>QSt.Basis... &amp;WITH_ITEM-WT_QSSHB(16S)&amp; &amp;BKPF-WAERS&amp; &amp;RF140-BEZSHKZG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>QSt.Betrag.. &amp;WITH_ITEM-WT_QBSHB(16S)&amp; &amp;BKPF-WAERS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;QSt.Basis HW &apos;WITH_ITEM-WT_QSSHH(16S)&apos; &amp;RF140-WAERS8&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;QSt.Betr. HW &apos;WITH_ITEM-WT_QBSHH(16S)&apos; &amp;RF140-WAERS8&amp;&apos;&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>580</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Belegende----------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>Belegende</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>PAGE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Interner Buchungsbeleg,,,,Seite,,&amp;PAGE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;RF140-BEZBSTAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;&apos;Beleg &apos;BKPF-BUKRS&amp; &amp;&apos;/ &apos;BKPF-BELNR&amp; &amp;&apos;/ &apos;BKPF-GJAHR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&amp;ULINE(72)&amp;</TDLINE>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

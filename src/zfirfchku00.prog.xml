@@ -1,0 +1,777 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>ZFIRFCHKU00</NAME>
+    <SUBC>1</SUBC>
+    <APPL>F</APPL>
+    <RSTAT>T</RSTAT>
+    <RLOAD>D</RLOAD>
+    <FIXPT>X</FIXPT>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <ENTRY>Delimitaciones generales</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>002</KEY>
+     <ENTRY>Cheques de una ejec.de pago</ENTRY>
+     <LENGTH>31</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>003</KEY>
+     <ENTRY>Selección del campo destino para el número de cheque</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>004</KEY>
+     <ENTRY>Números de documentos de referencia con números de cheque</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>005</KEY>
+     <ENTRY>Números de asignación con números de cheque</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>006</KEY>
+     <ENTRY>Clave de referencia 3 con números de cheque</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>007</KEY>
+     <ENTRY>Documentos bloqueados por otros usuarios</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>008</KEY>
+     <ENTRY>Error al actualizar documentos</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>009</KEY>
+     <ENTRY>Referencia a actualizar manualmente</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>R</ID>
+     <ENTRY>Crear referencia del documento de pago con el cheque</ENTRY>
+     <LENGTH>52</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_ACCO</KEY>
+     <ENTRY>ID de cuenta</ENTRY>
+     <LENGTH>20</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_BANK</KEY>
+     <ENTRY>Banco propio</ENTRY>
+     <LENGTH>20</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_CHEC</KEY>
+     <ENTRY>Nº de cheque</ENTRY>
+     <LENGTH>24</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_CPUD</KEY>
+     <ENTRY>Fecha de creación</ENTRY>
+     <LENGTH>30</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_USER</KEY>
+     <ENTRY>Librador del cheque</ENTRY>
+     <LENGTH>27</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_VBLN</KEY>
+     <ENTRY>Número del documento de pago</ENTRY>
+     <LENGTH>36</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_ZALD</KEY>
+     <ENTRY>Fecha de emisión</ENTRY>
+     <LENGTH>25</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_ZBUK</KEY>
+     <ENTRY>Sociedad pagadora</ENTRY>
+     <LENGTH>31</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_ZWEG</KEY>
+     <ENTRY>Vía de pago</ENTRY>
+     <LENGTH>19</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>ZW_LAUFD</KEY>
+     <ENTRY>Día de ejecución</ENTRY>
+     <LENGTH>26</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>ZW_LAUFI</KEY>
+     <ENTRY>Identificador</ENTRY>
+     <LENGTH>22</LENGTH>
+     <SPLIT>D</SPLIT>
+    </item>
+   </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>D</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>Delimitaciones generales</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Cheques de una ejec.de pago</ENTRY>
+       <LENGTH>31</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>003</KEY>
+       <ENTRY>Selección del campo destino para el número de cheque</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>004</KEY>
+       <ENTRY>Números de documentos de referencia con números de cheque</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>005</KEY>
+       <ENTRY>Números de asignación con números de cheque</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>006</KEY>
+       <ENTRY>Clave de referencia 3 con números de cheque</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>007</KEY>
+       <ENTRY>Documentos bloqueados por otros usuarios</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>008</KEY>
+       <ENTRY>Error al actualizar documentos</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>009</KEY>
+       <ENTRY>Referencia a actualizar manualmente</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Referenz vom Zahlungsbeleg zum Scheck aufbauen</ENTRY>
+       <LENGTH>46</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_XBLNR</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_XREF3</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_ZUONR</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ACCO</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>16</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_BANK</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>16</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_CHEC</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>24</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_CPUD</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>30</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_USER</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>24</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_VBLN</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>27</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ZALD</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>25</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ZBUK</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>31</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ZWEG</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>15</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>ZW_LAUFD</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>26</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>ZW_LAUFI</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>22</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>S</ID>
+       <KEY>ZW_LAUFI</KEY>
+       <ENTRY>Identification</ENTRY>
+       <LENGTH>22</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>ZW_LAUFD</KEY>
+       <ENTRY>Run date</ENTRY>
+       <LENGTH>26</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ZWEG</KEY>
+       <ENTRY>Payment method</ENTRY>
+       <LENGTH>22</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ZBUK</KEY>
+       <ENTRY>Paying company code</ENTRY>
+       <LENGTH>31</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ZALD</KEY>
+       <ENTRY>Date of issue</ENTRY>
+       <LENGTH>25</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_VBLN</KEY>
+       <ENTRY>Payment document number</ENTRY>
+       <LENGTH>31</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_USER</KEY>
+       <ENTRY>Check Issuer</ENTRY>
+       <LENGTH>24</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_CPUD</KEY>
+       <ENTRY>Date created</ENTRY>
+       <LENGTH>30</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_CHEC</KEY>
+       <ENTRY>Check number</ENTRY>
+       <LENGTH>24</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_BANK</KEY>
+       <ENTRY>House bank</ENTRY>
+       <LENGTH>18</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ACCO</KEY>
+       <ENTRY>Account ID</ENTRY>
+       <LENGTH>18</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Create Reference for Check from Payment Document</ENTRY>
+       <LENGTH>48</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>009</KEY>
+       <ENTRY>Reference must be manually maintained</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>008</KEY>
+       <ENTRY>Error during document update</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>007</KEY>
+       <ENTRY>Documents blocked by another user</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>006</KEY>
+       <ENTRY>Reference key 3 with check numbers</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>005</KEY>
+       <ENTRY>Allocation numbers with check numbers</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>004</KEY>
+       <ENTRY>Reference document numbers with check numbers</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>003</KEY>
+       <ENTRY>Target field selection for check number</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Checks from payment run</ENTRY>
+       <LENGTH>31</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>General selections</ENTRY>
+       <LENGTH>60</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZFIRFCHKU00</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00023</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZFIRFCHKU00</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Dieser Report kopiert Schecknummern in ein ausgewähltes Feld der</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>zugehörigen Zahlungsbelege. Beispielsweise kann die Schecknummer in das</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Feld &apos;Referenzbelegnummer&apos; des Zahlungsbeleges kopiert werden, wodurch</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>der Scheck aus dem Zahlungsbeleg zugeordnet werden kann.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In der Zahlungsträgertabelle wird diese Schecknummernreferenzierung</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>gekennzeichnet, so das bereits in die zugehörigen Zahlungsbelege</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>kopierte Schecknummern nicht mehr von diesem Report berücksichtigt</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Das &lt;DS:DE.ICREF&gt;Kennzeichen&lt;/&gt;, ob schon Schecknummern in zugehörige</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Zahlungsbelege kopiert wurden, wird durch die Belegänderung</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>zurückgesetzt.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Report kann nur Schecknummern von Zahlungsträgern in ein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ausgewähltes Feld der zugehörigen Zahlungsbelege kopieren, wenn das</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Kennzeichen, ob schon Schecknummern in zugehörige Zahlungsbelege</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>kopiert wurden, nicht gesetzt ist.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Report gibt ein Prokoll der Zahlungsbelege aus, in die die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>zugehörigen Schecknummern in das ausgewählte Feld kopiert werden</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>konnten.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wenn Zahlungsbelege durch andere Benutzer gesperrt waren, gibt ein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>weiterer Protokollteil die aus diesem Grund nicht behandelten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Zahlungsbelege aus.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Konnten Zahlungsbelege aus einem anderen Grund nicht verändert werden,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>wird dies in einem weiteren Protokollteil ausgegeben.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZFIRFCHKU00</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <TXTLINES>00022</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZFIRFCHKU00</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This report program copies check numbers into a selected field of the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>corresponding payment documents. For example, the check number can be</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>copied into the &quot;Reference document number&quot; field of the payment</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>document thus enabling the check to be assigned to the payment</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>document.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This check number reference is indicated in the payment medium table</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>such that those check numbers already copied into the corresponding</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>payment documents are ignored by this program.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Making a change to a document resets the &lt;DS:DE.ICREF&gt;indicator&lt;/&gt; as</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>to whether check numbers have already been copied into the relevant</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>payment documents.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Note that this report program can only copy check numbers from payment</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>mediums into a selected field of the relevant payment documents if you</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>have NOT set the indicator as to whether check numbers have already</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>been copied into the relevant payment documents.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This report program outputs a log of payment documents into which the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>appropriate check numbers could be copied into the selected field.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If payment documents were blocked by other users, another section of</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the log lists those payment documents that could not be processed for</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>this reason.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If payment documents could not be changed for any other reason, this is</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>output in another section of the log.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZFIRFCHKU00</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <TXTLINES>00022</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZFIRFCHKU00</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Este report copia números de cheque a un campo seleccionado de los</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>documentos de pago correspondientes. El número de cheque se puede</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>copiar, por ejemplo, al campo &quot;Número de documento de referencia&quot; del</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>documento de pago, de manera que el cheque se pueda asignar a partir</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>del documento de pago.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Esta referencia de números de cheque se marca en la tabla de medios de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>pago, de forma que los números de cheque ya copiados a los documentos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>de pago correspondientes ya no se tengan más en cuenta en este report.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Si se modifica un documento de pago, se reinicializará el</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:DE.ICREF&gt;indicador&lt;/&gt; que indica si los números de cheque ya se han</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>copiado a los documentos de pago correspondientes.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El report sólo puede copiar números de cheque de medios de pago a un</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>campo seleccionado de los documentos de pago correspondientes, si el</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>indicador de la copia de los números de cheque a los documentos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>correspondientes no está activado.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El report edita un log de los documentos de pago a los cuales se han</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>podido copiar los números de cheque correspondientes en el campo</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>seleccionado.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Si otros usuarios han bloqueado los documentos de pago, otra parte del</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>log editará los documentos de pago no tratados por este motivo.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Si hay documentos de pago que no se han podido modificar por otro</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>motivo, esto se visualizará en otra parte del log.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

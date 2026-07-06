@@ -1,0 +1,182 @@
+*&---------------------------------------------------------------------*
+*& Report: < ZEY_GDS_CORRECTION > *
+*& Author: < EY_DES02 > *
+*& Description: < ReSQ Correction > *
+*& Date: <24-12-2019> *
+*& Transport Number: < ECDK917080 > *
+*&---------------------------------------------------------------------*
+FUNCTION ZREPARE_FIELD_SELECT_STRING.
+*"----------------------------------------------------------------------
+*"*"Interfase local
+*"  IMPORTING
+*"     VALUE(INCOMING_STRING)
+*"     VALUE(STRING_ID) LIKE  TMODO-FAUNA
+*"     VALUE(TEXT1)
+*"     VALUE(TEXT2)
+*"     VALUE(TEXT3) DEFAULT SPACE
+*"     VALUE(XCHANGE) LIKE  T020-AKTYP DEFAULT SPACE
+*"     VALUE(XNODISP) LIKE  T020-AKTYP DEFAULT SPACE
+*"  EXPORTING
+*"     VALUE(ACTTYP) LIKE  T020-AKTYP
+*"     VALUE(OUTGOING_STRING)
+*"     VALUE(XCHANGE) LIKE  T020-AKTYP
+*"  TABLES
+*"      ZSTATUS_CAMPO STRUCTURE  ZSTATUS_CAMPO
+*"----------------------------------------------------------------------
+
+  REFRESH: GRUPTAB, FAUSTAB, BILDTAB.
+  CLEAR: GRUPTAB, FAUSTAB, BILDTAB.
+  CLEAR C500.
+  CLEAR LAST_OK.
+  CLEAR: AEFLG, AEFLG2.
+  LF006-TEXT1 = TEXT1.
+  LF006-TEXT2 = TEXT2.
+  LF006-TEXT3 = TEXT3.
+  LF006-GPAGE = 1.
+  LF006-SEITE = 1.
+  CHFLG  = XCHANGE.
+  DISFLG = XNODISP.
+
+*"------- Lesen der möglichen Gruppen ---------------------------------*
+*Begin of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 24/12/2019 EY_DES02 ECDK917080 *
+*SELECT * FROM TMODF WHERE FAUNA = STRING_ID.
+SELECT * FROM TMODF WHERE FAUNA = STRING_ID ORDER BY PRIMARY KEY.
+*End of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 24/12/2019 EY_DES02 ECDK917080 *
+    GRUPTAB-GGRUP = TMODF-GGRUP.
+    SELECT SINGLE * FROM TMODG WHERE SPRAS = SY-LANGU
+                               AND   FAUNA = TMODF-FAUNA
+                               AND   GGRUP = TMODF-GGRUP.
+    IF SY-SUBRC = 0.
+      GRUPTAB-FTEXT = TMODG-FTEXT.
+    ELSE.
+      GRUPTAB-FTEXT = TEXT-NGG.
+    ENDIF.
+    APPEND GRUPTAB.
+  ENDSELECT.
+
+*"------- Feldstatusleiste zerlegen ---------------------------------
+  C500 = INCOMING_STRING.
+  DESCRIBE FIELD INCOMING_STRING LENGTH FLENG IN CHARACTER MODE.
+  DO FLENG TIMES.
+    CLEAR FAUSTAB.
+    CASE C500(1).
+      WHEN '+'.
+        FAUSTAB-XOBLG = 'X'.
+      WHEN '.'.
+        FAUSTAB-XOPTN = 'X'.
+      WHEN '*'.
+        FAUSTAB-XDISP = 'X'.
+    ENDCASE.
+    FAUSTAB-GRUPP = SY-INDEX.
+    APPEND FAUSTAB.
+    SHIFT C500.
+  ENDDO.
+
+
+*Begin of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 24/12/2019 EY_DES02 ECDK917080 *
+*SELECT * FROM TMODO WHERE FAUNA = STRING_ID.
+SELECT * FROM TMODO WHERE FAUNA = STRING_ID ORDER BY PRIMARY KEY.
+*End of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 24/12/2019 EY_DES02 ECDK917080 *
+    SELECT SINGLE * FROM TMODP WHERE SPRAS = SY-LANGU
+                               AND   FAUNA = TMODO-FAUNA
+                               AND   MODIF = TMODO-MODIF.
+    IF SY-SUBRC <> 0.
+      TMODP-FTEXT = TEXT-NGP.
+    ENDIF.
+*Begin of change: ReSQ Correction INDEX READ on an unsorted Internal TABLE 24/12/2019 EY_DES02 ECDK917080 *
+SORT FAUSTAB .
+*End of change: ReSQ Correction for INDEX READ on an unsorted Internal TABLE 24/12/2019 EY_DES02 ECDK917080 *
+    READ TABLE FAUSTAB INDEX TMODO-MODIF.
+
+    IF SY-SUBRC = 0.
+      FAUSTAB-GGRUP = TMODO-GGRUP.
+      FAUSTAB-FTEXT = TMODP-FTEXT.
+*ResQ Comment:Correction not required as internal table is already sorted 24/12/2019 EY_DES02 ECDK917080 *
+      MODIFY FAUSTAB INDEX TMODO-MODIF.
+    ENDIF.
+
+  ENDSELECT.
+
+
+  LOOP AT GRUPTAB.
+    LOOP AT FAUSTAB WHERE GGRUP = GRUPTAB-GGRUP.
+      IF FAUSTAB-XOBLG <> SPACE OR
+         FAUSTAB-XOPTN <> SPACE OR
+         FAUSTAB-XDISP <> SPACE.
+        GRUPTAB-XHELL = 'X'.
+        MODIFY GRUPTAB.
+      ENDIF.
+    ENDLOOP.
+  ENDLOOP.
+  DESCRIBE TABLE GRUPTAB LINES GTABIX.
+*------- Screen aufrufen ----------------------------------------------*
+*  CALL SCREEN 300.
+
+
+  LOOP AT FAUSTAB.
+    SELECT SINGLE * FROM TMODO WHERE FAUNA = STRING_ID
+                              AND   MODIF = FAUSTAB-GRUPP.
+    SELECT * FROM TMODU WHERE FAUNA = STRING_ID
+                        AND   MODIF = FAUSTAB-GRUPP.
+      MOVE: TMODU-FELDN TO BILDTAB-FELDN,
+          FAUSTAB-GRUPP TO BILDTAB-GRUPP,
+          FAUSTAB-GGRUP TO BILDTAB-GGRUP,
+          FAUSTAB-FTEXT TO BILDTAB-FTEXT,
+          FAUSTAB-XOBLG TO BILDTAB-XOBLG,
+          FAUSTAB-XOPTN TO BILDTAB-XOPTN,
+          FAUSTAB-XDISP TO BILDTAB-XDISP.
+      APPEND BILDTAB.
+    ENDSELECT.
+  ENDLOOP.
+
+*Begin of change: ReSQ Correction DELETE ADJACENT on an unsorted Internal TABLE 24/12/2019 EY_DES02 ECDK917080 *
+SORT BILDTAB .
+*End of change: ReSQ Correction for DELETE ADJACENT on an unsorted Internal TABLE 24/12/2019 EY_DES02 ECDK917080 *
+  DELETE ADJACENT DUPLICATES FROM BILDTAB.
+
+*- Abbrechen ----------------------------------------------------------*
+  IF LAST_OK = 'ABBR'.
+    OUTGOING_STRING = INCOMING_STRING.
+    CLEAR XCHANGE.
+  ELSE.
+
+    XCHANGE = AEFLG2.
+    PERFORM OUTSTRING_AUFBAUEN.
+    OUTGOING_STRING = C500.
+    CASE LAST_OK.
+      WHEN 'SICH'.
+        ACTTYP = 'S'.
+      WHEN 'ENDE'.
+        ACTTYP = 'E'.
+      WHEN OTHERS.
+        CLEAR ACTTYP.
+    ENDCASE.
+  ENDIF.
+
+  SORT BILDTAB BY GRUPP.
+
+
+  LOOP AT BILDTAB.
+    ZSTATUS_CAMPO-FTEXT = BILDTAB-FTEXT.
+    ZSTATUS_CAMPO-XOBLG = BILDTAB-XOBLG.
+    ZSTATUS_CAMPO-XOPTN = BILDTAB-XOPTN.
+    ZSTATUS_CAMPO-XDISP = BILDTAB-XDISP.
+    ZSTATUS_CAMPO-FELDN = BILDTAB-FELDN.
+    APPEND ZSTATUS_CAMPO.
+  ENDLOOP.
+
+  DATA: P_INDEX LIKE SY-TABIX.
+  LOOP AT ZSTATUS_CAMPO.
+    P_INDEX = SY-TABIX.
+
+    IF ZSTATUS_CAMPO-XOBLG = SPACE AND
+       ZSTATUS_CAMPO-XOPTN = SPACE AND
+       ZSTATUS_CAMPO-XDISP = SPACE.
+      ZSTATUS_CAMPO-XNODI = 'X'.
+    ENDIF.
+    MODIFY ZSTATUS_CAMPO   INDEX P_INDEX.
+
+  ENDLOOP.
+ENDFUNCTION.
+
+*----------------------------------------------------------------------*

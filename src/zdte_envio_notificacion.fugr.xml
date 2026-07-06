@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Envio de Notificacion DTE</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZDTE_ENVIO_NOTIFICACIONF01</SOBJ_NAME>
+    <SOBJ_NAME>LZDTE_ENVIO_NOTIFICACIONTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZDTE_ENVIO_NOTIFICACION</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZDTE_ENVIO_NOTIFICACION</FUNCNAME>
+     <SHORT_TEXT>Envio de Notificacion DTE</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>P_DATOS</PARAMETER>
+       <DBFIELD>ZEMM157</DBFIELD>
+       <REFERENCE>X</REFERENCE>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>P_USER</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>CHAR30</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>P_PWD</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>CHAR30</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>P_IP</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>CHAR64</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>RETORNO</PARAMETER>
+       <TYP>SUBRC</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>P_DATOS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura para Notificaciones DTE</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_USER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Usuario</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_PWD</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Password</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_IP</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Direccion IP</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETORNO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Subrutina código return</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,4 @@
+FUNCTION-POOL ZCBAN                     . "MESSAGE-ID ...
+
+
+TABLES: ZCB_ITER,ZCB_ITER_CC.

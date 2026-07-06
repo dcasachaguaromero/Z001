@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZCOMUNA_FACT</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>TEXT40</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>40</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Comuna</DDTEXT>
+    <REPTEXT>Comuna</REPTEXT>
+    <SCRTEXT_S>Comuna</SCRTEXT_S>
+    <SCRTEXT_M>Comuna</SCRTEXT_M>
+    <SCRTEXT_L>Comuna</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <SHLPNAME>CITY_PART</SHLPNAME>
+    <SHLPFIELD>CITY_PART</SHLPFIELD>
+    <DEFFDNAME>DISTRICT</DEFFDNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+   <I18N_LANGS>
+    <LANGU>D</LANGU>
+    <LANGU>E</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>D</DDLANGUAGE>
+     <DDTEXT>Ortsteil</DDTEXT>
+     <REPTEXT>Ortsteil</REPTEXT>
+     <SCRTEXT_S>Ortsteil</SCRTEXT_S>
+     <SCRTEXT_M>Ortsteil</SCRTEXT_M>
+     <SCRTEXT_L>Ortsteil</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DDTEXT>District</DDTEXT>
+     <REPTEXT>District</REPTEXT>
+     <SCRTEXT_S>District</SCRTEXT_S>
+     <SCRTEXT_M>District</SCRTEXT_M>
+     <SCRTEXT_L>District</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZCOMUNA_FACT</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0003</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00007</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZCOMUNA_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00003</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Ergänzung zum Ort oder Ortsteil</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;VERWENDUNG&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In einigen Ländern wird der Eintrag von der automatischen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Adreßaufbereitung mit einem Bindestrich an den Ortsnamen angefügt, in</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>anderen Ländern in einer eigenen Zeile ausgegeben oder (z.B. in den</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>USA) gar nicht bei der Adreßaufbereitung berücksichtigt.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Siehe dazu die Beispiele in der Dokumentation zum</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:DE.ADDRS_005&gt;Schlüssel Adreßaufbau&lt;/&gt;.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZCOMUNA_FACT</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0003</VERSION>
+      <TXTLINES>00006</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZCOMUNA_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00003</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>City or District supplement</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;VERWENDUNG&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In some countries, this entry is appended with a hyphen to the city</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>name by the automatic address formatting, other countries, it is output</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>on a line of its own or (e.g. in the USA) not printed.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>See the examples in the &lt;DS:DE.ADDRS_005&gt;Address Layout Key&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>documentation.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZCOMUNA_FACT</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0003</VERSION>
+      <TXTLINES>00007</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZCOMUNA_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00003</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Suplemento de población o distrito.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;VERWENDUNG&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En algunos países, la edición automática de direcciones añade a la</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>entrada un guión en el nombre de la población, mientras que en otros</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>países se da salida a esta entrada en una línea o (por ejemplo, en</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>EE.UU.) no se la tiene en cuenta en absoluto al editar las direcciones.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Véanse los ejemplos en la documentación sobre la &lt;DS:DE.ADDRS_005&gt;clave</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>de estructura de direcciones&lt;/&gt;.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

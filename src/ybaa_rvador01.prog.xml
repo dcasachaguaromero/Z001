@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>YBAA_RVADOR01</NAME>
+    <SQLX>X</SQLX>
+    <DBAPL>S</DBAPL>
+    <DBNA>D$</DBNA>
+    <CLAS>VDRU</CLAS>
+    <SUBC>1</SUBC>
+    <APPL>V</APPL>
+    <RSTAT>K</RSTAT>
+    <RLOAD>E</RLOAD>
+    <LDBNAME>D$S</LDBNAME>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>R</ID>
+     <ENTRY>Smart Form Print Program for Sales Documents</ENTRY>
+     <LENGTH>45</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>XSCREEN</KEY>
+     <ENTRY>Output on screen (x=yes)</ENTRY>
+     <LENGTH>37</LENGTH>
+    </item>
+   </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>D</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Smart Form Print Program for Sales Documents</ENTRY>
+       <LENGTH>44</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>XSCREEN</KEY>
+       <ENTRY>Ausgabe auf Bildschirm (X=Ja)</ENTRY>
+       <LENGTH>37</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Smart Form Print Program for Sales Documents</ENTRY>
+       <LENGTH>45</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>XSCREEN</KEY>
+       <ENTRY>Output on screen (x=yes)</ENTRY>
+       <LENGTH>37</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
+  </asx:values>
+ </asx:abap>
+</abapGit>

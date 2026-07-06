@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPLO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TSPLT>
+    <SPRAS>S</SPRAS>
+    <PAPART>Z_CH_BCH</PAPART>
+    <TXT>Formato de Cheque de banco de Chile OMESA</TXT>
+   </TSPLT>
+   <TSPLD>
+    <PAPART>Z_CH_BCH</PAPART>
+    <PFORMAT>Z_CH_BCH</PFORMAT>
+    <ORIENT>P</ORIENT>
+    <TYPE>S</TYPE>
+   </TSPLD>
+   <TSP0P>
+    <PDPAPER>Z_CH_BCH</PDPAPER>
+   </TSP0P>
+  </asx:values>
+ </asx:abap>
+</abapGit>

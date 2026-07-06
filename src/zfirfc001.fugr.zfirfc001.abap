@@ -1,0 +1,96 @@
+*&---------------------------------------------------------------------*
+*& Report: < ZEY_GDS_CORRECTION > *
+*& Author: < EY_DES01 > *
+*& Description: < ReSQ Correction > *
+*& Date: <19-12-2019> *
+*& Transport Number: < ECDK917080 > *
+*&---------------------------------------------------------------------*
+FUNCTION ZFIRFC001.
+*"----------------------------------------------------------------------
+*"*"Interfase local
+*"  TABLES
+*"      TI_CABECERA STRUCTURE  ZCABECERA
+*"      TI_DETALLE STRUCTURE  ZDETALLE
+*"      TI_TLOGCABERR STRUCTURE  ZTLOGCABERR
+*"      TI_TLOGDETERR STRUCTURE  ZTLOGDETERR
+*"      TI_RESUMEN STRUCTURE  ZRESUMEN
+*"      RETURN STRUCTURE  BAPIRET2
+*"----------------------------------------------------------------------
+*  Limpia Tablas Internas.
+  REFRESH: RETURN, RETURN2, CURRENCYAMOUNT, ACCOUNTPAYABLE, ACCOUNTRECEIVABLE, ACCOUNTGL, DOCUMENTHEADER, CURRENCYAMOUNT, EXTENSION1,
+           ACCOUNTWT, ACCOUNTTAX, T_MWDAT, TI_CONT_DET, TI_CONT_CAB, TI_ERROR_DET, TI_ERROR_CAB.
+
+* Validación  datos de Cabecera y Posicion.
+  DATA: PP_INDEX LIKE SY-TABIX.
+  LOOP AT  TI_CABECERA.
+    CLEAR: RETURN.
+    PERFORM VAL_CAB TABLES RETURN
+                   USING TI_CABECERA
+                 CHANGING  T_ERROR.
+    IF T_ERROR EQ 0.
+*Begin of change: ReSQ Correction for MODIFY on an unsorted Internal Table 19/12/2019 EY_DES01 ECDK917080 *
+SORT TI_CONT_CAB .
+*End of change: ReSQ Correction for MODIFY on an unsorted Internal Table 19/12/2019 EY_DES01 ECDK917080 *
+      LOOP AT TI_DETALLE WHERE KEY EQ TI_CABECERA-KEY.
+       CLEAR: RETURN.
+        PERFORM VAL_DETALLE TABLES RETURN
+                          USING  TI_DETALLE
+                                 TI_CABECERA
+                       CHANGING  T_ERROR.
+        IF T_ERROR EQ 0.
+          MOVE-CORRESPONDING    TI_CABECERA TO TI_CONT_CAB.
+          READ TABLE TI_CONT_CAB WITH KEY KEY =  TI_CABECERA-KEY.
+          PP_INDEX = SY-TABIX.
+          IF SY-SUBRC NE 0.
+            APPEND TI_CONT_CAB.
+          ELSE.
+            MODIFY TI_CONT_CAB INDEX PP_INDEX.
+          ENDIF.
+          MOVE-CORRESPONDING    TI_DETALLE TO TI_CONT_DET.
+          APPEND TI_CONT_DET.
+        ELSE.
+          MOVE-CORRESPONDING  TI_DETALLE TO TI_ERROR_DET.
+          APPEND TI_ERROR_DET.
+          CLEAR: TI_ERROR_DET.
+        ENDIF.
+      ENDLOOP.
+    ELSE.
+      MOVE-CORRESPONDING  TI_CABECERA TO TI_ERROR_CAB.
+      APPEND TI_ERROR_CAB.
+      CLEAR: TI_ERROR_CAB.
+    ENDIF.
+    CLEAR:  T_ERROR.
+  ENDLOOP.
+  PERFORM PROECESA_ERROR TABLES    TI_ERROR_CAB
+                                   TI_ERROR_DET
+                                   TI_CONT_CAB
+                                   TI_CONT_DET
+                                   TI_TLOGCABERR
+                                   TI_TLOGDETERR
+                                   TI_RESUMEN
+                                   RETURN
+                                   TI_DETALLE.
+  REFRESH: RETURN.
+  CLEAR:   RETURN.
+  DATA: CONT_REG TYPE I.
+  DESCRIBE TABLE TI_CONT_CAB LINES  CONT_REG.
+  IF CONT_REG > 0.
+*  Determinación de tipo de Contabilización.
+    PERFORM DERTMINA_GL_AP_RR.
+*  Contabilización de Documentos.
+    SORT TI_CONT_DET BY KEY.
+    DATA: CONTADOR(3) TYPE N.
+
+    LOOP AT TI_CONT_CAB.
+      CLEAR: CONTADOR.
+      LOOP AT TI_CONT_DET WHERE KEY EQ TI_CONT_CAB-KEY.
+        PERFORM CONTABILIZACION.
+        ADD 1 TO CONTADOR.
+      ENDLOOP.
+      PERFORM EJECUTA_BAPI TABLES  RETURN
+                                   TI_RESUMEN
+                           USING  CONTADOR.
+      CLEAR: CONTADOR.
+    ENDLOOP.
+  ENDIF.
+ENDFUNCTION.

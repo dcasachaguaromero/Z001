@@ -1,0 +1,24 @@
+
+GV_TO_PAY = GS_HD_KOMK-FKWRT - IS_BIL_INVOICE-HD_GEN-DPVAL.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

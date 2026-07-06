@@ -1,0 +1,17 @@
+
+PROCESS BEFORE OUTPUT.
+  MODULE status_0200.
+
+  LOOP WITH CONTROL tabla1.
+    MODULE fill_table_control_0200.
+  ENDLOOP.
+
+
+
+PROCESS AFTER INPUT.
+  MODULE user_command_0200_exit AT EXIT-COMMAND.
+
+  LOOP WITH CONTROL tabla1.
+
+  ENDLOOP.
+

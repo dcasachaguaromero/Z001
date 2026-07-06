@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZFI</ARBGB>
+    <MASTERLANG>S</MASTERLANG>
+    <STEXT>Clase de mensajes Z para FI</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Fecha de contabilización inferior a fecha documento.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Documento fuera de periodo tributario</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Clase de activo fijo no pertenece a sociedad</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>&amp;1 &amp;2 &amp;3 &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Documento repetido acreedor &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Documento repetido deudor &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Cuenta de mayor no imputable con este centro de costo</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Cuenta de mayor &amp;1 no es imputable con centro de costo &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>La cuenta por pagar exige motivo de emisión</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Debe Seleccionar Un Proveedor</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>Debe Seleccionar Una Línea</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>No Hay Información Para Enviar a Excel</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Producto no valido &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Rut Tercero no valido &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Apertura de Gasto no valida(0_CCHICA - 0_REEMB - 0_REND FON - 0_REND T/C)</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Calificación Activo Fijo no Vàlida ( AFIJO - INTANGIBLE )</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>Debe ingresar proyecto PPE (Campo Supranúmero)</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Debe Ingresar Rut-Tercero por ser cuenta de resultado.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>019</MSGNR>
+     <TEXT>Debe Ingresar Información CAPEX según códigos existentes</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>020</MSGNR>
+     <TEXT>No se encontraron documentos a tratar.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>021</MSGNR>
+     <TEXT>No se encontraron registros para los identificadores ingresados.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>022</MSGNR>
+     <TEXT>ID de pago &amp; no corresponde a la sociedad &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>023</MSGNR>
+     <TEXT>Falta configuración para sociedad &amp; / banco &amp; en tabla ZFIPG0003_OUT</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>024</MSGNR>
+     <TEXT>Banco propio &amp;1 con ID &amp;2 no existe en sociedad &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>025</MSGNR>
+     <TEXT>No se encontraron documentos con textos repetidos.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>ZFI</ARBGB>
+     <MSGNR>026</MSGNR>
+     <TEXT>No se encontraron bancos propios en la sociedad &amp;</TEXT>
+    </T100>
+   </T100>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>NA</ID>
+      <OBJECT>ZFI002</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0001</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00004</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZFI002</TDNAME>
+      <TDID>NA</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00001</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;CAUSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>La fecha de emisión del documento ingresado, excede de tres periodos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>tributaries.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYSTEM_RESPONSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Debe utilizar los documentos F5 = Factura con INR o F6 = Factura con INR</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>electrónica, según sea el caso.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYS_ADMIN&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

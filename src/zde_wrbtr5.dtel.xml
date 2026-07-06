@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZDE_WRBTR5</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>ZDO_CURR5</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>20</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Importe en la moneda del documento</DDTEXT>
+    <REPTEXT>Importe</REPTEXT>
+    <SCRTEXT_S>Importe</SCRTEXT_S>
+    <SCRTEXT_M>Importe</SCRTEXT_M>
+    <SCRTEXT_L>Importe</SCRTEXT_L>
+    <APPLCLASS>FB</APPLCLASS>
+    <DTELMASTER>D</DTELMASTER>
+    <DEFFDNAME>AMT_DOCCUR</DEFFDNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+   <I18N_LANGS>
+    <LANGU>D</LANGU>
+    <LANGU>E</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>D</DDLANGUAGE>
+     <DDTEXT>Betrag in Belegwährung</DDTEXT>
+     <REPTEXT>Betrag</REPTEXT>
+     <SCRTEXT_S>Betrag</SCRTEXT_S>
+     <SCRTEXT_M>Betrag</SCRTEXT_M>
+     <SCRTEXT_L>Betrag</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DDTEXT>Amount in document currency</DDTEXT>
+     <REPTEXT>Amount</REPTEXT>
+     <SCRTEXT_S>Amount</SCRTEXT_S>
+     <SCRTEXT_M>Amount</SCRTEXT_M>
+     <SCRTEXT_L>Amount</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZIND_TRASPASO</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>CHAR1</DOMNAME>
+    <HEADLEN>21</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>21</SCRLEN3>
+    <DDTEXT>Indicador de Traspaso</DDTEXT>
+    <REPTEXT>Indicador de Traspaso</REPTEXT>
+    <SCRTEXT_S>Traspaso</SCRTEXT_S>
+    <SCRTEXT_M>Ind. Traspaso</SCRTEXT_M>
+    <SCRTEXT_L>Indicador de Traspaso</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_TOBJ" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <OBJH>
+    <OBJECTNAME>ZVFI_OB52_T001B</OBJECTNAME>
+    <OBJECTTYPE>V</OBJECTTYPE>
+    <CLIDEP>X</CLIDEP>
+    <OBJCATEG>APPL</OBJCATEG>
+    <IMPORTABLE>3</IMPORTABLE>
+   </OBJH>
+   <OBJT>
+    <LANGUAGE>S</LANGUAGE>
+    <OBJECTNAME>ZVFI_OB52_T001B</OBJECTNAME>
+    <OBJECTTYPE>V</OBJECTTYPE>
+    <DDTEXT>Períodos contables: Especificar períodos</DDTEXT>
+   </OBJT>
+   <OBJS>
+    <OBJS>
+     <OBJECTNAME>ZVFI_OB52_T001B</OBJECTNAME>
+     <OBJECTTYPE>V</OBJECTTYPE>
+     <TABNAME>ZFI_OB52_T001B</TABNAME>
+     <DDIC>X</DDIC>
+     <PRIM_TABLE>X</PRIM_TABLE>
+    </OBJS>
+   </OBJS>
+   <TOBJ>
+    <TDDAT>
+     <TABNAME>ZVFI_OB52_T001B</TABNAME>
+     <CCLASS>FC31</CCLASS>
+    </TDDAT>
+    <TVDIR>
+     <TABNAME>ZVFI_OB52_T001B</TABNAME>
+     <AREA>ZFI_OB52</AREA>
+     <TYPE>1</TYPE>
+     <LISTE>0040</LISTE>
+     <FLAG>X</FLAG>
+    </TVDIR>
+    <TVIMF>
+     <TVIMF>
+      <TABNAME>ZVFI_OB52_T001B</TABNAME>
+      <EVENT>01</EVENT>
+      <FORMNAME>REVISAR_ANTES_GRABAR</FORMNAME>
+     </TVIMF>
+     <TVIMF>
+      <TABNAME>ZVFI_OB52_T001B</TABNAME>
+      <EVENT>02</EVENT>
+      <FORMNAME>ACTUALIZAR_T001B</FORMNAME>
+     </TVIMF>
+     <TVIMF>
+      <TABNAME>ZVFI_OB52_T001B</TABNAME>
+      <EVENT>AA</EVENT>
+      <FORMNAME>LEER_DATOS_BD</FORMNAME>
+     </TVIMF>
+    </TVIMF>
+   </TOBJ>
+  </asx:values>
+ </asx:abap>
+</abapGit>

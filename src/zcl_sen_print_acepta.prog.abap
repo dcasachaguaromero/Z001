@@ -1,0 +1,111 @@
+*&---------------------------------------------------------------------*
+*& Report  ZCL_SEN_PRINT_ACEPTA
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+
+REPORT ZCL_SEN_PRINT_ACEPTA LINE-SIZE 255.
+
+INCLUDE ZCL_SEN_PRINT_ACEPTA_TOP.
+INCLUDE ZCL_SEN_PRINT_ACEPTA_F01.
+
+SELECT-OPTIONS SO_DOC   FOR BKPF-XBLNR.
+SELECT-OPTIONS SO_BLART FOR VBRK-ZBLART.
+PARAMETERS     P_NUMCOP TYPE I DEFAULT '2'.
+SELECTION-SCREEN SKIP.
+
+INITIALIZATION.
+
+  IT_BLART-BLART = 'G3'.
+  IT_BLART-GLOSA = 'Factura afecta electrónica'.
+  APPEND IT_BLART.
+
+  IT_BLART-BLART = 'G4'.
+  IT_BLART-GLOSA = 'Factura exenta electrónica'.
+  APPEND IT_BLART.
+
+  IT_BLART-BLART = 'J3'.
+  IT_BLART-GLOSA = 'NC afecta electrónica'.
+  APPEND IT_BLART.
+
+  IT_BLART-BLART = 'J4'.
+  IT_BLART-GLOSA = 'NC exenta electrónica'.
+  APPEND IT_BLART.
+
+  IT_BLART-BLART = 'L3'.
+  IT_BLART-GLOSA = 'ND afecta electrónica'.
+  APPEND IT_BLART.
+
+  IT_BLART-BLART = 'L4'.
+  IT_BLART-GLOSA = 'ND exenta electrónica'.
+  APPEND IT_BLART.
+
+  IT_BLART-BLART = 'O3'.
+  IT_BLART-GLOSA = 'Boleta afecta electrónica'.
+  APPEND IT_BLART.
+
+  IT_BLART-BLART = 'O4'.
+  IT_BLART-GLOSA = 'Boleta exenta electrónica'.
+  APPEND IT_BLART.
+
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR SO_BLART-LOW.
+
+  FREE: FIELD_TAB, RETURN_TAB.
+  CLEAR: FIELD_TAB, RETURN_TAB.
+
+  FIELD_TAB-FIELDNAME = 'LTEXT'.
+  FIELD_TAB-TABNAME   = 'T003T'.
+  APPEND FIELD_TAB.
+
+  CALL FUNCTION 'F4IF_INT_TABLE_VALUE_REQUEST'
+    EXPORTING
+      RETFIELD        = FIELD_TAB-FIELDNAME
+    TABLES
+      VALUE_TAB       = IT_BLART
+      FIELD_TAB       = FIELD_TAB
+      RETURN_TAB      = RETURN_TAB
+    EXCEPTIONS
+      PARAMETER_ERROR = 1
+      NO_VALUES_FOUND = 2
+      OTHERS          = 3.
+
+  IF SY-SUBRC = 0.
+    SO_BLART-LOW = RETURN_TAB-FIELDVAL.
+  ENDIF.
+
+START-OF-SELECTION.
+
+  IF SO_BLART IS INITIAL.
+    LOOP AT IT_BLART.
+      SO_BLART-SIGN   = 'I'.
+      SO_BLART-OPTION = 'EQ'.
+      SO_BLART-LOW    = IT_BLART-BLART.
+      APPEND SO_BLART.
+      CLEAR SO_BLART.
+    ENDLOOP.
+  ENDIF.
+
+  SELECT * INTO CORRESPONDING FIELDS OF TABLE TI_DOC FROM VBRK
+                                     WHERE XBLNR  IN SO_DOC
+                                       AND ZBLART IN SO_BLART
+                                       AND FKSTO  EQ SPACE.
+
+  LOOP AT TI_DOC.
+    CHECK TI_DOC-ZBLART EQ 'G3' OR TI_DOC-ZBLART EQ 'G4' OR
+          TI_DOC-ZBLART EQ 'J3' OR TI_DOC-ZBLART EQ 'J4' OR
+          TI_DOC-ZBLART EQ 'L3' OR TI_DOC-ZBLART EQ 'L4' OR
+          TI_DOC-ZBLART EQ 'O3' OR TI_DOC-ZBLART EQ 'O4' AND
+          TI_DOC-XBLNR NE TI_DOC-VBELN.
+    IF NOT TI_DOC-XBLNR IS INITIAL.
+      PERFORM SEND_PRINT_DOC USING    TI_DOC-VBELN TI_DOC-XBLNR P_NUMCOP
+                             CHANGING TI_DOC-MENSAJE.
+      MODIFY TI_DOC.
+    ELSE.
+      DELETE TI_DOC.
+    ENDIF.
+  ENDLOOP.
+
+END-OF-SELECTION.
+  PERFORM ALV.

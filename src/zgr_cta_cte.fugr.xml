@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Consulta cuenta corriente</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZGR_CTA_CTETOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZGR_CTA_CTE</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZCTA_CTE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Consulta cuenta corriente</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>LAND1</PARAMETER>
+       <TYP>LAND1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>STCD3</PARAMETER>
+       <TYP>STCD3</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>GKOAR</PARAMETER>
+       <TYP>GKOAR</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>KUNNR</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>LIFNR</PARAMETER>
+       <TYP>LIFNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKS</PARAMETER>
+       <TYP>BANKS</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKL</PARAMETER>
+       <TYP>BANKK</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKN</PARAMETER>
+       <TYP>BANKN</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BKONT</PARAMETER>
+       <TYP>BKONT</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BVTYP</PARAMETER>
+       <TYP>BVTYP</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>XEZER</PARAMETER>
+       <TYP>XEZER</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BKREF</PARAMETER>
+       <TYP>BKREF</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOINH</PARAMETER>
+       <TYP>KOINH_FI</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EBPP_ACCNAME</PARAMETER>
+       <TYP>EBPP_ACCNAME</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EBPP_BVSTATUS</PARAMETER>
+       <TYP>EBPP_BVSTATUS</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOVON</PARAMETER>
+       <TYP>KOVON</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOBIS</PARAMETER>
+       <TYP>KOBIS</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>LAND1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Country Key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>STCD3</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tax Number 3</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>GKOAR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Offsetting Account Type</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KUNNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LIFNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Account Number of Vendor or Creditor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank country key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Keys</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank account number</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BKONT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Control Key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BVTYP</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Partner Bank Type</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>XEZER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Indicator: Is there collection authorization ?</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BKREF</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reference specifications for bank details</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOINH</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Account Holder Name</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EBPP_ACCNAME</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>User-Defined Name of Bank Details</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EBPP_BVSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Status of Bank Details in Biller Direct</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOVON</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Details Valid From</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOBIS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank details valid to</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCTA_CTE_BVTYP</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Consulta cuenta corriente</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>LAND1</PARAMETER>
+       <TYP>LAND1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>STCD3</PARAMETER>
+       <TYP>STCD3</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>GKOAR</PARAMETER>
+       <TYP>GKOAR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>BANKN2</PARAMETER>
+       <TYP>BANKN</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>KUNNR</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>LIFNR</PARAMETER>
+       <TYP>LIFNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKS</PARAMETER>
+       <TYP>BANKS</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKL</PARAMETER>
+       <TYP>BANKK</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKN</PARAMETER>
+       <TYP>BANKN</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BKONT</PARAMETER>
+       <TYP>BKONT</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BVTYP</PARAMETER>
+       <TYP>BVTYP</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>XEZER</PARAMETER>
+       <TYP>XEZER</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BKREF</PARAMETER>
+       <TYP>BKREF</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOINH</PARAMETER>
+       <TYP>KOINH_FI</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EBPP_ACCNAME</PARAMETER>
+       <TYP>EBPP_ACCNAME</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EBPP_BVSTATUS</PARAMETER>
+       <TYP>EBPP_BVSTATUS</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOVON</PARAMETER>
+       <TYP>KOVON</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>LAND1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Country Key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>STCD3</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tax Number 3</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>GKOAR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Offsetting Account Type</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKN2</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank account number</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KUNNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LIFNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Account Number of Vendor or Creditor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank country key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Keys</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank account number</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BKONT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Control Key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BVTYP</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Partner Bank Type</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>XEZER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Indicator: Is there collection authorization ?</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BKREF</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reference specifications for bank details</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOINH</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Account Holder Name</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EBPP_ACCNAME</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>User-Defined Name of Bank Details</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EBPP_BVSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Status of Bank Details in Biller Direct</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOVON</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Details Valid From</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCTA_CTE_BVTYP2</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Consulta cuenta corriente</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>LAND1</PARAMETER>
+       <TYP>LAND1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>STCD3</PARAMETER>
+       <TYP>STCD3</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>GKOAR</PARAMETER>
+       <TYP>GKOAR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>BANKN2</PARAMETER>
+       <TYP>BANKN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>BANKL2</PARAMETER>
+       <TYP>BANKL</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>KUNNR</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>LIFNR</PARAMETER>
+       <TYP>LIFNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKS</PARAMETER>
+       <TYP>BANKS</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKL</PARAMETER>
+       <TYP>BANKK</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKN</PARAMETER>
+       <TYP>BANKN</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BKONT</PARAMETER>
+       <TYP>BKONT</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BVTYP</PARAMETER>
+       <TYP>BVTYP</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>XEZER</PARAMETER>
+       <TYP>XEZER</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BKREF</PARAMETER>
+       <TYP>BKREF</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOINH</PARAMETER>
+       <TYP>KOINH_FI</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EBPP_ACCNAME</PARAMETER>
+       <TYP>EBPP_ACCNAME</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EBPP_BVSTATUS</PARAMETER>
+       <TYP>EBPP_BVSTATUS</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOVON</PARAMETER>
+       <TYP>KOVON</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>KOBIS</PARAMETER>
+       <TYP>KOBIS</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>LAND1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Country Key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>STCD3</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tax Number 3</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>GKOAR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Offsetting Account Type</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKN2</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank account number</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKL2</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank number</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KUNNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LIFNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Account Number of Vendor or Creditor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank country key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Keys</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank account number</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BKONT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Control Key</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BVTYP</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Partner Bank Type</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>XEZER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Indicator: Is there collection authorization ?</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BKREF</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reference specifications for bank details</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOINH</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Account Holder Name</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EBPP_ACCNAME</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>User-Defined Name of Bank Details</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EBPP_BVSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Status of Bank Details in Biller Direct</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOVON</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank Details Valid From</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>KOBIS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank details valid to</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

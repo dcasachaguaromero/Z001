@@ -1,0 +1,24 @@
+
+SELECT SINGLE * FROM T024 INTO GS_T024
+WHERE EKGRP = IS_EKKO-EKGRP.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

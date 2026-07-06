@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SUSO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOBJ>
+    <OBJCT>ZFI_0B52</OBJCT>
+    <FIEL1>ACTVT</FIEL1>
+    <OCLSS>ZFI</OCLSS>
+   </TOBJ>
+   <TOBJT>
+    <LANGU>S</LANGU>
+    <OBJECT>ZFI_0B52</OBJECT>
+    <TTEXT>Gestión de Apertura de Periodo Contable</TTEXT>
+   </TOBJT>
+   <TOBJVORFLG>
+    <OBJCT>ZFI_0B52</OBJCT>
+   </TOBJVORFLG>
+   <TACTZ>
+    <TACTZ>
+     <BROBJ>ZFI_0B52</BROBJ>
+     <ACTVT>01</ACTVT>
+    </TACTZ>
+    <TACTZ>
+     <BROBJ>ZFI_0B52</BROBJ>
+     <ACTVT>02</ACTVT>
+    </TACTZ>
+    <TACTZ>
+     <BROBJ>ZFI_0B52</BROBJ>
+     <ACTVT>03</ACTVT>
+    </TACTZ>
+    <TACTZ>
+     <BROBJ>ZFI_0B52</BROBJ>
+     <ACTVT>07</ACTVT>
+    </TACTZ>
+    <TACTZ>
+     <BROBJ>ZFI_0B52</BROBJ>
+     <ACTVT>0A</ACTVT>
+    </TACTZ>
+   </TACTZ>
+  </asx:values>
+ </asx:abap>
+</abapGit>

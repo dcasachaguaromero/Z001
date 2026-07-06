@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>ZINTERFACE_RWBAPI01</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZINTERFACE_RWBAPI01TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZINTERFACE_RWBAPI01</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZINTERFACE_RWBAPI01</FUNCNAME>
+     <SHORT_TEXT>Schnittstellenbeschreibung zum Event RWBAPI01</SHORT_TEXT>
+     <CHANGING>
+      <RSCHA>
+       <PARAMETER>DOCUMENT_HEADER</PARAMETER>
+       <DBFIELD>ACCHD</DBFIELD>
+      </RSCHA>
+     </CHANGING>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>IT_ACCIT</PARAMETER>
+       <DBSTRUCT>ACCIT</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>IT_ACCCR</PARAMETER>
+       <DBSTRUCT>ACCCR</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>EXTENSION</PARAMETER>
+       <DBSTRUCT>BAPIACEXTC</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>IT_ACCWT</PARAMETER>
+       <DBSTRUCT>ACCIT_WT</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IT_ACCIT</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IT_ACCCR</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EXTENSION</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IT_ACCWT</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DOCUMENT_HEADER</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+   <LONGTEXTS_ZINTERFACE_RWBAPI01>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZINTERFACE_RWBAPI01</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0011</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00020</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZINTERFACE_RWBAPI01</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00011</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>DEFINE &amp;TEXT&amp;  = &apos;Rechnungswesen-BAPI Plug-In: User-Exit&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>DEFINE &amp;EVENT&amp; = &apos;RWBAPI01&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>DEFINE &amp;TYPE&amp;  = &apos;INTERFACE&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>INCLUDE FI_OPEN_FI_DOCUMENTATION_1 OBJECT DOKU ID TX</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>EVENT</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Zeitpunkt wird in den Rechnungswesen-BAPIs</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>BAPI_ACC_DOCUMENT_CHECK und</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>BAPI_ACC_DOCUMENT_POST</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>durchlaufen, nachdem sämtliche Konvertierungen und Prüfungen im BAPI</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>stattgefunden haben und der Rechnungswesenbeleg aufgebaut ist.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>Die aktuellen Belegdaten können an dieser Stelle verändert bzw.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>angereichert werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>Nach Aufruf dieses Events wird die R/3-Rechnungswesen-Schnittstelle</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>gerufen.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>SCHNITTSTELLE</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Zur Verfügung steht der Rechnungswesenbeleg mit Belegkopf und</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Belegzeilen (C_ACCHD und C_ACCIT).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/</TDFORMAT>
+       <TDLINE>Zusätzlich kann der Quellensteuerparameter (C_ACCWT) und eine</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>kundeneigenene Struktur (C_EXTENSION) versorgt werden, die beim Aufruf</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>des BAPI versorgt wird.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZINTERFACE_RWBAPI01</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0010</VERSION>
+      <TXTLINES>00015</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZINTERFACE_RWBAPI01</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00010</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>DEFINE &amp;TEXT&amp;  = &apos;Change document, Environment -&gt; Additional components&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>DEFINE &amp;EVENT&amp; = &apos;00001120&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>DEFINE &amp;TYPE&amp;  = &apos;INTERFACE&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>/:</TDFORMAT>
+       <TDLINE>INCLUDE FI_OPEN_FI_DOCUMENTATION_1 OBJECT DOKU ID TX LANGUAGE EN</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>EVENT</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This Event is reached directly from the R/3 System menu (at line item</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>level: Environment -&gt; Additional components).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>INTERFACE</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The key data of the current line item is transferred to the additional</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>component. The indicator I_AKTYP displays whether a switch is made from</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the change mode. Where changes are to be made, the purpose of this</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Event is to enable changes to the user&apos;s own data, which data can then</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>be updated at the corresponding update function module (00001110). If a</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>change was made to your data, transfer E_XCHNG = &apos;X&apos; to the standard</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>system. If no changes were made, the indicator is not selected.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS_ZINTERFACE_RWBAPI01>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Grupo de Funciones DTE</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZDTE_CONTABILIZAF01</SOBJ_NAME>
+    <SOBJ_NAME>LZDTE_CONTABILIZATOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZDTE_CONTABILIZA</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>OBTIENE_CLASE_DOCUMENTO</FUNCNAME>
+     <SHORT_TEXT>obtiene_clase_documento</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>FOLIO_REF</PARAMETER>
+       <TYP>EBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>TIPO_DTE</PARAMETER>
+       <TYP>ZDTE_TIPO</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>SOCIEDAD</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+     </IMPORT>
+     <CHANGING>
+      <RSCHA>
+       <PARAMETER>CLASE_DOC</PARAMETER>
+       <TYP>BLART</TYP>
+      </RSCHA>
+     </CHANGING>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>FOLIO_REF</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número del documento de compras</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TIPO_DTE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tipo Documento Tributario Electrónico.</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>SOCIEDAD</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CLASE_DOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Clase de documento</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZDTE_AJUSTA_TOLERANCIAS</FUNCNAME>
+     <SHORT_TEXT>Verifica y distribuye tolerancias en posiciones de facturas</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IT_ITEMS</PARAMETER>
+       <TYP>BAPI_INCINV_CREATE_ITEM_T</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IT_MONTO_ITEMS</PARAMETER>
+       <TYP>ZDTE_ITEM_MONTOS_T</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_MNT_NETO</PARAMETER>
+       <TYP>ZMNT_NETO</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>OT_ITEMS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BAPI_INCINV_CREATE_ITEM_T</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>OV_SUPERA</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BOOLEAN</TYP>
+      </RSEXP>
+     </EXPORT>
+     <EXCEPTION>
+      <RSEXC>
+       <EXCEPTION>NO_ITEMS</EXCEPTION>
+      </RSEXC>
+     </EXCEPTION>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IT_ITEMS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Transfer Table for Item Data in Incoming Invoice (Create)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IT_MONTO_ITEMS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Recepción de facturas: Montos por items (Tabla)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_MNT_NETO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Monto Neto</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>OT_ITEMS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Transfer Table for Item Data in Incoming Invoice (Create)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>OV_SUPERA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Supera tolerancia</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>NO_ITEMS</PARAMETER>
+       <KIND>X</KIND>
+       <STEXT>Documento sin items</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZDTE_CONTABILIZA</FUNCNAME>
+     <SHORT_TEXT>Función de Contabilización MM</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>RUT_EMISOR</PARAMETER>
+       <TYP>ZRUT_EMI</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>TIPO_DTE</PARAMETER>
+       <TYP>ZDTE_TIPO</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>FOLIO</PARAMETER>
+       <TYP>ZDTE_FOLIO</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>FCHEMIS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>AUSGDT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>RESULTADO</PARAMETER>
+       <TYP>SUBRC</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>FACTURA</PARAMETER>
+       <TYP>BELNR_D</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EJERCICIO</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ESTADO</PARAMETER>
+       <TYP>ZDTE_ESTADO</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>RUT_EMISOR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>RUT Emisor.</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TIPO_DTE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tipo Documento Tributario Electrónico.</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FOLIO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Folio DTE</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FCHEMIS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha emisión</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RESULTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Subrutina código return</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FACTURA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de un documento contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EJERCICIO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ESTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estado DTE</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Texto de mensaje</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZDTE_CONT_LISTAS_BLANCAS_2</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Contabilizacion DTE Recibidos Listas Blancas</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_FOLIO</PARAMETER>
+       <TYP>ZDTE_FOLIO</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_RUTEMISOR</PARAMETER>
+       <TYP>ZRUT_EMI</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_NUMERO_CLIENTE</PARAMETER>
+       <TYP>ZNUMCLIENTE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_RUTRECEPTOR</PARAMETER>
+       <TYP>CHAR10</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_MONTO_NETO</PARAMETER>
+       <TYP>ZMNT_NETO</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_CTUMODE</PARAMETER>
+       <TYP>CTU_MODE</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>RESULTADO</PARAMETER>
+       <TYP>SUBRC</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>FACTURA</PARAMETER>
+       <TYP>BELNR_D</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EJERCICIO</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ESTADO</PARAMETER>
+       <TYP>ZDTE_ESTADO</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>MENSAJE_SALIDA</PARAMETER>
+       <DBSTRUCT>BDCMSGCOLL</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_FOLIO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Folio DTE</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_RUTEMISOR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>RUT Emisor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_NUMERO_CLIENTE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Numero de Cliente (Lista Blanca)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_RUTRECEPTOR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Rut receptor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_MONTO_NETO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campo entero de longitud 3</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_CTUMODE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Modo de procesamiento para CALL TRANSACTION USING...</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RESULTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Subrutina código return</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FACTURA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de un documento contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EJERCICIO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ESTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estado DTE Facturas Ele. de Compras Recibidas</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Texto de mensaje</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>MENSAJE_SALIDA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Acumular mensajes en sistema SAP</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

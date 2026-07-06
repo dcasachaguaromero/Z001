@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Datos para reporte RAGITT_ALV01</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZAF_REPORTTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZAF_REPORT</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZAF_RAGITT_ALV01</FUNCNAME>
+     <SHORT_TEXT>Datos para reporte RAGITT_ALV01</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_BERDATUM</PARAMETER>
+       <TYP>DATUM</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>ITAB_HEADER</PARAMETER>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>ITAB_DATA</PARAMETER>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_BERDATUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ITAB_HEADER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Header table</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ITAB_DATA</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZAF_RAGITT_ALV01_CONTABLE</FUNCNAME>
+     <SHORT_TEXT>Datos para reporte RAGITT_ALV01</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_ANLAV</PARAMETER>
+       <TYP>ANLAV</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BERDATUM</PARAMETER>
+       <TYP>DATUM</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ZZ_BLDAT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BLDAT</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ZZ_BUDAT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BUDAT</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ZZ_BELNR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BELNR_D</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ZZ_GJAHR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>GJAHR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ZZ_XBLNR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZZ_XBLNR</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_ANLAV</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Informes AF: campos ANLA completados c/CeCo, ...</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BERDATUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZZ_BLDAT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha de documento en documento</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZZ_BUDAT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha de contabilización en el documento</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZZ_BELNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de un documento contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZZ_GJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZZ_XBLNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de Factura</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZAF_RAGITT_ALV01_DEP_MES</FUNCNAME>
+     <SHORT_TEXT>Depresiación del Mes en Ejercicio</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_ANLCV</PARAMETER>
+       <TYP>ANLCV</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ANLAV</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ANLAV</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ANLB</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ANLB</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BERDATUM</PARAMETER>
+       <TYP>DATUM</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ZZ_NAFAZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZZ_NAFAZ</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_ANLCV</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Informes AF: campos ANLA completados c/CeCo, ...</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ANLAV</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Segm.reg.maestro inmov.</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ANLB</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetros de amortización</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BERDATUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZZ_NAFAZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Depreciación Mes Ejercicio</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

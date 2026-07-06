@@ -1,0 +1,1517 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>ADDRESS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;PAGE&amp; EQ &apos;1 &apos;.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T047I-TXTAB&amp; OBJECT TEXT ID ADRS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ADDRESS PARAGRAPH AS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  TITLE       &amp;KNA1-ANRED&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  NAME        &amp;KNA1-NAME1&amp;, &amp;KNA1-NAME2&amp;, &amp;KNA1-NAME3&amp;, &amp;KNA1-NAME4&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  STREET      &amp;KNA1-STRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  POBOX       &amp;KNA1-PFACH&amp; CODE &amp;KNA1-PSTL2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  POSTCODE    &amp;KNA1-PSTLZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  REGION      &amp;KNA1-REGIO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  CITY        &amp;KNA1-ORT01&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  COUNTRY     &amp;KNA1-LAND1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  FROMCOUNTRY &amp;RFDUZI01-INLND&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  ADDRESSNUMBER &amp;DKADR-ADRNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDADDRESS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0020T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;PAGE&amp; EQ &apos;1 &apos;.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T047I-TXTAB&amp; OBJECT TEXT ID ADRS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ADDRESS PARAGRAPH AS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0050</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T047I-TXTFU&amp; OBJECT TEXT ID ADRS LANGUAGE &amp;T001-SPRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T047I-TXTKO&amp; OBJECT TEXT ID ADRS LANGUAGE &amp;T001-SPRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>INFO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>POSITION WINDOW</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>POSITION XORIGIN &apos;-0.5&apos; CH YORIGIN &apos;-0.25&apos; LN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>SIZE WIDTH +0.4 CH HEIGHT +1 LN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>BOX FRAME 10 TW</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>BOX HEIGHT &apos;1.7&apos; LN INTENSITY 20</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TI</TDFORMAT>
+     <TDLINE>Verzugszinsen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0030</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;S&gt;Datum&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;RFDUZI01-AS_DATUM&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Unser Sachbearbeiter&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;FSABE-SALUT&amp;&lt;/&gt; &amp;FSABE-LNAME&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Telefon&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;FSABE-TELF1&amp;&amp;&apos; - &apos;FSABE-TEL_EXTEN1&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Telefax&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;FSABE-TELFX&amp;&amp;&apos; - &apos;FSABE-FAX_EXTENS&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Ihr Konto bei uns&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;RFDUZI01-KUNNR&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Unser Konto bei Ihnen&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;KNB1-EIKTO&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Rechnungsnummer&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;RFDUZI01-XBLNR&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0030T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;S&gt;Datum&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;SYST-DATUM&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Unser Sachbearbeiter&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Telefon&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Telefax&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Ihr Konto bei uns&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Unser Konto bei Ihnen&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;Rechnungsnummer&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0035</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;S&gt;unsere Zuordnung&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;RFDUZI01-ZUONR&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0036</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;S&gt;ext. Belegnummer&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;RFDUZI01-XBLNR&amp;&lt;/&gt;&lt;S&gt;  &lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>INFO2</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;S&gt;Datum&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;S&gt;&amp;RFDUZI01-AS_DATUM&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>1000</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>----------------------------Anschreiben-------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Sehr geehrte Damen und Herren,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Wir bestätigen Ihre Zahlungen vom &amp;RFDUZI01-VONDT&amp; bis &amp;RFDUZI01-BISDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>und teilen Ihnen mit, daß wir Ihr Konto wegen verspäteten Begleichs</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>unten aufgeführter Rechnungen mit Verzugszinsen in Höhe von</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;b&gt;&amp;RFDUZI01-WAERS&amp; &amp;RFDUZI01-ZNBFS(C)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>belastet haben.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>In diesem Betrag ist die gesetzliche Mehrwertsteuer enthalten.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Wir ersuchen um Überweisung dieses Betrags.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T047I-TXTUN&amp; OBJECT TEXT ID ADRS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>1000T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>----------------------------Anschreiben für Testausdruck-------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Sehr geehrte Damen und Herren,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Wir bestätigen Ihre Zahlungen vom XXXXXXXXXX bis XXXXXXXXXX und teilen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Ihnen mit, daß wir Ihr Konto wegen verspäteten Begleichs unten</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>aufgeführter Rechnungen mit Verzugszinsen in Höhe von</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&lt;b&gt;XXXXX XXXXXXXXXXXXXXXXX&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>belastet haben.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>In diesem Betrag ist die gesetzliche Mehrwertsteuer enthalten.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Wir ersuchen um Überweisung dieses Betrags.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T047I-TXTUN&amp; OBJECT TEXT ID ADRS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Belegzeile mit GB und Mehrwertsteuerkennz----------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BELNR&amp; ,,&amp;BKPF-BLDAT+0(2)&amp;&amp;BKPF-BLDAT+3(2)&amp;&amp;BKPF-BLDAT+8(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RFDUZI01-WRSHB&amp;,,&amp;BSEG-MWSKZ&amp;,,&amp;BSEG-GSBER&amp; ,,&amp;RFDUZI01-DATEO+0(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEO+3(2)&amp;&amp;RFDUZI01-DATEO+8(2)&amp; ,,&amp;RFDUZI01-DATEN+0(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEN+3(2)&amp;&amp;RFDUZI01-DATEN+8(2)&amp; ,,&amp;RFDUZI01-TGEU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2010T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Test für 2010---------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXX,,XXXXXX,,XXXXXXXXXXXXXXXXXX,,XX,,XXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,XXXXXX,,XXXXXX,,XXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Belegzeile ohne Mehrwertsteuerkennz.-----------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BELNR&amp; ,,&amp;BKPF-BLDAT+0(2)&amp;&amp;BKPF-BLDAT+3(2)&amp;&amp;BKPF-BLDAT+8(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RFDUZI01-WRSHB&amp;,,,,&amp;BSEG-GSBER&amp; ,,&amp;RFDUZI01-DATEO+0(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEO+3(2)&amp;&amp;RFDUZI01-DATEO+8(2)&amp; ,,&amp;RFDUZI01-DATEN+0(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEN+3(2)&amp;&amp;RFDUZI01-DATEN+8(2)&amp; ,,&amp;RFDUZI01-TGEU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2020T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Test für 2020---------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXX,,XXXXXX,,XXXXXXXXXXXXXXXXXX,,,,XXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,XXXXXX,,XXXXXX,,XXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2030</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Belegzeile ohne Geschäftsbereich--------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BELNR&amp; ,,&amp;BKPF-BLDAT+0(2)&amp;&amp;BKPF-BLDAT+3(2)&amp;&amp;BKPF-BLDAT+8(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RFDUZI01-WRSHB&amp;,,&amp;BSEG-MWSKZ&amp;,, ,,&amp;RFDUZI01-DATEO+0(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEO+3(2)&amp;&amp;RFDUZI01-DATEO+8(2)&amp; ,,&amp;RFDUZI01-DATEN+0(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEN+3(2)&amp;&amp;RFDUZI01-DATEN+8(2)&amp; ,,&amp;RFDUZI01-TGEU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2030T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Test für 2030---------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXX,,XXXXXX,,XXXXXXXXXXXXXXXXXX,,XX,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,XXXXXX,,XXXXXX,,XXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2040</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Belegzeile ohne Gesber  und Mehrwertsteuerkennz------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BELNR&amp; ,,&amp;BKPF-BLDAT+0(2)&amp;&amp;BKPF-BLDAT+3(2)&amp;&amp;BKPF-BLDAT+8(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RFDUZI01-WRSHB&amp;,,,, ,,&amp;RFDUZI01-DATEO+0(2)&amp;&amp;RFDUZI01-DATEO+3(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEO+8(2)&amp; ,,&amp;RFDUZI01-DATEN+0(2)&amp;&amp;RFDUZI01-DATEN+3(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEN+8(2)&amp; ,,&amp;RFDUZI01-TGEU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2040T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Test für 2040---------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>XXXXXXXXXXXXXXXX,,XXXXXX,,XXXXXXXXXXXXXXXXXX,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,XXXXXX,,XXXXXX,,XXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2200</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Zusatzzeile für Beleg-------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>,,&amp;RFDUZI01-ZINSS&amp;,,,,,,&amp;RFDUZI01-ZNSZL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2200T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Test für 2200---------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>,,XXX,XXXXXXX,,,,,,XXXXXXXXXXXXXXXXXX</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2250</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Zinsbruch--------------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>Zinsbruch,,,,,,,,,, ,,&amp;RFDUZI01-DATEN+0(2)&amp;&amp;RFDUZI01-DATEN+3(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-DATEN+8(2)&amp; ,,&amp;RFDUZI01-TGEU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2251</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Zinsbruchzusatzzeile---------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>,,&amp;RFDUZI01-ZINSS&amp;,,,,,,&amp;RFDUZI01-ZNSZL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2260</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------------------Zahlungszeile------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BELNR&amp; ,,&amp;RFDUZI01-BLDAT+0(2)&amp;&amp;RFDUZI01-BLDAT+3(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BLDAT+8(2)&amp;,,&amp;RFDUZI01-NEBTR&amp;,,&amp;RFDUZI01-ZTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2261</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------------------Zahlungszeile bei Fremdwährung------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BELNR&amp; ,,&amp;RFDUZI01-BLDAT+0(2)&amp;&amp;RFDUZI01-BLDAT+3(2)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-BLDAT+8(2)&amp;,,&amp;RFDUZI01-NEBTR&amp;,,&amp;RFDUZI01-ZTEXT+0(15)&amp; (in</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;RFDUZI01-ZWAERS&amp;)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2110</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------------Überschrift für Einzelposten (2010)-----------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U5</TDFORMAT>
+     <TDLINE>&lt;k&gt;Beleg-Nr,,Bl-dat,,Betrag,,MW,,GB,,fä. am,,Z-Dat.,,  Tage&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2120</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------------Überschrift für Einzelposten (2020)-----------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U5</TDFORMAT>
+     <TDLINE>&lt;k&gt;Beleg-Nr,,Bl-dat,,Betrag,,,,GB,,fä. am,,Z-Dat.,,  Tage&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2130</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------------Überschrift für Einzelposten (2030)-----------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U5</TDFORMAT>
+     <TDLINE>&lt;k&gt;Beleg-Nr,,Bl-dat,,Betrag,,MW,,,,fä. am,,Z-Dat.,,  Tage&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2140</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------------Überschrift für Einzelposten (2040)-----------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U5</TDFORMAT>
+     <TDLINE>&lt;k&gt;Beleg-Nr,,Bl-dat,,Betrag,,,,,,fä. am,,Z-Dat.,,  Tage&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2201</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------------Überschrift für Zusatzzeile(2200)(Zinszahl)---</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U6</TDFORMAT>
+     <TDLINE>&lt;k&gt;,,Zinssatz,,Zinszahl&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2202</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------------Überschrift für Zusatzzeile(2200)(Zinsen)-----</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U6</TDFORMAT>
+     <TDLINE>&lt;k&gt;,,Zinssatz,,Zinsen&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3110</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>------------------Überschrift Zinszahlen mit Geschber und Mwskennz--</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE> -----------------zu 3.0c gelöscht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4110</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------Überschrift Zinsen mit Geschber und Mwskennz-------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------zu 3.0c gelöscht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>----------------Zinszahlenzeile mit Geschäftsbereich (3610) --</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z6</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-GSBER&amp;,,&amp;RFDUZI01-ZSZFW&amp;,,&amp;RFDUZI01-ZINSS&amp;,,&amp;RFDUZI01-ZINS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Zinsenzeile mit Geschäftsbereich (4610) -------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z6</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-GSBER&amp;,,,,&amp;RFDUZI01-ZINSS&amp;,,&amp;RFDUZI01-ZINS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4011</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Zinsensumme pro Geschäftsbereich---------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>,,,,,,,,,,&amp;RFDUZI01-ZNBFG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3210</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Überschrift Zinszahlen mit Geschber  ohne Mwskennz---</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U7</TDFORMAT>
+     <TDLINE>&lt;k&gt;Gb,,Zinszahlen,,Zinssatz,,Zinsbetrag,,Summe pro Gb&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4210</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Überschrift Zinsen mit Geschber. ohne Mwskennz--------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U7</TDFORMAT>
+     <TDLINE>&lt;k&gt;Gb,,,,Zinssatz,,Zinsbetrag,,Summe pro Gb&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3310</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------Überschrift Zinszahlen ohne Geschber ohne Mwskennz (3020)----</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U7</TDFORMAT>
+     <TDLINE>&lt;k&gt;,,Zinszahlen,,Zinssatz,,Zinsbetrag,,&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4310</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------Überschrift Zinsen ohne Geschber und Mwskennz (3010) ---------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U7</TDFORMAT>
+     <TDLINE>&lt;k&gt;,,,,Zinssatz,,Zinsbetrag,,&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3410</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Überschrift Zinszahlen ohne Geschber mit Mwskennz------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------zu 3.0c gelöscht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4410</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Überschrift Zinsen ohne Geschber mit Mwskennz----------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------zu 3.0c gelöscht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3510</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Überschrift Zinszahlen mit 1 Geschber und Mwskennz-</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------zu 3.0c gelöscht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4510</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Überschrift Zinsen mit 1 Geschber und Mwskennz-------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------zu 3.0c gelöscht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3610</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------Überschrift Zinszahlen mit 1 Geschber ohne Mwskennz (3010) ---</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U7</TDFORMAT>
+     <TDLINE>&lt;k&gt;Gb,,Zinszahlen,,Zinssatz,,Zinsbetrag,,&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4610</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------Überschrift Zinsen mit 1 Geschber ohne Mwskennz (4010) ------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U7</TDFORMAT>
+     <TDLINE>&lt;k&gt;Gb,,,,Zinssatz,,Zinsbetrag,,&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>3020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Zinszahlenzeile ohne Geschber--------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z6</TDFORMAT>
+     <TDLINE>,,&amp;RFDUZI01-ZSZFW&amp;,,&amp;RFDUZI01-ZINSS&amp;,,&amp;RFDUZI01-ZINS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>4020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Zinsenzeile ohne Geschber------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z6</TDFORMAT>
+     <TDLINE>,,,,&amp;RFDUZI01-ZINSS&amp;,,&amp;RFDUZI01-ZINS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>5000</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>,,,,,,,,--------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>5010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Zu zahlende Zinsen--------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z5</TDFORMAT>
+     <TDLINE>zu zahlende Zinsen,,&amp;RFDUZI01-WAERS&amp;,,&amp;RFDUZI01-ZNBFW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>5020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------Gesamtbetrag---------------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z5</TDFORMAT>
+     <TDLINE>Gesamtbetrag,,&amp;RFDUZI01-WAERS&amp;,,&amp;RFDUZI01-ZNBFS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>5001</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>,,,,,,,,====================</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7110</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Überschrift Mehrwertsteuertabelle ohne Geschber-------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U2</TDFORMAT>
+     <TDLINE>&lt;k&gt;MW ,,,,Zins-Betrag,,MWS-Satz,, Mwst-Betrag,,Summe&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>6010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-----------------Mehrwertsteuerzeile----------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z5</TDFORMAT>
+     <TDLINE>+   % &amp;RFDUZI01-MSATZ&amp; MWSt,,&amp;RFDUZI01-WAERS&amp;,,&amp;RFDUZI01-ZNBFM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7210</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>----------------Überschrift Mehrwertsteuertabelle mit Geschber-------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U2</TDFORMAT>
+     <TDLINE>&lt;k&gt;MW ,,GB ,,Zins-Betrag,,MWS-Satz,, Mwst-Betrag,,Summe&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>----------------Mwstabellenzeile mit Geschber------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-MWSKZ&amp;,,&amp;RFDUZI01-GSBER&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RFDUZI01-ZNBFW&amp;,,&amp;RFDUZI01-MSATZ&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;RFDUZI01-ZNBFM&amp;,,&amp;RFDUZI01-ZNBFS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0003</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>----------------Mwstabellenzeile gesammt-----------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-MWSKZ&amp;,,,,&amp;RFDUZI01-ZNBFW&amp;,,&amp;RFDUZI01-MSATZ&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-ZNBFM&amp;,,&amp;RFDUZI01-ZNBFS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7030</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Mwstabellenzeile mit Geschber--------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-MWSKZ&amp;,,&amp;RFDUZI01-GSBER&amp; ,,&amp;RFDUZI01-ZNBFW&amp;,,&amp;RFDUZI01-ZNBFM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7040</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>---------------Mwstabellenzeile ohne Geschber--------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-MWSKZ&amp;,,,,&amp;RFDUZI01-ZNBFW&amp;,,&amp;RFDUZI01-ZNBFM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7050</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Mwstabellenzwischenzeile pro Mwskennz (versch. Mwssätze)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>,,,,+ &amp;RFDUZI01-MSATZ&amp;,,&amp;RFDUZI01-ZNBFM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>7060</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>--------------Mwstabellenendzeile pro Mwskennz.(versch. Mwssätze)-----</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE>,,,,+ &amp;RFDUZI01-MSATZ&amp;,,&amp;RFDUZI01-ZNBFM&amp;,,&amp;RFDUZI01-ZNBFS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0002</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>8010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------Gesamtbetrag bei Ausgabe Mwstabelle----------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z3</TDFORMAT>
+     <TDLINE> ,,,, Gesamtbetrag,,,,&amp;RFDUZI01-WAERS&amp;,,&amp;RFDUZI01-ZNBFS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>8020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------Doppelunterstrich für 8010------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>,,,,,,,,,,====================</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>8030</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------Unterstrich für 8010------------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>,,,,,,,,,,--------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>9110</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------Überschrift Zinssatztabelle mit Habenzins-------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U4</TDFORMAT>
+     <TDLINE>&lt;k&gt;,,Gültig ab,,Soll-Zinssatz,,Habenzinssatz&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>9010</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------Zinssatztabellenzeile mit Habenzins-------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z4</TDFORMAT>
+     <TDLINE>,,&amp;RFDUZI01-VONDT&amp;,,&amp;RFDUZI01-ZINSSO&amp;,,&amp;RFDUZI01-ZINSSH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>2501</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>------------------------Beleginformation------------------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>B1</TDFORMAT>
+     <TDLINE>&amp;RFDUZI01-SGTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>9210</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>-------------Überschrift Zinssatztabelle ohne Habenzins-----------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U4</TDFORMAT>
+     <TDLINE>&lt;k&gt;,,Gültig ab,,Soll-Zinssatz&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>UL</TDFORMAT>
+     <TDLINE>&amp;uline(71)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>9020</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>------------Zinssatztabellenzeile ohne Habenzins--------------------</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>Z4</TDFORMAT>
+     <TDLINE>,,&amp;RFDUZI01-VONDT&amp;,,&amp;RFDUZI01-ZINSSO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>PAGE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0040</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;s&gt;Seite&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;PAGE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>0040T</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;s&gt;Seite&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>XXX</TDLINE>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

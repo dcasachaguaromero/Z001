@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SXCI" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SXCI>
+    <IMPLEMENTATION_DATA>
+     <IMP_NAME>ZBADI_FDCB_SUBBAS01</IMP_NAME>
+     <TEXT>Aampliación  contabilización FB60.</TEXT>
+     <IMP_CLASS>ZCL_IM_BADI_FDCB_SUBBAS01</IMP_CLASS>
+     <EXIT_NAME>BADI_FDCB_SUBBAS01</EXIT_NAME>
+     <INTER_NAME>IF_EX_BADI_FDCB_SUBBAS01</INTER_NAME>
+     <ACTIVE>X</ACTIVE>
+    </IMPLEMENTATION_DATA>
+    <SCREENS>
+     <item>
+      <EXIT_NAME>BADI_FDCB_SUBBAS01</EXIT_NAME>
+      <SCR_A_PROG>SAPLFDCB</SCR_A_PROG>
+      <SCR_A_NUM>0010</SCR_A_NUM>
+      <SCR_A_SSCR>SUBBAS01</SCR_A_SSCR>
+      <SCR_P_PROG>ZSUBBAS01</SCR_P_PROG>
+      <SCR_P_NUM>0100</SCR_P_NUM>
+      <IMP_NAME>ZBADI_FDCB_SUBBAS01</IMP_NAME>
+      <SPRSL>S</SPRSL>
+      <SCR_TEXT>Ampliación 1 datos básicos acreedor</SCR_TEXT>
+     </item>
+     <item>
+      <EXIT_NAME>BADI_FDCB_SUBBAS01</EXIT_NAME>
+      <SCR_A_PROG>SAPLFDCB</SCR_A_PROG>
+      <SCR_A_NUM>0510</SCR_A_NUM>
+      <SCR_A_SSCR>SUBBAS01</SCR_A_SSCR>
+      <SCR_P_PROG>ZSUBBAS02</SCR_P_PROG>
+      <SCR_P_NUM>0100</SCR_P_NUM>
+      <IMP_NAME>ZBADI_FDCB_SUBBAS01</IMP_NAME>
+      <SPRSL>S</SPRSL>
+      <SCR_TEXT>Ampliación 1 datos básicos deudor</SCR_TEXT>
+     </item>
+    </SCREENS>
+   </SXCI>
+  </asx:values>
+ </asx:abap>
+</abapGit>

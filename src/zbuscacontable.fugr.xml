@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Busca datos de contabilidad</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZBUSCACONTABLETOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZBUSCACONTABLE</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZBUSCA_FECHA_CONTABLE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Busca fecha contable</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IBELNR</PARAMETER>
+       <TYP>BELNR_D</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IGJAHR</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>FECHASCONT</PARAMETER>
+       <DBSTRUCT>ZFECHACON</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IBELNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de un documento contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IGJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FECHASCONT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>TABLA DE FECHAS CONTABLES</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZFI_CONSULTAS_PAGOS</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Condulta  estado documento a Pago</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>BUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>RUT</PARAMETER>
+       <TYP>STCD1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>DOCUMENTO</PARAMETER>
+       <TYP>XBLNR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>FECHADOC</PARAMETER>
+       <TYP>BLDAT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ESTADO</PARAMETER>
+       <TYP>CHAR01</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <TYP>CHAR70</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>DETALLE</PARAMETER>
+       <DBSTRUCT>ZFI_CONSULTA_PAGO2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RUT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Rut</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DOCUMENTO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de documento de referencia</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FECHADOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha de contabilización en el documento</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ESTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campo de texto, longitud 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Comentario</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DETALLE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Datos Consulta de pago</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

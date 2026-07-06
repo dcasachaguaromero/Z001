@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>RFC de consulta de comprobante</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIRFC_B005TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIRFC_B005</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFIRFC_B005</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Consulta de Comprobante</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>TI_IN</PARAMETER>
+       <TYP>ZICOMPET</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>TI_OUT</PARAMETER>
+       <TYP>ZOCOMPET</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>TI_IN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tabla mascara para estructura ZICOMPE.</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_OUT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tabla mascara para ZOCOMPE.</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

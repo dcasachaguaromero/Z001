@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZCODITER</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>DOKU_SEQ4</DOMNAME>
+    <HEADLEN>16</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Condición</DDTEXT>
+    <REPTEXT>Condición</REPTEXT>
+    <SCRTEXT_S>Cond.</SCRTEXT_S>
+    <SCRTEXT_M>Condición</SCRTEXT_M>
+    <SCRTEXT_L>Condición</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <SHLPNAME>ZCB_COND</SHLPNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

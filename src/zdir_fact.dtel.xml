@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZDIR_FACT</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>TEXT60</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>55</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Calle</DDTEXT>
+    <REPTEXT>Calle</REPTEXT>
+    <SCRTEXT_S>Calle</SCRTEXT_S>
+    <SCRTEXT_M>Calle</SCRTEXT_M>
+    <SCRTEXT_L>Calle</SCRTEXT_L>
+    <DTELMASTER>D</DTELMASTER>
+    <SHLPNAME>CLSTRTNAME</SHLPNAME>
+    <SHLPFIELD>STREET</SHLPFIELD>
+    <DEFFDNAME>STREET</DEFFDNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+   <I18N_LANGS>
+    <LANGU>D</LANGU>
+    <LANGU>E</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>D</DDLANGUAGE>
+     <DDTEXT>Direccion Factura</DDTEXT>
+     <REPTEXT>Direccion Factura</REPTEXT>
+     <SCRTEXT_S>Dir. Fact</SCRTEXT_S>
+     <SCRTEXT_M>Dir. Fact</SCRTEXT_M>
+     <SCRTEXT_L>Direccion Factura</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DDTEXT>Street</DDTEXT>
+     <REPTEXT>Street</REPTEXT>
+     <SCRTEXT_S>Street</SCRTEXT_S>
+     <SCRTEXT_M>Street</SCRTEXT_M>
+     <SCRTEXT_L>Street</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZDIR_FACT</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0007</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00009</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZDIR_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00007</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Name der Straße als Bestandteil der Adresse.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Straßenname wird in einem weiteren Datenbankfeld (redundant) in</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Großbuchstaben gespeichert, was für Suchhilfen benutzt wird.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Es gibt weitere Felder für Adreßangaben, die über oder unter der Straße</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>gedruckt werden können. Siehe dazu &lt;DS:TX.ADDRESS_STREET_FIELDS&gt;Drucken</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>der Straßenadresse&lt;/&gt;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;HINTS&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Die Hausnummer und weitere Ergänzungen werden üblicherweise in eigenen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Feldern gepflegt. Siehe &lt;DS:TX.ADDRESS_HOUSE_NUMBER_RULES&gt;Aufbereitung</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>der Straßenzeile&lt;/&gt;.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZDIR_FACT</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0007</VERSION>
+      <TXTLINES>00009</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZDIR_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00007</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Street name as part of the address.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The street name is saved, redundantly in upper case in another database</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>field, for search help purposes.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>There are other fields for address parts which can be printed above or</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>below the street. See &lt;DS:TX.ADDRESS_STREET_FIELDS&gt;Print the Street</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>address&lt;/&gt;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;HINTS&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The house number and other supplements are usually maintained in their</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>own fields. See &lt;DS:TX.ADDRESS_HOUSE_NUMBER_RULES&gt;Formatting the Street</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>line&lt;/&gt;.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZDIR_FACT</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0007</VERSION>
+      <TXTLINES>00009</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZDIR_FACT</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00007</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Nombre de la calle como parte integrante de la dirección.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El nombre de la calle se almacena (por duplicado) en mayúsculas en otro</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>campo, que se utilizará en la Ayuda para búsqueda.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Hay varios campos para entradas de dirección que se pueden imprimir por</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>encima o por debajo de la calle. Para ello, véase</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:TX.ADDRESS_STREET_FIELDS&gt;imprimir la dirección (calle)&lt;/&gt;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;HINTS&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El Nº de la casa y otros suplementos se actualizarán, por norma, en</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>campos propios. Véase &lt;DS:TX.ADDRESS_HOUSE_NUMBER_RULES&gt;editar la línea</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>de calle&lt;/&gt;.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

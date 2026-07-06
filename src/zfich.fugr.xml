@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Grupo Funcion Historia Cheques</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFICHTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFICH</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFICH_GRABA_HISTORIAL</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Graba Historial Cheques</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>BUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>RUT</PARAMETER>
+       <TYP>STCD1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>HBKID</PARAMETER>
+       <TYP>HBKID</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>HKTID</PARAMETER>
+       <TYP>HKTID</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>CHECT</PARAMETER>
+       <TYP>CHECT</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>FECHA</PARAMETER>
+       <TYP>BUDAT</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>HORA</PARAMETER>
+       <TYP>TIME_</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>ESTADO</PARAMETER>
+       <TYP>ZFICH001-ESTADO</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>USUARIO</PARAMETER>
+       <TYP>UNAME</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>RESULTADO</PARAMETER>
+       <TYP>RESULT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RUT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Rut</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HBKID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Clave breve para banco propio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HKTID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Clave breve para un banco/cuenta</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CHECT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nº de cheque</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FECHA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha actual del servidor de aplicación</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HORA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Hora</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ESTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estado Cheque</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>USUARIO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nombre de usuario</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RESULTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Resultado</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZFICH_RESCATA_SOC_AGEN</FUNCNAME>
+     <SHORT_TEXT>Rescata ultimo estado Sociedad Agencia</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>BUKRS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>AGENCIA</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZZ_AGENCIA</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>TABLA01</PARAMETER>
+       <DBSTRUCT>ZFICH001</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>AGENCIA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Códigos de Agencia</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TABLA01</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Historico de Cheques</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

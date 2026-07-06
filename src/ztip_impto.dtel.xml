@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZTIP_IMPTO</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>CHAR010</DOMNAME>
+    <HEADLEN>13</HEADLEN>
+    <SCRLEN1>08</SCRLEN1>
+    <SCRLEN2>11</SCRLEN2>
+    <SCRLEN3>13</SCRLEN3>
+    <DDTEXT>LCE:  Tipo de Impuesto</DDTEXT>
+    <REPTEXT>Tipo Impuesto</REPTEXT>
+    <SCRTEXT_S>T. Impto</SCRTEXT_S>
+    <SCRTEXT_M>Tip. Impto.</SCRTEXT_M>
+    <SCRTEXT_L>Tipo Impuesto</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

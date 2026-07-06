@@ -1,0 +1,18 @@
+REPORT zfipg002
+       NO STANDARD PAGE HEADING LINE-SIZE 255.
+
+INCLUDE zfipg002_top.
+
+INCLUDE zfipg002_000.
+
+INCLUDE zfipg002_100.
+
+INCLUDE zfipg002_200.
+
+INCLUDE zfipg002_300.
+
+INCLUDE zfipg002_800.
+
+INCLUDE zfipg002_900.
+
+INCLUDE zfipg002_contabilizof01.

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZZMOT_EMIS</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>ZZMOT_EMIS</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>18</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>18</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Motivos de emisión</DDTEXT>
+    <REPTEXT>Emisión</REPTEXT>
+    <SCRTEXT_S>Emisión</SCRTEXT_S>
+    <SCRTEXT_M>Emisión</SCRTEXT_M>
+    <SCRTEXT_L>Emisión</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <SHLPNAME>ZMOT_EMIS</SHLPNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZMNT_IVA</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>CURR16</DOMNAME>
+    <HEADLEN>09</HEADLEN>
+    <SCRLEN1>08</SCRLEN1>
+    <SCRLEN2>09</SCRLEN2>
+    <SCRLEN3>09</SCRLEN3>
+    <DDTEXT>Monto IVA</DDTEXT>
+    <REPTEXT>Monto IVA</REPTEXT>
+    <SCRTEXT_S>Mnt. IVA</SCRTEXT_S>
+    <SCRTEXT_M>Monto IVA</SCRTEXT_M>
+    <SCRTEXT_L>Monto IVA</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>crear y modificar  deudores</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIRFC002F01</SOBJ_NAME>
+    <SOBJ_NAME>LZFIRFC002TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIRFC002</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFIRFC002</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Crear &amp; Modificar  deudores</SHORT_TEXT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_DEUDOR</PARAMETER>
+       <DBSTRUCT>ZDEUDOR</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>T_DEUDOR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura de archivos de entrada y de salida</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>BOTTOM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>BOTTOM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Page &amp;PAGE&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ATOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Master data&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A001</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;General data&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Description        ,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>                   ,,&amp;ANLA-TXA50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Acct. allocation   ,,&amp;ANLA-KTOGR&amp; &amp;T095T-KTGRTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Inventory number   ,,&amp;ANLA-INVNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Quantity           ,,&amp;ANLA-MENGE&amp; &amp;ANLA-MEINS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Inventory&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Last inventory on  ,,&amp;ANLA-IVDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Inventory note     ,,&amp;ANLA-INVZU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A002</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Posting information&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Capitalized on     ,,&amp;ANLA-AKTIV&amp;,,Deactivation on ,,&amp;ANLA-DEAKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>First acquis. on   ,,&amp;ANLA-ZUGDT&amp;,,Planned retmt. on,,&amp;ANLA-GPLAB&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Acquis. period     ,,&amp;ANLA-ZUJHR&amp; / &amp;ANLA-ZUPER&amp;,,Ordered on</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;ANLA-BSTDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A003</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Time-dep.data from &amp;ANLZ-ADATU&amp; to &amp;ANLZ-BDATU&amp; &lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Business area       ,,&amp;ANLZ-GSBER&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Cost center        ,,&amp;ANLZ-KOSTL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Activity type      ,,&amp;ANLZ-LSTAR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Internal order     ,,&amp;ANLZ-CAUFN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Work order         ,,&amp;ANLZ-IAUFN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Plant              ,,&amp;ANLZ-WERKS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Location           ,,&amp;ANLZ-STORT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Room               ,,&amp;ANLZ-RAUMN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Tax jurisd. code   ,,&amp;ANLZ-TXJCD&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>License plate no.  ,,&amp;ANLZ-KFZKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Shift factor       ,,&amp;ANLZ-MSFAK&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Asset shutdown     ,,&amp;ANLZ-XSTIL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A004</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Allocations&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Evaluation group 1  ,,&amp;ANLA-ORD41&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Evaluation group 2  ,,&amp;ANLA-ORD42&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Evaluaton group  3  ,,&amp;ANLA-ORD43&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Evaluation group 4  ,,&amp;ANLA-ORD44&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Evaluation group 5 ,,&amp;ANLA-GDLGRP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Investment reason  ,,&amp;ANLA-IZWEK&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Asset group no.    ,,&amp;ANLA-ANLUE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A005</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Leasing&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Lessor             ,,&amp;ANLA-LEAFI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Conract number     ,,&amp;ANLA-LVTNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Contract date      ,,&amp;ANLA-LVDAT&amp;,,,,Cancellat. date ,,&amp;ANLA-LKDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Start              ,,&amp;ANLA-LEABG&amp;,,,,Life,,&amp;ANLA-LEJAR&amp; / &amp;ANLA-LEPER&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Type               ,,&amp;ANLA-LEART&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Base value as new  ,,&amp;ANLA-LBASW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Purchase price     ,,&amp;ANLA-LKAUF&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Note               ,,&amp;ANLA-LEAFI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Number of payments ,,&amp;ANLA-LEANZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Payment method     ,,&amp;ANLA-LRYTH&amp;,,,,advance payment</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;ANLA-LVORS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Payment amount     ,,&amp;ANLA-LEGEB&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Annual int. rate    ,,&amp;ANLA-LZINS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Present value       ,,&amp;RA02S-LBARW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A006</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Net worth tax&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Classification key ,,&amp;ANLA-VMGLI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Property indicator ,,&amp;ANLA-EIGKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Reason for man.val.,,&amp;ANLA-GRUND&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Man.net worth val. ,,&amp;ANLA-WRTMA&amp;,,,,Man.net worth val.,,&amp;ANLA-XVRMW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A007</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Real estate and similar rights&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Tax office         ,,&amp;ANLA-FIAMT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Ass.notice contr.No,,&amp;ANLA-EHWNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Not. of ass. from  ,,&amp;ANLA-EHWZU&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Municipality       ,,&amp;ANLA-STADT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Land register of   ,,&amp;ANLA-GRUVO&amp;,,,,Entry from ,,&amp;ANLA-GREIN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Vol./page/ser.no.  ,,&amp;ANLA-GRBND&amp; &amp;ANLA-GRBLT&amp; &amp;ANLA-GRLFD&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,,,Prop.conveyance,,&amp;ANLA-AUFLA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Land reg. map/plot ,,&amp;ANLA-FLURK&amp; &amp;ANLA-FLURN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Area               ,,&amp;ANLA-GRUFL&amp; &amp;ANLA-FEINS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A008</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Insurance&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Type               ,,&amp;ANLV-VSART&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Insur. Companies   ,,&amp;ANLV-VSGES&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Agreement number   ,,&amp;ANLV-VSSTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Supplementary text ,,&amp;ANLV-VSZTX&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Start date         ,,&amp;ANLV-VRSBG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Premium            ,,&amp;ANLV-VSTAR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Index series       ,,&amp;ANLV-VSIND&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Base value         ,,&amp;ANLV-VRSBA&amp;,,,,manual update     ,,&amp;ANLV-VSMAN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Manual ins. value  ,,&amp;ANLV-VRSMA&amp;,,,,per,,&amp;ANLV-VRSJH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Current value      ,,&amp;RA02S-VSWRT&amp;,,,,per,,&amp;RA02S-GJAHR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>A009</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AS</TDFORMAT>
+     <TDLINE>&lt;H&gt;Origin data&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Supplier           ,,&amp;ANLA-LIEFE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Manufacturer       ,,&amp;ANLA-HERST&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Asset purchased new,,&amp;RA02S-XNEU_AM&amp;,,,,Second-hand</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;ANLA-XAFABCH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Trading partner    ,,&amp;ANLA-VBUND&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Country of origin  ,,&amp;ANLA-LAND1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Type name          ,,&amp;ANLA-TYPBZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Original asset     ,,&amp;ANLA-AIBN1&amp; &amp;ANLA-AIBN2&amp;,,,,Acq. on</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;ANLA-AIBDT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Org.acquisition yr.,,&amp;ANLA-URJHR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Original value     ,,&amp;ANLA-URWRT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>In-house prod perc.,,&amp;ANLA-ANTEI&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Capital inv. order ,,&amp;ANLA-EAUFN&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>WBS element        ,,&amp;ANLA-POSNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>NEW-PAGE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>NEW-PAGE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>BTOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Internal allocations&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,from,,,,Bus.ar.,,Plant,,Cost center,,Location</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;ULINE(70)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>B001</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,&amp;ANLZ-ADATU&amp;,,&amp;VLINE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;ANLZ-GSBER&amp;,,&amp;ANLZ-WERKS&amp;,,&amp;ANLZ-KOSTL&amp;,,&amp;ANLZ-STORT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CTOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Annual development of values&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>C000</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;&amp;T093T-AFBTXT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>C1</TDFORMAT>
+     <TDLINE>,,Year,,,,APC,,Depreciation,,Book value</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;ULINE(70)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>C001</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>C1</TDFORMAT>
+     <TDLINE>,,&amp;ANLCV-GJAHR&amp;,,&amp;VLINE&amp;,,&amp;ANLCV-GJE_KANSW&amp;,,&amp;ANLCV-GEP_ABSCHR&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;ANLCV-GJE_BCHWRT&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>C002</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>DTOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Master data changes&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>D1</TDFORMAT>
+     <TDLINE>,,Date,,,,Field name,,old,,new</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;ULINE(70)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>D001</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>D1</TDFORMAT>
+     <TDLINE>,,&amp;RAHIS-DATE&amp;,,&amp;VLINE&amp;,,&amp;RAHIS-FTEXT(30)&amp;,,&amp;RAHIS-F_OLD&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;RAHIS-F_NEW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ETOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Valuation&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>E1</TDFORMAT>
+     <TDLINE>,,Area,,From,,,,Dep. method,,Useful life,,Index</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;ULINE(70)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>E001</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>E1</TDFORMAT>
+     <TDLINE>,,&amp;T093T-AFBKTX&amp;,,&amp;ANLB-ADATU&amp;,,&amp;VLINE&amp;,,&amp;ANLB-AFASL&amp;,,&amp;ANLB-NDJAR&amp;/</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;ANLB-NDPER&amp;,,&amp;ANLB-WBIND&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>FTOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Transactions&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>F000</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;&amp;T093T-AFBKTX&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>F1</TDFORMAT>
+     <TDLINE>,,A.val.date,,Doc.number,,Trans. type,,,,Amount</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;ULINE(70)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>F001</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>F1</TDFORMAT>
+     <TDLINE>,,&amp;ANEPV-BZDAT&amp;,,&amp;ANEPV-BELNR&amp;,,&amp;ANEPV-BWASL&amp; &amp;TABWT-BWATXT(25)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,&amp;ANEPV-ANBTR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>F002</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>TEXTTOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;Text module for asset&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>TEXT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE  &amp;THEAD-TDNAME&amp;   OBJECT ANLA ID &amp;THEAD-TDID&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>TOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AC</TDFORMAT>
+     <TDLINE>&lt;H&gt;A S S E T  C H A R T&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>GM</TDFORMAT>
+     <TDLINE>Asset              ,,&amp;ANLA-ANLN1&amp;-&amp;ANLA-ANLN2&amp;,,,,&amp;ANLA-TXT50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Class              ,,&amp;ANLA-ANLKL&amp;,,,,&amp;ANKT-TXK50&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>Company code       ,,&amp;ANLA-BUKRS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>&amp;ULINE(73)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

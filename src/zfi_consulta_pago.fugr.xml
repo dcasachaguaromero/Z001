@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Funciones Consultas Pagos</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFI_CONSULTA_PAGOTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFI_CONSULTA_PAGO</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFI_CONSULTA_PAGO_01</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Condulta  estado documento a Pago</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>BUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>RUT</PARAMETER>
+       <TYP>STCD1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>DOCUMENTO</PARAMETER>
+       <TYP>XBLNR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>FECHADOC</PARAMETER>
+       <TYP>BLDAT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ESTADO</PARAMETER>
+       <TYP>CHAR01</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <TYP>CHAR70</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>DETALLE</PARAMETER>
+       <DBSTRUCT>ZFI_CONSULTA_PAGO</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RUT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Rut</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DOCUMENTO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de documento de referencia</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>FECHADOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha de contabilización en el documento</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ESTADO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campo de texto, longitud 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Comentario</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>DETALLE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Datos Consulta de pago</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPLO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TSPLT>
+    <SPRAS>S</SPRAS>
+    <PAPART>Z_CH_TA7</PAPART>
+    <TXT>Fmto.cheque suelto 159*70mm</TXT>
+   </TSPLT>
+   <TSPLD>
+    <PAPART>Z_CH_TA7</PAPART>
+    <PFORMAT>Z_CH_TA7</PFORMAT>
+    <ORIENT>L</ORIENT>
+    <TYPE>S</TYPE>
+    <CHGNAME2>HROSALES</CHGNAME2>
+    <CHGTSTMP2>20091202104722</CHGTSTMP2>
+    <CHGSAPREL2>700</CHGSAPREL2>
+    <CHGSAPSYS2>ECD</CHGSAPSYS2>
+    <CHGNAME3>JFONTECILLA</CHGNAME3>
+    <CHGTSTMP3>20091201110813</CHGTSTMP3>
+    <CHGSAPREL3>700</CHGSAPREL3>
+    <CHGSAPSYS3>ECD</CHGSAPSYS3>
+   </TSPLD>
+   <TSP0P>
+    <PDPAPER>Z_CH_TA7</PDPAPER>
+   </TSP0P>
+  </asx:values>
+ </asx:abap>
+</abapGit>

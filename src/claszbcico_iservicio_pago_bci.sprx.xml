@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SPRX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROXY_HEADER>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT_M>CLAS</OBJECT_M>
+     <OBJ_NAME_M>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME_M>
+     <HASH_ID>EA737E47DC4A8B34E43477FE24941A7DA4D279E7</HASH_ID>
+     <ID>&lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_GLOBAL>X</IFR_GLOBAL>
+     <IFR_TYPE>portType</IFR_TYPE>
+     <IFR_NAME>IServicioPagoBCI</IFR_NAME>
+     <IFR_NSPCE>http://tempuri.org/</IFR_NSPCE>
+     <IFR_GNSPCE>http://tempuri.org/</IFR_GNSPCE>
+     <GEN_VERS>0006</GEN_VERS>
+     <PREFIX>ZBCI</PREFIX>
+     <CATEGORY>ifmmessif</CATEGORY>
+     <DIRECTION>O</DIRECTION>
+     <SYNCHRON>D</SYNCHRON>
+     <GEN_APPL>WEBSERVICES</GEN_APPL>
+     <X-ML_NSPCE>http://tempuri.org/</X-ML_NSPCE>
+     <X-ML_NAME>IServicioPagoBCI</X-ML_NAME>
+     <FURTHER_DATA>&lt;asx:abap xmlns:asx=&quot;http://www.sap.com/abapxml&quot; version=&quot;1.0&quot;&gt;&lt;asx:values&gt;&lt;DATA&gt;&lt;SOAP_APPL&gt;urn:sap-com:soap:application:esr:client:710&lt;/SOAP_APPL&gt;&lt;/DATA&gt;&lt;/asx:values&gt;&lt;/asx:abap&gt;</FURTHER_DATA>
+    </item>
+   </PROXY_HEADER>
+   <PROXY_DATA>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT1>CLAS</OBJECT1>
+     <OBJ_NAME1>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME1>
+     <OBJECT2>CLAS</OBJECT2>
+     <OBJ_NAME2>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME2>
+     <ID>&lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_TYPE>portType</IFR_TYPE>
+     <IFR_NAME>IServicioPagoBCI</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>CLAS</R3_TYPE>
+     <R3_NAME>ZBCICO_ISERVICIO_PAGO_BCI</R3_NAME>
+     <R3_TEXT>Proxy Class (generated)</R3_TEXT>
+     <CATEGORY>ifmmessif</CATEGORY>
+     <DIRECTION>O</DIRECTION>
+     <SYNCHRON>D</SYNCHRON>
+    </item>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT1>METH</OBJECT1>
+     <OBJ_NAME1>CARGAR_NOMINA</OBJ_NAME1>
+     <OBJECT2>METH</OBJECT2>
+     <OBJ_NAME2>CARGAR_NOMINA</OBJ_NAME2>
+     <ID>&lt;operation&gt; cargarNomina &lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_TYPE>operation</IFR_TYPE>
+     <IFR_NAME>cargarNomina</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>METH</R3_TYPE>
+     <R3_NAME>CARGAR_NOMINA</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+     <DIRECTION>O</DIRECTION>
+     <SYNCHRON>X</SYNCHRON>
+    </item>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT1>METH</OBJECT1>
+     <OBJ_NAME1>CARGAR_NOMINA</OBJ_NAME1>
+     <OBJECT2>PAEX</OBJECT2>
+     <OBJ_NAME2>OUTPUT</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZBCIISERVICIO_PAGO_BCI_CARGAR</OBJ_NAME_R>
+     <ID>&lt;output&gt; output &lt;operation&gt; cargarNomina &lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_TYPE>PartInput</IFR_TYPE>
+     <IFR_NAME>output</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>PAEX</R3_TYPE>
+     <R3_NAME>OUTPUT</R3_NAME>
+     <R3_SEQNUM>000002</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT1>METH</OBJECT1>
+     <OBJ_NAME1>CARGAR_NOMINA</OBJ_NAME1>
+     <OBJECT2>PAIM</OBJECT2>
+     <OBJ_NAME2>INPUT</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZBCIISERVICIO_PAGO_BCI_CARGAR1</OBJ_NAME_R>
+     <ID>&lt;input&gt; input &lt;operation&gt; cargarNomina &lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_TYPE>PartOutput</IFR_TYPE>
+     <IFR_NAME>input</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>PAIM</R3_TYPE>
+     <R3_NAME>INPUT</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT1>METH</OBJECT1>
+     <OBJ_NAME1>OBTENER_NOMINA</OBJ_NAME1>
+     <OBJECT2>METH</OBJECT2>
+     <OBJ_NAME2>OBTENER_NOMINA</OBJ_NAME2>
+     <ID>&lt;operation&gt; obtenerNomina &lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_TYPE>operation</IFR_TYPE>
+     <IFR_NAME>obtenerNomina</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>METH</R3_TYPE>
+     <R3_NAME>OBTENER_NOMINA</R3_NAME>
+     <R3_SEQNUM>000002</R3_SEQNUM>
+     <DIRECTION>O</DIRECTION>
+     <SYNCHRON>X</SYNCHRON>
+    </item>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT1>METH</OBJECT1>
+     <OBJ_NAME1>OBTENER_NOMINA</OBJ_NAME1>
+     <OBJECT2>PAEX</OBJECT2>
+     <OBJ_NAME2>OUTPUT</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZBCIISERVICIO_PAGO_BCI_OBTENER</OBJ_NAME_R>
+     <ID>&lt;output&gt; output &lt;operation&gt; obtenerNomina &lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_TYPE>PartInput</IFR_TYPE>
+     <IFR_NAME>output</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>PAEX</R3_TYPE>
+     <R3_NAME>OUTPUT</R3_NAME>
+     <R3_SEQNUM>000002</R3_SEQNUM>
+    </item>
+    <item>
+     <OBJECT>CLAS</OBJECT>
+     <OBJ_NAME>ZBCICO_ISERVICIO_PAGO_BCI</OBJ_NAME>
+     <OBJECT1>METH</OBJECT1>
+     <OBJ_NAME1>OBTENER_NOMINA</OBJ_NAME1>
+     <OBJECT2>PAIM</OBJECT2>
+     <OBJ_NAME2>INPUT</OBJ_NAME2>
+     <OBJECT_R>TABL</OBJECT_R>
+     <OBJ_NAME_R>ZBCIISERVICIO_PAGO_BCI_OBTENE1</OBJ_NAME_R>
+     <ID>&lt;input&gt; input &lt;operation&gt; obtenerNomina &lt;portType&gt; IServicioPagoBCI http://tempuri.org/ http://tempuri.org/</ID>
+     <IFR_TYPE>PartOutput</IFR_TYPE>
+     <IFR_NAME>input</IFR_NAME>
+     <IFR_SCALE>-2</IFR_SCALE>
+     <R3_TYPE>PAIM</R3_TYPE>
+     <R3_NAME>INPUT</R3_NAME>
+     <R3_SEQNUM>000001</R3_SEQNUM>
+    </item>
+   </PROXY_DATA>
+  </asx:values>
+ </asx:abap>
+</abapGit>

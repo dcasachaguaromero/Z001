@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>GRUPO DE FUNCIONES DE BPM</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFUNBPMTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFUNBPM</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZVALANUL</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>ZFUNBPM</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>ZBUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>ZBELNR</PARAMETER>
+       <TYP>/BEV3/CHTXT10</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>ZGJAHR</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ESTBLG</PARAMETER>
+       <TYP>STBLG</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EMENSAJE</PARAMETER>
+       <TYP>KLTXT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>ZBUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZBELNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nombre 3</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZGJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ESTBLG</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número del documento de anulación</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EMENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Descripción</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,735 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZRUT_CLI_PAGADOR</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>STCD1</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>20</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Número de identificación fiscal 1</DDTEXT>
+    <REPTEXT>RUT Pagador</REPTEXT>
+    <SCRTEXT_S>RUT</SCRTEXT_S>
+    <SCRTEXT_M>RUT Pagador</SCRTEXT_M>
+    <SCRTEXT_L>RUT Pagador</SCRTEXT_L>
+    <APPLCLASS>FB</APPLCLASS>
+    <DTELMASTER>S</DTELMASTER>
+    <DEFFDNAME>TAX_NO_1</DEFFDNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+   <I18N_LANGS>
+    <LANGU>D</LANGU>
+    <LANGU>E</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>D</DDLANGUAGE>
+     <DDTEXT>Rut Cliente Pagador</DDTEXT>
+     <REPTEXT>Rut Cliente Pagador</REPTEXT>
+     <SCRTEXT_S>Rut Pagado</SCRTEXT_S>
+     <SCRTEXT_M>Rut Pagador</SCRTEXT_M>
+     <SCRTEXT_L>Rut Cliente Pagador</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DDTEXT>Tax Number 1</DDTEXT>
+     <REPTEXT>Tax Number 1</REPTEXT>
+     <SCRTEXT_S>Tax No. 1</SCRTEXT_S>
+     <SCRTEXT_M>Tax Number 1</SCRTEXT_M>
+     <SCRTEXT_L>Tax Number 1</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZRUT_CLI_PAGADOR</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0023</VERSION>
+      <TXTLINES>00052</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRUT_CLI_PAGADOR</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00023</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Gibt die &lt;DS:GLOS.352A31E261025CD5E10000009B38F974&gt;Steuernummer&lt;/&gt; an.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Geben Sie die entsprechende Steuernummer ein:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>K1</TDFORMAT>
+       <TDLINE>Land,,Steuernummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Argentinien,,&lt;DS:GLOS.20916359EBF0D411BCBA0800060D9C68&gt;CUIT-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>oder &lt;DS:GLOS.7A826F4C6FF0D411BCBA0800060D9C68&gt;CUIL-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Belgien,,Handelsregisternummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Brasilien,,&lt;DS:GLOS.111FC4CA3712D51188020090273D34CB&gt;CNPJ-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Bulgarien,,&lt;DS:GLOS.1BE8E6CB3712D51188020090273D34CB&gt;Unified</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Identification Code&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Chile,,&lt;DS:GLOS.6490A7360312D511BCBE0800060D9C68&gt;RUT-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>China,,Umsatzsteuer-Identifikationsnummer &lt;ZK&gt;(shui wu deng ji hao)&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Kolumbien,,&lt;DS:GLOS.19E23268D612D51188020090273D34CB&gt;NIT-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Kroatien,,Juristische Personen: Identifikationsnummer des Unternehmens</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>,,Natürliche Personen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:GLOS.4968B6E78814D51188020090273D34CB&gt;JMBG-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Tschechische Republik,,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;DS:GLOS.00DFE0CA3712D51188020090273D34CB&gt;DIC-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Frankreich,, &lt;DS:GLOS.14D63600BE16D51188020090273D34CB&gt;SIRET-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Griechenland,,&lt;DS:GLOS.6AE1C3ABEF18D511BCBE0800060D9C68&gt;Persönliche ID</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Ungarn,,&lt;DS:GLOS.63E6A0CC3712D51188020090273D34CB&gt;Steuernummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Italien,,Steuernummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Mexiko,,&lt;DS:GLOS.AF58F68FF349D411AB370060B03C3B0B&gt;RFC-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Niederlande,,Betriebsnummer (Aansluitnummer UWV)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Peru,,&lt;DS:GLOS.6A7F432CF5FDD211BDF10004ACE6148F&gt;RUC-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Philippinen,,&lt;DS:GLOS.5AE33268D612D51188020090273D34CB&gt;Steuernummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>(siehe unten)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Polen,,NIP-Nummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Portugal,,&lt;DS:GLOS.757EFE132C12D511BCBE0800060D9C68&gt;NIF-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Rumänien,,Steuernummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Russische Föderation,,Steuernummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Slowakei,,&lt;DS:GLOS.AE6C3245F716D51188020090273D34CB&gt;DIC-Nummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Slowenien,,Steuernummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Südkorea,,Natürliche Personen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:GLOS.49653F676D48D24AA6D7457260D2DBA2&gt;Personal Identification Number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>,,Gesetzliche Personen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:GLOS.74E7DB1EA315534FAA3A7D4870584983&gt;Corporation ID&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Spanien,,NIF-Nummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Taiwan,,&lt;DS:GLOS.EF18EF476014D511BCBE0800060D9C68&gt;GUI registration</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Thailand,,&lt;DS:GLOS.BDC01EFC7E18D511BCBE0800060D9C68&gt;Persönliche ID&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Türkei,,&lt;DS:GLOS.5286D9072C12D511BCBE0800060D9C68&gt;Steuernummer&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Ukraine,,Steuernummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Vereinigte Staaten,,Sozialversicherungsnummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Venezuela,,RIF-Nummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEPENDENCIES&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In den &lt;ZH&gt;Philippinen &lt;/&gt;geben Sie die Steuernummer mit einem &lt;ZK&gt;V&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>oder &lt;ZK&gt;N&lt;/&gt; am Ende wie folgt ein:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Wenn der Geschäftspartner umsatzsteuerpflichtig ist: 999-999-999-999</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;ZH&gt;V&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Wenn der Geschäftspartner nicht umsatzsteuerpflichtig ist:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>999-999-999-999&lt;ZH&gt;N&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;EXAMPLES&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZRUT_CLI_PAGADOR</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0023</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00050</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRUT_CLI_PAGADOR</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00023</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Specifies the &lt;DS:GLOS.352A31E261025CD5E10000009B38F974&gt;tax number.&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;USE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Enter the appropriate tax number:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>K1</TDFORMAT>
+       <TDLINE>Country,,Tax Number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Argentina,,&lt;DS:GLOS.20916359EBF0D411BCBA0800060D9C68&gt;CUIT number&lt;/&gt; or</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:GLOS.7A826F4C6FF0D411BCBA0800060D9C68&gt;CUIL number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Belgium,,&lt;DS:GLOS.56C19002EA32624A8221D30F4DB8EF54&gt;Enterprise number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Brazil,,&lt;DS:GLOS.111FC4CA3712D51188020090273D34CB&gt;CNPJ number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Bulgaria,,&lt;DS:GLOS.1BE8E6CB3712D51188020090273D34CB&gt;Unified</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>identification code&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Chile,,&lt;DS:GLOS.6490A7360312D511BCBE0800060D9C68&gt;RUT number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>China,,VAT registration number &lt;ZK&gt;(shui wu deng ji hao)&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Colombia,,&lt;DS:GLOS.19E23268D612D51188020090273D34CB&gt;NIT number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Croatia,,Legal persons: company identification number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>,,Natural persons: &lt;DS:GLOS.4968B6E78814D51188020090273D34CB&gt;JMBG number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Czech Republic,,&lt;DS:GLOS.00DFE0CA3712D51188020090273D34CB&gt;DIC number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>France,,&lt;DS:GLOS.14D63600BE16D51188020090273D34CB&gt;SIRET number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Greece,,&lt;DS:GLOS.6AE1C3ABEF18D511BCBE0800060D9C68&gt;Personal ID&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Hungary,,&lt;DS:GLOS.63E6A0CC3712D51188020090273D34CB&gt;Tax number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Italy,,&lt;DS:GLOS.46ABCD96D8140B9AE10000000A421391&gt;Fiscal code&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Mexico,,&lt;DS:GLOS.AF58F68FF349D411AB370060B03C3B0B&gt;RFC number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Netherlands,,SI registration number (Aansluitnummer UWV) of chain-</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>liability vendor</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Peru,,&lt;DS:GLOS.6A7F432CF5FDD211BDF10004ACE6148F&gt;RUC number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Philippines,,&lt;DS:GLOS.5AE33268D612D51188020090273D34CB&gt;Taxpayer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>identification number&lt;/&gt; (see below)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Poland,,&lt;DS:GLOS.CC9BF9081D12D511BCBE0800060D9C68&gt;NIP number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Portugal,,&lt;DS:GLOS.757EFE132C12D511BCBE0800060D9C68&gt;NIF number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Romania,,Tax number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Russia,,&lt;DS:GLOS.47EFAD7435A7AF48A79DBD3C037D1D17&gt;INN&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Slovakia,,&lt;DS:GLOS.AE6C3245F716D51188020090273D34CB&gt;DIC number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Slovenia,,Tax number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>South Korea,,Natural persons:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&lt;DS:GLOS.49653F676D48D24AA6D7457260D2DBA2&gt;Personal identification number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>,,Legal persons: &lt;DS:GLOS.74E7DB1EA315534FAA3A7D4870584983&gt;Corporation</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ID&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Spain,,NIF number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Taiwan,,&lt;DS:GLOS.EF18EF476014D511BCBE0800060D9C68&gt;GUI registration</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Thailand,,&lt;DS:GLOS.BDC01EFC7E18D511BCBE0800060D9C68&gt;Personal ID&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Turkey,,Name of business partner&apos;s tax office</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Ukraine,,Taxpayer identification number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>United States,,Social security number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Venezuela,,&lt;DS:GLOS.D694985DBBFFD211BDF10004ACE6148F&gt;RIF number&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEPENDENCIES&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In the &lt;ZH&gt;Philippines, &lt;/&gt;enter the taxpayer identification number with</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>a &lt;ZK&gt;V&lt;/&gt; or &lt;ZK&gt;N&lt;/&gt; at the end, as follows:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>If the business partner is liable to VAT: 999-999-999-999&lt;ZH&gt;V&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>If the business partner is not liable to VAT: 999-999-999-999&lt;ZH&gt;N&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;EXAMPLE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>DE</ID>
+      <OBJECT>ZRUT_CLI_PAGADOR</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0023</VERSION>
+      <TXTLINES>00043</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRUT_CLI_PAGADOR</TDNAME>
+      <TDID>DE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00023</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEFINITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Indica el número de identificación fiscal.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Introduzca el correspondiente número de identificación fiscal:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>K1</TDFORMAT>
+       <TDLINE>País,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Argentina,,CUIT o CUIL</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Bélgica,,Número del registro mercantil</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Brasil,,CNPJ</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Bulgaria,,Unified Identification Code</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Chile,,RUT</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>China,,Número de identificación fiscal &lt;ZK&gt;(shui wu deng ji hao)&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Colombia,,NIT</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Croacia,,Personas jurídicas: Número de identificación de la empresa</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>,,Personas físicas: JMBG</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>República Checa,, DIC</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Francia,,SIRET</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Grecia,,Número de identificación personal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Hungría,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Italia,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>México,,Número RFC</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Holanda,,Número de empresa (Aansluitnummer UWV)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Perú,,Número RUC</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Filipinas,,Número de identificación fiscal (véase más abajo)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Polonia,,NIP</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Portugal,,NIF</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Rumania,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Federación Rusa,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Eslovaquia,,DIC</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Eslovenia,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Corea del Sur,,Personas físicas: Número de identificación personal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>,,Personas jurídicas: ID de la empresa</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>España,,NIF</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Taiwán,,GUI registration number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Tailandia,,Identificación personal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Turquía,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Ucrania,,Número de identificación fiscal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Estados Unidos,,Número de afiliación a la Seguridad Social</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>T1</TDFORMAT>
+       <TDLINE>Venezuela,,RIF</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DEPENDENCIES&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En &lt;ZH&gt;Filipinas&lt;/&gt;, el número de identificación fiscal se introduce con</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>una &lt;ZK&gt;V&lt;/&gt; o una &lt;ZK&gt;N&lt;/&gt; al final tal y como se indica a</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>continuación:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Si el interlocutor comercial está sujeto a IVA:  999-999-999-999 &lt;ZH&gt;V</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Si el interlocutor comercial no está sujeto a IVA: 999-999-999-999&lt;ZH&gt;N</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>&lt;/&gt;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;EXAMPLES&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

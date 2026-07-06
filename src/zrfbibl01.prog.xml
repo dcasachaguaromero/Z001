@@ -1,0 +1,1288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>ZRFBIBL01</NAME>
+    <SQLX>R</SQLX>
+    <DBAPL>S</DBAPL>
+    <DBNA>D$</DBNA>
+    <CLAS>FBIP</CLAS>
+    <SUBC>1</SUBC>
+    <APPL>F</APPL>
+    <RSTAT>P</RSTAT>
+    <RLOAD>D</RLOAD>
+    <FIXPT>X</FIXPT>
+    <LDBNAME>D$S</LDBNAME>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>MSG</KEY>
+     <ENTRY>Mensaje FB$ editado con variables $ $ $ $</ENTRY>
+     <LENGTH>50</LENGTH>
+    </item>
+    <item>
+     <ID>R</ID>
+     <ENTRY>Documentos de batch input</ENTRY>
+     <LENGTH>25</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>ANZ_MODE</KEY>
+     <ENTRY>Modo de visualización</ENTRY>
+     <LENGTH>29</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>DS_NAME</KEY>
+     <ENTRY>Nombre vía de acceso a fichero</ENTRY>
+     <LENGTH>38</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>FL_CHECK</KEY>
+     <ENTRY>Sólo verificar fichero</ENTRY>
+     <LENGTH>30</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>OS_XON</KEY>
+     <ENTRY>Estructuras de release &lt; 4.0</ENTRY>
+     <LENGTH>36</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>UPDATE</KEY>
+     <ENTRY>Modo de actualización</ENTRY>
+     <LENGTH>29</LENGTH>
+    </item>
+   </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>D</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>MSG</KEY>
+       <ENTRY>Meldung FB$ mit Variablen $ $ $ $ ausgegeben</ENTRY>
+       <LENGTH>50</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Batch Input Belege</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>ANZ_MODE</KEY>
+       <ENTRY>Anzeigemodus</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>CALLMODE</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>DS_NAME</KEY>
+       <ENTRY>Name des Dateipfades</ENTRY>
+       <LENGTH>28</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>FL_CHECK</KEY>
+       <ENTRY>Datei nur prüfen</ENTRY>
+       <LENGTH>24</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>MAX_COMM</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>OS_XON</KEY>
+       <ENTRY>Strukturen aus Release &lt; 4.0</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PA_XPROT</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>UPDATE</KEY>
+       <ENTRY>Verbuchungsmodus</ENTRY>
+       <LENGTH>24</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>MSG</KEY>
+       <ENTRY>Message FB$ issued with variables $ $ $ $</ENTRY>
+       <LENGTH>50</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Batch Input Documents</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>ANZ_MODE</KEY>
+       <ENTRY>Display mode</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>DS_NAME</KEY>
+       <ENTRY>File path name</ENTRY>
+       <LENGTH>28</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>FL_CHECK</KEY>
+       <ENTRY>Check file only</ENTRY>
+       <LENGTH>24</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>OS_XON</KEY>
+       <ENTRY>Structures from Release &lt; 4.0</ENTRY>
+       <LENGTH>37</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>UPDATE</KEY>
+       <ENTRY>Update session</ENTRY>
+       <LENGTH>24</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZRFBIBL01</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0001</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00089</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRFBIBL01</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00001</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;USE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Batch-Input-Report RFBIBL00 dient zur Erfassung von</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Buchhaltungsbelegen und zum Ausgleichen von offenen Posten.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;NOTE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Strukturen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Informationen, welche die ganze Batch-Input-Mappe betreffen, sind im</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Mappenvorsatz definiert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Informationen, welche für einen ganzen Beleg gelten, sind im Kopfsatz</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>definiert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Die Belegfelder, für die Batch-Input möglich sein soll, sind in eigenen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Data-Dictionary-Strukturen definiert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Jede Struktur wird durch Satztyp und evtl. Tabellenname identifiziert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Die Strukturen sind im einzelnen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BGR00 Satztyp 0 Mappenvorsatz</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBKPF Satztyp 1 Kopfdaten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBSEG Satztyp 2 Belegsegmentdaten (incl. CpD-Daten, COBL-Daten)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBTAX Sytztyp 2 Belegsteuern</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BSELK Satztyp 2 Selektionskopfdaten  (nur FB05)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BSELP Satztyp 2 Selektionspositionen (nur FB05)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Für jedes Feld, welches in der Batch-Input-Struktur übergeben wird, muß</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>entschieden werden können, ob der Wert des Feldes initial ist (z.B.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Feld soll auf Initialwert zurückgesetzt werden), oder ob überhaupt kein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Batch-Input für dieses Feld notwendig ist.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>D.h., es muß ein Sonderzeichen vereinbart werden, welches die Funktion</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>hat: &apos;Kein Batch-Input für dieses Feld&apos;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Dieses Sonderzeichen ist defaultmäßig das Zeichen &apos;/&apos;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wenn nicht das Sonderzeichen &apos;/&apos; benutzt werden soll, so kann im</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Mappenvorsatz im Feld BGR00-NODATA übergeben werden, welches andere</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Sonderzeichen diese Funktion erfüllen soll.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Vor dem Füllen der Batch-Input-Struktur muß jedes Feld der Strukturen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>(mit Ausnahme des Mappenvorsatzes BGR00) auf Feldanfang mit diesem</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Sonderzeichen &apos;vorbereitet&apos; werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Die Felder der Strukturen verweisen auf die Datenelemente der Felder</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>der Originaltabellen. Eine Ausnahme bilden jedoch numerische und</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>gepackte Felder. Diese brauchen für den Batch-Input eigene</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Datenelemente vom Typ CHAR, da gepackte Felder nicht mit einem</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Sonderzeichen &apos;initialisiert&apos; werden können.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Das bedeutet, daß Beträge mit Dezimalkomma an die Schnittstelle</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>übergeben werden können.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Satzendekennzeichen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wenn eine Batch-Input-Struktur nachträglich verlängert wird, so wird</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>das neue Ende der Struktur durch ein spezielles Feld (SENDE)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>gekennzeichnet. Wenn Sie schon mit der neuen, verlängerten Struktur</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>arbeiten, dann füllen Sie dieses Feld beim &apos;Initialisieren&apos; der</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Struktur mit dem Sonderzeichen NODATA. Dadurch kann beim Einlesen der</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Struktur erkannt werden, ob den Daten die alte oder die neue Struktur</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>zu Grunde liegt.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Spezielle Felder im Mappenvorsatz:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Im Mappenvorsatz muß der Mappenname mitgegeben werden (BGR00-GROUP).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Das Senden eines weiteren Mappenvorsatzes bewirkt das Schließen der</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>aktuellen Mappe und das Öffnen einer weiteren Mappe.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Im Mappenvorsatz kann das Sonderzeichen BGR00-NODATA übergeben werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Im Mappenvorsatz kann ein Sperrdatum übergeben werden (BGR00-START).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Falls dieses Datum gesetzt wird, muß es das Format &apos;JJJJMMTT&apos; haben.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Programme:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBL00  ausführbares Batch-Input-Programm</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBL01  &apos;Rahmenprogramm&apos; mit Ablauflogik</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBLG0  Generierungsprogramm</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Das Generierungsprogramm RFBIBLG0 benutzt das &apos;Rahmenprogramm&apos; RFBIBL01</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>und schreibt das darin enthaltene Coding zusammen mit dem neu</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>generierten Coding in das Batch-Input-Programm RFBIBL00.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Durch das Generierungsprogramm wird das Coding für die &apos;Feldtransporte&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>je Bildschirmbild und je Inputfeld generiert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Unterstützte Transaktionen:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>FB01  Beleg buchen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>FB05  Buchen mit Ausgleichen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Für die Transaktion FB01 muß je Beleg ein Belegkopf (BBKPF) und je</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Buchungszeile eine BBSEG-Struktur übergeben werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Die Struktur BBSEG enthält auch die Felder für die Zusatzbilder. Die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Zusatzbilder werden beim Abspielen der Mappe nur ausgegeben, falls</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Batch-Input-Daten dafür übergeben wurden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Die Struktur BBSEG enthält auch die Felder für die CpD-Daten. Das Bild</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>für die CpD-Daten wird ausgegeben, wenn auf ein CpD-Konto gebucht</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden soll, bzw. wenn ein abweichender Zahlungsempfänger im Beleg</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>angegeben werden soll.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Für die Transaktion FB05 müssen zusätzlich zum Kopfsatz (BBKPF) und</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>evtl. Beelgpositionen (BBSEG) die Selektionskopfdaten (BSELK) und die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Selektionspositionen (BSELP) übergeben werden. Aus technischen Gründen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>müssen die Daten für BBSEG vor BSELK und BSELP übergeben werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In einer BSELP-Struktur können bis zu 18 Selektionspositionen übergeben</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden. Reicht das nicht aus, so können weitere BSELP-Strukturen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>übergeben werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+       <TDLINE>Folgende Vorgänge sind z.Zt. noch nicht unterstützt:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+       <TDLINE>Mit der Transaktion FB01 können per Batch-Input keine</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Sonderhauptbuchvorgänge gebucht werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Generieren von Satzbetten:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Sie können sich Satzbetten generieren über den Menüleistenpunkt</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&quot;Werkzeuge&quot; im Customizing-Menü der Buchhaltung. Alternativ können Sie</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>direkt von hier aus in das Customizing springen &lt;DS:TRAN.OBE8&gt;Funktion</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ausführen&lt;/&gt;. Eine Beschreibung dieser Funktion finden Sie in der IMG</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>des Menüleistenpunktes.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZRFBIBL01</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0001</VERSION>
+      <TXTLINES>00094</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRFBIBL01</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00001</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;USE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The batch input report RFBIBL00 is used for entering accounting</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>documents and for clearing open items.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;NOTE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Structures:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Information which affects the entire batch input session is</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>defined in the session record.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Information which applies to an entire document is defined in the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>header record.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>The document fields for which batch input should be enabled are</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>defined in separate Data Dictionary structures.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Every structure is identified by means of record type and possibly</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>table name.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The structures are:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BGR00 Record type 0 Session record</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBKPF Record type 1 Header data</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBSEG Record type 2 Document segment data (including one-time</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>data, COBL data)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBTAX Record type 2 Document taxes</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BSELK Record type 2 Selection header data (only FB05)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BSELP Record type 2 Selection items (only FB05)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For every field transferred into the batch input structure, you</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>must be able to decide whether the value of the field is initial</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>(for example, field should be reset to initial value) or whether no</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>batch input at all is necessary for this field.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>That is, a special character with the function: &apos;no batch input for</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>this field&apos; must be specified.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This special character is the default character &apos;/&apos;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If the special character &apos;/&apos; is not to be used, it can be</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>specified in the field BGR00-NODATA in the session record which</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>other special character is to serve this function.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Before filling the batch input structure, every field of the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>structures (with the exception of the session record BGR00) must be</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>prepared inasmuch as the beginning of the fields are to be marked</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>with this special character.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The fields of the structures refer to the data elements of the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>fields of the original tables. Numeric and packed fields, however,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>are an exception. These need separate data elements of the category</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>CHAR for batch input, since packed fields cannot be initialized with</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>a special character.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This means that amounts with decimal point can be transferred to</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the interface.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>End of record marker:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If a batch input structure is extended later, the new end of the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>structure is marked by a special field (SENDE). If you are already</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>working with the new, extended structure, you fill this field with</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the special character NODATA when &apos;initializing&apos; structure. When</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>importing the structure, the data can then be recognized as based on</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the old or the new structure.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Special fields in the session record:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In the session record, the session name must be given (BGR00-GROUP).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Sending an additional session record causes the current session to be</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>closed and another session to be opened.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The special character BGR00-NODATA can be transferred in the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>session record.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>A block date can be transferred in the session record</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>(BGR00-START).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>If this date is set, it must have the format &apos;YYYYMMDD&apos;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Programs:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBL00 executable batch input program</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBL01 &apos;main program&apos; with processing logic</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBLG0 generating program</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The generating program RFBIBLG0 uses the &apos;main program&apos; RFBIBL01</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>and writes the code contained in it into the batch input program</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>RFBIBL00 together with the newly generated code.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The generating program generates the code for the &apos;field</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>transports&apos; for each screen and each input field.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Supported transactions:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>FB01 Post document</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>FB05 posting with clearing</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For the transaction FB01, one document header (BBKPF) must be</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>transferred per document and one BBSEG structure per line item.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The structure BBSEG also contains the fields for the additional</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>screens. The additional screens are only output when processing the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>session if batch input data was transferred for this reason.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The structure BBSEG also contains the fields for one-time data.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>The screen for one-time data is displayed if a one-time account is</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>to be posted to or if an alternative payee is to be specified in the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>document.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For the transaction FB05, the selection header data (BSELK) and</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the selection items (BSELP) must be transferred in addition to the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>header record (BBKPF) and possible line items (BBSEG). For technical</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>reasons, the data for BBSEG must be transferred before BSELK and</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>BSELP.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In a BSELP structure, up to 18 selection items can be transferred.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>If that is not enough, additional BSELP structures can be</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>transferred.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+       <TDLINE>Currently, the following transactions are not yet supported:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+       <TDLINE>With the transaction FB01, no special G/L transactions</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>can be posted by means of batch input.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Generating record layouts:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>You can generate record layouts via the menu bar option &quot;Tools&quot; in</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the Financial Accounting customizing menu. As an alternative, you can</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>branch from here directly into Customizing &lt;DS:TRAN.OBE8&gt;Proceed&lt;/&gt;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>You will find a description of this function in the IMG of the menu</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>bar option.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZRFBIBL01</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0001</VERSION>
+      <TXTLINES>00096</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZRFBIBL01</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00001</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;USE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El report batch input RFBIBL00 permite la entrada de documentos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>contables y la compensación de partidas pendientes.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;NOTE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Estructuras:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Las informaciones relativas a todo el juego de datos batch input están</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>definidas en el encabezamiento del juego de datos.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Las informaciones que rigen para un documento entero están definidas en</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>el registro de cabecera.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Los campos de los documentos para los que está permitido el batch input</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>estan definidos en estructuras propias del Data Dictionary.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Todas las estructuras se identifican por su tipo de registro y, en</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ocasiones, por su nombre de tabla.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Las estructuras son:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BGR00 Tipo de registro 0 Encabezamiento del juego de datos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBKPF Tipo de registro 1 Datos de cabecera</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBSEG Tipo de registro 2 Datos del segmento del documento (incl. datos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>CpD, datos COBL)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BBTAX Tipo de registro 2 IVA documento</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BSELK Tipo de registro 2 Datos de cabecera de selección  (sólo FB05)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>BSELP Tipo de registro 2 Posiciones de selección (sólo FB05)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Para cada campo transmitido a la estructura batch input, debe poderse</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>decidir si el valor del campo es inicial (p. ej. el campo debe</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>restituirse su valor inicial) o si este campo no requiere ningún batch</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>input en absoluto.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Es decir, debe convenirse un carácter especial que tenga la función:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&apos;Ningún tratamiento batch input para este campo&apos;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Este carácter especial es, por defecto, el signo &apos;/&apos;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Si no debe emplearse el carácter especial &apos;/&apos;, puede definirse en el</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>campo BGR00-NODATA del encabezamiento del juego de datos qué otro</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>carácter especial debe cumplir esta función.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Antes de introducir la estructura de batch input, todos los campos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>deben &apos;prepararse&apos; al principio del campo con este carácter especial</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>(con excepción del encabezamiento del juego de datos BGR00).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Los campos de las estructuras se refieren a los elementos de datos de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>los campos de las tablas originales. Una excepción de ello, no</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>obstante, son los campos numéricos y compactados. Éstos necesitan para</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>el batch input elementos de datos propios del tipo CHAR, ya que los</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>campos compactados no pueden ser &apos;inicializados&apos; con un carácter</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>especial.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Esto significa que los importes con coma decimal deben ser transmitidos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>a la interfase.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Indicador de fin de registro:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Si posteriormente se prolonga una estructura de batch input, el nuevo</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>fin de la estructura se marca mediante un campo especial (SENDE). Si ya</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>trabaja Ud. con esta estructura ampliada nueva, introduzca Ud. datos en</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>este campo al &apos;inicializar&apos; la estructura con el carácter especial</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>NODATA. De esta forma, al cargar la estructura, podrá reconocerse si</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>los datos se utilizan en base a al estructura antigua o a la nueva.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Campos especiales del encabezamiento del juego de datos:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En el encabezamiento del juego de datos debe figurar el nombre del</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>juego de datos (BGR00-GROUP). Si se emite otro encabezamiento del juego</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>de datos, se cierra la carpeta actual y se abre un juego de datos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>nuevo.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El carácter especial BGR00-NODATA puede transmitirse en el</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>encabezamiento del juego de datos.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En el encabezamiento del juego de datos puede transmitirse una fecha de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>bloqueo (BGR00-START). Si esta fecha se define, deberá tener el formato</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>&apos;AAAAMMDD&apos;.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Programas:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBL00  Programa batch input ejecutable</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBL01  &apos;Programa principal&apos; con lógica de estructura</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>RFBIBLG0  Programa generador</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El programa generador RFBIBLG0 utiliza el &apos;programa principal&apos; RFBIBL01</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>y escribe el código contenido en él, junto con el nuevo código</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>generado, en el programa de batch input RFBIBL00.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El programa generador genera el código para los &apos;transportes de campos&apos;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>para todas las pantallas y todos los campos de entrada.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Transacciones soportadas:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>FB01  Contabilizar documento</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>FB05  Contabilizar con compensación</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Para la transacción FB01 debe ser transmitida una cabecera de documento</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>(BBKPF) por cada documento contable y una estructura BBSEG por cada</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>apunte contable. La estructura BBSEG contiene también los campos para</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>los dynpros adicionales. A los dynpros adicionales sólo se les da</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>salida al procesar, si han sido transmitidos datos batch input para</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ello.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>La estructura BBSEG también contiene campos para los datos CpD. A la</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>pantalla de los datos CpD se le da salida cuando debe realizarse una</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>contabilización en una cuenta CpD o cuando haya que dar salida a un</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>receptor alternativo del pago.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Para la transacción FB05, además de los datos de cabecera (BBKPF) y, en</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ocasiones, las posiciones de los documentos (BBSEG), deben transmitirse</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>los datos de cabecera de la selección (BSELK) y las posiciones de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>selección (BSELP). Por razones técnicas, deben trasmitirse los datos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>para BBSEG antes de BSELK y BSELP.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En una estructura BSELP pueden transmitirse hasta 18 posiciones de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>selección. Si esto no fuera suficiente, pueden transmitirse más</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>estructuras BSELP.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+       <TDLINE>Algunas de las operaciones siguientes no se soportan completamente:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+       <TDLINE>Mediante la transacción FB01 no pueden contabilizarse en batch input</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>operaciones en cuenta de mayor especial</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>LZ</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Generar esquemas de datos:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Mediante la opción de la barra de menús &quot;Herramientas&quot; del menú</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Customizing de Contabilidad, puede Ud. generarse esquemas de datos. De</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>forma alternativa, partiendo de esta posición, puede Ud. pasar al</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Customizing &lt;DS:TRAN.OBE8&gt;Ejecutar función&lt;/&gt;. En el IMG de la opción</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>de la barra de menús encontrará una descripción de esta función.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

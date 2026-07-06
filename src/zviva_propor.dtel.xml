@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZVIVA_PROPOR</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>J_1BTAXVAL</DOMNAME>
+    <HEADLEN>22</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>16</SCRLEN2>
+    <SCRLEN3>22</SCRLEN3>
+    <DDTEXT>LCE: Valor Iva Proporcional</DDTEXT>
+    <REPTEXT>Valor IVA Proporcional</REPTEXT>
+    <SCRTEXT_S>IVA. Prop.</SCRTEXT_S>
+    <SCRTEXT_M>IVA Proporcional</SCRTEXT_M>
+    <SCRTEXT_L>Valor IVA Proporcional</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

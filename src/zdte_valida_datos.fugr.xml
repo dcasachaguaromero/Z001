@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Valida datos DTE recepcion electronica</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZDTE_VALIDA_DATOSF01</SOBJ_NAME>
+    <SOBJ_NAME>LZDTE_VALIDA_DATOSTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZDTE_VALIDA_DATOS</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZDTE_VALIDA_DATOS</FUNCNAME>
+     <SHORT_TEXT>Valida dartos DTE recepcion electronica</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>VAL_RZNO_SOCIAL</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>VAL_GIRO</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>VAL_DIR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>VAL_OC</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>VAL_PROVEEDOR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>VAL_HES</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>GT_DATA</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZDTE_DOC_REC</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>RETORNO</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR02</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>GT_EKSEL</PARAMETER>
+       <DBSTRUCT>EKSEL</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>GT_REF</PARAMETER>
+       <DBSTRUCT>ZDTE_DOC_REC_REF</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>VAL_RZNO_SOCIAL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Valida Razon social</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VAL_GIRO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Valida Giro</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VAL_DIR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Valida Direccion</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VAL_OC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Valida Orden de compra</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VAL_PROVEEDOR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Valida Proveedor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VAL_HES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Valida HES</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>GT_DATA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>DTE entrada  ACEPTA , Recepcion electronica vida integra</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETORNO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Retorno validacion(es)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>GT_EKSEL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Pedidos seleccionados</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>GT_REF</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Docs. Tributarios Elec. Recibidos vía Compras: Referencias</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

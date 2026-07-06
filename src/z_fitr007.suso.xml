@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SUSO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOBJ>
+    <OBJCT>Z_FITR007</OBJCT>
+    <FIEL1>TCODE</FIEL1>
+    <FIEL2>ACTVT</FIEL2>
+    <OCLSS>TRTM</OCLSS>
+    <CONVERSION>X</CONVERSION>
+   </TOBJ>
+   <TOBJT>
+    <LANGU>S</LANGU>
+    <OBJECT>Z_FITR007</OBJECT>
+    <TTEXT>Objeto de autorización para la tx. ZFITR007</TTEXT>
+   </TOBJT>
+   <TOBJVORFLG>
+    <OBJCT>Z_FITR007</OBJCT>
+   </TOBJVORFLG>
+   <TACTZ>
+    <TACTZ>
+     <BROBJ>Z_FITR007</BROBJ>
+     <ACTVT>Z1</ACTVT>
+    </TACTZ>
+    <TACTZ>
+     <BROBJ>Z_FITR007</BROBJ>
+     <ACTVT>Z2</ACTVT>
+    </TACTZ>
+    <TACTZ>
+     <BROBJ>Z_FITR007</BROBJ>
+     <ACTVT>Z3</ACTVT>
+    </TACTZ>
+   </TACTZ>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Grupo para circular</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZACTIV_PAGO_239TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZACTIV_PAGO_239</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZACTIV_PAGO_239</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Circular 239</SHORT_TEXT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <TYP>CHAR30</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>TI_ENTRADA</PARAMETER>
+       <DBSTRUCT>ZACTIVPAGO</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>MENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>30 caracteres</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_ENTRADA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>estructura para funcion pago sin cobro</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

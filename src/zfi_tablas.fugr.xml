@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Bajar o Subir Tablas</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFI_TABLASF01</SOBJ_NAME>
+    <SOBJ_NAME>LZFI_TABLASTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFI_TABLAS</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFI_BAJA_TABLA</FUNCNAME>
+     <SHORT_TEXT>Bajada de tabla a EXCEL</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>P_ARCHIVO</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>LOCALFILE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>P_VISTA</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>P_TABLA_SAL</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>LOCALFILE</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>P_GRABA</PARAMETER>
+       <TYP>CHAR01</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>TI_EXTRACT</PARAMETER>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>P_ARCHIVO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fichero local para upload/download</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_VISTA</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_TABLA_SAL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fichero local para upload/download</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_GRABA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Campo de texto, longitud 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_EXTRACT</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZFI_CARGA_TABLA</FUNCNAME>
+     <SHORT_TEXT>Carga tabla desde EXCEL</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>P_ARCHIVO</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>P_GRABA</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>P_ARCHIVO</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_GRABA</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

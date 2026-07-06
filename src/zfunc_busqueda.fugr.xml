@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>FUNCIONES DE BUSQUEDA SAP</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFUNC_BUSQUEDATOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFUNC_BUSQUEDA</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZBUSCAR_CCOSTO</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>BUSQUEDA CENTRO DE COSTO</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IKOSTL</PARAMETER>
+       <TYP>KOSTL</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>EPKZER</PARAMETER>
+       <TYP>PKZER</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EMENSAJE</PARAMETER>
+       <TYP>KLTXT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IKOSTL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Centro de coste</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EPKZER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Indicador de bloqueo de planificación de ingresos</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EMENSAJE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Descripción</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SXCI" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SXCI>
+    <IMPLEMENTATION_DATA>
+     <IMP_NAME>ZFI_ITEMS_MENUE01</IMP_NAME>
+     <TEXT>Amplicación menu FI para transaccion FBL5N</TEXT>
+     <IMP_CLASS>ZCL_IM_FI_ITEMS_MENUE01</IMP_CLASS>
+     <EXIT_NAME>FI_ITEMS_MENUE01</EXIT_NAME>
+     <INTER_NAME>IF_EX_FI_ITEMS_MENUE01</INTER_NAME>
+     <ACTIVE>X</ACTIVE>
+    </IMPLEMENTATION_DATA>
+    <FUNCTION_CODES>
+     <item>
+      <EXIT_NAME>FI_ITEMS_MENUE01</EXIT_NAME>
+      <GUI_PROG>SAPLFI_ITEMS</GUI_PROG>
+      <GUI_CODE>+CUS01</GUI_CODE>
+      <SPRSL>S</SPRSL>
+      <GUI_TEXT>Lista de partidas individuales (con pulsador)</GUI_TEXT>
+      <MENU_TEXT>CONTBCASTIG</MENU_TEXT>
+      <ICON_TEXT>Contab.Castigos</ICON_TEXT>
+      <QUICKINFO>Contabilizar Castigos</QUICKINFO>
+      <IMP_NAME>ZFI_ITEMS_MENUE01</IMP_NAME>
+      <ICON_ID>@15@</ICON_ID>
+      <ICON_NAME>ICON_EXECUTE_OBJECT</ICON_NAME>
+      <TEXT_TYPE>S</TEXT_TYPE>
+     </item>
+     <item>
+      <EXIT_NAME>FI_ITEMS_MENUE01</EXIT_NAME>
+      <GUI_PROG>SAPLFI_ITEMS</GUI_PROG>
+      <GUI_CODE>+CUS02</GUI_CODE>
+      <SPRSL>S</SPRSL>
+      <GUI_TEXT>Lista de partidas individuales</GUI_TEXT>
+      <IMP_NAME>ZFI_ITEMS_MENUE01</IMP_NAME>
+      <TEXT_TYPE>S</TEXT_TYPE>
+     </item>
+     <item>
+      <EXIT_NAME>FI_ITEMS_MENUE01</EXIT_NAME>
+      <GUI_PROG>SAPLFI_ITEMS</GUI_PROG>
+      <GUI_CODE>+CUS03</GUI_CODE>
+      <SPRSL>S</SPRSL>
+      <GUI_TEXT>Lista de partidas individuales</GUI_TEXT>
+      <IMP_NAME>ZFI_ITEMS_MENUE01</IMP_NAME>
+      <TEXT_TYPE>S</TEXT_TYPE>
+     </item>
+     <item>
+      <EXIT_NAME>FI_ITEMS_MENUE01</EXIT_NAME>
+      <GUI_PROG>SAPLFI_ITEMS</GUI_PROG>
+      <GUI_CODE>+CUS04</GUI_CODE>
+      <SPRSL>S</SPRSL>
+      <GUI_TEXT>Lista de partidas individuales</GUI_TEXT>
+      <IMP_NAME>ZFI_ITEMS_MENUE01</IMP_NAME>
+      <TEXT_TYPE>S</TEXT_TYPE>
+     </item>
+    </FUNCTION_CODES>
+   </SXCI>
+  </asx:values>
+ </asx:abap>
+</abapGit>

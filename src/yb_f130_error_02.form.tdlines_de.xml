@@ -1,0 +1,1071 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>&amp;T001-BUTXT&amp;,,Fehlerliste &amp;RF130-BZSBVERF&amp;,,Zeit &amp;SYST-UZEIT&amp;,,Datum</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;SYST-DATUM&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>&amp;T001-ORT01&amp;,,&amp;RF130-ABSTIDAT&amp;/&amp;RF130-LAUFI&amp;,,&amp;RF130-REPID&amp;/&amp;SYST-UNAME&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Seite,,&amp;PAGE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(100)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>900</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*  Ereignisse für die Fehlerliste                                     *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>910</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Ausstellungsdatum und Rückantwortdatum ----------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum:,,&amp;RF130-AUSSTDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Rückantwortdatum:,,&amp;RF130-RUECKDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>920</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Daten der Abmahnung zu Bestätigungsersuchen -----------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Abmahnung:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum alt:,,&amp;RF130-UAUSTDAT&amp; ,,Rückantwortdatum</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>alt:,,&amp;RF130-URUECKDA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum neu:,,&amp;RF130-AUSSTDAT&amp; ,,Rückantwortdatum</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>neu:,,&amp;RF130-RUECKDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>930</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Überschrift für fehlende Berechtigungen ---------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Fehlende Berechtigungen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>931</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- fehlende Buchungskreisberechtigung---------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Der Anwender &amp;SY-UNAME&amp; hat keine Berechtigung für Buchungskreis</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;RF130-BUKRS&amp;.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Bitte nehmen Sie für die genannten Buchungskreise in ihr</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Berechtigungsprofil einen Eintrag zum Berechtigungsobjekt F_KNA1_BUK</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>bzw. F_LFA1_BUK auf mit den Parametern:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Buchungskreis: &amp;RF130-BUKRS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Aktivität: 03</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>932</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- fehlende Berechtigung für allgemeine Daten eines Stammsatzes ------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- und fehlende Kontenberechtigung für Buchhaltungsbeleg -------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Der Anwender &amp;SY-UNAME&amp; hat keine ausreichende Berechtigung für die</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>allgemeinen Daten der selektierten Stammsätze und keine entsprechende</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kontenberechtigung für Buchhaltungsbelege.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Bitte nehmen Sie für die nachfolgend genannten Konten in ihr</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Berechtigungsprofil einen Eintrag zum Berechtigungsobjekt F_KNA1_BED</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>und F_BKPF_BED bzw. F_LFA1_BEK  und F_BKPF_BEK auf mit dem Parameter:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Aktivität: 03</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Berechtigungsgruppe: Diese entnehmen Sie bitte den allgemeinen Daten</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>der folgenden Stammsätze</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>933</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- fehlende Berechtigung für buchungskreisspezifische Daten des ------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Stammsatzes und fehlende Kontenberechtigung für Buchhaltungsbeleg--*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Der Anwender &amp;SY-UNAME&amp; hat im Buchungskreis &amp;RF130-BUKRS&amp; keine</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ausreichende Berechtigung für die buchungskreisspezifischen Daten der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>selektierten Stammsätze und keine entsprechende Kontenberechtigung für</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Buchhaltungsbelege.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Bitte nehmen Sie für die nachfolgend genannten Konten in ihr</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Berechtigungsprofil einen Eintrag zum Berechtigungsobjekt F_KNB1_BED</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>und F_BKPF_BED bzw. F_LFB1_BEK  und F_BKPF_BEK auf mit dem Parameter:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Aktivität: 03</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Berechtigungsgruppe: Diese entnehmen Sie bitte den</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>buchungskreisspezifischen Daten der folgenden Stammsätze</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>934</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der Debitoren oder Kreditoren -------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>&amp;RF130-KONTO&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>940</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Überschrift für fehlende Einträge in Datenbanktabellen ------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Fehlende Einträge in Datenbanktabelle</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>941</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Fehlende allgemeine Stammdaten einer Zentrale----------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Für die folgenden Kombinationen aus Zentralen und Filialen konnten die</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>allgemeinen Stammdaten der Zentrale nicht ermittelt werden:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Zentrale,,Filiale</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>942</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Fehlende buchungskreisspezifische Daten einer Zentrale-------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Für die folgenden Kombinationen aus Zentralen und Filialen konnten im</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Buchungskreis &amp;RF130-BUKRS&amp; die buchungskreisspezifischen Stammdaten</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>der Zentrale nicht ermittelt werden:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Zentrale,,Filiale</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>943</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der Zentralen und Filialen ----------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-KONTO&amp;,,&amp;RF130-KONT2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>950</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Überschrift für fehlende Einträge in ATAB-Tabellen ----------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Fehlende Einträge in ATAB-Tabellen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>951</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Kein Eintrag für Ergebnisliste in Tabelle T001F oder kein ---------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Formular eingetragen ----------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>Das Formular für die Ergebnistabelle konnte nicht ermittelt werden, da</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>entweder ein entprechender Eintrag in der Tabelle für die</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>buchungskreisabhängige Formularauswahl (T001F) gänzlich fehlt oder kein</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Formularname angegeben ist. Der Eintrag müßte enthalten:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Buchungskreis:,,&amp;RF130-BUKRS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Programm:,,&amp;RF130-REPID&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Form ID:,,RE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Formular:,,Formularname</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>952</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Kein Eintrag ohne Identifikation in Tabelle T001G -----------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Die Textkonserven für das Anschreiben konnten nicht ermittelt werden,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>da ein entsprechender Eintrag in der Tabelle für buchungskreisabhängige</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Textkonserven (T001G) fehlt. Der Eintrag um die Textkonserven zu finden</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>müßte mindestens enthalten:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Buchungskreis:,,&amp;RF130-BUKRS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Programm:,,&amp;RF130-REPID&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>953</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Kein Eintrag mit Identifikation noch Eintrag ohne -----------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Identifikation in Tabelle T001G -----------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Die Textkonserven für das Anschreiben mit der Textidentifikation</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;RF130-TXTID&amp; konnten nicht ermittelt werden, da ein entsprechender</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Eintrag in der Tabelle für buchungskreisabhängige Textkonserven (T001G)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>fehlt. Ein weiterer Leseversuch ohne Textidentifikation war ebenfalls</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>erfolglos. Der Eintrag um die Textkonserven zu finden müßte mindestens</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>enthalten:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Buchungskreis:,,&amp;RF130-BUKRS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Programm:,,&amp;RF130-REPID&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>954</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Kein Eintrag für Buchhaltungssachbearbeiter in Tabelle T001S ------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Im Buchungskreis &amp;RF130-BUKRS&amp; konnten die folgenden</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Buchhaltungssachbearbeiter nicht ermittelt werden, da entsprechende</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Eintrage in der Tabelle für Sachbearbeiter Buchhaltung (T001S) fehlen:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Sachbearbeiter</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>955</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der Buchhaltungssachbearbeiter ------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>&amp;RF130-BUSAB&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>960</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- In der Kunden-/Liefanten-Sprache sind keine Bezeichnungen in der---*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Tabelle T003T -----------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Das Anschreiben und die Rückantwort wurden in der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kunden-/Lieferantensprache ausgegeben. In der Tabelle für Texte für</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Belegarten (T003T) fehlen allerdings Bezeichnungen in der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kunden-/Lieferantensprache. Für die Ausgabe der Texte für Belegarten</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>wurde deshalb eine andere Sprache gewählt. Als Alternativsprachen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>wurden untersucht: die Anmeldesprache und</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Deutsch. Es ergaben sich folgende Abweichungen:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Belegart,,Kunden-/Lief.Sprache,,Sprache für Belegartentext</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>961</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Belegarten ------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-BLART&amp;,,&amp;RF130-SPRAS&amp;,,&amp;RF130-SPRAS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>962</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Belegarten ohne Belegartentext-----------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-BLART&amp;,,&amp;RF130-SPRAS&amp;,,Belegartentext fehlt in</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Alternativsprachen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>964</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- In der Ausgabe-Sprache sind keine Bezeichnungen ------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- in der Tabelle T003T ----------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Das Anschreiben und die Rückantwort wurden nicht in der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kunden-/Lieferantensprache, sondern in der Defaultsprache &amp;RF130-SPRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ausgegeben, da ein entsprechendes Formular in der anderen Sprache nicht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>vorhanden war. In der Tabelle für Texte für Belegarten (T003T) fehlen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>allerdings Bezeichnungen in der Formularsprache. Für die Ausgabe der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Texte für Belegarten wurde deshalb eine andere Sprache gewählt. Als</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Alternativsprachen wurden untersucht:  die Kunden-/Lieferantensprache,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>die Anmeldesprache und Deutsch. Es ergaben sich folgende Abweichungen:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Belegart,,Kunden-/Lief.Sprache,,Sprache für Belegartentext</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>965</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Belegarten 2-----------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-BLART&amp;,,&amp;RF130-SPRAS3&amp;,,&amp;RF130-SPRAS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>966</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Belegarten ohne Belegartentext 2---------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-BLART&amp;,,&amp;RF130-SPRAS3&amp;,,Belegartentext fehlt in</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Alternativsprachen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>967</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- In der Kunden-/Lieferantensprache sind keine Bezeichnungen in der---*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Tabelle T074T -----------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Das Anschreiben und die Rückantwort wurden in der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kunden-/Lieferantensprache ausgegeben. In der Tabelle für Bezeichnungen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>der Sonderhauptbuchkennzeichen (T074T) fehlen allerdings bei der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kontoart &amp;RF130-KOART&amp; Texte in der Kunden-Sprache. Für die Ausgabe der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Bezeichnungen wurde deshalb eine andere Sprache gewählt. Als</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Alternativsprachen wurden untersucht: die Anmeldesprache und Deutsch.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Es ergaben sich folgende Abweichungen:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Sonderhauptbuchkz.,,Kunden-/Lief.Sprache,,Sprache für Bezeichnungen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>968</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Sonderhauptbuchkennzeichen---------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-UMSKZ&amp;,,&amp;RF130-SPRAS&amp;,,&amp;RF130-SPRAS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>969</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Sonderhauptbuchkennzeichen ohne Bezeichnung----------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-UMSKZ&amp;,,&amp;RF130-SPRAS&amp;,,Bezeichnung des Sonderhauptbuchkennz.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>fehlt in Alternativsprachen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>971</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- In der Ausgabe-Sprache sind keine Bezeichnungen -------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- in der Tabelle T074T ----------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Das Anschreiben und die Rückantwort wurden nicht in der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kunden-/Lieferantensprache, sondern in der Defaultsprache &amp;RF130-SPRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ausgegeben, da ein entsprechendes Formular in der anderen Sprache nicht</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>vorhanden war. In der Tabelle für die Bezeichnungen der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Sonderhauptbuchkennzeichen (T003T) fehlen allerdings Texte in der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Formularsprache. Für die Ausgabe der Bezeichnungen wurde deshalb eine</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>andere Sprache gewählt. Als Alternativsprachen wurden untersucht:  die</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Kunden-/Lieferantensprache, die Anmeldesprache und Deutsch. Es ergaben</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>sich folgende Abweichungen:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Sonderhauptbuchkz.,,Kunden-/Lief.Sprache,,Sprache für Bezeichnungen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>972</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Sonderhauptbuchkz. 2---------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-UMSKZ&amp;,,&amp;RF130-SPRAS3&amp;,,&amp;RF130-SPRAS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>973</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Listzeile der Sonderhauptbuchkz. ohne Bezeichnung 2----------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-UMSKZ&amp;,,&amp;RF130-SPRAS3&amp;,,Bezeichnung des Sonderhauptbuchkz. fehlt</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>in Alternativsprachen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>980</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Überschrift für Fehler in Formularen-------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Fehler in Formularen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>981</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Abweichungen zwischen vorgesehener und tatsächlicher Ausgabesprache*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Bei den im folgenden aufgelisteten Formularen ergaben sich aufgrund</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>fehlender Übersetzungen in die Kunden-/Lieferanten oder</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Buchungskreissprache Abweichungen zwischen der Sprache in der das</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Formular gedruckt werden sollte und der Sprache in der es tatsächlich</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ausgegeben wurde:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>Formular,,vorgesehene Sprache,,Ausgabesprache</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>982</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der Formulare -----------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;RF130-FORNR&amp;,,&amp;RF130-SPRAS2&amp;,,&amp;RF130-SPRAS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>983</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Abweichungen zwischen Ausgabesprache und Anmeldesprache------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Die Anmeldesprache weicht von der Sprche in der die für den</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Buchungskreis bestimmten Formulare gedruckt werden ab. Es könne sich</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>deshalb bei der Ausgabe der Fehlerliste sowie bei den im folgenden</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>aufgeführten Formularen mehrsprachige Ausdrucke ergeben:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>Formular,,Buchungskreissprache,,Ausgabesprache,,Anmeldesprache</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>984</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der Formulare 2----------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T5</TDFORMAT>
+     <TDLINE>&amp;RF130-FORNR&amp;,,&amp;RF130-SPRAS3&amp;,,&amp;RF130-SPRAS&amp;,,&amp;RF130-SPRAS2&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>990</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Kein  Formularname für Ergebnistabelle in T001F--------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>In der Tabelle für buchungskreisabhängige Formulare (T001F) fehlt der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Formularname für die Ergebnistabelle bei der Kombination Buchungskreis</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;RF130-BUKRS&amp; und Programm &amp;RF130-REPID&amp;. Die Ergebnistabelle wurde</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>deshalb nicht ausgegeben.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>991</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Fehlende oder inaktive Formulare ----------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Zu Einträgen für die Kombination Buchungskreis &amp;RF130-BUKRS&amp; und</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Programm &amp;RF130-REPID&amp; in der Tabelle für buchungskreisabhängige</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Formular (T001F) fehlen aktive Formulare oder aktive Teile eines</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Formsatzes. Ohne weitere Erläuterungen wurden nur die einzelnen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Formulare nicht ausgegeben. In der folgenden Liste sind die fehlenden</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>oder nicht aktiven Formulare aufgeführt:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Formular,,Formularbezeichnung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>992</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der Formulare 3----------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-FORNR&amp;,,&amp;RF130-TEXTE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>993</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Überschrift für fehlende Fenster eines Formulars-------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Im Formular &amp;RF130-FORNR&amp; fehlen die folgenden Fenster:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>994</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der fehlenden Fenster eines Formulars -----------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>&amp;RF130-WINDOW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>995</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Überschrift für fehlende Textelemente eines Formulars--------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LS</TDFORMAT>
+     <TDLINE>Im Formular &amp;RF130-FORNR&amp; fehlen im MAIN-Fenster die folgenden</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Textelemente:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>Textelemnt,,Bezeichnung</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>996</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Liste der fehlenden Textelemente eines Formulars ------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T4</TDFORMAT>
+     <TDLINE>&amp;RF130-ELEMENT&amp;,,&amp;RF130-TEXTE&amp;</TDLINE>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

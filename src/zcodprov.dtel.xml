@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZCODPROV</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>CHAR04</DOMNAME>
+    <HEADLEN>38</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>34</SCRLEN3>
+    <DDTEXT>LCE: Código proveedor Libro de Compras Electrónico</DDTEXT>
+    <REPTEXT>Proveedor Libro de Compras Electrónico</REPTEXT>
+    <SCRTEXT_S>PLCE</SCRTEXT_S>
+    <SCRTEXT_M>Prov. LCE</SCRTEXT_M>
+    <SCRTEXT_L>Proveedor Libro de Compras Electr.</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZDE_FWBAS5</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>ZDO_CURR5</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>16</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>12</SCRLEN2>
+    <SCRLEN3>20</SCRLEN3>
+    <DDTEXT>Importe base impuesto moneda documento</DDTEXT>
+    <REPTEXT>Base imponible</REPTEXT>
+    <SCRTEXT_S>Impte.base</SCRTEXT_S>
+    <SCRTEXT_M>Importe base</SCRTEXT_M>
+    <SCRTEXT_L>Impte.base impto.</SCRTEXT_L>
+    <APPLCLASS>FB</APPLCLASS>
+    <DTELMASTER>D</DTELMASTER>
+    <DEFFDNAME>AMT_BASE</DEFFDNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+   <I18N_LANGS>
+    <LANGU>D</LANGU>
+    <LANGU>E</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>D</DDLANGUAGE>
+     <DDTEXT>Steuerbasisbetrag in Belegwährung</DDTEXT>
+     <REPTEXT>Steuerbasis</REPTEXT>
+     <SCRTEXT_S>Bas.betr.</SCRTEXT_S>
+     <SCRTEXT_M>Basisbetrg.</SCRTEXT_M>
+     <SCRTEXT_L>Steuerbasisbetrag</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>E</DDLANGUAGE>
+     <DDTEXT>Tax Base Amount in Document Currency</DDTEXT>
+     <REPTEXT>Tax Base Amount</REPTEXT>
+     <SCRTEXT_S>Base Amnt</SCRTEXT_S>
+     <SCRTEXT_M>Base Amount</SCRTEXT_M>
+     <SCRTEXT_L>Tax Base Amount</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

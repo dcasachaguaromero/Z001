@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_TRAN" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TSTC>
+    <TCODE>ZFIMANT_002</TCODE>
+    <PGMNA>ZMM_ACT_CODIGOS_UNI_PROD</PGMNA>
+    <CINFO>gA==</CINFO>
+   </TSTC>
+   <TSTCT>
+    <SPRSL>S</SPRSL>
+    <TCODE>ZFIMANT_002</TCODE>
+    <TTEXT>Maestro Cód. Unidad y Cód. Producto</TTEXT>
+   </TSTCT>
+  </asx:values>
+ </asx:abap>
+</abapGit>

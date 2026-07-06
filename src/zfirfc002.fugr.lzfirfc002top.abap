@@ -1,0 +1,17 @@
+FUNCTION-POOL ZFIRFC002.                    "MESSAGE-ID ..
+TABLES: T077D, NRIV.
+*DEFINICION DE VARIBLES GLOBALES.
+DATA: T_ERROR TYPE SY-SUBRC.
+
+* Tabla de interna que registrara los errores de validacion de datos en las estructuras.
+DATA: BEGIN OF TI_ERROR_DED OCCURS 0.
+        INCLUDE STRUCTURE ZDEUDOR.
+DATA: END OF TI_ERROR_DED.
+* Tabla de interna que registrara los documentos a contabiliozar.
+DATA: BEGIN OF TI_CONT_DED OCCURS 0.
+        INCLUDE STRUCTURE ZDEUDOR.
+DATA: PROC(1) TYPE C.
+DATA: END OF TI_CONT_DED.
+DATA: BEGIN OF TI_BAPI_DED OCCURS 0.
+        INCLUDE STRUCTURE ZDEUDOR.
+DATA: END OF TI_BAPI_DED.

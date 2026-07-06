@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>Z1</ARBGB>
+    <MASTERLANG>S</MASTERLANG>
+    <STEXT>Mwnsajes de error</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>000</MSGNR>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Codigo de Prestación &amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>codigo de Unidad de Producto &amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Codigo de Estamento &amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Codigo de Emisor &amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Rut de Tercero &amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Codigo de Agencia &amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>ingrese la clase de Mov de Activo Fijo</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>La clase Mov. de Activo fijo debe se 100 para el ingreso de una Factura</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>La clase Mov. de Activo fijo debe se 105 para el ingreso del Abono</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Solo se debe imputar a un Objeto de Costo, seleccione una orden o un Ceco</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>&amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>Ingrese un Texto de Cabecera</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Debe Ingresar el valor de la  Clave de control de bancos</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Debe Ingresar el valor de la  Clave de control de bancos</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>La clase de Documento &amp;1 no es Valida en la lista</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>&amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>No se encuentra ruta de archivo definida en tabla &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>S</SPRSL>
+     <ARBGB>Z1</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Debe seleccionar los documentos a tratar</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

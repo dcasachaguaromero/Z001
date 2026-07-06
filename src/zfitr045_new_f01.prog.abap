@@ -1,0 +1,1683 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZFITR045_NEW_F01
+*&---------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+*&      Form  LEE_DATOS
+*&---------------------------------------------------------------------*
+FORM lee_datos .
+
+  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+
+* ini Waldo Alarcón - Visionone - 10-04-2020 - Ajustes de salida del reporte
+  SELECT SINGLE banka INTO gv_banka
+         FROM bnka WHERE banks EQ t001-land1 AND
+                         bankl EQ ubnkl.
+* fin Waldo Alarcón - Visionone - 10-04-2020 - Ajustes de salida del reporte
+
+  SELECT SINGLE *
+       FROM   znovedadbanco
+      WHERE   sociedad = bukrs
+        AND   banco    = ubnkl
+        AND  estado = '0'.
+  IF sy-subrc <> 0.
+    MESSAGE e004(zfi) WITH 'SE CANCELA, No hay datos sin procesar, Sociedad: '
+                           bukrs ' Banco: ' ubnkl.
+  ELSE.
+    SELECT SINGLE *
+           FROM reguh
+           WHERE identif_pago = znovedadbanco-identif.
+    bancopropio = reguh-hbkid.
+  ENDIF.
+
+  REFRESH: trec,tdev.
+* PERFORM actualizar_pagos.
+*&---------------------------------------------------------------------*
+*&   Invocar actualizacion de ZDOC_PAGOS
+*&---------------------------------------------------------------------*
+  PERFORM actualizar_pagos.   " " Cambio PYV R01049 Suspendido para pruebas  Octubre 2018
+  " Cambio PYV R01049 Liberado para produccion Marzo 2019
+*&---------------------------------------------------------------------*
+*&   Carga en tabla interna datos de la nomina seleccionada
+*&---------------------------------------------------------------------*
+  SELECT *
+       FROM   znovedadbanco  UP TO p_lineas ROWS "HCD 20200421
+      WHERE   sociedad = bukrs
+        AND   banco    = ubnkl
+* ini - Waldo Alarcón - Nuevos campos de Selección - 23.04.2020
+        AND   numlot   IN s_numlot
+        AND   cuenta   IN s_cuenta
+        AND   fecpag   IN s_fecpag
+* fin - Waldo Alarcón - Nuevos campos de Selección - 23.04.2020
+        AND  estado = '0' .
+
+    MOVE-CORRESPONDING znovedadbanco TO nov.
+    APPEND nov.
+*&        ORDER BY NUMEMP, IDENTIFICACION, RUTBEN.
+  ENDSELECT.
+*&---------------------------------------------------------------------*
+*&     Pasa a tabla interna con nombres diferentes
+*&--------------------------------------------------------------------*
+  reg[] = nov[].
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  PROCESA_DATOS
+*&---------------------------------------------------------------------*
+FORM procesa_datos .
+
+*&---------------------------------------------------------------------*
+*&     Procesa los datos cargados en tabla interna
+*&---------------------------------------------------------------------*
+  LOOP AT reg.
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_OUTPUT'
+      EXPORTING
+        input  = reg-rut_beneficiario+0(8)
+      IMPORTING
+        output = rut_aux.
+
+    CONCATENATE rut_aux '-'  reg-rut_beneficiario+8(1)  INTO rut_aux.
+
+    IF reg-estado_pago = 'CUSTODIA'.
+      IF NOT reg-fecha_estado IS INITIAL.
+*         CONCATENATE reg-fecha_estado+0(4) reg-fecha_estado+5(2) reg-fecha_estado+8(2) INTO fecha_aux
+        fecha_aux = reg-fecha_estado.
+      ELSE.
+*         CONCATENATE reg-fecha_recepcion+0(4) reg-fecha_recepcion+5(2) reg-fecha_recepcion+8(2) INTO fecha_aux.
+        fecha_aux = reg-fecha_recepcion.
+      ENDIF.
+      UPDATE reguh
+       SET ind_custodia = 'X'
+           fecha_custodia = fecha_aux
+      WHERE identif_pago = reg-codigo_identificacion
+      AND   zstc1 =  rut_aux.
+      subrc = sy-subrc.
+      PERFORM actualizo_znovedadbanco.
+    ELSE.
+      IF reg-estado_pago = 'CHEQUE PAGADO'.
+        IF NOT reg-fecha_estado IS INITIAL.
+*         CONCATENATE reg-fecha_estado+0(4) reg-fecha_estado+5(2) reg-fecha_estado+8(2) INTO fecha_aux.
+*        fecha_aux = reg-fecha_estado.  rapp cambio criterio de asignacion de fecha de pago , ya no es fecha estado sino fecha pago
+          fecha_aux = reg-fecha_pago.
+        ELSE.
+*         CONCATENATE reg-fecha_recepcion+0(4) reg-fecha_recepcion+5(2) reg-fecha_recepcion+8(2) INTO fecha_aux.
+          fecha_aux = reg-fecha_recepcion.
+        ENDIF.
+        UPDATE reguh
+         SET ind_pago = 'X'
+              fecha_pago = fecha_aux
+          WHERE identif_pago = reg-codigo_identificacion
+          AND   zstc1 =  rut_aux.
+        subrc = sy-subrc.
+        PERFORM actualizo_znovedadbanco.
+      ELSE.
+        IF reg-estado_pago = 'CHEQUE DEVUELTO'  OR reg-estado_pago = 'VALE VISTA REINTEGRAD'.
+          SELECT SINGLE * INTO reguh
+             FROM reguh
+           WHERE identif_pago = reg-codigo_identificacion
+             AND  zstc1 =  rut_aux
+             AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+          IF sy-subrc <> 0.
+            CLEAR tdev.
+            MOVE-CORRESPONDING reg TO tdev.
+            SELECT SINGLE *
+                      FROM reguh
+                      WHERE identif_pago = reg-codigo_identificacion
+                        AND  zstc1 =  rut_aux.
+            IF tdev-vvmcad = 'X'.
+              tdev-ctacadmat = reguh-hkont.
+              tdev-ctacadmat+9(1) = '8'.
+            ELSE.
+
+              CLEAR tdev-ctacadmat.
+            ENDIF.
+            tdev-estado = 'X'.
+            APPEND tdev.
+          ELSE.
+            subrc = 1.
+            PERFORM actualizo_znovedadbanco.
+          ENDIF.
+        ELSE.
+          IF reg-estado_pago = 'CHEQUE RECHAZADO'.
+            SELECT SINGLE * INTO reguh
+              FROM reguh
+             WHERE identif_pago = reg-codigo_identificacion
+               AND  zstc1 =  rut_aux
+               AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+            IF sy-subrc <> 0.
+              MOVE-CORRESPONDING reg TO trec.
+              APPEND trec.
+            ELSE.
+              subrc = 1.
+              PERFORM actualizo_znovedadbanco.
+            ENDIF.
+          ELSE.                                                        " Cambio PYV R01061
+            IF reg-estado_pago = 'REDEPOSITO'.                         " Cambio PYV R01061
+              SELECT SINGLE * INTO reguh                               " Cambio PYV R01061
+                 FROM reguh                                            " Cambio PYV R01061
+                WHERE identif_pago = reg-codigo_identificacion         " Cambio PYV R01061
+                  AND  zstc1 =  rut_aux                                " Cambio PYV R01061
+                  AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).      " Cambio PYV R01061
+              IF sy-subrc <> 0.
+                SELECT SINGLE * INTO reguh                               " Cambio PYV R01061
+                                FROM reguh                                            " Cambio PYV R01061
+                                WHERE identif_pago = reg-codigo_identificacion         " Cambio PYV R01061
+                                AND  zstc1 =  rut_aux.                                " Cambio PYV R01061
+                IF reguh-rzawe =  'T'.                                                                     " Cambio PYV R01061
+                  PERFORM actualizar_redeposito.
+                ELSE.
+                  subrc = 1.                                                                                       " Cambio PYV R01061
+                  PERFORM actualizo_znovedadbanco.
+                ENDIF.                                                                                   " Cambio PYV R01061
+              ELSE.                                                                                              " Cambio PYV R01061
+                subrc = 1.                                                                                       " Cambio PYV R01061
+                PERFORM actualizo_znovedadbanco.                                                                 " Cambio PYV R01061
+              ENDIF.                                                                                             " Cambio PYV R01061
+            ENDIF.                                                                                               " Cambio PYV R01061
+          ENDIF.
+        ENDIF.
+      ENDIF.
+    ENDIF.
+  ENDLOOP.
+  REFRESH tpro.
+*
+  correlativo = 0.
+  IF ubnkl = '037'.
+*Begin of change: ReSQ Correction for MODIFY on an unsorted Internal Table 24/12/2019 EY_DES02 ECDK917080 *
+    SORT tdev .
+*End of change: ReSQ Correction for MODIFY on an unsorted Internal Table 24/12/2019 EY_DES02 ECDK917080 *
+    LOOP AT tdev WHERE estado_pago = 'VALE VISTA REINTEGRAD' OR
+                       estado_pago = 'CHEQUE DEVUELTO'.          "HCD - 06-05-2020
+      SELECT SINGLE * FROM reguh
+            WHERE identif_pago = tdev-codigo_identificacion.  "HCD 03-04-2020 de cambia obtencion de codigoznovedadbanco-identif.
+      IF sy-subrc = 0.
+        IF reguh-rzawe = 'V'.
+          correlativo =  correlativo + 1.
+          tdev-correl =   correlativo.
+          MODIFY tdev  INDEX sy-tabix.
+        ENDIF.
+      ENDIF.
+    ENDLOOP.
+  ENDIF.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  CUADRATURA
+*&---------------------------------------------------------------------*
+FORM cuadratura .
+*
+  REFRESH: int_tabla, tdep.
+
+  SORT tdev BY estado_pago  cuenta_cargo numero_lote fecha_pago correl.
+  totalbco = 0.
+  totaldep = 0.
+  LOOP AT tdev.
+    AT END OF correl.
+      SUM.
+      CLEAR int_tabla.
+      MOVE tdev-estado_pago  TO int_tabla-estado_pago.
+      MOVE tdev-cuenta_cargo TO int_tabla-ctactedev.
+      MOVE tdev-numero_lote  TO int_tabla-lotedev.
+      MOVE tdev-fecha_pago   TO int_tabla-fechadev.
+      MOVE tdev-correl       TO int_tabla-correl.
+      int_tabla-montodev = tdev-monto / 100.
+*      int_tabla-montodev = tdev-monto / 10000.
+      SELECT SINGLE * FROM zctarechazobco WHERE bukrs      = bukrs
+*                                            AND hbkid_dest = bancopropio
+                                            AND ctacte_bco = int_tabla-ctactedev
+                                            AND rzawe_d    = ''.
+      IF sy-subrc = 0.
+        int_tabla-cuentadep = zctarechazobco-hkont_dep.
+
+        SELECT * FROM bsis
+                 WHERE bukrs = bukrs
+                 AND   hkont = zctarechazobco-hkont_dep
+                 AND   blart = 'ZR'
+                 AND   wrbtr EQ int_tabla-montodev  "WAJ 22.04.2020
+                 AND   budat IN s_feccon            "WAJ 22.04.2020
+                 ORDER BY PRIMARY KEY.
+*         monto_aux  = bsis-wrbtr * 100.
+*          IF bsis-wrbtr = int_tabla-montodev.     "WAJ 22.04.2020
+*
+* ini - Waldo Alarcón - Visionone - 07-05-2020
+          IF s_feccon[] IS NOT INITIAL.
+            READ TABLE tdep WITH KEY estado_pago  = int_tabla-estado_pago
+                                     cuenta_cargo = int_tabla-ctactedev
+                                     numero_lote  = int_tabla-lotedev
+                                     hkont        = bsis-hkont
+                                     budat        = bsis-budat
+                                     belnr        = bsis-belnr.
+            CHECK sy-subrc NE 0.
+          ENDIF.
+* fin - Waldo Alarcón - Visionone - 07-05-2020
+*
+          IF bsis-shkzg = 'H'.
+            int_tabla-montopend = int_tabla-montopend + bsis-wrbtr.
+          ELSE.
+            int_tabla-montopend = int_tabla-montopend - bsis-wrbtr.
+          ENDIF.
+          tdep-estado_pago     = int_tabla-estado_pago.
+          tdep-cuenta_cargo    = int_tabla-ctactedev.
+          tdep-numero_lote     = int_tabla-lotedev.
+          tdep-fecha_recepcion = int_tabla-fechadev.
+          tdep-correl          = int_tabla-correl.
+          tdep-secuencia       = tdep-secuencia + 1.
+          tdep-hkont           = bsis-hkont.
+          tdep-budat           = bsis-budat.
+          tdep-belnr           = bsis-belnr.
+          tdep-wrbtr           = bsis-wrbtr.
+          tdep-shkzg           = bsis-shkzg.
+          tdep-gjahr           = bsis-gjahr.
+          tdep-estado          = 'X'.
+          APPEND tdep.
+*          ENDIF.                                  "WAJ 22.04.2020
+
+* ini - Waldo Alarcón - Visionone - 07-05-2020
+          CHECK s_feccon[] IS NOT INITIAL.
+          EXIT.
+* fin - Waldo Alarcón - Visionone - 07-05-2020
+        ENDSELECT.
+      ENDIF.
+      int_tabla-montodif = int_tabla-montodev - int_tabla-montopend.
+      IF int_tabla-montodif  = '0.00'.
+        int_tabla-sel = ''.
+      ENDIF.
+      IF int_tabla-sel = 'X'.
+        totalbco = totalbco + int_tabla-montodev.
+        totaldep = totaldep + int_tabla-montopend.
+      ENDIF.
+      APPEND int_tabla.
+      tdep-secuencia = 0.
+    ENDAT.
+  ENDLOOP.
+
+  DESCRIBE TABLE int_tabla LINES fill.
+  SORT int_tabla BY estado_pago ctactedev lotedev fechadev correl.
+  tabla-lines    = fill.
+  tabla-top_line = 1.
+*
+* ini Waldo Alarcón - Visionone - 10-04-2020 - Ajustes de salida del reporte
+  CLEAR   gt_outtab.
+  REFRESH gt_outtab.
+*
+  LOOP AT int_tabla.
+    MOVE-CORRESPONDING int_tabla TO gt_outtab.
+    APPEND gt_outtab.
+  ENDLOOP.
+*
+  CHECK p_proc IS INITIAL.
+  REFRESH int_tabla. CLEAR int_tabla.
+* fin Waldo Alarcón - Visionone - 10-04-2020 - Ajustes de salida del reporte
+ENDFORM.                    "Cuadratura_dev
+
+*&---------------------------------------------------------------------*
+*&      Form  tabla de novedades de bancos
+*&---------------------------------------------------------------------*
+FORM actualizo_znovedadbanco.
+
+  IF subrc = 0.
+    UPDATE znovedadbanco
+        SET estado     = '1'
+            fecpro     = sy-datum
+        WHERE identif  = reg-codigo_identificacion
+        AND   rutben   = reg-rut_beneficiario
+        AND   estado   = '0'
+        AND   fecrec   = reg-fecha_recepcion.
+  ELSE.
+    UPDATE znovedadbanco
+       SET estado     = '9'
+           fecpro     = sy-datum
+       WHERE identif  = reg-codigo_identificacion
+       AND   rutben   = reg-rut_beneficiario
+       AND   estado   = '0'
+       AND   fecrec   = reg-fecha_recepcion.
+  ENDIF.
+
+ENDFORM.                    "actualizo_novedades banco
+
+*&---------------------------------------------------------------------*
+*&      Form  confirma_contabilizacion
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+FORM confirma_contabilizacion.
+* ini Waldo Alarcón - Visionone - 23-04-2020 - Mejoras proceso de contabilziacion
+  DATA : l_flag      TYPE c.
+  data:largo_rut TYPE i. "HCD 20200615
+*         ti_dev      TYPE  reg1    OCCURS 0 WITH HEADER LINE,
+*         ti_dep      TYPE  ty_tdep OCCURS 0 WITH HEADER LINE,
+*         ti_dev_paso TYPE  reg1    OCCURS 0 WITH HEADER LINE,
+*         ti_dep_paso TYPE  ty_tdep OCCURS 0 WITH HEADER LINE.
+* fin Waldo Alarcón - Visionone - 23-04-2020 - Mejoras proceso de contabilziacion
+*
+  IF p_proc IS INITIAL.
+    REFRESH int_tabla. CLEAR int_tabla.
+    LOOP AT gt_outtab."  WHERE sel EQ 'X'.
+      MOVE-CORRESPONDING gt_outtab TO int_tabla.
+      APPEND int_tabla.
+    ENDLOOP.
+  ENDIF.
+*
+  SELECT *  FROM zctarechazobco  INTO CORRESPONDING FIELDS OF TABLE tcuenta
+                               WHERE bukrs      = bukrs
+*                                 and hbkid_dest = bancopropio
+                               AND   rzawe_d    = ''.
+
+  SORT tcuenta BY bukrs rzawe hkont_orig.
+
+** ini Waldo Alarcón - Visionone - 23-04-2020 - Mejoras proceso de contabilziacion
+*  IF p_proc IS INITIAL.
+*    LOOP AT int_tabla.
+*      LOOP AT tdev WHERE estado_pago = int_tabla-estado_pago
+*                   AND   cuenta_cargo = int_tabla-ctactedev
+*                   AND   numero_lote  = int_tabla-lotedev
+*                   AND   fecha_pago   = int_tabla-fechadev
+*                   AND   correl       = int_tabla-correl.
+*        APPEND tdev TO ti_dev.
+*      ENDLOOP.
+*
+*      LOOP AT tdep  WHERE estado_pago     = int_tabla-estado_pago
+*                    AND   cuenta_cargo    = int_tabla-ctactedev
+*                    AND   numero_lote     = int_tabla-lotedev
+*                    AND   fecha_recepcion = int_tabla-fechadev
+*                    AND   correl          = int_tabla-correl.
+*        APPEND tdep TO ti_dep.
+*      ENDLOOP.
+*    ENDLOOP.
+*    ti_dev_paso[] = tdev[].
+*    ti_dep_paso[] = tdep[].
+*
+*    tdev[] = ti_dev[].
+*    tdep[] = ti_dep[].
+*  ELSE.
+** fin Waldo Alarcón - Visionone - 23-04-2020 - Mejoras proceso de contabilziacion
+  LOOP AT int_tabla WHERE sel <> 'X'.
+    LOOP AT tdev WHERE estado_pago = int_tabla-estado_pago
+                AND   cuenta_cargo = int_tabla-ctactedev
+                AND   numero_lote  = int_tabla-lotedev
+                AND   fecha_pago   = int_tabla-fechadev
+                AND   correl       = int_tabla-correl.
+      tdev-estado = ''.
+      MODIFY  tdev.
+    ENDLOOP.
+
+    LOOP AT tdep  WHERE estado_pago     = int_tabla-estado_pago
+                  AND   cuenta_cargo    = int_tabla-ctactedev
+                  AND   numero_lote     = int_tabla-lotedev
+                  AND   fecha_recepcion = int_tabla-fechadev
+                  AND   correl          = int_tabla-correl.
+      tdep-estado = ''.
+      MODIFY tdep.
+    ENDLOOP.
+  ENDLOOP.
+
+  DELETE tdev WHERE estado <> 'X'.
+  DELETE tdep WHERE estado <> 'X'.
+*  ENDIF.
+
+  LEAVE TO LIST-PROCESSING .
+  REFRESH tab.
+  MOVE 'CANCL' TO tab-fcode.
+  APPEND tab.
+  MOVE 'ACTUAL' TO tab-fcode.
+  APPEND tab.
+  MOVE 'CONT' TO tab-fcode.
+  APPEND tab.
+*
+  MOVE 'SELECT' TO tab-fcode.
+  APPEND tab.
+  MOVE 'DESELECT' TO tab-fcode.
+  APPEND tab.
+*
+  SET  PF-STATUS 'ZFITR045' EXCLUDING tab.
+
+  WRITE: /, 'Se Generaron los siguientes Voucher por Pagos Devueltos y Rescatados     '.
+
+  PERFORM contabilizo  TABLES tdev USING 'Pago Dev/Rescatado     ' '1'.
+
+  WRITE: /, 'Se Generaron los siguientes Vouchers por Pagos Rechazo     '.
+
+  PERFORM contabilizo  TABLES trec USING 'Pago Rechazo     ' '2'.
+
+* WRITE: /, 'Se Generaron los siguientes Vouchers por Re depositos      '.
+
+* PERFORM contabilizo_redepositos  TABLES tredep USING 'Pago Redepositado  '.
+ largo_rut  = strlen( tpro-rut_beneficiario ) - 1."HCD 20200615
+
+  LOOP AT tpro.
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_OUTPUT'
+      EXPORTING
+        input  = tpro-rut_beneficiario+0(largo_rut)
+      IMPORTING
+        output = rut_aux.
+
+    CONCATENATE rut_aux '-'  tpro-rut_beneficiario+largo_rut(1)  INTO rut_aux.
+
+    IF NOT tpro-fecha_estado IS INITIAL.
+*      CONCATENATE tpro-fecha_estado+0(4) tpro-fecha_estado+5(2) tpro-fecha_estado+8(2) INTO fecha_aux.
+      fecha_aux = tpro-fecha_estado.
+    ELSE.
+*      CONCATENATE tpro-fecha_recepcion+0(4) tpro-fecha_recepcion+5(2) tpro-fecha_recepcion+8(2) INTO fecha_aux.
+      fecha_aux = tpro-fecha_recepcion.
+    ENDIF.
+    IF tpro-estado_pago = 'CHEQUE DEVUELTO'.
+      UPDATE reguh
+      SET ind_devuelto = 'X'
+          fecha_devuelto = fecha_aux
+          belnr_dev     = tpro-belnr_dev
+          gjahr_dev     = tpro-gjahr_dev
+      WHERE identif_pago = tpro-codigo_identificacion
+      AND   zstc1 =  rut_aux.
+    ELSE.
+*      IF tpro-estado_pago = 'CHEQUE RESCATADO'.
+      IF tpro-estado_pago = 'VALE VISTA REINTEGRAD'.
+        UPDATE reguh
+        SET ind_rescatado = 'X'
+            fecha_rescatado = fecha_aux
+            belnr_dev     = tpro-belnr_dev
+            gjahr_dev     = tpro-gjahr_dev
+        WHERE identif_pago = tpro-codigo_identificacion
+        AND   zstc1 =  rut_aux.
+      ELSE.
+        IF tpro-estado_pago = 'CHEQUE RECHAZADO'.
+          UPDATE reguh
+          SET ind_rechazo = 'X'
+              fecha_rechazo = fecha_aux
+              belnr_dev     = tpro-belnr_dev
+              gjahr_dev     = tpro-gjahr_dev
+          WHERE identif_pago = tpro-codigo_identificacion
+           AND   zstc1 =  rut_aux.
+        ENDIF.
+      ENDIF.
+    ENDIF.
+
+    UPDATE znovedadbanco
+        SET estado  = '1'
+            fecpro  = sy-datum
+        WHERE identif = tpro-codigo_identificacion
+        AND   rutben  = tpro-rut_beneficiario
+        AND   estado  = '0'
+        AND   fecrec  = tpro-fecha_recepcion.
+*
+    IF tpro-belnr_dev IS NOT INITIAL.
+      READ TABLE gt_outtab INTO gs_outtab
+                          WITH KEY estado_pago  = tpro-estado_pago
+                                   correl       = tpro-correl.
+      IF sy-subrc EQ 0.
+        DELETE gt_outtab INDEX sy-tabix.
+        l_flag = 'X'.
+      ENDIF.
+*     l_flag = 'X'.
+    ENDIF.
+  ENDLOOP.
+*
+* ini Waldo Alarcón - Visionone - 23-04-2020 - Mejoras proceso de contabilziacion
+*  IF p_proc IS INITIAL.
+*    IF l_flag EQ 'X'.
+**  elimina registros procesados del reporte.
+*      LOOP AT tdev WHERE estado_pago  = int_tabla-estado_pago
+*                   AND   cuenta_cargo = int_tabla-ctactedev
+*                   AND   numero_lote  = int_tabla-lotedev
+*                   AND   fecha_pago   = int_tabla-fechadev
+*                   AND   correl       = int_tabla-correl.
+*        READ TABLE gt_outtab INTO gs_outtab
+*                            WITH KEY estado_pago = int_tabla-estado_pago
+*                                     ctactedev   = int_tabla-ctactedev
+*                                     lotedev     = int_tabla-lotedev
+*                                     fechadev    = int_tabla-fechadev
+*                                     correl      = int_tabla-correl.
+*        CHECK sy-subrc EQ 0.
+*        DELETE gt_outtab INDEX sy-tabix.
+*      ENDLOOP.
+*    ENDIF.
+*
+*    tdev[] = ti_dev_paso[].
+*    tdep[] = ti_dep_paso[].
+*
+  CALL METHOD g_grid1->refresh_table_display.
+*  ENDIF.
+* fin Waldo Alarcón - Visionone - 23-04-2020 - Mejoras proceso de contabilziacion
+ENDFORM.                    "confirma_contabilizacion
+*&---------------------------------------------------------------------*
+*&      Form  CONTABILIZO_DEVOLUCIONES
+*&---------------------------------------------------------------------*
+FORM contabilizo   TABLES tdat LIKE reg1x
+                   USING texto LIKE bkpf-bktxt
+                         proceso.
+  data : l_dat type i.
+  data:largo_rut TYPE i. "HCD 20200615
+*
+  nuevo   = 'S'.
+  lineas  = 0.
+  tlineas = 0.
+  total   = 0.
+
+  REFRESH: bdcdata, itab.
+
+  SORT tdat BY cuenta_cargo  fecha_estado DESCENDING codigo_identificacion.
+
+  CONCATENATE sy-datum sy-uzeit INTO asignacion.
+
+  LOOP AT tdat.
+    add 1 to l_dat.
+
+    IF ubnkl = '037' AND tdat-estado_pago = 'VALE VISTA REINTEGRAD' AND tdat-ingres <> 'MANUAL'.
+      tipdoc = 'XF'.
+    ELSE.
+      tipdoc = 'XG'.
+    ENDIF.
+    IF cuenta_cargo <> tdat-cuenta_cargo.
+      IF  NOT  cuenta_cargo IS INITIAL AND lineas > 0.
+        PERFORM cierro_voucher USING proceso texto.
+      ENDIF.
+      lineas_dep = 0.
+      LOOP AT tdep WHERE cuenta_cargo = tdat-cuenta_cargo.
+        lineas_dep = lineas_dep + 1.
+      ENDLOOP.
+    ENDIF.
+
+    cuenta_cargo = tdat-cuenta_cargo.
+    largo_rut  = strlen( tdat-rut_beneficiario ) - 1."HCD 20200615
+
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_OUTPUT'
+      EXPORTING
+        input  = tdat-rut_beneficiario+0(largo_rut) "tdat-rut_beneficiario+0(8) "HCD 20200615 tdat-rut_beneficiario+0(8)
+      IMPORTING
+        output = rut_aux.
+
+    CONCATENATE rut_aux '-'  tdat-rut_beneficiario+largo_rut(1) INTO rut_aux. "tdat-rut_beneficiario+8(1) INTO rut_aux. "HCD 20200615tdat-rut_beneficiario+8(1) INTO rut_aux.
+
+
+    SELECT  SINGLE * FROM reguh WHERE identif_pago  = tdat-codigo_identificacion
+                               AND   zstc1 =  rut_aux.
+
+    largo = strlen( reguh-ubhkt ) - 1.
+    reguh-ubhkt+largo(1) = '1'.
+
+    IF tdat-vvmcad <> 'X'.
+*ResQ Comment:Correction not required as aggregation is used 26/12/2019 EY_DES02 ECDK917080*
+      SELECT COUNT(*) INTO filas FROM regup WHERE laufd = reguh-laufd
+      AND laufi = reguh-laufi
+      AND xvorl = reguh-xvorl
+      AND zbukr = reguh-zbukr
+      AND lifnr = reguh-lifnr
+      AND kunnr = reguh-kunnr
+      AND empfg = reguh-empfg
+      AND vblnr = reguh-vblnr.
+
+      tlineas = lineas + filas + lineas_dep.
+
+      IF tlineas > 998.
+        WRITE  total  CURRENCY 'CLP'  TO valor.
+        PERFORM bdc_field       USING 'RF05A-NEWBS'      '40'.
+        IF proceso = '1'.
+          PERFORM bdc_field       USING 'RF05A-NEWKO'    '9000000008'.
+          total_des  = total.
+        ELSE.
+          PERFORM bdc_field       USING 'RF05A-NEWKO'    reguh-ubhkt.
+          total_des  = 0.
+        ENDIF.
+        PERFORM bdc_dynpro      USING 'SAPMF05A'         '0300'.
+        PERFORM bdc_field       USING 'BDC_CURSOR'       'BSEG-SGTXT'.
+        PERFORM bdc_field       USING 'BDC_OKCODE'       '=BU'.
+        PERFORM bdc_field       USING 'BSEG-WRBTR'       valor.
+*        PERFORM bdc_field       USING 'BSEG-VALUT'       fecha1.
+        PERFORM bdc_field       USING 'BSEG-SGTXT'       texto.
+        PERFORM bdc_field       USING 'DKACB-FMORE'      ' '.
+
+*        PERFORM bdc_dynpro      USING 'SAPLKACB'         '0002'.
+*        PERFORM bdc_field       USING 'BDC_CURSOR'       'COBL-PRCTR'.
+*        PERFORM bdc_field       USING 'BDC_OKCODE'       '=ENTE'.
+
+        CALL TRANSACTION 'F-02' USING  bdcdata
+                                        MODE   p_mode
+                                        UPDATE 'S'
+                                        MESSAGES INTO itab.
+        CLEAR belnr.
+        LOOP AT itab.
+          IF itab-msgid = 'F5' AND  itab-msgnr = '312'.
+            belnr = itab-msgv1.
+            gjahr = fecha1+4(4).
+            WRITE: /'Se genero Voucher Numero  : ', belnr , ' Año :' ,  gjahr.
+            PERFORM modifica_xblnr.               "Mod SSYG R01046 201810
+          ELSE.
+            CALL FUNCTION 'MESSAGE_TEXT_BUILD'
+              EXPORTING
+                msgid               = itab-msgid
+                msgnr               = itab-msgnr
+                msgv1               = itab-msgv1
+                msgv2               = itab-msgv2
+                msgv3               = itab-msgv3
+                msgv4               = itab-msgv4
+              IMPORTING
+                message_text_output = mensaje.
+            WRITE: /'Error al contabilizar : ', mensaje.
+          ENDIF.
+
+        ENDLOOP.
+        IF NOT belnr IS INITIAL.
+          LOOP AT tpro WHERE belnr_dev IS INITIAL.
+            tpro-belnr_dev = belnr.
+            tpro-gjahr_dev = gjahr.
+            MODIFY tpro.
+          ENDLOOP.
+        ELSE.
+          LOOP AT tpro WHERE belnr_dev IS INITIAL.
+            DELETE  tpro.
+          ENDLOOP.
+        ENDIF.
+
+        nuevo = 'S'.
+        lineas = 0.
+        total  = total_des. "0 04-06-2020 - Waldo Alarcón - Visionone.
+        REFRESH: bdcdata, itab.
+      ENDIF.
+
+      SELECT * FROM regup WHERE laufd = reguh-laufd
+      AND laufi = reguh-laufi
+      AND xvorl = reguh-xvorl
+      AND zbukr = reguh-zbukr
+      AND lifnr = reguh-lifnr
+      AND kunnr = reguh-kunnr
+      AND empfg = reguh-empfg
+*Begin of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 24/12/2019 EY_DES02 ECDK917080 *
+*AND vblnr = reguh-vblnr.
+      AND vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+*End of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 24/12/2019 EY_DES02 ECDK917080 *
+
+        SELECT SINGLE  * FROM bseg WHERE bukrs  = regup-bukrs
+                               AND  belnr = regup-belnr
+                               AND  gjahr = regup-gjahr
+                               AND  buzei = regup-buzei.
+
+        IF nuevo = 'S'.
+          IF tdat-fecha_estado IS INITIAL.
+            CONCATENATE sy-datum+6(2) sy-datum+4(2) sy-datum+0(4) INTO fecha1.
+          ELSE.
+            CONCATENATE  tdat-fecha_estado+6(2) tdat-fecha_estado+4(2) tdat-fecha_estado+0(4) INTO fecha1.
+*          fecha1 =  tdat-fecha_estado .
+          ENDIF.
+          PERFORM bdc_dynpro      USING 'SAPMF05A'          '0100'.
+          PERFORM bdc_field       USING 'BDC_CURSOR'        'RF05A-NEWKO'.
+          PERFORM bdc_field       USING 'BDC_OKCODE'        '/00'.
+          PERFORM bdc_field       USING 'BKPF-BLDAT'        fecha1.
+          PERFORM bdc_field       USING 'BKPF-BLART'        tipdoc.
+*                                      'SA'."Mod 11.06.2014 Seidor Crystalis
+*                                      'XG'. "Mod SSYG R01046
+
+          PERFORM bdc_field       USING 'BKPF-BUKRS'        bukrs.
+          PERFORM bdc_field       USING 'BKPF-BUDAT'        fecha1.
+          PERFORM bdc_field       USING 'BKPF-WAERS'        'CLP'.
+          PERFORM bdc_field       USING 'BKPF-BKTXT'        texto.
+
+          IF total_des > 0.
+            WRITE  total_des  CURRENCY 'CLP'  TO valor.
+            PERFORM bdc_field       USING 'RF05A-NEWBS'     '50'.
+            PERFORM bdc_field       USING 'RF05A-NEWKO'     '9000000008'.
+
+            PERFORM bdc_dynpro      USING 'SAPMF05A'        '0300'.
+            PERFORM bdc_field       USING 'BDC_CURSOR'      'BSEG-SGTXT'.
+            PERFORM bdc_field       USING 'BDC_OKCODE'      '/00'.
+            PERFORM bdc_field       USING 'BSEG-WRBTR'      valor.
+            PERFORM bdc_field       USING 'BSEG-SGTXT'      texto.
+            PERFORM bdc_field       USING 'DKACB-FMORE'     ' '.
+            CLEAR total_des.
+          ENDIF.
+
+          IF  regup-shkzg = 'H'.
+            PERFORM bdc_field       USING 'RF05A-NEWBS'     '31'.
+          ELSE.
+            PERFORM bdc_field       USING 'RF05A-NEWBS'     '21'.
+          ENDIF.
+          PERFORM bdc_field         USING 'RF05A-NEWKO'     reguh-lifnr.
+          nuevo = 'N'.
+        ELSE.
+          IF  regup-shkzg = 'H'.
+            PERFORM bdc_field    USING 'RF05A-NEWBS'       '31'.
+          ELSE.
+            PERFORM bdc_field    USING 'RF05A-NEWBS'       '21'.
+          ENDIF.
+          PERFORM bdc_field       USING 'RF05A-NEWKO'      reguh-lifnr.
+        ENDIF.
+
+        WRITE  regup-dmbtr CURRENCY 'CLP'  TO valor.
+
+        IF tdat-fecha_estado IS INITIAL.
+          CONCATENATE  tdat-fecha_recepcion+6(2) tdat-fecha_recepcion+4(2) tdat-fecha_recepcion+0(4) INTO fecha.
+*        fecha = tdat-fecha_recepcion.
+        ELSE.
+          CONCATENATE  tdat-fecha_estado+6(2) tdat-fecha_estado+4(2) tdat-fecha_estado+0(4) INTO fecha.
+*       fecha = tdat-fecha_estado.
+        ENDIF.
+
+*      IF tdat-estado_pago = 'CHEQUE RESCATADO' OR tdat-estado_pago = 'CHEQUE RECHAZADO'.
+        IF tdat-estado_pago = 'VALE VISTA REINTEGRAD' OR tdat-estado_pago = 'CHEQUE RECHAZADO'.
+
+          READ TABLE tcuenta WITH KEY bukrs = bukrs
+                                      rzawe =  reguh-rzawe
+                                      hkont_orig = '1011110001'.
+          IF sy-subrc <> 0.
+            MESSAGE e016(z1) WITH 'Cta no definida Para Soc./Cta. Origen' bukrs '1011110001'.
+          ENDIF.
+          tcuenta-hkont_dest = bseg-hkont.
+        ELSE.
+          READ TABLE tcuenta WITH KEY bukrs = bukrs
+                                      rzawe =  reguh-rzawe
+                                      hkont_orig = bseg-hkont.
+          IF sy-subrc <> 0.
+            MESSAGE e016(z1) WITH 'Cta no definida Para Soc./Cta. Origen' bukrs bseg-hkont.
+          ENDIF.
+        ENDIF.
+
+        PERFORM bdc_dynpro      USING 'SAPMF05A'        '0302'.
+        PERFORM bdc_field       USING 'BDC_CURSOR'      'BSEG-ZLSCH'.
+        PERFORM bdc_field       USING 'BDC_OKCODE'      '=ZK'.
+        PERFORM bdc_field       USING 'BSEG-HKONT'      tcuenta-hkont_dest.
+        PERFORM bdc_field       USING 'BSEG-WRBTR'      valor.
+        PERFORM bdc_field       USING 'BSEG-MWSKZ'      ''.
+        PERFORM bdc_field       USING 'BSEG-ZTERM'      'ZC01'.
+        PERFORM bdc_field       USING 'BSEG-ZFBDT'      fecha.
+        PERFORM bdc_field       USING 'BSEG-ZLSCH'      'C'.
+        PERFORM bdc_field       USING 'BSEG-ZUONR'      regup-zuonr.
+        PERFORM bdc_field       USING 'BSEG-SGTXT'      texto.
+        PERFORM bdc_field       USING 'BSEG-ZZMOT_EMIS' bseg-zzmot_emis.
+        PERFORM bdc_field       USING 'BSEG-ZZ_AGENCIA' bseg-zz_agencia.
+
+        SELECT SINGLE * FROM lfb1 WHERE lifnr = reguh-lifnr AND
+                                         bukrs = bukrs.
+
+        IF sy-subrc = 0.
+          SELECT COUNT(*) INTO cant_imp FROM lfbw
+                                      WHERE lifnr = reguh-lifnr
+                                      AND   bukrs = bukrs.
+          IF cant_imp > 0.
+            PERFORM bdc_dynpro USING  'SAPLFWTD'                 '0100'.
+            PERFORM bdc_field  USING  'BDC_CURSOR'               'WITH_ITEM-WT_WITHCD(01)'.
+            PERFORM bdc_field  USING  'BDC_OKCODE'               '/00'.
+            PERFORM bdc_field  USING  'WITH_ITEM-WT_WITHCD(01)'  '  '.
+          ENDIF.
+        ENDIF.
+
+        PERFORM bdc_dynpro      USING 'SAPMF05A'            '0332'.
+        PERFORM bdc_field       USING 'BDC_CURSOR'          'RF05A-NEWKO'.
+        PERFORM bdc_field       USING 'BDC_OKCODE'          '/00'.
+
+        PERFORM bdc_field       USING 'BSEG-HBKID'          tcuenta-hbkid_dest.
+        PERFORM bdc_field       USING 'BSEG-HKTID'          tcuenta-hktid_dest.
+        PERFORM bdc_field       USING 'BSEG-XREF1'          bseg-xref1.
+        PERFORM bdc_field       USING 'BSEG-XREF2'          reguh-vblnr.
+        lineas = lineas + 1.
+        total = total + regup-dmbtr.
+      ENDSELECT.
+
+*      CLEAR tpro.
+*      tpro-codigo_identificacion = tdat-codigo_identificacion.
+*      tpro-rut_beneficiario = tdat-rut_beneficiario.
+*      tpro-fecha_recepcion = tdat-fecha_recepcion.
+*      tpro-fecha_estado = tdat-fecha_estado.
+*      tpro-estado_pago = tdat-estado_pago.
+*      APPEND tpro.
+    ELSE .
+*---------------------------------------------------------------------------------------------------------------------------------------
+
+*---------------------------------------------------------------------------------------------------------------------------------------
+      tlineas = lineas + 1 + lineas_dep.
+
+      IF tlineas > 998.
+        WRITE  total  CURRENCY 'CLP'  TO valor.
+        PERFORM bdc_field       USING 'RF05A-NEWBS'        '40'.
+        IF proceso = '1'.
+          PERFORM bdc_field       USING 'RF05A-NEWKO'      '9000000008'.
+          total_des  = total.
+        ELSE.
+          PERFORM bdc_field       USING 'RF05A-NEWKO'      reguh-ubhkt.
+          total_des  = 0.
+        ENDIF.
+        PERFORM bdc_dynpro      USING 'SAPMF05A'           '0300'.
+        PERFORM bdc_field       USING 'BDC_CURSOR'         'BSEG-SGTXT'.
+        PERFORM bdc_field       USING 'BDC_OKCODE'         '=BU'.
+        PERFORM bdc_field       USING 'BSEG-WRBTR'         valor.
+*        PERFORM bdc_field       USING 'BSEG-VALUT'         fecha1.
+        PERFORM bdc_field       USING 'BSEG-SGTXT'         texto.
+        PERFORM bdc_field       USING 'DKACB-FMORE'        ' '.
+
+*        PERFORM bdc_dynpro      USING 'SAPLKACB'           '0002'.
+*        PERFORM bdc_field       USING 'BDC_CURSOR'         'COBL-PRCTR'.
+*        PERFORM bdc_field       USING 'BDC_OKCODE'         '=ENTE'.
+
+        CALL TRANSACTION 'F-02' USING  bdcdata
+                                        MODE   p_mode
+                                        UPDATE 'S'
+                                        MESSAGES INTO itab.
+        CLEAR belnr.
+        LOOP AT itab.
+          IF itab-msgid = 'F5' AND     itab-msgnr = '312'.
+            belnr = itab-msgv1.
+            gjahr = fecha1+4(4).
+            WRITE: /'Se genero Voucher Numero  : ', belnr , ' Año :' ,  gjahr.
+            PERFORM modifica_xblnr.               "Mod SSYG R01046 201810
+          ELSE.
+            CALL FUNCTION 'MESSAGE_TEXT_BUILD'
+              EXPORTING
+                msgid               = itab-msgid
+                msgnr               = itab-msgnr
+                msgv1               = itab-msgv1
+                msgv2               = itab-msgv2
+                msgv3               = itab-msgv3
+                msgv4               = itab-msgv4
+              IMPORTING
+                message_text_output = mensaje.
+            WRITE: /'Errro Al contabilizar : ', mensaje.
+          ENDIF.
+
+        ENDLOOP.
+        IF NOT belnr IS INITIAL.
+          LOOP AT tpro WHERE belnr_dev IS INITIAL.
+            tpro-belnr_dev = belnr.
+            tpro-gjahr_dev = gjahr.
+            MODIFY tpro.
+          ENDLOOP.
+        ELSE.
+          LOOP AT tpro WHERE belnr_dev IS INITIAL.
+            DELETE  tpro.
+          ENDLOOP.
+        ENDIF.
+
+        nuevo = 'S'.
+        lineas = 0.
+        total  = total_des. "0 04-06-2020 - Waldo Alarcón - Visionone.
+        REFRESH: bdcdata, itab.
+      ENDIF.
+*
+      IF nuevo = 'S'.
+        IF tdat-fecha_estado IS INITIAL.
+          CONCATENATE sy-datum+6(2) sy-datum+4(2) sy-datum+0(4) INTO fecha1.
+        ELSE.
+          CONCATENATE  tdat-fecha_estado+6(2) tdat-fecha_estado+4(2) tdat-fecha_estado+0(4) INTO fecha1.
+*          fecha1 =  tdat-fecha_estado .
+        ENDIF.
+        PERFORM bdc_dynpro      USING 'SAPMF05A'              '0100'.
+        PERFORM bdc_field       USING 'BDC_CURSOR'            'RF05A-NEWKO'.
+        PERFORM bdc_field       USING 'BDC_OKCODE'            '/00'.
+        PERFORM bdc_field       USING 'BKPF-BLDAT'            fecha1.
+        PERFORM bdc_field       USING 'BKPF-BLART'            tipdoc.
+*                                     'SA'."Mod 11.06.2014 Seidor Crystalis
+*                                     'XG'. "Mod SSYG R01046
+
+        PERFORM bdc_field       USING 'BKPF-BUKRS'            bukrs.
+        PERFORM bdc_field       USING 'BKPF-BUDAT'            fecha1.
+        PERFORM bdc_field       USING 'BKPF-WAERS'            'CLP'.
+        PERFORM bdc_field       USING 'BKPF-BKTXT'            texto.
+
+        IF total_des > 0.
+          WRITE  total_des  CURRENCY 'CLP'  TO valor.
+          PERFORM bdc_field       USING 'RF05A-NEWBS'         '50'.
+          PERFORM bdc_field       USING 'RF05A-NEWKO'         '9000000008'.
+
+          PERFORM bdc_dynpro      USING 'SAPMF05A'            '0300'.
+          PERFORM bdc_field       USING 'BDC_CURSOR'          'BSEG-SGTXT'.
+          PERFORM bdc_field       USING 'BDC_OKCODE'          '/00'.
+          PERFORM bdc_field       USING 'BSEG-WRBTR'          valor.
+          PERFORM bdc_field       USING 'BSEG-SGTXT'          texto.
+          PERFORM bdc_field       USING 'DKACB-FMORE'         ' '.
+          CLEAR total_des.
+        ENDIF.
+
+        PERFORM bdc_field       USING 'RF05A-NEWBS'           '50'.
+        PERFORM bdc_field       USING 'RF05A-NEWKO'           tdat-ctacadmat..
+        nuevo = 'N'.
+      ELSE.
+
+        PERFORM bdc_field    USING 'RF05A-NEWBS'              '50'.
+        PERFORM bdc_field       USING 'RF05A-NEWKO'           tdat-ctacadmat.
+      ENDIF.
+
+      WRITE  reguh-rbetr CURRENCY 'CLP'  TO valor.
+
+      IF tdat-fecha_estado IS INITIAL.
+        CONCATENATE  tdat-fecha_recepcion+6(2) tdat-fecha_recepcion+4(2) tdat-fecha_recepcion+0(4) INTO fecha.
+*        fecha = tdat-fecha_recepcion.
+      ELSE.
+        CONCATENATE  tdat-fecha_estado+6(2) tdat-fecha_estado+4(2) tdat-fecha_estado+0(4) INTO fecha.
+*       fecha = tdat-fecha_estado.
+      ENDIF.
+*
+      PERFORM bdc_dynpro      USING 'SAPMF05A'                 '0302'.
+      PERFORM bdc_field       USING 'BDC_CURSOR'               'BSEG-ZLSCH'.
+      PERFORM bdc_field       USING 'BDC_OKCODE'               '=ZK'.
+      PERFORM bdc_field       USING 'BSEG-HKONT'               tdat-ctacadmat.
+      PERFORM bdc_field       USING 'BSEG-WRBTR'               valor.
+
+      PERFORM bdc_field       USING 'BSEG-ZUONR'               regup-zuonr.
+      PERFORM bdc_field       USING 'BSEG-SGTXT'               texto.
+      PERFORM bdc_field       USING 'BSEG-ZZMOT_EMIS'          bseg-zzmot_emis.
+      PERFORM bdc_field       USING 'BSEG-ZZ_AGENCIA'          bseg-zz_agencia.
+
+      PERFORM bdc_dynpro      USING 'SAPMF05A'                '0300'.
+      PERFORM bdc_field       USING 'BDC_CURSOR'              'RF05A-NEWKO'.
+      PERFORM bdc_field       USING 'BDC_OKCODE'              '/00'.
+      PERFORM bdc_field       USING 'BSEG-WRBTR'              valor.
+      PERFORM bdc_field       USING 'BSEG-VALUT'              fecha.
+      PERFORM bdc_field       USING 'BSEG-ZUONR'              fecha.
+      PERFORM bdc_field       USING 'BSEG-SGTXT'              reguh-name1.
+      PERFORM bdc_field       USING 'DKACB-FMORE'             ' '.
+
+      SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+                                   AND   laufi = reguh-laufi
+                                   AND   xvorl = reguh-xvorl
+                                   AND   zbukr = reguh-zbukr
+                                   AND   lifnr = reguh-lifnr
+                                   AND   kunnr = reguh-kunnr
+                                   AND   empfg = reguh-empfg
+                                   AND   vblnr = reguh-vblnr.
+
+      SELECT SINGLE  * FROM bseg WHERE bukrs  = regup-bukrs
+                             AND  belnr = regup-belnr
+                             AND  gjahr = regup-gjahr
+                             AND  buzei = regup-buzei.
+
+      PERFORM bdc_dynpro      USING 'SAPLKACB'                '0002'.
+      PERFORM bdc_field       USING 'BDC_OKCODE'              '=ENTE'.
+      PERFORM bdc_field       USING 'BDC_CURSOR'              'COBL-ZZMOT_EMIS'.
+      PERFORM bdc_field       USING 'COBL-ZZMOT_EMIS'          bseg-zzmot_emis.
+      PERFORM bdc_field       USING 'COBL-ZZRUT_TERC'          reguh-lifnr.
+      lineas = lineas + 1.
+      total = total + reguh-rbetr.
+    ENDIF.
+*
+    CLEAR tpro.
+    tpro-codigo_identificacion = tdat-codigo_identificacion.
+    tpro-rut_beneficiario      = tdat-rut_beneficiario.
+    tpro-fecha_recepcion       = tdat-fecha_recepcion.
+    tpro-fecha_estado          = tdat-fecha_estado.
+    tpro-estado_pago           = tdat-estado_pago.
+    tpro-correl                = tdat-correl.
+    APPEND tpro.
+  ENDLOOP.
+
+  IF lineas > 0.
+    PERFORM cierro_voucher USING proceso texto.
+  ENDIF.
+
+ENDFORM.                    "contabilizar
+*&---------------------------------------------------------------------*
+*&      Form  CIERRO_VOUCHER
+*&---------------------------------------------------------------------*
+FORM cierro_voucher  USING    p_proceso p_texto.
+*
+  CLEAR : belnr, gjahr.
+*
+  IF  p_proceso = '1'.
+    LOOP AT tdep WHERE cuenta_cargo = cuenta_cargo.
+      WRITE  tdep-wrbtr  CURRENCY 'CLP'  TO valor.
+      PERFORM bdc_field       USING 'RF05A-NEWBS'  '40'.
+      PERFORM bdc_field       USING 'RF05A-NEWKO'  tdep-hkont.
+
+      PERFORM bdc_dynpro      USING 'SAPMF05A'     '0300'.
+      PERFORM bdc_field       USING 'BDC_CURSOR'   'BSEG-SGTXT'.
+      PERFORM bdc_field       USING 'BDC_OKCODE'   '/00'.
+      PERFORM bdc_field       USING 'BSEG-WRBTR'   valor.
+
+      SELECT SINGLE zuonr INTO asignacion
+                          FROM bseg
+                          WHERE bukrs = bukrs
+                          AND   belnr = tdep-belnr
+                          AND   gjahr = tdep-gjahr
+                          AND   bschl = '50'.
+
+      PERFORM bdc_field       USING 'BSEG-ZUONR'    asignacion.
+      PERFORM bdc_field       USING 'BSEG-SGTXT'    p_texto.
+      PERFORM bdc_field       USING 'DKACB-FMORE'   ' '.
+    ENDLOOP.
+*
+    PERFORM bdc_dynpro      USING 'SAPMF05A'    '0300'.
+    PERFORM bdc_field       USING 'BDC_CURSOR'  'BSEG-SGTXT'.
+    PERFORM bdc_field       USING 'BDC_OKCODE'  '=BU'.
+    PERFORM bdc_field       USING 'DKACB-FMORE' ' '.
+*
+*    PERFORM bdc_dynpro      USING 'SAPLKACB'    '0002'.
+*    PERFORM bdc_field       USING 'BDC_CURSOR'  'COBL-PRCTR'.
+*    PERFORM bdc_field       USING 'BDC_OKCODE'  '=ENTE'.
+  ELSE.
+    WRITE  total  CURRENCY 'CLP'  TO valor.
+    PERFORM bdc_field       USING 'RF05A-NEWBS'   '40'.
+    PERFORM bdc_field       USING 'RF05A-NEWKO'   reguh-ubhkt.
+
+    PERFORM bdc_dynpro      USING 'SAPMF05A'      '0300'.
+    PERFORM bdc_field       USING 'BDC_CURSOR'    'BSEG-SGTXT'.
+    PERFORM bdc_field       USING 'BDC_OKCODE'    '=BU'.
+    PERFORM bdc_field       USING 'BSEG-WRBTR'    valor.
+    PERFORM bdc_field       USING 'BSEG-VALUT'    fecha1.
+    PERFORM bdc_field       USING 'BSEG-SGTXT'    p_texto.
+    PERFORM bdc_field       USING 'DKACB-FMORE'   ' '.
+*
+*    PERFORM bdc_dynpro      USING 'SAPLKACB'      '0002'.
+*    PERFORM bdc_field       USING 'BDC_CURSOR'    'COBL-PRCTR'.
+*    PERFORM bdc_field       USING 'BDC_OKCODE'    '=ENTE'.
+  ENDIF.
+
+  CALL TRANSACTION 'F-02' USING  bdcdata
+                                  MODE   p_mode
+                                  UPDATE 'S'
+                                  MESSAGES INTO itab.
+
+  CLEAR belnr.
+  LOOP AT itab.
+    IF itab-msgid = 'F5' AND     itab-msgnr = '312'.
+      belnr = itab-msgv1.
+      gjahr = fecha1+4(4).
+      WRITE: /'Se genero Voucher Numero  : ', belnr , ' Año :' ,  gjahr.
+      PERFORM modifica_xblnr.               "Mod SSYG R01046 201810
+    ELSEIF itab-msgtyp EQ 'E'.
+      CALL FUNCTION 'MESSAGE_TEXT_BUILD'
+        EXPORTING
+          msgid               = itab-msgid
+          msgnr               = itab-msgnr
+          msgv1               = itab-msgv1
+          msgv2               = itab-msgv2
+          msgv3               = itab-msgv3
+          msgv4               = itab-msgv4
+        IMPORTING
+          message_text_output = mensaje.
+      WRITE: /'Error Al contabilizar : ', mensaje.
+    ENDIF.
+  ENDLOOP.
+
+  IF NOT belnr IS INITIAL.
+    LOOP AT tpro WHERE belnr_dev IS INITIAL.
+      tpro-belnr_dev = belnr.
+      tpro-gjahr_dev = gjahr.
+      MODIFY tpro.
+    ENDLOOP.
+  ELSE.
+    LOOP AT tpro WHERE belnr_dev IS INITIAL.
+      DELETE  tpro.
+    ENDLOOP.
+  ENDIF.
+
+  nuevo = 'S'.
+  lineas = 0.
+  total = 0.
+  REFRESH: bdcdata, itab.
+ENDFORM.                    " CIERRO_VOUCHER
+*&---------------------------------------------------------------------*
+*&      Form  ACTUALIZAR_REDEPOSITO
+*&---------------------------------------------------------------------*
+FORM actualizar_redeposito .
+  fecha_aux = reg-fecha.
+  UPDATE reguh
+     SET  ind_redepo = 'X'
+          fecha_redepo = fecha_aux
+          glosa_redepo = 'Cambio Via Pago T a V'
+          rzawe = 'V'
+     WHERE identif_pago = reg-codigo_identificacion
+       AND        zstc1 =  rut_aux.
+
+  IF sy-subrc = 0.
+    SELECT SINGLE * FROM reguh
+          WHERE identif_pago = reg-codigo_identificacion
+         AND        zstc1 =  rut_aux.
+
+    UPDATE regup
+             SET       zlsch = 'V'
+          WHERE laufd = reguh-laufd
+                           AND   laufi = reguh-laufi
+                           AND   xvorl = reguh-xvorl
+                           AND   zbukr = reguh-zbukr
+                           AND   lifnr = reguh-lifnr
+                           AND   kunnr = reguh-kunnr
+                           AND   empfg = reguh-empfg
+                           AND   vblnr = reguh-vblnr.
+  ENDIF.
+
+  IF sy-subrc = 0.
+    w_mode = p_fb09. "'N'.
+    tcode  = 'FB09'.
+
+    REFRESH bdcdata.
+    CLEAR bdcdata.
+
+    PERFORM bdc USING:
+         'X' 'SAPMF05L' '0102'            "ingresa al programa
+          ,'' 'BDC_CURSOR' 'RF05L-BELNR'        "se posiciona en el centro
+          ,'' 'RF05L-BELNR' reguh-vblnr         "asigna el valor al centro
+          ,'' 'BDC_CURSOR' 'RF05L-BUKRS'
+          ,'' 'RF05L-BUKRS' reguh-zbukr
+          ,'' 'BDC_CURSOR' 'RF05L-GJAHR'
+          ,'' 'RF05L-GJAHR' reguh-zaldt+0(4)
+          ,'' 'BDC_CURSOR' 'RF05L-BUZEI'
+          ,'' 'RF05L-BUZEI' '001'
+          ,'' 'BDC_OKCODE' '/00'
+          ,'X' 'SAPMF05L' '0302'
+          ,'' 'BDC_CURSOR' 'BSEG-ZLSCH'
+          ,'' 'BSEG-ZLSCH' 'V'
+          ,'' 'BDC_CURSOR' 'BSEG-SGTXT'
+          ,'' 'BSEG-SGTXT' 'CAMBIA VIA PAGO'
+          ,'' 'BDC_OKCODE' '=ZK'
+          ,'X' 'SAPMF05L' '1302'
+            ,'X' 'SAPMF05L' '0302'
+          ,'' 'BDC_OKCODE' '/11'
+
+          .
+    CALL TRANSACTION tcode USING bdcdata
+                           MODE   w_mode
+                           UPDATE 'S'
+                           MESSAGES INTO messtab.
+
+    DESCRIBE TABLE messtab LINES v_lineas.
+    READ TABLE messtab INDEX v_lineas.
+
+    IF messtab-msgnr EQ '300' OR messtab-msgnr EQ '303' .
+      sy-subrc = 0.
+    ELSE.
+      sy-subrc = 1.
+    ENDIF.
+  ENDIF.
+  IF sy-subrc <> 0.
+    WRITE: /'Error al actualizar redeposito : ', reg-codigo_identificacion.
+  ELSE.
+    UPDATE znovedadbanco
+        SET estado  = '1'
+            fecpro  = sy-datum
+        WHERE identif = reg-codigo_identificacion
+        AND   rutben  = reg-rut_beneficiario
+        AND   estado  = '0'
+        AND   fecrec  = reg-fecha_recepcion.
+  ENDIF.
+
+ENDFORM.                    " ACTUALIZAR_REDEPOSITO
+*&---------------------------------------------------------------------*
+*&   Invocar actualización de ZDOC_PAGOS
+*&---------------------------------------------------------------------*
+FORM actualizar_pagos.
+  EXEC SQL.
+    connect to 'SAPCSC' as 'con'
+  ENDEXEC.
+
+  EXEC SQL.
+    set connection 'con'
+  ENDEXEC.
+
+  SELECT *
+        FROM   znovedadbanco UP TO p_lineas ROWS "WAJ 22.04.2020
+       WHERE   sociedad = bukrs
+         AND   banco    = ubnkl
+* ini - Waldo Alarcón - Nuevos campos de Selección - 23.04.2020
+         AND   numlot   IN s_numlot
+         AND   cuenta   IN s_cuenta
+         AND   fecpag   IN s_fecpag
+* fin - Waldo Alarcón - Nuevos campos de Selección - 23.04.2020
+         AND  estado = '0'.
+
+    EXEC SQL.
+
+      EXECUTE PROCEDURE csc_sap_transfer.prc_novedad_multibanco
+ (IN :znovedadbanco-sociedad,
+                        IN :znovedadbanco-banco   ,
+                        IN :znovedadbanco-fecest  ,
+                        IN :znovedadbanco-identif,
+                        IN :znovedadbanco-rutemi,
+                        IN :znovedadbanco-cuenta,
+                        IN :znovedadbanco-nomben ,
+                        IN :znovedadbanco-rutben,
+                        IN :znovedadbanco-montow,
+                        IN :znovedadbanco-numche,
+                        IN :znovedadbanco-estpag,
+                        IN :znovedadbanco-fecrec,
+                        IN :znovedadbanco-numlot,
+                        IN :znovedadbanco-fecpro,
+                        IN :znovedadbanco-fecpag,
+                        IN :znovedadbanco-estado)
+    ENDEXEC.
+
+  ENDSELECT.
+
+  EXEC SQL.
+    SET CONNECTION DEFAULT
+  ENDEXEC.
+
+  EXEC SQL.
+    DISCONNECT 'con'
+  ENDEXEC.
+
+ENDFORM.                    "actualizar_pagos
+*&---------------------------------------------------------------------*
+*&      Form  bdc
+*&---------------------------------------------------------------------*
+FORM bdc  USING    a
+      b
+      c.
+
+  CLEAR bdcdata.
+  IF a = 'X'.
+    bdcdata-program   = b.
+    bdcdata-dynpro    = c.
+    bdcdata-dynbegin  = a.
+  ELSE.
+    bdcdata-fnam = b.
+    WRITE c TO bdcdata-fval LEFT-JUSTIFIED.
+  ENDIF.
+  APPEND bdcdata.
+
+ENDFORM.                    "bdc
+*&---------------------------------------------------------------------*
+*&      Form  modifica_xblnr
+*&---------------------------------------------------------------------*
+*       Para rechazo de transferencias de HUB santander BLART = 'XF'   *
+*----------------------------------------------------------------------*
+FORM modifica_xblnr.
+
+  UPDATE bkpf SET xblnr = belnr
+  WHERE bukrs = bukrs
+    AND belnr = belnr
+    AND gjahr = gjahr.
+
+ENDFORM.                    "modifica_xblnr.
+*&---------------------------------------------------------------------*
+*&      Form  BUILD_FIELDCAT
+*&---------------------------------------------------------------------*
+FORM build_fieldcat CHANGING pt_fieldcat TYPE lvc_t_fcat.
+  DATA : ls_fcat   TYPE lvc_s_fcat,
+         l_col_pos TYPE lvc_s_fcat-col_pos.
+*
+  CLEAR pt_fieldcat[].
+  CALL FUNCTION 'LVC_FIELDCATALOG_MERGE'
+    EXPORTING
+      i_structure_name = 'ZFITR045_EST_001'
+    CHANGING
+      ct_fieldcat      = pt_fieldcat.
+*
+  CLEAR ls_fcat.
+  ls_fcat-fieldname = 'MENSAJE'.
+  ls_fcat-outputlen = 40.
+  APPEND ls_fcat TO pt_fieldcat.
+*
+  CLEAR ls_fcat.
+  ls_fcat-fieldname = 'LINSEL'.
+  ls_fcat-outputlen = 5.
+  APPEND ls_fcat TO pt_fieldcat.
+*
+  l_col_pos = 5.
+  LOOP AT pt_fieldcat INTO ls_fcat.
+    ADD 1 TO l_col_pos.
+    ls_fcat-col_pos = l_col_pos.
+    CASE ls_fcat-fieldname.
+      WHEN 'ESTADO_PAGO'.
+        ls_fcat-coltext   = 'Estado'.
+      WHEN 'CTACTEDEV'.
+        ls_fcat-coltext   = 'Cta.Cte.'.
+        ls_fcat-outputlen = 10.
+      WHEN 'LOTEDEV'.
+        ls_fcat-coltext   = 'Lote'.
+        ls_fcat-outputlen = 10.
+      WHEN 'FECHADEV'.
+        ls_fcat-coltext   = 'Fecha Recepción'.
+        ls_fcat-outputlen = 15.
+      WHEN 'MONTODEV'.
+        ls_fcat-coltext    = 'Monto Envio'.
+        ls_fcat-currency   = t001-waers.
+        ls_fcat-outputlen  = 15.
+      WHEN 'CUENTADEP'.
+        ls_fcat-coltext   = 'Cta. Depósito'.
+      WHEN 'MONTOPEND'.
+        ls_fcat-coltext   = 'Monto Depósito'.
+        ls_fcat-currency   = t001-waers.
+        ls_fcat-outputlen = 15.
+      WHEN 'MONTODIF'.
+        ls_fcat-coltext   = 'Diferencia'.
+        ls_fcat-currency   = t001-waers.
+        ls_fcat-outputlen = 10.
+      WHEN 'SEL'.
+        ls_fcat-col_pos   = 0.
+        ls_fcat-checkbox  = 'X'.
+        ls_fcat-edit      = 'X'.
+        ls_fcat-outputlen = 8.
+        ls_fcat-hotspot   = 'X'.
+        ls_fcat-coltext   = 'Selección'.
+      WHEN 'MENSAJE'.
+        ls_fcat-coltext   = 'Mensaje Error'.
+      WHEN 'LINSEL'.
+        ls_fcat-coltext   = 'Correl'.
+        ls_fcat-col_pos   = 1.
+      WHEN 'CORREL'.
+        ls_fcat-no_out    = 'X'.
+        ls_fcat-tech      = 'X'.
+    ENDCASE.
+    ls_fcat-tooltip    = ls_fcat-coltext.
+    ls_fcat-reptext    = ls_fcat-coltext.
+    ls_fcat-txt_field  = ls_fcat-coltext.
+    ls_fcat-scrtext_l  = ls_fcat-coltext.
+    ls_fcat-scrtext_m  = ls_fcat-coltext.
+    ls_fcat-scrtext_s  = ls_fcat-coltext.
+*
+    MODIFY pt_fieldcat FROM ls_fcat.
+  ENDLOOP.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  EXCLUDE_TB_FUNCTIONS
+*&---------------------------------------------------------------------*
+FORM exclude_tb_functions CHANGING pt_exclude TYPE ui_functions.
+  DATA ls_exclude TYPE ui_func.
+*
+  CLEAR pt_exclude[].
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_copy_row.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_delete_row.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_append_row.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_insert_row.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_move_row.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_copy.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_cut.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_paste.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_paste_new_row.
+  APPEND ls_exclude TO pt_exclude.
+  ls_exclude = cl_gui_alv_grid=>mc_fc_loc_undo.
+  APPEND ls_exclude TO pt_exclude.
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SELECT_ALL_ENTRIES
+*&---------------------------------------------------------------------*
+FORM select_all_entries CHANGING pt_outtab TYPE STANDARD TABLE.
+  DATA: ls_outtab         TYPE ty_outtab,
+        lt_filter_entries TYPE lvc_t_fidx.   " Filtered entries
+  DATA: l_valid  TYPE c,
+        l_locked TYPE c,
+        l_linsel TYPE numc05,
+        l_tabix  TYPE sy-tabix,                " Index
+        lt_color TYPE lvc_t_scol,
+        ls_color TYPE lvc_s_scol.
+*
+  CALL METHOD g_grid1->check_changed_data
+    IMPORTING
+      e_valid = l_valid.
+  IF l_valid EQ 'X'.
+*
+    CALL METHOD g_grid1->get_filtered_entries
+      IMPORTING
+        et_filtered_entries = lt_filter_entries.
+*
+    l_linsel = 0.
+    LOOP AT pt_outtab INTO ls_outtab.
+      l_tabix = sy-tabix.
+      IF ls_outtab-montodif <> '0.00'.
+        ls_outtab-mensaje = 'Existen diferencias'.
+      ELSE.
+        IF ls_outtab-montodev = '0.00' AND ls_outtab-montopend = '0.00'.
+          ls_outtab-mensaje = 'Valores en cero'.
+        ELSE.
+          READ TABLE lt_filter_entries FROM l_tabix TRANSPORTING NO FIELDS.
+          IF sy-subrc IS NOT INITIAL.
+            ADD 1 TO l_linsel.
+            ls_outtab-linsel  = l_linsel.
+            ls_outtab-mensaje = ''.
+            ls_outtab-sel     = 'X'.
+          ENDIF.
+        ENDIF.
+      ENDIF.
+*
+      IF ls_outtab-mensaje IS NOT INITIAL.
+        ls_color-fname     = 'MENSAJE'.
+        ls_color-color-col = cl_gui_resources=>list_col_negative.
+        ls_color-color-int = 0.
+        ls_color-color-inv = 0.
+        ls_color-nokeycol  = 'X'.
+        APPEND ls_color TO lt_color.
+        ls_outtab-color[] = lt_color[].
+      ENDIF.
+*
+      MODIFY pt_outtab FROM ls_outtab.
+    ENDLOOP.
+    CALL METHOD g_grid1->refresh_table_display.
+  ENDIF.
+*
+  IF l_linsel GE 480.
+    gv_error = TEXT-adv.
+  ELSE.
+    CLEAR gv_error.
+  ENDIF.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  DESELECT_ALL_ENTRIES
+*&---------------------------------------------------------------------*
+FORM deselect_all_entries  CHANGING pt_outtab TYPE STANDARD TABLE.
+  DATA: ls_outtab         TYPE ty_outtab,
+        lt_filter_entries TYPE lvc_t_fidx.   " Filtered entries
+  DATA: l_valid  TYPE c,
+        l_locked TYPE c,
+        l_tabix  TYPE sy-tabix,                " Index
+        lt_color TYPE lvc_t_scol,
+        ls_color TYPE lvc_s_scol.
+*
+  CALL METHOD g_grid1->check_changed_data
+    IMPORTING
+      e_valid = l_valid.
+  IF l_valid EQ 'X'.
+*
+    CALL METHOD g_grid1->get_filtered_entries
+      IMPORTING
+        et_filtered_entries = lt_filter_entries.
+*
+    LOOP AT pt_outtab INTO ls_outtab.
+      l_tabix = sy-tabix.
+      PERFORM check_lock USING    ls_outtab
+                         CHANGING l_locked.
+      IF l_locked IS INITIAL  AND NOT ls_outtab-sel EQ '-'.
+        READ TABLE lt_filter_entries FROM l_tabix TRANSPORTING NO FIELDS.
+        IF sy-subrc IS NOT INITIAL.
+          ls_outtab-sel     = ' '.
+          ls_outtab-mensaje = ' '.
+          ls_outtab-linsel  = ' '.
+          ls_color-fname     = 'MENSAJE'.
+          APPEND ls_color TO lt_color.
+          ls_outtab-color[] = lt_color[].
+        ENDIF.
+      ENDIF.
+      MODIFY pt_outtab FROM ls_outtab.
+    ENDLOOP.
+    CLEAR gv_error.
+    CALL METHOD g_grid1->refresh_table_display.
+  ENDIF.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  CHECK_LOCK
+*&---------------------------------------------------------------------*
+FORM check_lock  USING    ps_outtab TYPE ty_outtab
+                 CHANGING p_locked.
+  DATA ls_celltab TYPE lvc_s_styl.
+
+  LOOP AT ps_outtab-celltab INTO ls_celltab.
+    IF ls_celltab-fieldname = 'SEL'.
+      IF ls_celltab-style EQ cl_gui_alv_grid=>mc_style_disabled.
+        p_locked = 'X'.
+      ELSE.
+        p_locked = space.
+      ENDIF.
+    ENDIF.
+  ENDLOOP.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  MUESTRA_MONTODEV
+*&---------------------------------------------------------------------*
+FORM muestra_montodev USING ls_outtab TYPE ty_outtab.
+*
+  totalsel = 0.
+  CLEAR   int_tabla2.
+  REFRESH int_tabla2.
+  LOOP AT tdev WHERE estado_pago  EQ ls_outtab-estado_pago
+               AND   cuenta_cargo EQ ls_outtab-ctactedev
+               AND   numero_lote  EQ ls_outtab-lotedev
+               AND   fecha_pago   EQ ls_outtab-fechadev
+               AND   correl       EQ ls_outtab-correl.
+
+    int_tabla2-sel          = tdev-estado.
+    int_tabla2-identif_pago = tdev-codigo_identificacion.
+    int_tabla2-rut          = tdev-rut_emisor.
+    int_tabla2-nombre       = tdev-nombre_beneficiario.
+    int_tabla2-estado_pago  = tdev-estado_pago.
+    int_tabla2-cuentadep    = ''.
+    int_tabla2-fechacon     = ''.
+    int_tabla2-monto        =  tdev-monto / 100.
+    IF int_tabla2-sel = 'X'.
+      totalsel  = totalsel  + int_tabla2-monto.
+    ENDIF.
+    int_tabla2-correl = tdev-correl.
+    APPEND int_tabla2.
+  ENDLOOP.
+*
+  DESCRIBE TABLE int_tabla2 LINES fill.
+  tabla3-lines    = fill.
+  tabla3-top_line = 1.
+  LOOP AT tabla3-cols INTO cols .
+    IF sy-tabix = 4 OR
+       sy-tabix = 5 OR
+       sy-tabix = 6 OR
+       sy-tabix = 7.
+      cols-invisible = '1'.
+    ELSE.
+      cols-invisible = '0'.
+    ENDIF.
+    MODIFY tabla3-cols FROM cols INDEX sy-tabix.
+  ENDLOOP.
+  SORT int_tabla2 BY identif_pago.
+  sw_dato = '1'.
+  titulo = 'SELECCIONA PARTIDAS BANCO'.
+  CALL SCREEN 250 STARTING AT 25 03 ENDING AT 130 25.
+*
+  PERFORM ajusta_tabla USING ls_outtab.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  MUESTRA_MONTOPEND
+*&---------------------------------------------------------------------*
+FORM muestra_montopend  USING ls_outtab  TYPE ty_outtab.
+*
+  totalsel = 0.
+  CLEAR   int_tabla2.
+  REFRESH int_tabla2.
+  tdep-cuenta_cargo = ls_outtab-ctactedev.
+  tdep-secuencia    = tdep-secuencia + 1.
+  LOOP AT tdep  WHERE estado_pago    EQ ls_outtab-estado_pago
+                AND  cuenta_cargo    EQ ls_outtab-ctactedev
+                AND numero_lote      EQ ls_outtab-lotedev
+                AND fecha_recepcion  EQ ls_outtab-fechadev
+                AND correl           EQ ls_outtab-correl.
+    int_tabla2-sel          = ''.
+    int_tabla2-identif_pago = ''.
+    int_tabla2-rut          = ''.
+    int_tabla2-nombre       = ''.
+    int_tabla2-cuentadep    = tdep-hkont.
+    int_tabla2-belnr        = tdep-belnr.
+    int_tabla2-fechacon     = tdep-budat.
+    int_tabla2-sec          = tdep-secuencia.
+    int_tabla2-monto        = tdep-wrbtr .
+    int_tabla2-correl       = tdep-correl.
+    IF int_tabla2-sel EQ 'X'.
+      totalsel  = totalsel  + int_tabla2-monto.
+    ENDIF.
+    APPEND int_tabla2.
+  ENDLOOP.
+*
+  DESCRIBE TABLE int_tabla2 LINES fill.
+  tabla3-lines = fill.
+  tabla3-top_line = 1.
+  LOOP AT tabla3-cols INTO cols .
+    IF sy-tabix = 1   OR
+        sy-tabix = 2 OR
+        sy-tabix = 3 .
+      cols-invisible = '1'.
+    ELSE.
+      cols-invisible = '0'.
+    ENDIF.
+    MODIFY tabla3-cols FROM cols INDEX sy-tabix.
+  ENDLOOP.
+*
+  SORT int_tabla2 BY cuentadep fechacon sec.
+  sw_dato = '2'.
+  titulo = 'SELECCIONA PARTIDAS DEPOSITO'.
+  CALL SCREEN 250 STARTING AT 25 03 ENDING AT 130 25.
+*
+  PERFORM ajusta_tabla USING ls_outtab.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  AJUSTA_TABLA
+*&---------------------------------------------------------------------*
+FORM ajusta_tabla USING ls_outtab  TYPE ty_outtab.
+*
+  totalbco = 0.
+  totaldep = 0.
+  SORT tdev BY estado_pago cuenta_cargo numero_lote fecha_pago correl.
+*
+*  CLEAR : ls_outtab-montodev, ls_outtab-montopend.
+*  LOOP AT int_tabla2.
+*    AT END OF correl.
+*      LOOP AT tdev WHERE correl EQ int_tabla2-correl AND
+*                         estado EQ 'X'.
+*        ls_outtab-montodev = ls_outtab-montodev + tdev-monto / 100.
+*      ENDLOOP.
+**
+*      LOOP AT tdep WHERE correl EQ int_tabla2-correl AND
+*                         estado EQ 'X'.
+*        IF tdep-shkzg = 'H'.
+*          ls_outtab-montopend = ls_outtab-montopend + tdep-wrbtr.
+*        ELSE.
+*          ls_outtab-montopend = ls_outtab-montopend - tdep-wrbtr.
+*        ENDIF.
+*      ENDLOOP.
+*      ls_outtab-montodif = ls_outtab-montodev - ls_outtab-montopend.
+*      modify gt_outtab from ls_outtab index int_tabla2-correl.
+*    ENDAT.
+*  ENDLOOP.
+*
+  REFRESH : int_tabla, gt_outtab.
+  CLEAR   : int_tabla, gt_outtab.
+
+  LOOP AT tdev.
+    IF tdev-estado = 'X'.
+      int_tabla-montodev = int_tabla-montodev + tdev-monto / 100.
+    ENDIF.
+*
+    AT END OF correl.
+      MOVE tdev-estado_pago  TO int_tabla-estado_pago.
+      MOVE tdev-cuenta_cargo TO int_tabla-ctactedev.
+      MOVE tdev-numero_lote  TO int_tabla-lotedev.
+      MOVE tdev-fecha_pago   TO int_tabla-fechadev.
+      MOVE tdev-correl       TO int_tabla-correl.
+      SELECT SINGLE * FROM zctarechazobco WHERE bukrs      = bukrs
+*                                            AND hbkid_dest = bancopropio   " 22-04-2020 WAJ
+                                            AND ctacte_bco = int_tabla-ctactedev.
+      IF sy-subrc = 0 AND zctarechazobco-hbkid_dest(03) EQ bancopropio(03). " 22-04-2020 WAJ
+        int_tabla-cuentadep = zctarechazobco-hkont_dep.
+        LOOP AT tdep     WHERE estado_pago     = int_tabla-estado_pago
+                         AND   cuenta_cargo    = int_tabla-ctactedev
+                         AND   numero_lote     = int_tabla-lotedev
+                         AND   fecha_recepcion = int_tabla-fechadev
+                         AND   correl          = int_tabla-correl
+                         AND   estado = 'X'.
+          IF tdep-shkzg = 'H'.
+            int_tabla-montopend = int_tabla-montopend + tdep-wrbtr.
+          ELSE.
+            int_tabla-montopend = int_tabla-montopend - tdep-wrbtr.
+          ENDIF.
+        ENDLOOP.
+      ENDIF.
+      int_tabla-montodif = int_tabla-montodev - int_tabla-montopend.
+      APPEND int_tabla.
+*
+      MOVE-CORRESPONDING int_tabla TO gt_outtab.
+      APPEND gt_outtab.
+*
+      CLEAR int_tabla.
+    ENDAT.
+  ENDLOOP.
+  DESCRIBE TABLE int_tabla LINES fill.
+  SORT int_tabla BY estado_pago ctactedev lotedev fechadev correl.
+  tabla-lines    = fill.
+  tabla-top_line = 1.
+
+  REFRESH : int_tabla.
+ENDFORM.

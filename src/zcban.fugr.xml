@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Conciliación Bancaria ( algorit. interpr</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZCBANF01</SOBJ_NAME>
+    <SOBJ_NAME>LZCBANTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZCBAN</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>Z_FIEB_901_ALGORITHM</FUNCNAME>
+     <SHORT_TEXT>Algoritmos de Interpretacion para Conciliación Bancaria</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_NOTE_TO_PAYEE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>STRING</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_COUNTRY</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>LAND1</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_AVIP_IN</PARAMETER>
+       <DBSTRUCT>AVIP</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_AVIP_OUT</PARAMETER>
+       <DBSTRUCT>AVIP</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_FILTER1</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_FILTER2</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_NOTE_TO_PAYEE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Verwendungszweck</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_COUNTRY</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Länderschlüssel</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_AVIP_IN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bereits vorhandene strukturierte Ausgleichsdaten</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_AVIP_OUT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ausgleichsdaten</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_FILTER1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Erlaubte Nummernbereiche</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_FILTER2</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Erlaubte Zeichenbereiche</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

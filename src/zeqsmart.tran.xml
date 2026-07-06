@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_TRAN" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TSTC>
+    <TCODE>ZEQSMART</TCODE>
+    <PGMNA>ZEQSMART4</PGMNA>
+    <DYPNO>1000</DYPNO>
+    <CINFO>hA==</CINFO>
+   </TSTC>
+   <TSTCC>
+    <TCODE>ZEQSMART</TCODE>
+   </TSTCC>
+   <TSTCT>
+    <SPRSL>S</SPRSL>
+    <TCODE>ZEQSMART</TCODE>
+    <TTEXT>eQSmart Download Program</TTEXT>
+   </TSTCT>
+   <AUTHORIZATIONS>
+    <TSTCA>
+     <TCODE>ZEQSMART</TCODE>
+     <OBJCT>S_USER_PRO</OBJCT>
+     <FIELD>ACTVT</FIELD>
+     <VALUE>03</VALUE>
+    </TSTCA>
+    <TSTCA>
+     <TCODE>ZEQSMART</TCODE>
+     <OBJCT>S_USER_PRO</OBJCT>
+     <FIELD>PROFILE</FIELD>
+    </TSTCA>
+   </AUTHORIZATIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Funciones para flujo proveedores</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZBPMPROVTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZBPMPROV</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZBUSCACTA</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>funcion que obtiene cuentas contables</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>OZTBPMCTA</PARAMETER>
+       <TYP>ZTBPMCTA</TYP>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>OZTBPMCTA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tabla asociada a cuentas contables con descripcion</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

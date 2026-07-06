@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Representantes Legales</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFILIBLEGTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFILIBLEG</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFILIBLEG</FUNCNAME>
+     <SHORT_TEXT>Recupera Representantes Legales</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>P_BUKRS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>NOMSOC</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BUTXT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>TI_REPLEG</PARAMETER>
+       <DBSTRUCT>ZREPLEG</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>P_BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>NOMSOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Denominación de la sociedad o empresa</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_REPLEG</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reporte Legales</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

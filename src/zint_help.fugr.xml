@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>intefaces help</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZINT_HELPTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZINT_HELP</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZCONSUL_CTA_CTE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Consulta cuenta corriente</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>P_BUKRS</PARAMETER>
+       <DBFIELD>BSID-BUKRS</DBFIELD>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>P_STCD1</PARAMETER>
+       <DBFIELD>KNA1-STCD1</DBFIELD>
+      </RSIMP>
+     </IMPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>STR_CTA_CTE</PARAMETER>
+       <DBSTRUCT>ZSAPCTACTEBSID</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>P_BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>P_STCD1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nº de cliente 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>STR_CTA_CTE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Estructura para tabla Oracle SAPCTACTE</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZGEN_DTE_ACEPTA</FUNCNAME>
+     <SHORT_TEXT>Genera DTE Acepta</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_DOC</PARAMETER>
+       <DBFIELD>VBRK-BELNR</DBFIELD>
+       <REFERENCE>X</REFERENCE>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_PRINT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SELKZ</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>URLPDF</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>CHAR255</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ERROR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>C</TYP>
+      </RSEXP>
+     </EXPORT>
+     <EXCEPTION>
+      <RSEXC>
+       <EXCEPTION>HTTP_COMMUNICATION_FAILURE</EXCEPTION>
+      </RSEXC>
+      <RSEXC>
+       <EXCEPTION>HTTP_INVALID_STATE</EXCEPTION>
+      </RSEXC>
+      <RSEXC>
+       <EXCEPTION>HTTP_PROCESSING_FAILED</EXCEPTION>
+      </RSEXC>
+     </EXCEPTION>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_DOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de un documento contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_PRINT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Indicador de impresión</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>URLPDF</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>char255</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ERROR</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HTTP_COMMUNICATION_FAILURE</PARAMETER>
+       <KIND>X</KIND>
+       <STEXT>Communication Error</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HTTP_INVALID_STATE</PARAMETER>
+       <KIND>X</KIND>
+       <STEXT>Invalid Status</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HTTP_PROCESSING_FAILED</PARAMETER>
+       <KIND>X</KIND>
+       <STEXT>Error When Processing Method</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZSEND_DOC_ELE_ACEPTA</FUNCNAME>
+     <SHORT_TEXT>Envía documento electrónico a Acepta</SHORT_TEXT>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

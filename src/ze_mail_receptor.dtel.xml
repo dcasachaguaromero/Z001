@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZE_MAIL_RECEPTOR</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <HEADLEN>40</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>20</SCRLEN2>
+    <SCRLEN3>21</SCRLEN3>
+    <DDTEXT>Mail CONTACTO RECEPTOR.</DDTEXT>
+    <REPTEXT>Mail CONTATO RECEPTOR</REPTEXT>
+    <SCRTEXT_S>Mail Recep</SCRTEXT_S>
+    <SCRTEXT_M>Mail CONTATO RECEPTO</SCRTEXT_M>
+    <SCRTEXT_L>Mail CONTATO RECEPTOR</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <DATATYPE>CHAR</DATATYPE>
+    <LENG>000040</LENG>
+    <OUTPUTLEN>000040</OUTPUTLEN>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

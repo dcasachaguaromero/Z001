@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZVONKT</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>NUMC10</DOMNAME>
+    <HEADLEN>40</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>19</SCRLEN2>
+    <SCRLEN3>40</SCRLEN3>
+    <DDTEXT>Límite inferior del intervalo de cuentas</DDTEXT>
+    <REPTEXT>Límite inferior del intervalo de cuentas</REPTEXT>
+    <SCRTEXT_S>Límite inf</SCRTEXT_S>
+    <SCRTEXT_M>Límite inferior del</SCRTEXT_M>
+    <SCRTEXT_L>Límite inferior del intervalo de cuentas</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

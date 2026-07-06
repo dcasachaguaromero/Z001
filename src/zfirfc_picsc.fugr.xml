@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Funciones PI CSC</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIRFC_PICSCTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIRFC_PICSC</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFIRFC_B001</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Busqueda de cheques</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BELNR</PARAMETER>
+       <TYP>BELNR_D</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_GJAHR</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ZUONR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>DZUONR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_LIFNR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>LIFNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BUZEI</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BUZEI</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>XBLNR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>XBLNR</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ZBUKNR</PARAMETER>
+       <TYP>DZBUKR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>HBKID</PARAMETER>
+       <TYP>HBKID</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>HKTID</PARAMETER>
+       <TYP>HKTID</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>RZAWE</PARAMETER>
+       <TYP>DZLSCH</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>CHECT</PARAMETER>
+       <TYP>CHECT</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ELIFNR</PARAMETER>
+       <TYP>LIFNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EKUNNR</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>VBLNR</PARAMETER>
+       <TYP>VBLNR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EGJAHR</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ZALDT</PARAMETER>
+       <TYP>DZALDT</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANCD</PARAMETER>
+       <TYP>BANCD</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>TEXT1</PARAMETER>
+       <TYP>FIBL_TXT50</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>BANKL</PARAMETER>
+       <TYP>BANKK</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BELNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de un documento contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_GJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ZUONR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de asignación</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_LIFNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de cuenta del proveedor o acreedor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BUZEI</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número del apunte contable dentro del documento contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>XBLNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de documento de referencia</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZBUKNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad pagadora</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HBKID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Clave breve para banco propio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>HKTID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Clave breve para un banco/cuenta</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RZAWE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Vía de pago</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CHECT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nº de cheque</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ELIFNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de cuenta del proveedor o acreedor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EKUNNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Nº de cliente 1</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VBLNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número del documento de pago</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EGJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ZALDT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha de pago prevista (vencimiento 1)</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANCD</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha de cobro del cheque</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TEXT1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Denominación Banco</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>BANKL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Cuenta Corriente</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZFIRFC_B002</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Consulta por Periodo abierto</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IGJAHR</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IMONAT</PARAMETER>
+       <TYP>MONAT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>OGJAHR</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>OMONAT</PARAMETER>
+       <TYP>MONAT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IBUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IGJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IMONAT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Mes contable</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>OGJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Ejercicio</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>OMONAT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Mes contable</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

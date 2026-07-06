@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZCTA_IVA_PRO</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>CHAR020</DOMNAME>
+    <HEADLEN>23</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>16</SCRLEN2>
+    <SCRLEN3>23</SCRLEN3>
+    <DDTEXT>LCE: Cuenta IVA Proporcional</DDTEXT>
+    <REPTEXT>Cuenta IVA Proporcional</REPTEXT>
+    <SCRTEXT_S>Cta. IVA P</SCRTEXT_S>
+    <SCRTEXT_M>Cta. IVA Propor.</SCRTEXT_M>
+    <SCRTEXT_L>Cuenta IVA Proporcional</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

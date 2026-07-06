@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_NSPC" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <NSPC>
+    <NAMESPACE>/CUM/</NAMESPACE>
+    <REPLICENSE>40863193740274370826</REPLICENSE>
+    <SSCRFLAG>X</SSCRFLAG>
+    <SAPFLAG>X</SAPFLAG>
+   </NSPC>
+   <NSPC_TEXT>
+    <SPRAS>S</SPRAS>
+    <DESCRIPTN>Elementos de planificación</DESCRIPTN>
+    <OWNER>SAP AG</OWNER>
+   </NSPC_TEXT>
+   <I18N_LANGS>
+    <LANGU>D</LANGU>
+    <LANGU>E</LANGU>
+   </I18N_LANGS>
+   <NSPC_TEXTS>
+    <item>
+     <SPRAS>D</SPRAS>
+     <DESCRIPTN>Planungselemente</DESCRIPTN>
+     <OWNER>SAP AG</OWNER>
+    </item>
+    <item>
+     <SPRAS>E</SPRAS>
+     <DESCRIPTN>Planning Elements</DESCRIPTN>
+     <OWNER>SAP AG</OWNER>
+    </item>
+   </NSPC_TEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

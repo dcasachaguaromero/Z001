@@ -1,0 +1,2087 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>ZFI_RFEBKA30</NAME>
+    <CLAS>BANK</CLAS>
+    <SUBC>1</SUBC>
+    <APPL>F</APPL>
+    <RLOAD>S</RLOAD>
+    <FIXPT>X</FIXPT>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <LENGTH>1</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>002</KEY>
+     <ENTRY>EXTR.CTA.EL.</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>010</KEY>
+     <ENTRY>**************************************************************************</ENTRY>
+     <LENGTH>74</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>011</KEY>
+     <ENTRY>Al cargar el extracto de cuenta electrónico, se comprobó</ENTRY>
+     <LENGTH>66</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>012</KEY>
+     <ENTRY>que no todas las operac.externas (cód.operac.contable.,</ENTRY>
+     <LENGTH>56</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>013</KEY>
+     <ENTRY>clave de texto o textos de contab.) están contenidas</ENTRY>
+     <LENGTH>54</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>014</KEY>
+     <ENTRY>en tabla T028G.</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>015</KEY>
+     <ENTRY>Actualice las operaciones en la tabla T028G.</ENTRY>
+     <LENGTH>56</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>016</KEY>
+     <ENTRY>En el manual encontrará información adicional.</ENTRY>
+     <LENGTH>46</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>017</KEY>
+     <ENTRY>A continuación, vuelva a iniciar el proceso</ENTRY>
+     <LENGTH>54</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>018</KEY>
+     <ENTRY>El extracto cuenta ya está en sistema SAP, y no es necesario cargarlo</ENTRY>
+     <LENGTH>71</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>019</KEY>
+     <ENTRY>de nuevo. Rellene, por tanto, el campo &apos;X - Cargar datos&apos; con</ENTRY>
+     <LENGTH>61</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>020</KEY>
+     <ENTRY>espacio en blanco.</ENTRY>
+     <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>030</KEY>
+     <ENTRY>Faltan las siguientes entradas en tabla T028G:</ENTRY>
+     <LENGTH>46</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>031</KEY>
+     <ENTRY>Tp.Op.   Operación externa           Signo +/-                Clave banco     Cuenta</ENTRY>
+     <LENGTH>117</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>032</KEY>
+     <ENTRY>de extracto cta</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>111</KEY>
+     <ENTRY>Titular cta.:</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>112</KEY>
+     <ENTRY>CBc:</ENTRY>
+     <LENGTH>4</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>113</KEY>
+     <ENTRY>Nº cuenta:</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>114</KEY>
+     <ENTRY>Fe.extracto:</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>115</KEY>
+     <ENTRY>Nº extracto:</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>116</KEY>
+     <ENTRY>Denomin.cuenta:</ENTRY>
+     <LENGTH>17</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>117</KEY>
+     <ENTRY>Moneda</ENTRY>
+     <LENGTH>7</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>118</KEY>
+     <ENTRY>No existen partidas individ.para este extr.cuenta</ENTRY>
+     <LENGTH>50</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>119</KEY>
+     <ENTRY>Clave breve:</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>120</KEY>
+     <ENTRY>Chq.  FeVal FeCnt Destino utiliz.                 Texto contab.               COE Libro diario           Impte.</ENTRY>
+     <LENGTH>111</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>121</KEY>
+     <ENTRY>BcoProp:</ENTRY>
+     <LENGTH>9</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>122</KEY>
+     <ENTRY>ID cta.:</ENTRY>
+     <LENGTH>9</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>130</KEY>
+     <ENTRY>Saldo inic.</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>131</KEY>
+     <ENTRY>Sald.fin</ENTRY>
+     <LENGTH>8</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>132</KEY>
+     <ENTRY>Total Debe</ENTRY>
+     <LENGTH>10</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>133</KEY>
+     <ENTRY>Total Haber</ENTRY>
+     <LENGTH>11</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>134</KEY>
+     <ENTRY>------------------------------</ENTRY>
+     <LENGTH>30</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>135</KEY>
+     <ENTRY>CB interl.</ENTRY>
+     <LENGTH>11</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>136</KEY>
+     <ENTRY>Cta.interl.</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>137</KEY>
+     <ENTRY>Interm.fin.    ;;</ENTRY>
+     <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>138</KEY>
+     <ENTRY>Referencia      ;;</ENTRY>
+     <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>139</KEY>
+     <ENTRY>Info adicional</ENTRY>
+     <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>140</KEY>
+     <ENTRY>Interl.IBAN</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>150</KEY>
+     <ENTRY>La tabla FEBKO ya tiene una entrada con la clave &amp; &amp; &amp; &amp;</ENTRY>
+     <LENGTH>61</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>151</KEY>
+     <ENTRY>La tabla FEBVW ya tiene una entrada con la clave &amp; &amp; &amp;</ENTRY>
+     <LENGTH>59</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>160</KEY>
+     <ENTRY>Parám.contabiliz.</ENTRY>
+     <LENGTH>17</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>161</KEY>
+     <ENTRY>Contab.inmed.</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>162</KEY>
+     <ENTRY>Modo contab.</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>163</KEY>
+     <ENTRY>Crear batch input</ENTRY>
+     <LENGTH>20</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>164</KEY>
+     <ENTRY>NomJgoDatos</ENTRY>
+     <LENGTH>11</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>165</KEY>
+     <ENTRY>Dat.fichero</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>166</KEY>
+     <ENTRY>Algoritmos</ENTRY>
+     <LENGTH>11</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>167</KEY>
+     <ENTRY>Control salida</ENTRY>
+     <LENGTH>16</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>168</KEY>
+     <ENTRY>No contabil.</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>169</KEY>
+     <ENTRY>Cpo.selección</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>170</KEY>
+     <ENTRY>Avisos tesorería</ENTRY>
+     <LENGTH>17</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>171</KEY>
+     <ENTRY>SóloContBanc</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>172</KEY>
+     <ENTRY>Gestión tesorería</ENTRY>
+     <LENGTH>17</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>173</KEY>
+     <ENTRY>Cl.docum.tesor.</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>174</KEY>
+     <ENTRY>Integración</ENTRY>
+     <LENGTH>11</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>176</KEY>
+     <ENTRY>Concaten.</ENTRY>
+     <LENGTH>9</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>177</KEY>
+     <ENTRY>Extractos cuenta</ENTRY>
+     <LENGTH>132</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>178</KEY>
+     <ENTRY>Pos.por paq.funciones</ENTRY>
+     <LENGTH>21</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>179</KEY>
+     <ENTRY>Suprimir postcontabilizar</ENTRY>
+     <LENGTH>30</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>200</KEY>
+     <ENTRY>Importe OCMT</ENTRY>
+     <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>201</KEY>
+     <ENTRY>Diferencia producida: Total de posiciones calculado</ENTRY>
+     <LENGTH>54</LENGTH>
+    </item>
+    <item>
+     <ID>R</ID>
+     <ENTRY>Actualización extracto  Cuentas Bancarias</ENTRY>
+     <LENGTH>41</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>BATCH</KEY>
+     <ENTRY>Ejecutar como job de fondo</ENTRY>
+     <LENGTH>34</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>MREGEL</KEY>
+     <ENTRY>Regla p.crear nom.juego datos</ENTRY>
+     <LENGTH>37</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>PA_BDANZ</KEY>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>PA_BDART</KEY>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>PA_DSART</KEY>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>PA_LSEPA</KEY>
+     <ENTRY>Separación de listas</ENTRY>
+     <LENGTH>28</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>POSTPROC</KEY>
+     <ENTRY>Postcontabilizar</ENTRY>
+     <LENGTH>35</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_BUPRO</KEY>
+     <ENTRY>Imprimir log de contabiliz.</ENTRY>
+     <LENGTH>35</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_KOAUSZ</KEY>
+     <ENTRY>Imprimir extracto de cuenta</ENTRY>
+     <LENGTH>35</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_STATIK</KEY>
+     <ENTRY>Imprimir estadísticas</ENTRY>
+     <LENGTH>29</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_ANWND</KEY>
+     <ENTRY>Aplicación</ENTRY>
+     <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_AZDAT</KEY>
+     <ENTRY>Fecha del extracto</ENTRY>
+     <LENGTH>26</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_AZNUM</KEY>
+     <ENTRY>Nº extracto</ENTRY>
+     <LENGTH>21</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_BUKRS</KEY>
+     <ENTRY>Sociedad</ENTRY>
+     <LENGTH>21</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_FILTER</KEY>
+     <ENTRY>Intervalo de números BELNR</ENTRY>
+     <LENGTH>34</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_HBKID</KEY>
+     <ENTRY>Banco propio</ENTRY>
+     <LENGTH>20</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_HKTID</KEY>
+     <ENTRY>ID de cuenta</ENTRY>
+     <LENGTH>28</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_WAERS</KEY>
+     <ENTRY>Moneda</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>T_FILTER</KEY>
+     <ENTRY>Intervalo de números XBLNR</ENTRY>
+     <LENGTH>34</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>VALUT_ON</KEY>
+     <ENTRY>Imputar fecha valor</ENTRY>
+     <LENGTH>30</LENGTH>
+    </item>
+   </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>D</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <LENGTH>1</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>EL-KONTOAUSZUG</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>010</KEY>
+       <ENTRY>**************************************************************************</ENTRY>
+       <LENGTH>74</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>011</KEY>
+       <ENTRY>Beim Einlesen des Elektronischen Kontoauszuges wurde festgestellt,</ENTRY>
+       <LENGTH>66</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>012</KEY>
+       <ENTRY>daß nicht alle externen Vorgänge (Geschäftsvorfallscode,</ENTRY>
+       <LENGTH>56</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>013</KEY>
+       <ENTRY>Textschlüssel bzw. Buchungstexte) in der Tabelle T028G</ENTRY>
+       <LENGTH>54</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>014</KEY>
+       <ENTRY>enthalten sind.</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>015</KEY>
+       <ENTRY>Bitte pflegen Sie die Vorgänge in die Tabelle T028G ein.</ENTRY>
+       <LENGTH>56</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>016</KEY>
+       <ENTRY>Weitergehende Hinweise finden Sie im Handbuch.</ENTRY>
+       <LENGTH>46</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>017</KEY>
+       <ENTRY>Starten Sie anschließend die Verarbeitung noch einmal.</ENTRY>
+       <LENGTH>54</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>018</KEY>
+       <ENTRY>Der Kontoauszug ist bereits im SAP-System und muß nicht mehr eingelesen</ENTRY>
+       <LENGTH>71</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>019</KEY>
+       <ENTRY>werden. Belegen Sie deshalb das Feld &apos;X - Daten einlesen&apos; mit</ENTRY>
+       <LENGTH>61</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>020</KEY>
+       <ENTRY>einem Leerzeichen.</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>030</KEY>
+       <ENTRY>Folgende Einträge fehlen in der Tabelle T028G:</ENTRY>
+       <LENGTH>46</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>031</KEY>
+       <ENTRY>VorgTyp  Externer Vorgang            Vorzeichen               Bankschlüssel   Konto              AzNum Kurzschl EpNum</ENTRY>
+       <LENGTH>117</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>032</KEY>
+       <ENTRY>von Kontoauszug</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>111</KEY>
+       <ENTRY>Kontoinhaber:</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>112</KEY>
+       <ENTRY>BLZ:</ENTRY>
+       <LENGTH>4</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>113</KEY>
+       <ENTRY>Kontonummer:</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>114</KEY>
+       <ENTRY>Auszugsdatum:</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>115</KEY>
+       <ENTRY>Auszugsnummer:</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>116</KEY>
+       <ENTRY>Kontobezeichnung:</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>117</KEY>
+       <ENTRY>Währung</ENTRY>
+       <LENGTH>7</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>118</KEY>
+       <ENTRY>Keine Einzelposten zu diesem Kontoauszug vorhanden</ENTRY>
+       <LENGTH>50</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>119</KEY>
+       <ENTRY>Kurzschlüssel:</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>120</KEY>
+       <ENTRY>SNr   Valut BuDat Verwendungszweck                Buchungstext                GVC Primanota              Betrag</ENTRY>
+       <LENGTH>111</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>121</KEY>
+       <ENTRY>Hausbank:</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>122</KEY>
+       <ENTRY>Konto-Id:</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>130</KEY>
+       <ENTRY>Anfangssaldo</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>131</KEY>
+       <ENTRY>Endsaldo</ENTRY>
+       <LENGTH>8</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>132</KEY>
+       <ENTRY>Summe Soll</ENTRY>
+       <LENGTH>10</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>133</KEY>
+       <ENTRY>Summe Haben</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>134</KEY>
+       <ENTRY>------------------------------</ENTRY>
+       <LENGTH>30</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>135</KEY>
+       <ENTRY>Partner BLZ</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>136</KEY>
+       <ENTRY>Partner Konto</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>137</KEY>
+       <ENTRY>Geschäftspartner;;</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>138</KEY>
+       <ENTRY>Referenz        ;;</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>139</KEY>
+       <ENTRY>Zusatzinfo.     ;;</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>140</KEY>
+       <ENTRY>Partner IBAN</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>150</KEY>
+       <ENTRY>Tabelle FEBKO hat bereits einen Eintrag mit Schlüssel &amp; &amp; &amp; &amp;</ENTRY>
+       <LENGTH>61</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>151</KEY>
+       <ENTRY>Tabelle FEBVW hat bereits einen Eintrag mit Schlüssel &amp; &amp; &amp;</ENTRY>
+       <LENGTH>59</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>160</KEY>
+       <ENTRY>Buchungsparameter</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>161</KEY>
+       <ENTRY>Sofort buchen</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>162</KEY>
+       <ENTRY>Buchungsmodus</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>163</KEY>
+       <ENTRY>Batch-Input erzeugen</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>164</KEY>
+       <ENTRY>Mappennamen</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>165</KEY>
+       <ENTRY>Dateiangaben</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>166</KEY>
+       <ENTRY>Algorithmen</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>167</KEY>
+       <ENTRY>Ausgabesteuerung</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>168</KEY>
+       <ENTRY>Nicht Buchen</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>169</KEY>
+       <ENTRY>Selektionsfeld</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>170</KEY>
+       <ENTRY>Finanzdispo-Avise</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>171</KEY>
+       <ENTRY>Nur Bankbuch</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>172</KEY>
+       <ENTRY>Finanzdisposition</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>173</KEY>
+       <ENTRY>Dispositionsart</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>174</KEY>
+       <ENTRY>Verdichtung</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>176</KEY>
+       <ENTRY>Bündelung</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>177</KEY>
+       <ENTRY>Kontoauszüge</ENTRY>
+       <LENGTH>132</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>178</KEY>
+       <ENTRY>Positionen pro Bündel</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>179</KEY>
+       <ENTRY>Nachbuchen unterdrücken</ENTRY>
+       <LENGTH>30</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>200</KEY>
+       <ENTRY>OCMT Betrag     ;;</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>201</KEY>
+       <ENTRY>Differenz aufgetreten: berechnete Summe der Positionen</ENTRY>
+       <LENGTH>54</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Verbuchung Kontoauszug</ENTRY>
+       <LENGTH>22</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>BATCH</KEY>
+       <ENTRY>Ausführung als Batch-Job</ENTRY>
+       <LENGTH>32</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>MREGEL</KEY>
+       <ENTRY>Regel für Mappennamenbildung</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PA_BDANZ</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PA_BDART</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PA_DSART</KEY>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PA_LSEPA</KEY>
+       <ENTRY>Listseparation</ENTRY>
+       <LENGTH>22</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>POSTPROC</KEY>
+       <ENTRY>Nachbuchen</ENTRY>
+       <LENGTH>35</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_BUPRO</KEY>
+       <ENTRY>Buchungsprotokoll drucken</ENTRY>
+       <LENGTH>33</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_KOAUSZ</KEY>
+       <ENTRY>Kontoauszug drucken</ENTRY>
+       <LENGTH>27</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_STATIK</KEY>
+       <ENTRY>Statistik drucken</ENTRY>
+       <LENGTH>25</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ANWND</KEY>
+       <ENTRY>Anwendung</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_AZDAT</KEY>
+       <ENTRY>Auszugsdatum</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_AZNUM</KEY>
+       <ENTRY>Auszugsnummer</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_BUKRS</KEY>
+       <ENTRY>Buchungskreis</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_FILTER</KEY>
+       <ENTRY>Nummernbereich BELNR</ENTRY>
+       <LENGTH>34</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_HBKID</KEY>
+       <ENTRY>Hausbank</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_HKTID</KEY>
+       <ENTRY>Konto-Id</ENTRY>
+       <LENGTH>28</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_WAERS</KEY>
+       <ENTRY>Währung</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>T_FILTER</KEY>
+       <ENTRY>Nummernbereich XBLNR</ENTRY>
+       <LENGTH>28</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>VALUT_ON</KEY>
+       <ENTRY>Valuta-Datum kontieren</ENTRY>
+       <LENGTH>30</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>EL BANK STMT</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>010</KEY>
+       <ENTRY>**************************************************************************</ENTRY>
+       <LENGTH>74</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>011</KEY>
+       <ENTRY>While importing electronic bank statement, the system determined</ENTRY>
+       <LENGTH>66</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>012</KEY>
+       <ENTRY>that not all ext.transactions (business transaction code</ENTRY>
+       <LENGTH>56</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>013</KEY>
+       <ENTRY> text keys, or posting texts) were in</ENTRY>
+       <LENGTH>54</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>014</KEY>
+       <ENTRY>table T028G.</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>015</KEY>
+       <ENTRY>Enter the transactions in table T028G.</ENTRY>
+       <LENGTH>56</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>016</KEY>
+       <ENTRY>Refer to the manual for more notes.</ENTRY>
+       <LENGTH>46</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>017</KEY>
+       <ENTRY>After this step, restart processing.</ENTRY>
+       <LENGTH>54</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>018</KEY>
+       <ENTRY>Bank statement is already in SAP System and need not be imported again</ENTRY>
+       <LENGTH>71</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>019</KEY>
+       <ENTRY>Therefore, enter a blank space in the &quot;X - Import data&quot;</ENTRY>
+       <LENGTH>61</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>020</KEY>
+       <ENTRY>field.</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>030</KEY>
+       <ENTRY>Following entries missing in table T028G:</ENTRY>
+       <LENGTH>46</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>031</KEY>
+       <ENTRY>TranTyp  External transaction        +/- sign                 Bank key        Acct               StNo. ID       LI No</ENTRY>
+       <LENGTH>117</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>032</KEY>
+       <ENTRY>Frm bank stmt</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>111</KEY>
+       <ENTRY>Acct Holder:</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>112</KEY>
+       <ENTRY>BNo:</ENTRY>
+       <LENGTH>4</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>113</KEY>
+       <ENTRY>Acct Number:</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>114</KEY>
+       <ENTRY>StatementDte:</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>115</KEY>
+       <ENTRY>Statement No.:</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>116</KEY>
+       <ENTRY>Account Name:</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>117</KEY>
+       <ENTRY>Crcy</ENTRY>
+       <LENGTH>7</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>118</KEY>
+       <ENTRY>No line items exist for this bank statement</ENTRY>
+       <LENGTH>50</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>119</KEY>
+       <ENTRY>ID:</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>120</KEY>
+       <ENTRY>INo   ValDt PstDt Note to payee                   Posting text                BTC Journal                Amount</ENTRY>
+       <LENGTH>111</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>121</KEY>
+       <ENTRY>Hse Bank:</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>122</KEY>
+       <ENTRY>Acct ID:</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>130</KEY>
+       <ENTRY>Opening Bal.</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>131</KEY>
+       <ENTRY>End.Bal.</ENTRY>
+       <LENGTH>8</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>132</KEY>
+       <ENTRY>Total Deb.</ENTRY>
+       <LENGTH>10</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>133</KEY>
+       <ENTRY>Total Cred.</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>134</KEY>
+       <ENTRY>------------------------------</ENTRY>
+       <LENGTH>30</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>135</KEY>
+       <ENTRY>Partner BNo</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>136</KEY>
+       <ENTRY>Partner Acct</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>137</KEY>
+       <ENTRY>Business Partner;;</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>138</KEY>
+       <ENTRY>Reference</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>139</KEY>
+       <ENTRY>Additional Info ;;</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>140</KEY>
+       <ENTRY>Partner IBAN</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>150</KEY>
+       <ENTRY>Table FEBKO already has an entry with key &amp; &amp; &amp; &amp;</ENTRY>
+       <LENGTH>61</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>151</KEY>
+       <ENTRY>Table FEBVW already has an entry with key &amp; &amp; &amp;</ENTRY>
+       <LENGTH>59</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>160</KEY>
+       <ENTRY>Posting Params</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>161</KEY>
+       <ENTRY>Post Immed.</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>162</KEY>
+       <ENTRY>Posting Mode</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>163</KEY>
+       <ENTRY>Generate Batch Input</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>164</KEY>
+       <ENTRY>Session Nms</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>165</KEY>
+       <ENTRY>File Specs</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>166</KEY>
+       <ENTRY>Algorithms</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>167</KEY>
+       <ENTRY>Output Control</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>168</KEY>
+       <ENTRY>Do not post</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>169</KEY>
+       <ENTRY>Selection Fld</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>170</KEY>
+       <ENTRY>CM Payment Advice</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>171</KEY>
+       <ENTRY>Bk Pstg Only</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>172</KEY>
+       <ENTRY>C Man. &amp; Forecast</ENTRY>
+       <LENGTH>17</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>173</KEY>
+       <ENTRY>Planning Type</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>174</KEY>
+       <ENTRY>Summztn</ENTRY>
+       <LENGTH>11</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>176</KEY>
+       <ENTRY>Bundling</ENTRY>
+       <LENGTH>9</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>177</KEY>
+       <ENTRY>Bank Statements</ENTRY>
+       <LENGTH>132</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>178</KEY>
+       <ENTRY>Items per Bundel</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>179</KEY>
+       <ENTRY>Suppress Subsequent Posting</ENTRY>
+       <LENGTH>30</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>200</KEY>
+       <ENTRY>OCMT Amount     ;;</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>201</KEY>
+       <ENTRY>Difference occurred: calculated total for items</ENTRY>
+       <LENGTH>54</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>Update Bank Statement</ENTRY>
+       <LENGTH>70</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>BATCH</KEY>
+       <ENTRY>Execute as background job</ENTRY>
+       <LENGTH>33</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>MREGEL</KEY>
+       <ENTRY>Rule for naming sessions</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PA_LSEPA</KEY>
+       <ENTRY>Separate lists</ENTRY>
+       <LENGTH>22</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>POSTPROC</KEY>
+       <ENTRY>Follow-Up Posting</ENTRY>
+       <LENGTH>35</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_BUPRO</KEY>
+       <ENTRY>Print Posting Log</ENTRY>
+       <LENGTH>33</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_KOAUSZ</KEY>
+       <ENTRY>Print Bank Statement</ENTRY>
+       <LENGTH>28</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_STATIK</KEY>
+       <ENTRY>Print Statistics</ENTRY>
+       <LENGTH>25</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_ANWND</KEY>
+       <ENTRY>Application</ENTRY>
+       <LENGTH>19</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_AZDAT</KEY>
+       <ENTRY>Statement Date</ENTRY>
+       <LENGTH>22</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_AZNUM</KEY>
+       <ENTRY>Statement Number</ENTRY>
+       <LENGTH>24</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_BUKRS</KEY>
+       <ENTRY>Company Code</ENTRY>
+       <LENGTH>21</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_FILTER</KEY>
+       <ENTRY>BELNR Number Interval</ENTRY>
+       <LENGTH>34</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_HBKID</KEY>
+       <ENTRY>House Bank</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_HKTID</KEY>
+       <ENTRY>Account ID</ENTRY>
+       <LENGTH>28</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_WAERS</KEY>
+       <ENTRY>Currency</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>T_FILTER</KEY>
+       <ENTRY>XBLNR Number Interval</ENTRY>
+       <LENGTH>29</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>VALUT_ON</KEY>
+       <ENTRY>Assign Value Date to Account</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZFI_RFEBKA30</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0005</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00042</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZFI_RFEBKA30</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00005</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Mit dem Report RFEBKA30 koennen die Buchungen fuer Kontoauszuege im</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Bankdatenspeicher erzeugt werden. Dabei koennen entweder</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Batch-Input-Mappen oder direkte Buchungen für die Verbuchung in der</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Haupt- und in der Nebenbuchhaltung erzeugt werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Mittels Parameteranweisung können Sie festlegen, ob beide</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Buchungsbereiche in einem Lauf, oder ob zuerst nur die Hauptbuchhaltung</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>beruecksichtigt werden soll. Im Falle einer Batch-Input-Verarbeitung</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden die Mappennamen vom Report generiert, wobei Sie zwischen zwei</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Regeln wählen können:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Hausbankkürzel und Kontokürzel (z.B. DREBA-GIRO)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>Hausbankkürzel und Kontoauszugsnummer (z.B. DREBA-034)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Mappenname für die Nebenbuchhaltung beginnt immer mit /.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>Interpretation der Verwendungszweckfelder</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Bei Zahlungseingängen können die Verwendungszweckzeilen des</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Kontoauszugs mittels Angabe des Selektionsfelds (BELNR oder XBLNR)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>wahlweise nach Belegnummern bzw. Referenzbelegnummern durchsucht</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden. Dadurch wird die relevante Information für das Ausgleichen von</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Debitorenzahlungen gewonnen.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wenn Sie kein Selektionsfeld angeben, werden die Verwendungszweckfelder</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>nicht interpretiert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Bei Zahlungsausgängen wird immer nach der Belegnummer gesucht.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Über die Länge des Selektionsfeldes und das entsprechende</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Nummernintervall können Sie die Suche nach Belegnummern oder</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Referenzbelegnummern eingrenzen und insofern die Verarbeitung</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>beschleunigen: Werte, die nicht der vorgegebenen Länge entsprechen und</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>außerhalb des angegebenen Nummernbereiches liegen, werden vom Report</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>als ungültig erkannt und folglich als Ausgleichsinformation nicht</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>herangezogen.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Für eine spezifische Interpretation der Verwendungsszweckfelder (z.B.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>denkbar bei Versicherungen) kann ein individueller &quot;Userexit&quot;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>programmiert werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>UT</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Das Buchungsprotokoll gibt Ihnen getrennt nach Buchungsbereich Auskunft</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>über alle erstellten Buchungen. Außerdem werden die externen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Geschäftsvorfallscodes und die die Verbuchung steuernden internen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Vorgänge aufgelistet.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Der Verarbeitungsstatistik können Sie entnehmen,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>wieviele Buchungen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B2</TDFORMAT>
+       <TDLINE>pro Mappe erzeugt wurden</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B2</TDFORMAT>
+       <TDLINE>aufgrund eines Fehlers nicht erzeugt werden konnten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>für wieviele Einzelposten per Definition keine Buchungen erzeugt werden</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>konnten</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZFI_RFEBKA30</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0005</VERSION>
+      <TXTLINES>00057</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZFI_RFEBKA30</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00005</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The report RFEBKA30 creates postings for bank statements in the bank</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>data store. It is possible either to create batch input sessions or</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>direct postings for the update to general and special ledger accounts.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>By specifying parameters, you can specify whether both sessions should</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>be created in one run or only the session for G/L accounting first. The</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>batch input session names are generated by the report, in which case</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>you can choose from two rules:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>House bank identification code and account identification code (for</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>example DREBA-GIRO)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>House bank identification code and account statement number (for</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>example DREBA-034)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The batch input session name for subsidiary ledger always starts with</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>/.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>Interpretation of the note to payee fields</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For incoming payments, the notes to payee lines of the account</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>statement can be searched either for document numbers or reference</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>document numbers by specifying the selection field (BELNR or XBELNR).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Thus, the relevant information for clearing customer payments is</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>obtained.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If you do not specify a selection field, the note to payee fields are</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>not interpreted.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For outgoing payments, one always searches for the document number.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Via the length of the selection field and the corresponding number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>range, you can narrow down the search for document numbers or reference</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>document numbers and, in this respect, accelerate processing: Values,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>which do not correspond to the predefined length and are outside the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>specified number interval, are recognized by the report as being</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>invalid and, consequently, are not used as clearing information.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>An individual user exit can be programmed for a specific interpretation</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>of the note-to-payee fields (feasible for insurance, for example).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The report checks whether the business transaction codes (external</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>transactions) used by the bank were allocated to an &quot;internal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>transaction&quot; within the default settings. This is necessary because the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>update on the G/L accounts and the subsidiary accounts is carried out</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>via posting rules that are stored for an internal transaction.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If the report encounters an external transaction that is not maintained</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>in the corresponding table, the report aborts after having imported the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>account statement and outputs a list with the missing entries (error</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>log).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>UT</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The missing entries must be maintained so that the update transactions</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>can be created in corresponding sessions. Then the report must be</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>restarted. Please note here that the statement &quot;&lt;ZK&gt;x - importing</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>data&quot;&lt;/&gt; is not selected this time since the account statement is</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>already in the SAP System.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>When the report is restarted, it searches in the buffer for all line</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>items not yet characterized as updated in the respective posting area.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>A line item is regarded as updated only when a posting is put into a</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>session.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The audit trail gives you information, separated according to posting</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>area, on all postings put into the batch input session. In addition,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>the external business transaction codes and the internal transactions</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>controlling the update are listed.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The processing statistics tells you</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>How many postings</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B2</TDFORMAT>
+       <TDLINE>Were created per session</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B2</TDFORMAT>
+       <TDLINE>Could not be created due to an error</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>For how many line items no postings could be created by definition</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>RE</ID>
+      <OBJECT>ZFI_RFEBKA30</OBJECT>
+      <LANGU>S</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0005</VERSION>
+      <TXTLINES>00046</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZFI_RFEBKA30</TDNAME>
+      <TDID>RE</TDID>
+      <TDSPRAS>S</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00005</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;DESCRIPTION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Con el report RFEBKA30 pueden generarse las contabilizaciones para</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>extractos de cuenta en la memoria de datos bancarios. De este modo</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>pueden generarse tanto juegos de datos batch input como</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>contabilizaciones directas para la actualización en la contabilidad</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>principal y en la auxiliar.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Por medio de parámetros se puede especificar si ambos juegos de datos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>deben generarse en una misma ejecución o si primero debe generarse sólo</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>el juego de datos de la contabilidad principal. El report genera los</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>nombres de los juegos de datos, con lo que se puede elegir entre dos</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>reglas:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>sigla del banco propio y sigla de la cuenta (p. ej., DREBA-GIRO)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>sigla del banco propio y número del extracto bancario (p. ej.,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>DREBA-034)</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El nombre del juego de datos para la contabilidad auxiliar empieza por</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>/.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>Interpretación de los campos relativos al destino de utilización</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En las entradas de pagos puede realizarse un scan de las líneas</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>relativas al destino de utilización del extracto de cuenta por medio de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>la entrada en el campo de selección (BELNR o XBLNR) a elegir, por</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>números de documento o números de documento de referencia. De este modo</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>se obtendrá la información relevante para compensar los pagos de</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>deudores.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Si no indica ningún campo de selección, no se interpretarán las salidas</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>de pagos.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En las salidas de pagos siempre se busca el número de documento.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Mediante la longitud del campo de selección y el intervalo de números</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>correspondiente, puede delimitar la búsqueda por números de documento o</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>números de documento de referencia y acelerar el proceso</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>proporcionalmente: el report reconoce como no válidos aquellos valores</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>que no se correspondan con la longitud indicada y que se encuentren</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>fuera del intervalo de números indicado, por lo que, en consecuencia,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>no los utilizará como información de comparación.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Puede programarse un &quot;exit de usuario&quot; individual para obtener así una</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>interpretación específica de los campos de destino de utilización (p.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>ej., posible para las empresas aseguradoras).</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;PRECONDITION&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>UT</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;OUTPUT&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>El log de contabilizaciones le proporciona información sobre todas las</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>contabilizaciones parametrizadas en los juegos de datos batch input</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>separadas por área de contabilización. Además, encontrará listados</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>todos los códigos de operación comercial y las operaciones internas que</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>controlan la actualización.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>En la estadística de actualización encontrará información sobre:</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>cuántas contabilizaciones</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B2</TDFORMAT>
+       <TDLINE>se han generado por juego de datos,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B2</TDFORMAT>
+       <TDLINE>no han podido generarse debido a un error de acceso;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>B1</TDFORMAT>
+       <TDLINE>para cuántas partidas individuales de cada definición no se han podido</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>generar contabilizaciones.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

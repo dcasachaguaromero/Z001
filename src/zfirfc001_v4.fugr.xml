@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Contabilizacion Sistemas Externos</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIRFC001_V4F01</SOBJ_NAME>
+    <SOBJ_NAME>LZFIRFC001_V4TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIRFC001_V4</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFIRFC001_V4</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Interfaz de Contabilización</SHORT_TEXT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>TI_CABECERA</PARAMETER>
+       <DBSTRUCT>ZCABECERA</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>TI_DETALLE</PARAMETER>
+       <DBSTRUCT>ZDETALLE2</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>TI_TLOGCABERR</PARAMETER>
+       <DBSTRUCT>ZTLOGCABERR</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>TI_TLOGDETERR</PARAMETER>
+       <DBSTRUCT>ZTLOGDETERR</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>TI_RESUMEN</PARAMETER>
+       <DBSTRUCT>ZRESUMEN</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>TI_CABECERA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Cabecera</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_DETALLE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Detalle</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_TLOGCABERR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Log de cabecera</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_TLOGDETERR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Log de Detalle</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_RESUMEN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Log Resumen</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

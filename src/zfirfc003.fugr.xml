@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>ZFIRFC003</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIRFC003F01</SOBJ_NAME>
+    <SOBJ_NAME>LZFIRFC003F02</SOBJ_NAME>
+    <SOBJ_NAME>LZFIRFC003TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIRFC003</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZBAPI_CREDITOR_GETDETAIL</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Vendor Details</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>CREDITORID</PARAMETER>
+       <DBFIELD>BAPI1008-VENDOR</DBFIELD>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>COMPANYCODE</PARAMETER>
+       <DBFIELD>BAPI1008-COMP_CODE</DBFIELD>
+       <OPTIONAL>X</OPTIONAL>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>CREDITOR_GENERAL_DETAIL</PARAMETER>
+       <DBFIELD>LFA1</DBFIELD>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>CREDITOR_COMPANY_DETAIL</PARAMETER>
+       <DBFIELD>LFB1</DBFIELD>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBFIELD>BAPIRETURN</DBFIELD>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>CREDITOR_BANK_DETAIL</PARAMETER>
+       <DBSTRUCT>LFBK</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>LFBW</PARAMETER>
+       <DBSTRUCT>LFBW</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>LFZA</PARAMETER>
+       <DBSTRUCT>LFZA</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>CREDITORID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Vendor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>COMPANYCODE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Company code</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CREDITOR_GENERAL_DETAIL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>General data</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CREDITOR_COMPANY_DETAIL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Company code-specific data</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Return code</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>CREDITOR_BANK_DETAIL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Bank details</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LFBW</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Maestro de proveedores (tipos de retención de impuestos) X</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>LFZA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Receptores de pago alternativos permitidos</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZFIRFC003</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Interface de Acreedores</SHORT_TEXT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_ACREEDOR</PARAMETER>
+       <DBSTRUCT>ZACREEDOR</DBSTRUCT>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>T_ACREEDOR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Acreedor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Parámetro de retorno</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZFI_VENDOR_CHECK</FUNCNAME>
+     <SHORT_TEXT>FI: Acreedor</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_STCD1</PARAMETER>
+       <TYP>STCD1</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_LIFNR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>LIFNR</TYP>
+      </RSEXP>
+     </EXPORT>
+     <EXCEPTION>
+      <RSEXC>
+       <EXCEPTION>VENDOR</EXCEPTION>
+      </RSEXC>
+     </EXCEPTION>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_STCD1</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de identificación fiscal</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_LIFNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de cuenta del proveedor o acreedor</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>VENDOR</PARAMETER>
+       <KIND>X</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+   <LONGTEXTS_ZBAPI_CREDITOR_GETDETAIL>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZBAPI_CREDITOR_GETDETAIL</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0006</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00012</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZBAPI_CREDITOR_GETDETAIL</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00006</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;FUNCTIONALITY&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>OBSOLET! NICHT MEHR VERWENDEN!</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>*</TDFORMAT>
+       <TDLINE>Die Methode GetDetail im BO Creditor ist obsolet. Statt dessen soll die</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Methode GetDetail  im BO Vendor bzw. der Funktionsbaustein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE> bapi_vendor_getdetail verwendet werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>*</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Mit dieser Methode kann man Detaildaten zu einem Kreditoren abrufen.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Es werden allgemeine Daten, eine Tabelle der Bankdaten und, wenn ein</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Buchungskreis angegeben wurde, buchungskreisspezifische Daten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>bereitgestellt.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;EXAMPLE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;HINTS&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;FURTHER_SOURCES_OF_INF&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZBAPI_CREDITOR_GETDETAIL</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0004</VERSION>
+      <TXTLINES>00003</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZBAPI_CREDITOR_GETDETAIL</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00004</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;FUNCTIONALITY&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>This method enables a vendor&apos;s detailed data to be called up.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The following data is provided: general data, a table of bank data and,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>where a company code is given, company code specific data.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;EXAMPLE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;HINTS&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;FURTHER_SOURCES_OF_INF&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZBAPI_CREDITOR_GETDETAIL      RETURN</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0004</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00013</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZBAPI_CREDITOR_GETDETAIL      RETURN</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00004</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;MEANING&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>In dieser Struktur wird der Returncode des Funktionsbausteins</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>zurückgeliefert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U5</TDFORMAT>
+       <TDLINE>Aufbau der Struktur</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>TYPE         Meldungstyp: S Success, E Error, W Warning, I Information</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>CODE         Meldungs-Code</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>MESSAGE      Meldungstext</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>LOG_NO       Anwendungs-Log: Protokollnummer</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>LOG_MSG_NO   Anwendungs-Log: laufende Nummer der Nachricht</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;RANGE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Falls kein Fehlerauftritt ist der Returnparameter initial. Ansonsten</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>werden die entsprechenden Fehlermeldungen mit Kurztext ausgegeben.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;DEFAULT&amp;</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>FU</ID>
+      <OBJECT>ZBAPI_CREDITOR_GETDETAIL      RETURN</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>T</TYP>
+      <VERSION>0004</VERSION>
+      <TXTLINES>00009</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>ZBAPI_CREDITOR_GETDETAIL      RETURN</TDNAME>
+      <TDID>FU</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00004</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;MEANING&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>The return code of the function module is returned in this structure.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U5</TDFORMAT>
+       <TDLINE>Structure Format</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>TYPE         Report type: S Success, E Error, W Warning, I Information</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>CODE         Reporting code</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>MESSAGE      Report text</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>LOG_NO       Application log: Log number</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>LOG_MSG_NO   Application log: Consecutive number of message</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;RANGE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If no error occurs, the return parameter is blank. If not, the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>corresponding error messages are output, together with a short text.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U4</TDFORMAT>
+       <TDLINE>&amp;DEFAULT&amp;</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS_ZBAPI_CREDITOR_GETDETAIL>
+  </asx:values>
+ </asx:abap>
+</abapGit>

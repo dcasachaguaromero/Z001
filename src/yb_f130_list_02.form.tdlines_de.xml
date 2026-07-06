@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>&amp;T001-BUTXT&amp;,,Abstimmliste &amp;RF130-BZSBVERF&amp;,,Zeit &amp;SYST-UZEIT&amp;,,Datum</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;SYST-DATUM&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T3</TDFORMAT>
+     <TDLINE>&amp;T001-ORT01&amp;,,&amp;RF130-ABSTIDAT&amp;/&amp;RF130-LAUFI&amp;,,&amp;RF130-REPID&amp;/&amp;SYST-UNAME&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Seite,,&amp;PAGE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(100)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>700</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*  Ereignisse für die Abstimmliste                                    *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*---------------------------------------------------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>710</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Ausstellungsdatum und Rueckantwortdatum ---------------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum:,,&amp;RF130-AUSSTDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Rückantwortdatum:,,&amp;RF130-RUECKDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>720</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Daten der Abmahnung zu Bestätigungsersuchen -----------------------*</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Abmahnung:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum alt:,,&amp;RF130-UAUSTDAT&amp; ,,Rückantwortdatum alt:,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-URUECKDA&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Ausstellungsdatum neu:,,&amp;RF130-AUSSTDAT&amp; ,,Rückantwortdatum neu:,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-RUECKDAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>730</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Spaltenüberschriften für Abstimmliste ---------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Konto,,Name,,Land,,Postleitzahl,,Ort (max 20</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>Zeichen),,Region,,Betrag,,Haus-,,Betrag,,Beleg-</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,,,,,Währ.,,,,Währ.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>740</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsaldo in Hauswährung pro Konto ----------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>&amp;RF130-KONTO&amp;,,&amp;RF130-NAME1&amp;,,&amp;RF130-LAND1&amp;,,&amp;RF130-PSTLZ&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-ORT01(20)&amp;,,&amp;RF130-REGIO&amp;,,&amp;RF130-GSALDD&amp;,,&amp;RF130-HWAER(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,gesamt</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>741</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Bei Zentrale einbezogenen Fililale ------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>&amp;RF130-KONTO&amp;,,&amp;RF130-NAME1&amp;,,&amp;RF130-LAND1&amp;,,&amp;RF130-PSTLZ&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-ORT01(20)&amp;,,&amp;RF130-REGIO&amp;,,Filiale</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>742</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Bei dezentral verarbeiteten Filialen einbezogene Zentrale -------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>&amp;RF130-KONTO&amp;,,&amp;RF130-NAME1&amp;,,&amp;RF130-LAND1&amp;,,&amp;RF130-PSTLZ&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-ORT01(20)&amp;,,&amp;RF130-REGIO&amp;,,Zentrale</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>743</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsaldo in Hauswährung pro CPD-Kunde/CPD-Lieferant ----------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,&lt;NP&gt;&amp;ULINE(90)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,&amp;RF130-NAME1&amp;,,&amp;RF130-LAND1&amp;,,&amp;RF130-PSTLZ&amp;,,&amp;RF130-ORT01(20)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-REGIO&amp;,,&amp;RF130-GSALDD&amp;,,&amp;RF130-HWAER(C)&amp;,,gesamt</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>750</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zeile für die Aufschlüsselung eines Gesamtsaldos bzw. der -------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsumme nach Währungen --------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-SALDO&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>750E</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zeile für die Aufschlüsselung eines Gesamtsaldos bzw. der -------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsumme nach Währungen --------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,,,Saldo in bisherigen Währungen</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>751E</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Zeile für die Aufschlüsselung eines Gesamtsaldos bzw. der -------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsumme nach Währungen --------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>,,,,,,,,,,,,&amp;RF130-SALDOHW&amp;,,&amp;RF130-HWAER(C)&amp;,,&amp;RF130-SALDO&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;RF130-WAERS(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>760</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Gesamtsumme in Hauswährung --------------------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>AF</TDFORMAT>
+     <TDLINE>&lt;NP&gt;&amp;ULINE(102)&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T1</TDFORMAT>
+     <TDLINE>Gesamtsumme,,,,,,,,,,,,&amp;RF130-GSALDB&amp;,,&amp;RF130-HWAER(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>770</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- Anzahl erstellter Schreiben und Anzahl der Schreiben die --------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>*- einen Gesamtsaldo von Null aufweisen ----------------------------- *</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Anzahl &amp;RF130-BZSBVERF&amp;,,&amp;RF130-ANZSALDB&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>Davon Anzahl Nullsalden ,,&amp;RF130-ANZNULLS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>LZ</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Selektierte Sätze &apos;RF130-ANZKONT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>T2</TDFORMAT>
+     <TDLINE>&amp;&apos;Stichprobe            &apos;RF130-STICHPR&amp;</TDLINE>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

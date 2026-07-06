@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Funcion Busqueda masiva rut</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFIRFC_B003TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFIRFC_B003</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFIRFC_B003</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Busqueda masiva de rut</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>TI_RUT</PARAMETER>
+       <TYP>ZIRUTET</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>TI_SALIDA</PARAMETER>
+       <TYP>ZORUTET</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>TI_RUT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tabla mascara para estructura ZIRUTE.</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>TI_SALIDA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tabla mascara para ZORUTE.</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

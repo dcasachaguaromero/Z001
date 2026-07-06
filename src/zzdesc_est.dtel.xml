@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZZDESC_EST</ROLLNAME>
+    <DDLANGUAGE>S</DDLANGUAGE>
+    <DOMNAME>ZZDESC_EST</DOMNAME>
+    <LOGFLAG>X</LOGFLAG>
+    <HEADLEN>43</HEADLEN>
+    <SCRLEN1>10</SCRLEN1>
+    <SCRLEN2>15</SCRLEN2>
+    <SCRLEN3>40</SCRLEN3>
+    <DDTEXT>Códigos de Descuento y Códigos de Estamento</DDTEXT>
+    <REPTEXT>Códigos de Descuento y Códigos de Estamento</REPTEXT>
+    <SCRTEXT_S>Desc./Est.</SCRTEXT_S>
+    <SCRTEXT_M>Desc./Est.</SCRTEXT_M>
+    <SCRTEXT_L>Códigos de Descuento y Códigos de Est.</SCRTEXT_L>
+    <DTELMASTER>S</DTELMASTER>
+    <SHLPNAME>ZDESC_EST</SHLPNAME>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

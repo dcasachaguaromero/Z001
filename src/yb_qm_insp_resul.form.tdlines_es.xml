@@ -1,0 +1,3943 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<abapGit version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TDLINES>
+    <TLINE>
+     <TDFORMAT>/W</TDFORMAT>
+     <TDLINE>MAIN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este formulario está destinado para la impresión de resultados QM.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>La impresión de este formulario se lanza desde el report RQGAAM31 y crea</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>para cada lote una impresión independiente en el evento</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>GET QALS LATE.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto contiene información de cabecera para un lote y</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>consta de dos partes:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE> - línea de cabecera con fecha, hora y número de pagina</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE> - área de cabecera con datos generales para lotes de inspección, en la</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>   primera página; esta área contiene más información que en la página</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>   siguiente.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Si se han actualizado textos estándar dependientes de la sociedad para</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>la impresión del resultado</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>        - en la línea de cabecera de cada página se da salida al texto</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>          de cabecera</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>        - en el área de cabecera de la primera página se da salida al</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>          texto de la dirección</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, PLKO (KNA1 / LFA1)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Fijación del formato de la hora</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>SET TIME MASK = &apos;HH:MM&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>TOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>KO</TDFORMAT>
+     <TDLINE>&amp;DATE&amp;,,&amp;TIME&amp; h,,Pág. &amp;PAGE(2RF0)&amp; von &amp;SAPSCRIPT-FORMPAGES(2RF0)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;T001G-TXTKO&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T001G-TXTKO&amp; OBJECT TEXT ID ADRS LANGUAGE &amp;SY-LANGU&amp; PARAGRAPH S1</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U1</TDFORMAT>
+     <TDLINE>Informe de inspección</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;PAGE&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;T001G-TXTAB&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T001G-TXTAB&amp; OBJECT TEXT ID ADRS LANGUAGE &amp;SY-LANGU&amp; PARAGRAPH S1</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Lote de inspección,,&amp;QALS-PRUEFLOS&amp;,,&amp;QALS-KTEXTLOS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Material,,&amp;QALS-MATNR&amp;,,&amp;QALS-KTEXTMAT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QALS-XCHPF&amp; NE &amp;SPACE&amp; AND &amp;QALS-STAT02&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QALS-CHARG&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Lote,,&amp;QALS-CHARG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Lote,,&lt;F&gt;no asignado&lt;F&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;LFA1-NAME1&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Proveedor,,&amp;QALS-LIFNR&amp;,,&amp;LFA1-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;KNA1-NAME1&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Cliente,,&amp;QALS-KUNNR&amp;,,&amp;KNA1-NAME1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Estado,,&amp;QGRES-LOSZUSTAND&amp;/&amp;QGRES-FEHLERTEXT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Esta información se imprime sólo en la primera página.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;PAGE&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S2</TDFORMAT>
+     <TDLINE>Origen,,&amp;QALS-HERKUNFT&amp;,,&amp;QGRES-HERKUNFT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S2</TDFORMAT>
+     <TDLINE>Clase de inspección,,&amp;QALS-ART&amp;,,&amp;QGRES-ART&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QALS-PLNNR&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Plan,,&lt;F&gt;&amp;PLKO-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Plan,,&amp;PLKO-KTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S2</TDFORMAT>
+     <TDLINE>Período de verificación,,&amp;QALS-PASTRTERM&amp; - &amp;QALS-PAENDTERM&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S4</TDFORMAT>
+     <TDLINE>Cantidad de lote,,&amp;QGRES-LOSMENGE(C)&amp;,,&amp;QGRES-MENGENEINH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S4</TDFORMAT>
+     <TDLINE>Tamaño de la muestra,,&amp;QGRES-GESSTICHPR(C)&amp;,,&amp;QGRES-EINHPROBE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>¿Texto explicativo?</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MKLTEXTKZ&amp; = &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S3</TDFORMAT>
+     <TDLINE>Texto explicativo,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_LO&amp; OBJECT QPRUEFLOS ID QALS LANGUAGE &amp;QALS-SPRACHE&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Endif para consulta de cantidad de páginas</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDTOP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Datos para especificaciones mútiples</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Available Workareas: G_QAOBJMS_TAB</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     G_OBJECTTEXT, G_OBJECTTYPETEXT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>SUITABLE_FOR_OBJECT_TYPE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S2</TDFORMAT>
+     <TDLINE>Apropiado para &amp;G_OBJECTTYPETEXT&amp;:,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OBJECT_SUITABLE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>, &amp;G_OBJECTTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>NOT_SUITABLE_FOR_OBJECT_TYPE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S2</TDFORMAT>
+     <TDLINE>No apropiado para &amp;G_OBJECTTYPETEXT&amp;:,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OBJECT_SUITABLE_FIRST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;G_OBJECTTEXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>La línea de pie se imprime en cada página.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>En caso de que se hayan actualizado textos estándar para la impresión de</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>resultados, se</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>        - da salida adicionalmente al texto de pie de página en cada</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>          página en la línes de pie</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, PLKO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>BOTTOM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;T001G-TXTFU&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T001G-TXTFU&amp; OBJECT TEXT ID ADRS LANGUAGE &amp;SY-LANGU&amp; PARAGRAPH FU</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDBOTTOM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>END_OF_DOC</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto define el fin de un lote de inspección.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>En caso de que se hayan actualizado textos estándar para la impresión de</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>resultados, se</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>        - da salida adicionalmente al texto de firma en la última</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>          página</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAVP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>EN</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>EN</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>EN</TDFORMAT>
+     <TDLINE>*** Lote de inspección &amp;QALS-PRUEFLOS&amp; finalizado ***</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;PAGE&amp; EQ 1</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>EN</TDFORMAT>
+     <TDLINE>*** En total se ha dado salida a &amp;SAPSCRIPT-FORMPAGES(2RF0)&amp; páginas ***</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>EN</TDFORMAT>
+     <TDLINE>*** En total se ha dado salida a &amp;SAPSCRIPT-FORMPAGES(2RF0)&amp; páginas ***</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;T001G-TXTUN&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;T001G-TXTUN&amp; OBJECT TEXT ID ADRS LANGUAGE &amp;SY-LANGU&amp; PARAGRAPH EN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto imprime la cabecera de una operación de</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>inspección con el número correspondiente y el texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ABAILABLE WORKAREAS FOR OPERATION COMPLETION: QAVE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U2</TDFORMAT>
+     <TDLINE>&lt;U&gt;Operación de inspección &amp;QAPO-VORNR&amp;&lt;/&gt;,,&amp;QAPO-VORKTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_HEADER_IP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto imprime la cabecera de una operación con el</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>número correspondiente y el texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U2</TDFORMAT>
+     <TDLINE>&lt;U&gt;Operación &amp;QAPO-VORNR&amp;&lt;/&gt;,,&amp;QAPO-VORKTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_HEADER_TL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto imprime la cabecera de una operación de</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>inspección con el número correspondiente y el texto breve (para lotes</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>parciales)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QALTPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U2</TDFORMAT>
+     <TDLINE>&lt;U&gt;Operación de inspección &amp;QALTPO-VORNR&amp;&lt;/&gt;,,&amp;QALTPO-VORKTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_HEADER_TL_IP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto imprime la cabecera de una operación</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>con el número correspondiente y el texto breve.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QALTPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>U2</TDFORMAT>
+     <TDLINE>&lt;U&gt;Operación &amp;QALTPO-VORNR&amp;&lt;/&gt;,,&amp;QALTPO-VORKTXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_SIGNATURE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Ausdruck der digitalen Signaturen zu den Merkmalen, erstellt mit der</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>alten Technik der Signatur</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QSS7_TS_SIGN_VERIFY_STEP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Impresión de una línea de subrayado</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO or QALTPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_WITHOUT_CHAR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto sólo se imprime en operaciones sin</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>características.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>Para esta operación no existen características.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>OPERATION_WITHOUT_IP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto sólo se imprime en caso de operaciones sin</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>puntos de inspección.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>Para esta operación no existen puntos de inspección.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>NO_OPERATION_SELECTED</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto sólo se imprime si no se han seleccionado</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>operaciones para el lote.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Para este lote no se han seleccionado operaciones.&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>NO_PARTIALLOT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Texto se imprime si para un lote no se han seleccionado lotes parciales</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Para este lote no se han seleccionado lotes parciales.&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera de característica, independientemente de la clase (cal./cant.)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>con número, texto breve, status y atributo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO, QAMV, QAMR, TQ11, TQ11T,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     TQ17A, TQ17U, TQ17, TQ17T, QMKST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Característica,,&amp;QAMV-MERKNR&amp;,,&amp;QAMV-KURZTEXT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>¿Texto explicativo?</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MKLTEXTKZ&amp; = &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Texto explicativo&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_CP&amp; OBJECT QSS       ID QM   LANGUAGE &amp;QAMV-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_CQ&amp; OBJECT QPMERKMAL ID QPMT LANGUAGE &amp;QAMV-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QAMR-SATZSTATUS&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QAMV-SOLLSTPUMF(C)&amp; * &amp;QAMV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QAMV-PROBEMGEH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QAMR-SATZSTATUS&amp; = &apos;5&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>,,&amp;QGRES-STATUSV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QAMV-SOLLSTPUMF(C)&amp; * &amp;QAMV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QAMV-PROBEMGEH&amp;,,&lt;K&gt;Verificado&lt;/&gt;,,&amp;QAMR-ANZWERTG(C)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMKST-BEWFHLZHL&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Erróneo&lt;/&gt;,,&amp;QAMR-ANZFEHLEH(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Ctd.errores&lt;/&gt;,,&amp;QAMR-ANZFEHLER(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-QERGDATH&amp; &lt;&gt; &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;Origen de datos&lt;/&gt;,,&amp;QGRES-ERDATHETXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_COM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota de inspección para características que no pertenecen a los tipos de</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>lote siguientes:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>        - lotes acompañantes de la fabricación</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>        - lotes para entrega en SD (con lotes parciales)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO, QAMV, QAMR, QMKST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Diferenciación de casos para impresión de textos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>CASE &amp;QGRES-MKLTEXTKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_CH&amp; OBJECT QEEMERKMAL ID QMEP LANGUAGE &amp;QAMR-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;Y&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,&amp;QAMR-PRUEFBEMKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN OTHERS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valoración de la característica, independientemente de la clase (cual./</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>ctd.)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QMKST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QAPO/QAMV/QAMR OR QAPO/QAPP/QAPMV/QAPSR/QAPSV OR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     QALTPO/QALTPP/QALTPPMV/QALTPPSR/QALTPPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Valoración&lt;/&gt;,,&amp;QGRES-MBEWERTG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_SIGNATURE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Datos para firma digital</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QSS7_TS_SIGN_VERIFY_STEP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_DETAIL_QUANT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Detalles para la característica cuantitativa</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QMKST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QAPO/QAMV/QAMR OR QAPO/QAPP/QAPMV/QAPSR/QAPSV OR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     QALTPO/QALTPP/QALTPPMV/QALTPPSR/QALTPPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Declaración de una variable local VORSCHUB con la que se puede ver</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>si después del texto Detalles ya se ha efectuado un avance de línea.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MITTELWERT&amp; NE &amp;SPACE&amp; OR &amp;QGRES-MINWERT&amp; NE &amp;SPACE&amp; OR &amp;QGRES-MAXWERT&amp; NE &amp;SPACE&amp; OR &amp;QGRES-STANDARDAB&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Detalles&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MITTELWERT&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>,,Media de valores medidos válidos,,,,&amp;QGRES-MITTELWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-STANDARDAB&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Desviación estándar de los valores medidos válidos ,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;QGRES-STANDARDAB&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>,,Desviación estándar de los valores medidos válidos ,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;QGRES-STANDARDAB&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MAXWERT&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Val.máx de los val.med.válidos,,,,&amp;QGRES-MAXWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>,,Val.máx.de val.medidos válidos,,,,&amp;QGRES-MAXWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MINWERT&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Val.mín. de val.med.válidos,,,,&amp;QGRES-MINWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>,,Val.mín. de val.med.válidos,,,,&amp;QGRES-MINWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_DETAIL_QUAL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Detalles para la característica cualititativa</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QMKST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QAPO/QAMV/QAMR OR QAPO/QAPP/QAPMV/QAPSR/QAPSV OR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     QALTPO/QALTPP/QALTPPMV/QALTPPSR/QALTPPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Código&lt;/&gt;,,&amp;QGRES-CODE&amp;,,&amp;QGRES-CODE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_MS_DATA</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Detalles para especificaciones múltiples</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QMKST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QAPO/QAMV/QAMR OR QAPO/QAPP/QAPMV/QAPSR/QAPSV OR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     QALTPO/QALTPP/QALTPPMV/QALTPPSR/QALTPPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QAMVRMS/QASRMS(if applicable)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QASRMS-PROBENR&amp;  = &apos;000000&apos;.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  IF &amp;QASRMS-MBEWERTGMS&amp;  &lt;&gt; &apos; &apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>    CASE &amp;QASRMS-MBEWERTGMS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>      WHEN &apos;R&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>       ,,Rechazo (&amp;G_OBJECTTEXT&amp;)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>      WHEN &apos;A&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>        ,,Aceptación (&amp;G_OBJECTTEXT&amp;)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>      WHEN &apos;F&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>        ,,Fallo (&amp;G_OBJECTTEXT&amp;)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>    ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSEIF &amp;QAMVRMS-MBEWERTGMS&amp;  &lt;&gt; &apos; &apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  CASE  &amp;QAMVRMS-MBEWERTGMS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>    WHEN &apos;R&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>     ,,Rechazo (&amp;G_OBJECTTEXT&amp;)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>    WHEN &apos;A&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>      ,,Aceptación (&amp;G_OBJECTTEXT&amp;)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>    WHEN &apos;F&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>      ,,Fallo (&amp;G_OBJECTTEXT&amp;)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>  ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Inicio de sección para cabecera de punto de verificación</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS for this section: QALS, QGRES, QAPO, QAPP, QALT.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>IP_HEADLINE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;FU&gt;Punto de inspección&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>CASE &amp;QALS-STAT13&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IP</TDFORMAT>
+     <TDLINE>&lt;FU&gt;Punto de inspección&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IP</TDFORMAT>
+     <TDLINE>&lt;FU&gt;Equipo&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;2&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IP</TDFORMAT>
+     <TDLINE>&lt;FU&gt;Ubicación técnica&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;3&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IP</TDFORMAT>
+     <TDLINE>&lt;FU&gt;Muestra física&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>IP_HEADER_ADD</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Detalle para cabecera en la que se imprimen los detalles</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>&lt;F&gt;&amp;QGRES-IPSORTKEYF&amp;&lt;/&gt;,,&amp;QGRES-IPSORTKEYV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>IP_HEADER_ADD_LAST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento imprime después del último detalle con espacio posterior.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FX</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>IP_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera para punto de inspección</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QGRES-MENGE&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Cantidad buena,,&amp;QGRES-MENGE(C)&amp; &amp;QGRES-MENGENEIIP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QGRES-MENGE_A&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Cantidad de rechazo,,&amp;QGRES-MENGE_A(C)&amp; &amp;QGRES-MENGENEIIP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QGRES-MENGE_N&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Cantidad de trabajo de repaso,,&amp;QGRES-MENGE_N(C)&amp; &amp;QGRES-MENGENEIIP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QAPP-VBEWERTUNG&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Valoración,,&amp;QAPP-VBEWERTUNG&amp; &amp;QGRES-VBEWERTUNG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Código,,&amp;QAPP-VCODE&amp; &amp;QGRES-CODEVE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QGRES-PPTEILLOSK&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Lote parcial,,&amp;QAPP-TEILLOS&amp;,,&amp;QALT-KTEXTTLOS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>&lt;F&gt;Estado:,,&amp;QGRES-TLOSZUSTAN&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MKLTEXTKZ&amp; = &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IR</TDFORMAT>
+     <TDLINE>Texto explicativo,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_TL&amp; OBJECT QALT ID LTXT LANGUAGE &amp;QALS-SPRACHE&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QALT-CHARG&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Lote,,&amp;QALT-CHARG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>IP_HEADER_PL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera de punto de inspección para lotes parciales, todos los otros</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>elementos de texto como en caso de vista normal</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QGRES-MENGE(C)&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Ctd.,,&amp;QGRES-MENGE(C)&amp; &amp;QGRES-MENGENEIIP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QGRES-MENGE_A&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Cantidad de rechazo ,,&amp;QGRES-MENGE_A(C)&amp; &amp;QGRES-MENGENEIIP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QGRES-MENGE_N&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Cantidad de trabajo de repaso,,&amp;QGRES-MENGE_N(C)&amp; &amp;QGRES-MENGENEIIP&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QALTPP-VBEWERTUNG&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Valoración,,&amp;QALTPP-VBEWERTUNG&amp; &amp;QGRES-VBEWERTUNG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>IQ</TDFORMAT>
+     <TDLINE>Código,,&amp;QALTPP-VCODE&amp; &amp;QGRES-CODEVE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Fin de la sección cabecera de punto de inspección</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_HEADER_IP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera de característica (para pto.insp.) independiente de la clase</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>(cual/ctd.)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO, QAPP, QAPMV, QAPSR, QAPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Característica,,&amp;QAPMV-MERKNR&amp;,,&amp;QAPMV-KURZTEXT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>¿Texto explicativo?</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MKLTEXTKZ&amp; = &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Texto explicativo&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_CP&amp; OBJECT QSS       ID QM   LANGUAGE &amp;QAPMV-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_CQ&amp; OBJECT QPMERKMAL ID QPMT LANGUAGE &amp;QAPMV-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QAPSR-SATZSTATUS&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QAPSV-STIPROUMF(C)&amp; * &amp;QAPSV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QAPSV-PROBEMGEH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QAPSR-SATZSTATUS&amp; = &apos;5&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>,,&amp;QGRES-STATUSV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QAPSV-STIPROUMF(C)&amp; * &amp;QAPSV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QAPSV-PROBEMGEH&amp;,,&lt;K&gt;Verificado&lt;/&gt;,,&amp;QAPSR-ANZWERTG(C)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMKST-BEWFHLZHL&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Erróneo&lt;/&gt;,,&amp;QAPSR-ANZFEHLEH(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Ctd.errores&lt;/&gt;,,&amp;QAPSR-ANZFEHLER(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-QERGDATH&amp; &lt;&gt; &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;Origen de datos&lt;/&gt;,,&amp;QGRES-ERDATHETXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>INSPECTION_COM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota de inspección en el caso de características que pertenecen a un</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>punto de inspección.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota:    Se ha renombrado este elemento de texto.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>         La denominación original ha sido:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>         INSTRUCTION_COM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS:  QALS, QGRES, QAPO, QAPP, QAPMV, QAPSR, QAPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Distinción de casos para la impresión de textos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>CASE &amp;QGRES-MKLTEXTKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir el txto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_IP&amp; OBJECT QEEPROBE ID QPRP LANGUAGE &amp;QAPSR-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;Y&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,&amp;QAPSR-PRUEFBEMKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN OTHERS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>IP_WITHOUT_CHAR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Este elemento de texto sólo se imprime para puntos de inspección sin</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>características.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QAPO, QAPP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>Para este punto de inspección no existen características.</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>PL_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera para lote parcial</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QALT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Lote parcial,,&amp;QALT-TEILLOS&amp;,,&amp;QALT-KTEXTTLOS&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Estado,,&amp;QGRES-TLOSZUSTAN&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-TLMENGE(C)&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S4</TDFORMAT>
+     <TDLINE>Cantidad,,&amp;QGRES-TLMENGE(C)&amp;,,&amp;QGRES-TLMENGEEIN(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MKLTEXTKZ&amp; = &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S3</TDFORMAT>
+     <TDLINE>Texto explicativo&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_TL&amp; OBJECT QALT ID LTXT LANGUAGE &amp;QALS-SPRACHE&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF NOT &amp;QALT-CHARG&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>Lote,,&amp;QALT-CHARG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_HEADER_TL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera de característica (para lotes parciales) independientemente de</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>la clase (cual./ctd.)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QALT, QALTPO, QALTPPMV, QALTPPSR,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     QALTPPSV (QALTPP)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Característica,,&amp;QALTPPMV-MERKNR&amp;,,&amp;QALTPPMV-KURZTEXT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>¿Texto explicativo?</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MKLTEXTKZ&amp; = &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Texto explicativo&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_CP&amp; OBJECT QSS       ID QM   LANGUAGE &amp;QALTPPMV-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_CQ&amp; OBJECT QPMERKMAL ID QPMT LANGUAGE &amp;QALTPPMV-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QALTPPSR-SATZSTATUS&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSV&amp; ROBEMGEH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QALTPPSV-STIPROUMF(C)&amp; * &amp;QALTPPSV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QALTPPSV-PROBEMGEH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QALTPPSR-SATZSTATUS&amp; = &apos;5&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>,,&amp;QGRES-STATUSV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QALTPPSV-STIPROUMF(C)&amp; * &amp;QALTPPSV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QALTPPSV-PROBEMGEH&amp;,&lt;K&gt;Verificado&lt;/&gt;,,&amp;QALTPPSR-ANZWERTG(C)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMKST-BEWFHLZHL&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Erróneo&lt;/&gt;,,&amp;QALTPPSR-ANZFEHLEH(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Ctd.defectos&lt;/&gt;,,&amp;QALTPPSR-ANZFEHLER(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-QERGDATH&amp; &lt;&gt; &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;Origen de datos&lt;/&gt;,,&amp;QGRES-ERDATHETXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>PARTIALLOT_COM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota de inspección para características en la vista de lotes parciales</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QALTPO, QALTPP,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     QALTPPMV, QALTPPSV, QALTPPSR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Distinción de casos para la impresión de textos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>CASE &amp;QGRES-MKLTEXTKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_PL&amp; OBJECT QEEPROBE ID QPRP LANGUAGE &amp;QALTPPSR-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;Y&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,&amp;QALTPPSR-PRUEFBEMKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN OTHERS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>UD_PARTIALLOT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Decisión de empleo para lote parcial</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QAVT, QGRES, QALT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;FU&gt;Decisión de empleo para lote parcial &amp;QAVT-TEILLOS&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Valoración&lt;/&gt;,,&amp;QGRES-VBEWERTUNG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Código&lt;/&gt;,,&amp;QAVT-VCODE&amp; &amp;QGRES-CODEVE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Indice de calidad&lt;/&gt;,,&amp;QAVT-QKENNZAHL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-TLVELTEXTK&amp; EQ &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S3</TDFORMAT>
+     <TDLINE>&lt;F&gt;Texto explicativo&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_UD_PL&amp; OBJECT QPRUEFLOS ID QAVE LANGUAGE &amp;QALS-SPRACHE&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>UD</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Decisión de empleo para lote</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QAVE, QGRES</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>PROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;FU&gt;Decisión de empleo&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Valoración&lt;/&gt;,,&amp;QGRES-VBEWERTUNG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Código&lt;/&gt;,,&amp;QAVE-VCODE&amp; &amp;QGRES-CODEVE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S1</TDFORMAT>
+     <TDLINE>&lt;F&gt;Índice de calidad&lt;/&gt;,,&amp;QAVE-QKENNZAHL&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-VELTEXTKZ&amp; EQ &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>S3</TDFORMAT>
+     <TDLINE>&lt;F&gt;Texto explicativo&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_UD&amp; OBJECT QPRUEFLOS ID QAVE LANGUAGE &amp;QALS-SPRACHE&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDPROTECT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>UD_SIGNATURE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Datos para firma digital</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QSS7_TS_SIGN_VERIFY_STEP</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Inicio de la sección donde hay errores en el nivel de lote</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QMFEL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_LOT_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FL</TDFORMAT>
+     <TDLINE>&lt;F&gt;Resumen defectos para lote&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FM</TDFORMAT>
+     <TDLINE>Grupo de códigos,,Código,,Ctd.defectos,,Texto breve/Nota</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_LOT_DETAIL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FN</TDFORMAT>
+     <TDLINE>&amp;QMFEL-FEGRP&amp;,,&amp;QMFEL-FECOD&amp;,,&amp;QMFEL-ANZFEHLER&amp;,,&amp;QGRES-CODEVE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMFEL-FETXT&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FK</TDFORMAT>
+     <TDLINE>&amp;QMFEL-FETXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_LOT_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FX</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FU</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Fin de la sección defectos a nivel de lote</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Comienzo de sección que da salida a defectos a nivel de operación</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QMFEL, QAPO or QALTPO</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_OPERATION_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FO</TDFORMAT>
+     <TDLINE>&lt;F&gt;Resumen defectos para operación&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FP</TDFORMAT>
+     <TDLINE>Grupo de códigos,,código,,Nº defectos,,texto breve/nota</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_OPERATION_DETAIL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FQ</TDFORMAT>
+     <TDLINE>&amp;QMFEL-FEGRP&amp;,,&amp;QMFEL-FECOD&amp;,,&amp;QMFEL-ANZFEHLER&amp;,,&amp;QGRES-CODEVE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMFEL-FETXT&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FR</TDFORMAT>
+     <TDLINE>&amp;QMFEL-FETXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_OPERATION_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FX</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Fin de la sección defectos a nivel de operación</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Comienzo de sección que da salida a defectos a nivel de característica</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QALS, QGRES, QMFEL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS: QAPO/QAMV/QAMR OR QAPO/QAPP/QAPMV/QAPSR/QAPSV OR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     QALTPO/QALTPP/QALTPPMV/QALTPPSR/QALTPPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_CHARACTERISTIC_HEADE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota: Este elemento de texto ha sido renombrado por la limitación del</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      nombre de un elemento de texto a 30 caracteres</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      La denominación original ha sido:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      ERROR_FOR_CHARACTERISTIC_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FC</TDFORMAT>
+     <TDLINE>&lt;F&gt;Resumen defectos para característica&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FD</TDFORMAT>
+     <TDLINE>Grupo de códigos,,Código,,Ctd.defectos,,Texto breve/Nota</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_CHARACTERISTIC_DETAI</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota: Se ha renombrado este elemento de texto por la limitación del</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      nombre de un elemento de texto a 30 caracteres</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      La denominación original era:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      ERROR_FOR_CHARACTERISTIC_DETAIL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FE</TDFORMAT>
+     <TDLINE>&amp;QMFEL-FEGRP&amp;,,&amp;QMFEL-FECOD&amp;,,&amp;QMFEL-ANZFEHLER&amp;,,&amp;QGRES-CODEVE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMFEL-FETXT&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FF</TDFORMAT>
+     <TDLINE>&amp;QMFEL-FETXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>ERROR_FOR_CHARACTERISTIC_FOOTE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota: Se ha renombrado este elemento de texto por la limitación del</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      nombre de un elemento de texto a 30 caracteres</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      La denominación original era:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>      ERROR_FOR_CHARACTERISTIC_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>FX</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&amp;ULINE(100)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Fin de la sección defectos a nivel de característica</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Comienzo de la sección que da salida a los valores individuales y</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>valores clasificados</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS para esta sección:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                  - QALS, QGRES, QMKST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                  - QAPO/QAMV/QAMR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     OR QAPO/QAPP/QAPMV/QAPSR/QAPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                     OR QALTPO/QALTPP/QALTPPMV/QALTPPSR/QALTPPSV</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS para valores clasificados:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                  - QAKL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                  - QASK OR QAS1 OR QAPS1 OR QALTPPS1</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_KL_HD_QN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera para resultados clasificados (QUAN)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Clases registrados - valores medidos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Resultados clasificados&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>KM</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo,,límite de clase inferior,,límite de clase superior,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>valoración,,tamaño de clase&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_KL_HD_QL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera para resultados clasificados (QUAL)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Códigos registrados</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Resultados clasificados&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>KK</TDFORMAT>
+     <TDLINE>&lt;K&gt;Código,,valoración,,tamaño de clase&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_KL_VA_QN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valores para resultados clasificados(QUAN)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Líneas múltiples</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;F&gt;Res.detallado:&lt;/&gt;,,&amp;QAKL-KLASSENR&amp;                                 TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;                                         /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ELSE                                                                  /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo:&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;                                  TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ENDIF                                                                 /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-KLASGRENZU&amp; NE &amp;SPACE&amp; AND &amp;QGRES-KLASGRENZO&amp; NE &amp;SPACE&amp;    /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Límite cl.inferior:&lt;/&gt;,,&amp;QGRES-KLASGRENZU(C)&amp;,,&amp;QGRES-MASSEINHSW&amp;  TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Límite cl.superior&lt;/&gt;,,&amp;QGRES-KLASGRENZO(C)&amp;,,&amp;QGRES-MASSEINHSW&amp;   TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ELSE                                                                  /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-KLASGRENZU&amp; &amp;SPACE&amp;                                         /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Límite cl.inferior:&lt;/&gt;,,&amp;QGRES-KLASGRENZU(C)&amp;,,&amp;QGRES-MASSEINHSW&amp;TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ELSE                                                                  /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Límite cl.superior&lt;/&gt;,,&amp;QGRES-KLASGRENZO(C)&amp;,,&amp;QGRES-MASSEINHSW&amp;   TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ENDIF                                                                 /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ENDIF                                                                 /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Tamaño clase:&lt;/&gt;,,&amp;QAKL-ANZKLASEH(C)&amp;                              TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Línea simple</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>KN</TDFORMAT>
+     <TDLINE>&amp;QAKL-ATTRIBUT&amp;,,&amp;QGRES-KLASGRENZU(C)&amp;,,&amp;QGRES-KLASGRENZO(C)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QGRES-MBEWERTG&amp;,,&amp;QAKL-ANZKLASEH(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_KL_VA_QL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valores para resultados clasificados (QUAL)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Líneas múltiples</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;F&gt;Res.detallado:&lt;/&gt;,,&amp;QAKL-KLASSENR&amp;                                 TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;                                         /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ELSE                                                                  /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo:&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;                                  TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>ENDIF                                                                 /:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Cód.:&lt;/&gt;,,&amp;QGRES-CODE&amp; &amp;QGRES-CODE1&amp;                               TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Tamaño clase:&lt;/&gt;,,&amp;QAKL-ANZKLASEH(C)&amp;                              TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Línea simple</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>KL</TDFORMAT>
+     <TDLINE>&amp;QGRES-CODE1&amp;,,&amp;QGRES-MBEWERTG&amp;,,&amp;QAKL-ANZKLASEH(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_KL_COM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota de inspección para valores clasificados</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Distinción de casos para la impresión de textos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>CASE &amp;QGRES-MKLTEXTKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_KL&amp; OBJECT QEEKLASSE ID QKLP LANGUAGE &amp;QAKL-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;Y&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,&amp;QAKL-PRUEFBEMKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN OTHERS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_KL_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Footer para resultados clasificados (QUAL/QUANT)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>&lt;K&gt;Val.:&lt;/&gt;,,&amp;QGRES-MBEWERTG&amp;                                         TY</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>***Fin valores clasific.************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>***Comienzo val.ind. ***************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS para valores individuales</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                  - QASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>                  - QAS2 OR QAPS2 OR QALTPPS2</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_HD_QN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera para valores individuales (QUAN)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Valores individuales&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valores individuales cuantitativos,,valores medidos registrados:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_HD_QL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera para valores individuales (QUAL)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Valores individuales&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valores individuales cualitativos,,códigos registrados:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_HD_AT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera para valores individuales atributivos Cual./Ctd.)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valor individual atributivo (Cual./Ctd.),,valores registrados:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Valores individuales&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_VA_QN</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valores para valores individuales cuantitativos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;F&gt;Muestra&lt;/&gt;,,&amp;QASE-STUECKNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QASE-SERIALNR&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE> Número de serie &amp;QASE-SERIALNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo:&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>Valor medido registrado:,,&amp;QGRES-MESSWERT&amp; ,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_VA_QL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valores para valores individuales cualitativos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;F&gt;Muestra&lt;/&gt;,,&amp;QASE-STUECKNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QASE-SERIALNR&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE> Número de serie &amp;QASE-SERIALNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo:&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Código:&lt;/&gt;,,&amp;QGRES-CODE&amp; &amp;QGRES-CODE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_VA_AT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Valores para valores individuales atributivos(QUAL/QUAN)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;F&gt;Muestra&lt;/&gt;,,&amp;QASE-STUECKNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QASE-SERIALNR&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE> Número de serie &amp;QASE-SERIALNR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMKST-BEWFHLZHL&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Número de defecto&lt;/&gt;,,&amp;QASE-ANZFEHLER&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo:&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_COM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota de inspección para valores individuales</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Distinción de casos para la impresión de textos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>CASE &amp;QGRES-MKLTEXTKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_EW&amp; OBJECT QEEESTUECK ID QESP LANGUAGE &amp;QASE-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;Y&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,&amp;QASE-PRUEFBEMKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN OTHERS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>CHARACTERISTIC_EW_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Línea de pie de página para valores individuales (QUAL/QUANT/ATTRIB)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MBEWERTG&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Valoración:&lt;/&gt;,,&amp;QGRES-MBEWERTG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>************************************************************************</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Comienzo de la sección que da salida a los valores para una muestra</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>AVAILABLE WORKAREAS para esta sección:</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>          QALS, QGRES, QMKST, QAPO, QAMV, QAMR, QASV, QASR</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>SAMPLE_HEADER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Cabecera de una muestra para característica, independiente de su clase</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>(cual./ctd.) con número, texto breve, status y atributo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TX</TDFORMAT>
+     <TDLINE>&lt;F&gt;Muestreo,,&amp;QASV-PROBENR&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QASR-SATZSTATUS&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QASV-STIPROUMF(C)&amp; * &amp;QASV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QASV-PROBEMGEH&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QASR-SATZSTATUS&amp; = &apos;5&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Status&lt;/&gt;,,&amp;QGRES-STATUSR&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>,,&amp;QGRES-STATUSV&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;A verificar&lt;/&gt;,,&amp;QASV-STIPROUMF(C)&amp; * &amp;QASV-PROBMGFAK(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&amp;QASV-PROBEMGEH&amp;,,&lt;K&gt;Verificado&lt;/&gt;,,&amp;QASR-ANZWERTG(C)&amp;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QMKST-BEWFHLZHL&amp; EQ &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Defectuoso&lt;/&gt;,,&amp;QASR-ANZFEHLEH(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>&lt;K&gt;Ctd.defectos&lt;/&gt;,,&amp;QASR-ANZFEHLER(C)&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-QERGDATH&amp; &lt;&gt; &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TT</TDFORMAT>
+     <TDLINE>&lt;K&gt;Origen de datos&lt;/&gt;,,&amp;QGRES-ERDATHETXT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-ATTRIBUT&amp; = &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Atributo&lt;/&gt;,,&amp;QGRES-ATTRIBUT&amp;&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>SAMPLE_COM</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Nota de inspección para una muestra</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Distinción de casos para la impresión de textos</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>CASE &amp;QGRES-MKLTEXTKZ&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;X&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Texto explicativo</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TZ</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>INCLUDE &amp;TEXT_SA&amp; OBJECT QEEPROBE ID QPRP LANGUAGE &amp;QASR-LTEXTSPR&amp; PARAGRAPH ST</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Imprimir texto breve</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN &apos;Y&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Nota de inspección&lt;/&gt;,,&amp;QASR-PRUEFBEMKT&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>WHEN OTHERS</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDCASE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>SAMPLE_FOOTER</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Línea de pie para una muestra</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Valoración&lt;/&gt;,,&amp;QGRES-MBEWERTG&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>SAMPLE_DETAIL_QUANT</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Lista detallada para la muestra, listas detalladas cualitativas</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>(por totales)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MITTELWERT&amp; NE &amp;SPACE&amp; OR &amp;QGRES-MINWERT&amp; NE &amp;SPACE&amp; OR &amp;QGRES-MAXWERT&amp; NE &amp;SPACE&amp; OR &amp;QGRES-STANDARDAB&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Listas detalladas&lt;/&gt;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MITTELWERT&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>,,Media de los valores medidos válidos,,,,&amp;QGRES-MITTELWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-STANDARDAB&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Desviación estándar de los valores medidos válidos ,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;QGRES-STANDARDAB&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>,,Desviación estándar de los valores medidos válidos ,,,,</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>=</TDFORMAT>
+     <TDLINE>&amp;QGRES-STANDARDAB&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MAXWERT&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Val.máx.de val.medidos válidos,,,,&amp;QGRES-MAXWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>,,Val.máx.de val.medidos válidos,,,,&amp;QGRES-MAXWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;QGRES-MINWERT&amp; NE &amp;SPACE&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>IF &amp;VORSCHUB&amp; = &apos;0&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>DEFINE &amp;VORSCHUB&amp; = &apos;1&apos;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>,,Val.mín.de val.medidos válidos,,,,&amp;QGRES-MINWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ELSE</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/</TDFORMAT>
+     <TDLINE>,,Val.mín.de val.medidos válidos,,,,&amp;QGRES-MINWERT&amp;,,&amp;QGRES-MASSEINHSW&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/:</TDFORMAT>
+     <TDLINE>ENDIF</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/E</TDFORMAT>
+     <TDLINE>SAMPLE_DETAIL_QUAL</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Listas detalladas para la muestra, listas detalladas cuantitativas</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDLINE>(por totales)</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>TY</TDFORMAT>
+     <TDLINE>&lt;K&gt;Código&lt;/&gt;,,&amp;QGRES-CODE&amp;,,&amp;QGRES-CODE1&amp;</TDLINE>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+    </TLINE>
+    <TLINE>
+     <TDFORMAT>/*</TDFORMAT>
+     <TDLINE>Fin del formulario</TDLINE>
+    </TLINE>
+   </TDLINES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

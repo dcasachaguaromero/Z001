@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Stocks de MM</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZMM_GF_STOCKTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZMM_GF_STOCK</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>Z_MM_PUR_STOCK_A_FECHA</FUNCNAME>
+     <SHORT_TEXT>Determina el stock de un material a determinada fecha</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BEDAT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BEDAT</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_MATNR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>MATNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_WERKS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>EWERK</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>O_MENGE</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BSTMG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_BUKRS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sociedad</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BEDAT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fecha de pedido</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_MATNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Número de material</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_WERKS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Centro</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>O_MENGE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Cantidad de pedido</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
