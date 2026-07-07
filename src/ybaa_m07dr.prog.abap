@@ -55,14 +55,32 @@ INCLUDE M07DRLOB.
 *------Lesen Tabelle T001----------------------------------------------*
 FORM TAB001_LESEN.
   IF NOT T001-BUKRS = MSEG-BUKRS.
-    SELECT SINGLE * FROM T001 WHERE BUKRS = MSEG-BUKRS.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T001 WHERE BUKRS = MSEG-BUKRS.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T001 WHERE BUKRS = MSEG-BUKRS ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 ENDFORM.                    "TAB001_LESEN
 
 *-------Lesen Tabelle T001w--------------------------------------------*
 FORM TAB001W_LESEN.
   IF NOT T001W-WERKS = MSEG-WERKS.
-    SELECT SINGLE * FROM T001W WHERE WERKS = MSEG-WERKS.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T001W WHERE WERKS = MSEG-WERKS.
+**
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T001W WHERE WERKS = MSEG-WERKS ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
   R_WERKS = T001W-WERKS.
   R_NAME1 = T001W-NAME1.
@@ -78,54 +96,136 @@ ENDFORM.                    "TAB001W_LESEN
 *-------Lesen Tabelle T001w bei Werkswechsel --------------------------*
 FORM TAB001W_LESEN_2.
   IF NOT MSEG-WERKS = T001W-WERKS.
-    SELECT SINGLE * FROM T001W WHERE WERKS = MSEG-WERKS.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T001W WHERE WERKS = MSEG-WERKS.
+**
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T001W WHERE WERKS = MSEG-WERKS ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 ENDFORM.                    "TAB001W_LESEN_2
 *--------Lesen Tabelle T156--------------------------------------------*
 FORM TAB156_LESEN.
   IF NOT T156-BWART = MSEG-BWART.
-    SELECT SINGLE * FROM T156 WHERE BWART = MSEG-BWART.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T156 WHERE BWART = MSEG-BWART.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T156 WHERE BWART = MSEG-BWART ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 ENDFORM.                    "TAB156_LESEN
 
 *-------Lesen Tabelle T156t--------------------------------------------*
 FORM TAB156T_LESEN.
-  SELECT SINGLE * FROM T156T WHERE SPRAS = LANGUAGE
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM T156T WHERE SPRAS = LANGUAGE
+*                             AND   BWART = MSEG-BWART
+*                             AND   SOBKZ = MSEG-SOBKZ
+*                             AND   KZBEW = MSEG-KZBEW
+*                             AND   KZZUG = MSEG-KZZUG
+*                             AND   KZVBR = MSEG-KZVBR.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM T156T WHERE SPRAS = LANGUAGE
                              AND   BWART = MSEG-BWART
                              AND   SOBKZ = MSEG-SOBKZ
                              AND   KZBEW = MSEG-KZBEW
                              AND   KZZUG = MSEG-KZZUG
-                             AND   KZVBR = MSEG-KZVBR.
+                             AND   KZVBR = MSEG-KZVBR ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 ENDFORM.                    "TAB156T_LESEN
 
 *------Lesen Tabelle T024----------------------------------------------*
 FORM TAB024_LESEN.
   IF NOT T024-EKGRP = EKKO-EKGRP.
-    SELECT SINGLE * FROM T024 WHERE EKGRP = EKKO-EKGRP.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T024 WHERE EKGRP = EKKO-EKGRP.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T024 WHERE EKGRP = EKKO-EKGRP ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 ENDFORM.                    "TAB024_LESEN
 *------Lesen Tabelle T024D---------------------------------------------*
 FORM TAB024D_LESEN.
-  SELECT SINGLE * FROM T024D WHERE WERKS = MSEG-WERKS
-                             AND   DISPO = AFKO-DISPO.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM T024D WHERE WERKS = MSEG-WERKS
+*                             AND   DISPO = AFKO-DISPO.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM T024D WHERE WERKS = MSEG-WERKS
+                             AND   DISPO = AFKO-DISPO ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 ENDFORM.                    "TAB024D_LESEN
 
 *---------------------- T027B,C lesen ---------------------------------*
 FORM T027_LESEN.
-  SELECT SINGLE * FROM T027B WHERE SPRAS = LANGUAGE
-                             AND   EVERS = MSEG-EVERS.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM T027B WHERE SPRAS = LANGUAGE
+*                             AND   EVERS = MSEG-EVERS.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM T027B WHERE SPRAS = LANGUAGE
+                             AND   EVERS = MSEG-EVERS ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   CHECK NOT MSEG-EVERE IS INITIAL.
 
-  SELECT SINGLE * FROM T027C WHERE EVERS = MSEG-EVERS
-                             AND   EVERE = MSEG-EVERE.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM T027C WHERE EVERS = MSEG-EVERS
+*                             AND   EVERE = MSEG-EVERE.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM T027C WHERE EVERS = MSEG-EVERS
+                             AND   EVERE = MSEG-EVERE ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF NOT T027C-EVDRK IS INITIAL.
-    SELECT SINGLE * FROM T027D WHERE SPRAS = LANGUAGE
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T027D WHERE SPRAS = LANGUAGE
+*                               AND   EVERS = MSEG-EVERS
+*                               AND   EVERE = MSEG-EVERE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T027D WHERE SPRAS = LANGUAGE
                                AND   EVERS = MSEG-EVERS
-                               AND   EVERE = MSEG-EVERE.
+                               AND   EVERE = MSEG-EVERE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 
 ENDFORM.                                                    "T027_LESEN
@@ -133,7 +233,16 @@ ENDFORM.                                                    "T027_LESEN
 *----------------------- gewünscht ? ----------------------------------*
 FORM LESEN_T159P.
   IF NOT T159P-TDDEST = NAST-LDEST.
-    SELECT SINGLE * FROM T159P WHERE TDDEST = NAST-LDEST.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T159P WHERE TDDEST = NAST-LDEST.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T159P WHERE TDDEST = NAST-LDEST ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 ENDFORM.                    "LESEN_T159P
 *&---------------------------------------------------------------------*
@@ -160,8 +269,18 @@ FORM T064B_LESEN.
       BSTAR = VIER.
   ENDCASE.
   IF NOT T064B-BSTAR = BSTAR.
-    SELECT SINGLE * FROM T064B WHERE SPRAS = LANGUAGE
-                               AND   BSTAR = BSTAR.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T064B WHERE SPRAS = LANGUAGE
+*                               AND   BSTAR = BSTAR.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T064B WHERE SPRAS = LANGUAGE
+                               AND   BSTAR = BSTAR ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 ENDFORM.                    " T064B_LESEN
 *end /SMBA0/AA_M07DRMTA
@@ -211,9 +330,20 @@ FORM WF1_LAGERMATERIAL.
       ELEMENT = 'W1LGMAT'.
   IF T156-SHKZG = H AND
     NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUELGGRUND'.
@@ -234,9 +364,20 @@ FORM WF1_LVSMATERIAL.
       ELEMENT = 'W1LVSMAT'.
   IF T156-SHKZG = H AND
     NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUELVSGRUND'.
@@ -296,9 +437,20 @@ FORM WF1_VERBRAUCHSMATERIAL.
       ELEMENT = 'W1VERBRMAT'.
   IF T156-SHKZG = H AND
     NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUELVERBRGRUND'.
@@ -354,9 +506,20 @@ FORM WF2_LAGERMATERIAL.
       ELEMENT = 'WE2LGMAT'.
   IF T156-SHKZG = H AND
      NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUELGGRUND'.
@@ -419,9 +582,20 @@ FORM WF2_VERBRAUCHSMATERIAL.
       ELEMENT = 'WE2VERBRMAT'.
   IF T156-SHKZG = H AND
     NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUEVERBRGRUND'.
@@ -525,9 +699,20 @@ FORM W2_LAGERMATERIAL.
       ELEMENT = 'WE2LGMAT'.
   IF T156-SHKZG = H AND
      NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUELGGRUND'.
@@ -549,9 +734,20 @@ FORM W2_LVSMATERIAL.
       ELEMENT = 'W1LVSMAT'.
   IF T156-SHKZG = H AND
      NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUELVSGRUND'.
@@ -677,9 +873,20 @@ FORM W2_VERBRAUCHSMATERIAL.
       ELEMENT = 'WE2VERBRMAT'.
   IF T156-SHKZG = H AND
     NOT MSEG-GRUND IS INITIAL.
-    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM T157E WHERE BWART = MSEG-BWART
+*                               AND   GRUND = MSEG-GRUND
+*                               AND   SPRAS = LANGUAGE.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM T157E WHERE BWART = MSEG-BWART
                                AND   GRUND = MSEG-GRUND
-                               AND   SPRAS = LANGUAGE.
+                               AND   SPRAS = LANGUAGE ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CALL FUNCTION 'WRITE_FORM'
       EXPORTING
         ELEMENT = 'RUEVERBRGRUND'.
@@ -1192,12 +1399,31 @@ FORM lesen_was USING objky lgortsplit.
   nast_key = objky.
   CLEAR retco.
   CLEAR: xkopfdr, new_page.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   MOVE-CORRESPONDING mkpf TO traptab.
   zaehler_m = 1.
-  SELECT * FROM mseg WHERE mblnr = mkpf-mblnr
-                     AND   mjahr = mkpf-mjahr.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM mseg WHERE mblnr = mkpf-mblnr
+*                     AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+ FROM mseg WHERE mblnr = mkpf-mblnr
+                     AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF sy-subrc NE 0.
       retco = sy-subrc.
       EXIT.
@@ -1242,10 +1468,29 @@ FORM lesen_wese USING objky.
   CLEAR retco.
   nast_key = objky.
   zaehler_m = 1.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
-  SELECT * FROM mseg WHERE mblnr = mkpf-mblnr
-                     AND   mjahr = mkpf-mjahr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM mseg WHERE mblnr = mkpf-mblnr
+*                     AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+ FROM mseg WHERE mblnr = mkpf-mblnr
+                     AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF sy-subrc NE 0.
       retco = sy-subrc.
       EXIT.
@@ -1283,10 +1528,29 @@ FORM lesen_wase USING objky.
   nast_key = objky.
   CLEAR retco.
   zaehler_m = 1.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
-  SELECT * FROM mseg WHERE mblnr = mkpf-mblnr
-                     AND   mjahr = mkpf-mjahr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM mseg WHERE mblnr = mkpf-mblnr
+*                     AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+ FROM mseg WHERE mblnr = mkpf-mblnr
+                     AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     IF sy-subrc NE 0.
       retco = sy-subrc.
@@ -1331,11 +1595,31 @@ FORM lesen_wlbs USING objky.
   CLEAR retco.
   CLEAR: xkopfdr, new_page.
   zaehler_m = 1.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
-  SELECT * FROM mseg INTO TABLE xmseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM mseg INTO TABLE xmseg
+*                     WHERE mblnr = mkpf-mblnr
+*                     AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+ FROM mseg INTO TABLE xmseg
                      WHERE mblnr = mkpf-mblnr
-                     AND   mjahr = mkpf-mjahr.
+                     AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   LOOP AT xmseg.
     mseg = xmseg.
     CHECK mseg-sobkz IS INITIAL OR
@@ -1414,11 +1698,32 @@ ENDFORM.                    "ausgabe_wf02
 FORM lesen USING objky.
   nast_key = objky.
   CLEAR retco.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
-  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+*                            AND   zeile = nast_key-zeile
+*                            AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mseg WHERE mblnr = mkpf-mblnr
                             AND   zeile = nast_key-zeile
-                            AND   mjahr = mkpf-mjahr.
+                            AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     retco = sy-subrc.
     EXIT.
@@ -1455,11 +1760,32 @@ ENDFORM.                    "lesen
 FORM lesen_wf USING objky.
   nast_key = objky.
   CLEAR retco.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
-  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+*                            AND   zeile = nast_key-zeile
+*                            AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mseg WHERE mblnr = mkpf-mblnr
                             AND   zeile = nast_key-zeile
-                            AND   mjahr = mkpf-mjahr.
+                            AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     retco = sy-subrc.
     EXIT.
@@ -1482,11 +1808,32 @@ ENDFORM.                    "lesen_wf
 FORM lesen_wa USING objky.
   nast_key = objky.
   CLEAR retco.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
-  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+*                            AND   zeile = nast_key-zeile
+*                            AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mseg WHERE mblnr = mkpf-mblnr
                             AND   zeile = nast_key-zeile
-                            AND   mjahr = mkpf-mjahr.
+                            AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     retco = sy-subrc.
     EXIT.
@@ -1615,11 +1962,32 @@ ENDFORM.                                                    "helpdata2
 FORM lesen_wlb USING objky.
   nast_key = objky.
   CLEAR retco.
-  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
-                            AND   mjahr = nast_key-mjahr.
-  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mkpf WHERE mblnr = nast_key-mblnr
+*                            AND   mjahr = nast_key-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mkpf WHERE mblnr = nast_key-mblnr
+                            AND   mjahr = nast_key-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM mseg WHERE mblnr = mkpf-mblnr
+*                            AND   zeile = nast_key-zeile
+*                            AND   mjahr = mkpf-mjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM mseg WHERE mblnr = mkpf-mblnr
                             AND   zeile = nast_key-zeile
-                            AND   mjahr = mkpf-mjahr.
+                            AND   mjahr = mkpf-mjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     retco = sy-subrc.
     EXIT.
@@ -1668,9 +2036,20 @@ FORM ladr_lesen.
           INCLUDE STRUCTURE addr1_sel.
   DATA:    END OF addr_sel.
   CLEAR ladr.
-  SELECT SINGLE * FROM twlad WHERE werks = mseg-werks
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM twlad WHERE werks = mseg-werks
+*                       AND  lgort = mseg-lgort
+*                       AND  lfdnr = '001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM twlad WHERE werks = mseg-werks
                        AND  lgort = mseg-lgort
-                       AND  lfdnr = '001'.
+                       AND  lfdnr = '001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF NOT twlad-adrnr IS INITIAL AND sy-subrc IS INITIAL.
     MOVE twlad-adrnr TO addr_sel-addrnumber.
   ENDIF.
@@ -1865,8 +2244,17 @@ FORM print_smartform.
 *  nast_key = objky.
   PERFORM lesen_t159p.
   PERFORM itcpo_fuellen.
-  SELECT * FROM ekpo INTO TABLE it_ekpo WHERE
-                          ebeln = ekko-ebeln.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM ekpo INTO TABLE it_ekpo WHERE
+*                          ebeln = ekko-ebeln.
+*
+* NEW CODE
+  SELECT *
+ FROM ekpo INTO TABLE it_ekpo WHERE
+                          ebeln = ekko-ebeln ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   IF NOT t159p-xmehr IS INITIAL.
     IF mseg-weanz GT 0.
       anzahl = mseg-weanz.

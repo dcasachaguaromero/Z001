@@ -916,8 +916,18 @@ FORM get_customer_address USING    p_kunnr LIKE ekpo-kunnr
   DATA: l_adrnr LIKE kna1-adrnr.
 
   CHECK NOT p_kunnr IS INITIAL.
-  SELECT SINGLE adrnr FROM  kna1 INTO (l_adrnr)
-         WHERE  kunnr  = p_kunnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE adrnr FROM  kna1 INTO (l_adrnr)
+*         WHERE  kunnr  = p_kunnr.
+*
+* NEW CODE
+  SELECT adrnr
+  UP TO 1 ROWS  FROM  kna1 INTO (l_adrnr)
+         WHERE  kunnr  = p_kunnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0.
     p_adrnr = l_adrnr.
   ELSE.
@@ -1397,11 +1407,23 @@ FORM processing_po
             END OF time_tab.
 
 * Read all messagetypes that are allowed for NEU-Messages
-      SELECT * FROM t161m INTO TABLE neu_messagetypes
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM t161m INTO TABLE neu_messagetypes
+*        WHERE kvewe EQ 'B'
+*        AND   kappl EQ iv_nast-kappl
+*        AND   kschl NE iv_nast-kschl
+*        AND   druvo EQ neu.
+*
+* NEW CODE
+      SELECT *
+ FROM t161m INTO TABLE neu_messagetypes
         WHERE kvewe EQ 'B'
         AND   kappl EQ iv_nast-kappl
         AND   kschl NE iv_nast-kschl
-        AND   druvo EQ neu.
+        AND   druvo EQ neu ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       IF sy-subrc EQ 0.
         LOOP AT neu_messagetypes.
           SELECT datvr uhrvr INTO time_tab FROM nast
@@ -1438,8 +1460,17 @@ FORM processing_po
 
 * Fill up pricing condition table if calling from ME9F
   IF l_doc-xtkomv IS INITIAL.
-    SELECT * INTO TABLE l_doc-xtkomv FROM konv
-                                     WHERE knumv = l_doc-xekko-knumv.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * INTO TABLE l_doc-xtkomv FROM konv
+*                                     WHERE knumv = l_doc-xekko-knumv.
+*
+* NEW CODE
+    SELECT *
+ INTO TABLE l_doc-xtkomv FROM konv
+                                     WHERE knumv = l_doc-xekko-knumv ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   ENDIF.
 
 *Set the print Parameters

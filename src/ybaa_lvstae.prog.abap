@@ -42,11 +42,24 @@ form read_mard tables in_tab structure itcsy
        h_lgort = in_tab-value.
   endif.
 
-  select single lgpbe from mard
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single lgpbe from mard
+*   into h_lgpbe
+*   where  matnr = h_MATNR
+*   and    werks = h_WERKS
+*   and    lgort = h_LGORT.
+*
+* NEW CODE
+  SELECT lgpbe
+  UP TO 1 ROWS  from mard
    into h_lgpbe
    where  matnr = h_MATNR
    and    werks = h_WERKS
-   and    lgort = h_LGORT.
+   and    lgort = h_LGORT ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *
   read table out_tab with key 'LGPBE'.
   if sy-subrc = 0.
