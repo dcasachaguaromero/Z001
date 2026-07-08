@@ -1,0 +1,28 @@
+GV_QTY_URGED = <EK>-MENGE - <EK>-WEMNG.
+GV_QTY_URGED = <EK>-MENGE - <EK>-WEMNG.
+CLEAR GV_REMINDER_TIMES.
+IF <EK>-MAHNZ < 0.
+GV_REMINDER_TIMES = <EK>-MAHNZ * -1.
+ENDIF.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

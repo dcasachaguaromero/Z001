@@ -1,0 +1,25 @@
+
+gv_tot =  IS_PEKKO-NETWR + gv_tax_TOT.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
