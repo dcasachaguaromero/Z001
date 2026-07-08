@@ -1,0 +1,59 @@
+*****Get PO title ****************************************
+DATA LS_T166U TYPE T166U.
+
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*SELECT SINGLE * INTO LS_T166U
+*FROM T166U
+*WHERE SPRAS = GV_LANGUAGE
+*AND DRUVO = IV_DRUVO
+*AND BSTYP = IS_EKKO-BSTYP
+*AND BSART = IS_EKKO-BSART.
+*
+* NEW CODE
+SELECT *
+UP TO 1 ROWS  INTO LS_T166U
+FROM T166U
+WHERE SPRAS = GV_LANGUAGE
+AND DRUVO = IV_DRUVO
+AND BSTYP = IS_EKKO-BSTYP
+AND BSART = IS_EKKO-BSART ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+
+GV_DOC_TYPE     = LS_T166U-DRTYP.
+GV_FORM_TITLE   = LS_T166U-DRART.
+GV_FORM_HEADING = LS_T166U-DRNUM.
+
+** Optional part: doc_type => form_title
+** if only doc_type is specified, but form_total not.
+** then print the doc_type in big font size.
+IF GV_FORM_TITLE IS INITIAL AND
+NOT GV_DOC_TYPE IS INITIAL.
+GV_FORM_TITLE = GV_DOC_TYPE.
+CLEAR GV_DOC_TYPE.
+ENDIF.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

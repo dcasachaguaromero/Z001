@@ -1,0 +1,34 @@
+
+CALL FUNCTION 'CO_ZK_TEXTKEY_RESB'
+EXPORTING
+RSNUM         = <COMP>-RSNUM
+RSPOS         = <COMP>-RSPOS
+RSART         = <COMP>-RSART
+IMPORTING
+LTSCH         = Z_TEXT_KEY
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
