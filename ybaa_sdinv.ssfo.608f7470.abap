@@ -1,0 +1,26 @@
+WRITE GS_IT_KOND_W-KAWRT TO GS_IT_KOND_W-BTRMW
+CURRENCY GS_IT_KOND_W-AWEI1 .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

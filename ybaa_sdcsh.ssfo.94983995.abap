@@ -1,0 +1,42 @@
+
+*Landesspez. Datum
+*h_DATE = IS_VBDKA-LFDAT.
+*31.12.2007 -> 20071231; land 12/31/2007
+
+if not IS_VBDKA-LFDAT is initial.
+CALL FUNCTION 'CONVERT_DATE_TO_INTERNAL'
+EXPORTING
+DATE_EXTERNAL                  = IS_VBDKA-LFDAT
+*  ACCEPT_INITIAL_DATE            =
+IMPORTING
+DATE_INTERNAL                  = H_DATE
+EXCEPTIONS
+DATE_EXTERNAL_IS_INVALID       = 1
+OTHERS                         = 2
+.
+IF SY-SUBRC <> 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+ENDIF.
+endif.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

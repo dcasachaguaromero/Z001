@@ -1,0 +1,25 @@
+CONCATENATE gs_it_gen-bil_number gs_it_gen-itm_number INTO g_text_key.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
