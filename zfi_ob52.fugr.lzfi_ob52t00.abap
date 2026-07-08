@@ -1,0 +1,84 @@
+*---------------------------------------------------------------------*
+*    view related data declarations
+*---------------------------------------------------------------------*
+*...processing: ZVFI_OB52.......................................*
+TABLES: ZVFI_OB52, *ZVFI_OB52. "view work areas
+CONTROLS: TCTRL_ZVFI_OB52
+TYPE TABLEVIEW USING SCREEN '0010'.
+DATA: BEGIN OF STATUS_ZVFI_OB52. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZVFI_OB52.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZVFI_OB52_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZVFI_OB52_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_TOTAL.
+
+*...processing: ZVFI_OB52_MAIL..................................*
+TABLES: ZVFI_OB52_MAIL, *ZVFI_OB52_MAIL. "view work areas
+CONTROLS: TCTRL_ZVFI_OB52_MAIL
+TYPE TABLEVIEW USING SCREEN '0030'.
+DATA: BEGIN OF STATUS_ZVFI_OB52_MAIL. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZVFI_OB52_MAIL.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZVFI_OB52_MAIL_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52_MAIL.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_MAIL_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZVFI_OB52_MAIL_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52_MAIL.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_MAIL_TOTAL.
+
+*...processing: ZVFI_OB52_T001B.................................*
+TABLES: ZVFI_OB52_T001B, *ZVFI_OB52_T001B. "view work areas
+CONTROLS: TCTRL_ZVFI_OB52_T001B
+TYPE TABLEVIEW USING SCREEN '0040'.
+DATA: BEGIN OF STATUS_ZVFI_OB52_T001B. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZVFI_OB52_T001B.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZVFI_OB52_T001B_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52_T001B.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_T001B_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZVFI_OB52_T001B_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52_T001B.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_T001B_TOTAL.
+
+*...processing: ZVFI_OB52_USER..................................*
+TABLES: ZVFI_OB52_USER, *ZVFI_OB52_USER. "view work areas
+CONTROLS: TCTRL_ZVFI_OB52_USER
+TYPE TABLEVIEW USING SCREEN '0020'.
+DATA: BEGIN OF STATUS_ZVFI_OB52_USER. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZVFI_OB52_USER.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZVFI_OB52_USER_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52_USER.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_USER_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZVFI_OB52_USER_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZVFI_OB52_USER.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZVFI_OB52_USER_TOTAL.
+
+*.........table declarations:.................................*
+TABLES: ADRP                           .
+TABLES: T010O                          .
+TABLES: T010P                          .
+TABLES: USR21                          .
+TABLES: ZFI_OB52                       .
+TABLES: ZFI_OB52_MAIL                  .
+TABLES: ZFI_OB52_T001B                 .
+TABLES: ZFI_OB52_USER                  .
