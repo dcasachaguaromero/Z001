@@ -295,21 +295,10 @@ START-OF-SELECTION.
 *** Retrieving the title text of Report
   IF NOT it_result[] IS INITIAL.
     REFRESH : it_trdirt.
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*    SELECT name text INTO TABLE it_trdirt
-*            FROM trdirt  FOR ALL ENTRIES IN it_result
-*               WHERE name  = it_result-report AND
-*                     sprsl = sy-langu.
-*
-* NEW CODE
-    SELECT name text
- INTO TABLE it_trdirt
+    SELECT name text INTO TABLE it_trdirt
             FROM trdirt  FOR ALL ENTRIES IN it_result
                WHERE name  = it_result-report AND
-                     sprsl = sy-langu ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+                     sprsl = sy-langu.
   ENDIF.
 *** Identifying the program name associated with the transaction and the title text of the Transaction
   IF NOT it_result[] IS INITIAL.
@@ -375,34 +364,13 @@ START-OF-SELECTION.
         wa_prog_name = wa_tstc-pgmna.
     ENDCASE.
 *** Retrieving the application type (Module) of the Report
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*    SELECT SINGLE appl INTO v_appl
-*          FROM trdir WHERE name = wa_prog_name.
-*
-* NEW CODE
-    SELECT appl
-    UP TO 1 ROWS  INTO v_appl
-          FROM trdir WHERE name = wa_prog_name ORDER BY PRIMARY KEY.
-
-    ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+    SELECT SINGLE appl INTO v_appl
+          FROM trdir WHERE name = wa_prog_name.
 *** Retrieving the long text of the module
     IF NOT v_appl IS INITIAL.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE atext INTO v_ktext
-*             FROM taplt  WHERE appl  = v_appl AND
-*                               sprsl = sy-langu.
-*
-* NEW CODE
-      SELECT atext
-      UP TO 1 ROWS  INTO v_ktext
+      SELECT SINGLE atext INTO v_ktext
              FROM taplt  WHERE appl  = v_appl AND
-                               sprsl = sy-langu ORDER BY PRIMARY KEY.
-
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                               sprsl = sy-langu.
     ENDIF.
     wa_final-ktext = v_ktext.
     APPEND wa_final TO it_final.

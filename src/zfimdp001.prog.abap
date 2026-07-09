@@ -754,25 +754,12 @@ MODULE module_match2 INPUT.
 
   ENDIF.
 
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT zbukr hbkid hktid chect
-*  INTO CORRESPONDING FIELDS OF TABLE ti_cheque
-*  FROM payr
-*  WHERE zbukr EQ bukrs
-*    AND hbkid EQ hbkid
-*    AND hktid EQ hktid.
-*
-* NEW CODE
   SELECT zbukr hbkid hktid chect
-
   INTO CORRESPONDING FIELDS OF TABLE ti_cheque
   FROM payr
   WHERE zbukr EQ bukrs
     AND hbkid EQ hbkid
-    AND hktid EQ hktid ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+    AND hktid EQ hktid.
 
   list_of_fields2-fieldname = 'T012K-BUKRS'.
   APPEND list_of_fields2.
@@ -895,23 +882,11 @@ MODULE module_match1 INPUT.
   TRANSLATE bukrs TO UPPER CASE.
   TRANSLATE hbkid TO UPPER CASE.
 * fin FCV - 21.04.2010
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT bukrs hbkid hktid
-*    INTO CORRESPONDING FIELDS OF TABLE ti_cta_cte
-*    FROM t012k
-*    WHERE bukrs EQ bukrs
-*      AND hbkid EQ hbkid.
-*
-* NEW CODE
   SELECT bukrs hbkid hktid
-
     INTO CORRESPONDING FIELDS OF TABLE ti_cta_cte
     FROM t012k
     WHERE bukrs EQ bukrs
-      AND hbkid EQ hbkid ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+      AND hbkid EQ hbkid.
 
   list_of_fields1-fieldname = 'T012K-BUKRS'.
   APPEND list_of_fields1.
@@ -995,19 +970,9 @@ INCLUDE zfimdp004.
 MODULE tcc_modify_hbkid INPUT.
   DATA: gt_t012k TYPE STANDARD TABLE OF t012k.
   IF hbkid NE space AND bukrs NE space.
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*    SELECT * FROM t012k INTO TABLE gt_t012k
-*            WHERE bukrs = bukrs
-*            AND   hbkid = hbkid.
-*
-* NEW CODE
-    SELECT *
- FROM t012k INTO TABLE gt_t012k
+    SELECT * FROM t012k INTO TABLE gt_t012k
             WHERE bukrs = bukrs
-            AND   hbkid = hbkid ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+            AND   hbkid = hbkid.
     IF sy-subrc NE 0.
       MESSAGE e002 WITH hbkid bukrs.
 * error HBKID no es valido para la Sociedad.
@@ -1022,21 +987,10 @@ ENDMODULE.                 " TCC_MODIFY_HBKID  INPUT
 MODULE tcc_modify_hktid INPUT.
   DATA: gt_t012k2 TYPE STANDARD TABLE OF t012k.
   IF hbkid NE space AND  hktid NE space AND bukrs NE space.
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*    SELECT * FROM t012k INTO TABLE gt_t012k
-*           WHERE bukrs = bukrs
-*           AND   hbkid = hbkid
-*           AND   hktid = hktid.
-*
-* NEW CODE
-    SELECT *
- FROM t012k INTO TABLE gt_t012k
+    SELECT * FROM t012k INTO TABLE gt_t012k
            WHERE bukrs = bukrs
            AND   hbkid = hbkid
-           AND   hktid = hktid ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+           AND   hktid = hktid.
     IF sy-subrc NE 0.
       MESSAGE e003 WITH bukrs hbkid hktid.
 * error HKTID no es valido para la Sociedad.

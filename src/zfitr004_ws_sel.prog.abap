@@ -55,18 +55,8 @@ AT SELECTION-SCREEN ON p_bukrs.
     IF sy-subrc <> 0.
       MESSAGE e526(icc_tr) WITH p_bukrs.
     ELSE.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE *
-*            FROM t001 WHERE bukrs = p_bukrs.
-*
-* NEW CODE
-      SELECT *
-      UP TO 1 ROWS 
-            FROM t001 WHERE bukrs = p_bukrs ORDER BY PRIMARY KEY.
-
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+      SELECT SINGLE *
+            FROM t001 WHERE bukrs = p_bukrs.
 
       PERFORM validacion_accesos USING p_bukrs.
     ENDIF.
@@ -79,20 +69,9 @@ AT SELECTION-SCREEN ON v_hbkid.
   IF v_hbkid IS INITIAL.
     MESSAGE e899(fi) WITH 'Ingrese Banco Propio'.
   ELSE.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*    SELECT SINGLE bankl INTO  p_bankl
-*         FROM  t012 WHERE  bukrs EQ p_bukrs
-*                      AND  hbkid EQ v_hbkid.
-*
-* NEW CODE
-    SELECT bankl
-    UP TO 1 ROWS  INTO  p_bankl
+    SELECT SINGLE bankl INTO  p_bankl
          FROM  t012 WHERE  bukrs EQ p_bukrs
-                      AND  hbkid EQ v_hbkid ORDER BY PRIMARY KEY.
-
-    ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                      AND  hbkid EQ v_hbkid.
     IF p_bankl NE '016'.
       MESSAGE e899(fi) WITH 'Solo seleccionar banco propio del BCI'.
     ENDIF.
@@ -154,22 +133,10 @@ AT SELECTION-SCREEN ON BLOCK marco1.
         p_tipopa IS NOT INITIAL.
   SPLIT p_tipopa AT '_' INTO wa_selec-convenio
                              wa_selec-tipo_pago.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*  SELECT SINGLE * INTO wa_zfitr016
-*       FROM zfitr016 WHERE bukrs     EQ p_bukrs
-*                       AND convenio  EQ p_conven
-*                       AND tipo_pago EQ wa_selec-tipo_pago.
-*
-* NEW CODE
-  SELECT *
-  UP TO 1 ROWS  INTO wa_zfitr016
+  SELECT SINGLE * INTO wa_zfitr016
        FROM zfitr016 WHERE bukrs     EQ p_bukrs
                        AND convenio  EQ p_conven
-                       AND tipo_pago EQ wa_selec-tipo_pago ORDER BY PRIMARY KEY.
-
-  ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                       AND tipo_pago EQ wa_selec-tipo_pago.
   IF sy-subrc NE 0.
     MESSAGE e899(fi) WITH 'No existe registro en tabla ZFITR016 de'
                           'Parámetros WS, para los datos ingresados'.

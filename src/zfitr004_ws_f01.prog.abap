@@ -9,81 +9,33 @@
 *----------------------------------------------------------------------*
 FORM cargo_datos.
   REFRESH int_tabla.
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT * FROM bsik WHERE bukrs  = p_bukrs
-*                     AND   hbkid  = v_hbkid
-*                     AND   zfbdt >= v_fechai
-*                     AND   zfbdt =< v_fechat
-*                     AND   zlspr = 'S'.
-*
-* NEW CODE
-  SELECT *
- FROM bsik WHERE bukrs  = p_bukrs
+  SELECT * FROM bsik WHERE bukrs  = p_bukrs
                      AND   hbkid  = v_hbkid
                      AND   zfbdt >= v_fechai
                      AND   zfbdt =< v_fechat
-                     AND   zlspr = 'S' ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+                     AND   zlspr = 'S'.
 
     IF bsik-blart = 'F7'.
       bsik-xblnr = bsik-zuonr.
     ENDIF.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*    SELECT SINGLE * FROM  zfitr004
-*                    WHERE bukrs  = p_bukrs
-*                    AND   belnr  = bsik-belnr
-*                    AND   gjahr  = bsik-gjahr
-*                    AND   xblnr  = bsik-xblnr
-*                    AND   lifnr  = bsik-lifnr
-*                    AND   estado = '1'.
-*
-* NEW CODE
-    SELECT *
-    UP TO 1 ROWS  FROM  zfitr004
+    SELECT SINGLE * FROM  zfitr004
                     WHERE bukrs  = p_bukrs
                     AND   belnr  = bsik-belnr
                     AND   gjahr  = bsik-gjahr
                     AND   xblnr  = bsik-xblnr
                     AND   lifnr  = bsik-lifnr
-                    AND   estado = '1' ORDER BY PRIMARY KEY.
-
-    ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                    AND   estado = '1'.
 
     IF sy-subrc <> 0.
       MOVE-CORRESPONDING bsik TO int_tabla.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE stcd1 name1 FROM lfa1 INTO  (int_tabla-stcd1, int_tabla-name1)
-*                                    WHERE lifnr = int_tabla-lifnr.
-*
-* NEW CODE
-      SELECT stcd1 name1
-      UP TO 1 ROWS  FROM lfa1 INTO  (int_tabla-stcd1, int_tabla-name1)
-                                    WHERE lifnr = int_tabla-lifnr ORDER BY PRIMARY KEY.
+      SELECT SINGLE stcd1 name1 FROM lfa1 INTO  (int_tabla-stcd1, int_tabla-name1)
+                                    WHERE lifnr = int_tabla-lifnr.
 
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
-
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE bankl bankn FROM lfbk INTO  (int_tabla-bankl, int_tabla-bankn)
-*                                    WHERE lifnr = int_tabla-lifnr AND
-*                                          banks = 'CL'.
-*
-* NEW CODE
-      SELECT bankl bankn
-      UP TO 1 ROWS  FROM lfbk INTO  (int_tabla-bankl, int_tabla-bankn)
+      SELECT SINGLE bankl bankn FROM lfbk INTO  (int_tabla-bankl, int_tabla-bankn)
                                     WHERE lifnr = int_tabla-lifnr AND
-                                          banks = 'CL' ORDER BY PRIMARY KEY.
-
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                                          banks = 'CL'.
 
       IF int_tabla-shkzg = 'S'.
         int_tabla-wrbtr = int_tabla-wrbtr * -1.
@@ -667,18 +619,8 @@ FORM preparo_salida_037.
   LOOP AT reg_stder.
     AT NEW  zbukr .
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES01 ECDK917080 *
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE paval INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
-*                                   AND   party = 'TAXNR' .
-*
-* NEW CODE
-      SELECT paval
-      UP TO 1 ROWS  INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
-                                   AND   party = 'TAXNR'  ORDER BY PRIMARY KEY.
-
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+      SELECT SINGLE paval INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
+                                   AND   party = 'TAXNR' .
     ENDAT.
     AT LAST.
       SUM.
@@ -943,20 +885,9 @@ FORM validacion_accesos USING p_lv_bukrs.
            FROM zfitr016 WHERE bukrs EQ @p_lv_bukrs.
     IF sy-subrc EQ 0.
       wa_sociedad-puerto = lv_puerto.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE bukrs paval INTO (wa_sociedad-bukrs, wa_sociedad-stcd1 )
-*             FROM t001z WHERE bukrs EQ p_lv_bukrs
-*                          AND party EQ 'TAXNR'.
-*
-* NEW CODE
-      SELECT bukrs paval
-      UP TO 1 ROWS  INTO (wa_sociedad-bukrs, wa_sociedad-stcd1 )
+      SELECT SINGLE bukrs paval INTO (wa_sociedad-bukrs, wa_sociedad-stcd1 )
              FROM t001z WHERE bukrs EQ p_lv_bukrs
-                          AND party EQ 'TAXNR' ORDER BY PRIMARY KEY.
-
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                          AND party EQ 'TAXNR'.
     ELSE.
       MESSAGE i899(fi) WITH 'No existen datos fijos para el WS '
                             ' verificar tabla ZFITR016  '.
@@ -972,32 +903,14 @@ FORM carga_datos .
 *
   CLEAR: gr_fac[], gr_ncr[].
 
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT valsign valoption valfrom valto  INTO TABLE gr_fac
-*         FROM setleaf   WHERE setname = 'ZFITR001'.
-*
-* NEW CODE
-  SELECT valsign valoption val
-from valto  INTO TABLE gr_fac
-         FROM setleaf   WHERE setname = 'ZFITR001' ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+  SELECT valsign valoption valfrom valto  INTO TABLE gr_fac
+         FROM setleaf   WHERE setname = 'ZFITR001'.
   IF gr_fac[] IS INITIAL.
     MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos Factura'.
   ENDIF.
 *
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT valsign valoption valfrom valto  INTO TABLE gr_ncr
-*         FROM setleaf   WHERE setname = 'ZFITR002'.
-*
-* NEW CODE
-  SELECT valsign valoption val
-from valto  INTO TABLE gr_ncr
-         FROM setleaf   WHERE setname = 'ZFITR002' ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+  SELECT valsign valoption valfrom valto  INTO TABLE gr_ncr
+         FROM setleaf   WHERE setname = 'ZFITR002'.
   IF gr_ncr[] IS INITIAL.
     MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos N.Crédito'.
   ENDIF.
@@ -1250,20 +1163,9 @@ FORM lee_xml  USING    p_wa_in
         l_transf TYPE sychar50.
 *
   CHECK p_wa_in IS NOT INITIAL.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*  SELECT SINGLE name INTO l_name
-*          FROM sproxxsl WHERE class  EQ p_obj_name AND
-*                              method EQ p_method.
-*
-* NEW CODE
-  SELECT name
-  UP TO 1 ROWS  INTO l_name
+  SELECT SINGLE name INTO l_name
           FROM sproxxsl WHERE class  EQ p_obj_name AND
-                              method EQ p_method ORDER BY PRIMARY KEY.
-
-  ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                              method EQ p_method.
   IF sy-subrc EQ 0.
     CASE p_tipo_envio.
       WHEN 'I'.
@@ -1297,23 +1199,11 @@ FORM lee_datos .
          lr_fecha TYPE RANGE OF zfi_log_ws-laufd,
          lr_pago  TYPE RANGE OF zfi_log_ws-fecha_pago.
 *
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT * INTO TABLE gt_salida
-*         FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
-*                         AND   datum       IN s_datum
-*                         AND   uname       IN s_uname
-*                         AND   proceso     EQ 'E_CONFIRMING'.
-*
-* NEW CODE
-  SELECT *
- INTO TABLE gt_salida
+  SELECT * INTO TABLE gt_salida
          FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
                          AND   datum       IN s_datum
                          AND   uname       IN s_uname
-                         AND   proceso     EQ 'E_CONFIRMING' ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+                         AND   proceso     EQ 'E_CONFIRMING'.
 ENDFORM.
 *&---------------------------------------------------------------------*
 *&      Form  MUESTRA_DATOS

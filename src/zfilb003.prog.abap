@@ -589,39 +589,15 @@ AT SELECTION-SCREEN.
 
 * form check
   IF actform NE space AND full <> 'X'.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*    SELECT SINGLE * FROM stxh WHERE tdobject = 'FORM' AND
-*                                    tdname = actform  AND
-*                                    tdspras = sy-langu.
-*
-* NEW CODE
-    SELECT *
-    UP TO 1 ROWS  FROM stxh WHERE tdobject = 'FORM' AND
+    SELECT SINGLE * FROM stxh WHERE tdobject = 'FORM' AND
                                     tdname = actform  AND
-                                    tdspras = sy-langu ORDER BY PRIMARY KEY.
-
-    ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                                    tdspras = sy-langu.
     IF sy-subrc <> 0.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE * FROM stxh CLIENT SPECIFIED
-*                                   WHERE mandt = '000' AND
-*                                         tdobject = 'FORM' AND
-*                                         tdname = actform  AND
-*                                         tdspras = sy-langu.
-*
-* NEW CODE
-      SELECT *
-      UP TO 1 ROWS  FROM stxh CLIENT SPECIFIED
+      SELECT SINGLE * FROM stxh CLIENT SPECIFIED
                                    WHERE mandt = '000' AND
                                          tdobject = 'FORM' AND
                                          tdname = actform  AND
-                                         tdspras = sy-langu ORDER BY PRIMARY KEY.
-
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                                         tdspras = sy-langu.
       IF sy-subrc <> 0.
         MESSAGE e562(icc_cl) WITH actform.
       ENDIF.
@@ -888,24 +864,11 @@ FORM storno      TABLES      int_bkpf STRUCTURE int_bkpf
 
   IF sy-subrc <> 0.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*    SELECT SINGLE * FROM  bkpf  INTO CORRESPONDING FIELDS OF
-*                    wa_bkpf
-*           WHERE  bukrs       =  s_compy
-*           AND    belnr       =  wa-belnr
-*           AND    gjahr       =  wa-gjahr.
-*
-* NEW CODE
-    SELECT *
-    UP TO 1 ROWS  FROM  bkpf  INTO CORRESPONDING FIELDS OF
+    SELECT SINGLE * FROM  bkpf  INTO CORRESPONDING FIELDS OF
                     wa_bkpf
            WHERE  bukrs       =  s_compy
            AND    belnr       =  wa-belnr
-           AND    gjahr       =  wa-gjahr ORDER BY PRIMARY KEY.
-
-    ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+           AND    gjahr       =  wa-gjahr.
 
     APPEND wa_bkpf TO int_bkpf.
 
@@ -938,22 +901,7 @@ FORM main_access_pay.
 * DATABASE ACCESS *****************************************************
 ***********************************************************************
 *  SELECT    * FROM  bsak  INTO TABLE part_bsak
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT    * FROM  bsik  INTO TABLE part_bsak
-*               WHERE  bukrs       =  s_compy
-*               AND    lifnr       IN s_kred
-*               AND    gjahr       =  s_year
-*               AND    monat       = s_month
-**               AND    gsber       IN s_busa
-*****               AND    augdt       IN s_augdt
-*               AND    blart       IN s_blart
-*               AND    belnr       IN s_belnr
-*               AND    SHKZG       EQ 'H'.
-*
-* NEW CODE
-  SELECT *
- FROM  bsik  INTO TABLE part_bsak
+  SELECT    * FROM  bsik  INTO TABLE part_bsak
                WHERE  bukrs       =  s_compy
                AND    lifnr       IN s_kred
                AND    gjahr       =  s_year
@@ -962,28 +910,11 @@ FORM main_access_pay.
 ****               AND    augdt       IN s_augdt
                AND    blart       IN s_blart
                AND    belnr       IN s_belnr
-               AND    SHKZG       EQ 'H' ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+               AND    SHKZG       EQ 'H'.
 *               AND    BUDAT       IN S_BUDAT.
 
   sumsub = sy-subrc.
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT    * FROM  bsak  INTO  TABLE part_bsak2
-*               WHERE  bukrs       =  s_compy
-*               AND    lifnr       IN s_kred
-*               AND    gjahr       =  s_year
-*               AND    monat       = s_month
-**               AND    gsber       IN s_busa
-*****               AND    augdt       IN s_augdt
-*               AND    blart       IN s_blart
-*               AND    belnr       IN s_belnr
-*               AND    SHKZG       EQ 'H'.
-*
-* NEW CODE
-  SELECT *
- FROM  bsak  INTO  TABLE part_bsak2
+  SELECT    * FROM  bsak  INTO  TABLE part_bsak2
                WHERE  bukrs       =  s_compy
                AND    lifnr       IN s_kred
                AND    gjahr       =  s_year
@@ -992,9 +923,7 @@ FORM main_access_pay.
 ****               AND    augdt       IN s_augdt
                AND    blart       IN s_blart
                AND    belnr       IN s_belnr
-               AND    SHKZG       EQ 'H' ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+               AND    SHKZG       EQ 'H'.
 *               AND    BUDAT       IN S_BUDAT.
 
 ***********************************************************************
@@ -1088,18 +1017,8 @@ FORM   read_bukrs_data
   CLEAR :  compytxt,
            qland.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*  SELECT  SINGLE * FROM  t001
-*     WHERE  bukrs       = s_compy.
-*
-* NEW CODE
-  SELECT *
-  UP TO 1 ROWS  FROM  t001
-     WHERE  bukrs       = s_compy ORDER BY PRIMARY KEY.
-
-  ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+  SELECT  SINGLE * FROM  t001
+     WHERE  bukrs       = s_compy.
 
   IF sy-subrc = 0.
     MOVE  t001-butxt  TO  header_info-current_btx.
@@ -1112,18 +1031,8 @@ FORM   read_bukrs_data
   MOVE  t001-infmt  TO  infmt.
   MOVE  t001-periv  TO  periv.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*  SELECT SINGLE * FROM t001z WHERE bukrs = s_compy AND
-*                                   party = 'TAXNR'.
-*
-* NEW CODE
-  SELECT *
-  UP TO 1 ROWS  FROM t001z WHERE bukrs = s_compy AND
-                                   party = 'TAXNR' ORDER BY PRIMARY KEY.
-
-  ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+  SELECT SINGLE * FROM t001z WHERE bukrs = s_compy AND
+                                   party = 'TAXNR'.
   IF sy-subrc <> 0.
     MESSAGE e552(icc_cl) WITH s_compy.
   ENDIF.
@@ -1196,21 +1105,7 @@ FORM  read_with_item_pay  USING  qland LIKE t001-land1.
   LOOP AT part_work.
 
 *  look for corresponding tax entries
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*    SELECT  * FROM  with_item  INTO CORRESPONDING FIELDS
-*              OF with_item
-*           WHERE  bukrs       = s_compy
-*           AND    belnr       = part_work-belnr
-*           AND    gjahr       = part_work-gjahr
-*           AND    buzei       = part_work-buzei
-*           AND    witht         IN s_qsskz1
-*           AND    wt_acco     = part_work-lifnr
-*           AND    wt_withcd     IN qkz0.
-*
-* NEW CODE
-    SELECT *
- FROM  with_item  INTO CORRESPONDING FIELDS
+    SELECT  * FROM  with_item  INTO CORRESPONDING FIELDS
               OF with_item
            WHERE  bukrs       = s_compy
            AND    belnr       = part_work-belnr
@@ -1218,9 +1113,7 @@ FORM  read_with_item_pay  USING  qland LIKE t001-land1.
            AND    buzei       = part_work-buzei
            AND    witht         IN s_qsskz1
            AND    wt_acco     = part_work-lifnr
-           AND    wt_withcd     IN qkz0 ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+           AND    wt_withcd     IN qkz0.
 ** V1 RVY 03-05-2021
 *           AND    wt_qbshh    NE '0.00'.
 *  a tax entry has been found: read additional data
@@ -1234,20 +1127,9 @@ FORM  read_with_item_pay  USING  qland LIKE t001-land1.
 
         IF sy-subrc <> 0.
 *     no vendor information in internal table: read from database
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*          SELECT SINGLE * FROM lfa1
-*                 INTO CORRESPONDING FIELDS OF  vend_itab
-*                 WHERE  lifnr  = with_item-wt_acco.
-*
-* NEW CODE
-          SELECT *
-          UP TO 1 ROWS  FROM lfa1
+          SELECT SINGLE * FROM lfa1
                  INTO CORRESPONDING FIELDS OF  vend_itab
-                 WHERE  lifnr  = with_item-wt_acco ORDER BY PRIMARY KEY.
-
-          ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                 WHERE  lifnr  = with_item-wt_acco.
           IF sy-subrc <> 0.
             MESSAGE e749(ei) WITH with_item-wt_acco.
           ELSE.
@@ -1291,20 +1173,9 @@ FORM  read_with_item_pay  USING  qland LIKE t001-land1.
         MOVE part_work-blart TO output_list-blart.
 
 *       se saca descripcion del documento
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*        SELECT SINGLE  ltext FROM t003t INTO output_list-LTEXT
-*        WHERE spras = 'S'
-*          AND   blart = part_work-blart.
-*
-* NEW CODE
-        SELECT ltext
-        UP TO 1 ROWS  FROM t003t INTO output_list-LTEXT
+        SELECT SINGLE  ltext FROM t003t INTO output_list-LTEXT
         WHERE spras = 'S'
-          AND   blart = part_work-blart ORDER BY PRIMARY KEY.
-
-        ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+          AND   blart = part_work-blart.
 
 
         MOVE part_work-budat+4(2) TO output_list-poper.
@@ -1336,20 +1207,9 @@ FORM  read_with_item_pay  USING  qland LIKE t001-land1.
 
         IF sy-subrc <> 0.
 *     no vendor information in internal table: read from database
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*          SELECT SINGLE * FROM lfa1
-*                 INTO CORRESPONDING FIELDS OF  vend_itab
-*                 WHERE  lifnr  = part_work-LIFNR.
-*
-* NEW CODE
-          SELECT *
-          UP TO 1 ROWS  FROM lfa1
+          SELECT SINGLE * FROM lfa1
                  INTO CORRESPONDING FIELDS OF  vend_itab
-                 WHERE  lifnr  = part_work-LIFNR ORDER BY PRIMARY KEY.
-
-          ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                 WHERE  lifnr  = part_work-LIFNR.
           IF sy-subrc <> 0.
             MESSAGE e749(ei) WITH part_work-LIFNR.
           ELSE.
@@ -1393,20 +1253,9 @@ FORM  read_with_item_pay  USING  qland LIKE t001-land1.
         MOVE part_work-blart TO output_list-blart.
 
 *       se saca descripcion del documento
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*        SELECT SINGLE  ltext FROM t003t INTO output_list-LTEXT
-*        WHERE spras = 'S'
-*          AND   blart = part_work-blart.
-*
-* NEW CODE
-        SELECT ltext
-        UP TO 1 ROWS  FROM t003t INTO output_list-LTEXT
+        SELECT SINGLE  ltext FROM t003t INTO output_list-LTEXT
         WHERE spras = 'S'
-          AND   blart = part_work-blart ORDER BY PRIMARY KEY.
-
-        ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+          AND   blart = part_work-blart.
 
 
         MOVE part_work-budat+4(2) TO output_list-poper.
@@ -1602,49 +1451,19 @@ FORM check_type_code   USING     country  LIKE  t001-land1.
 
   hit = ' '.
 *   select all withholding tax types
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*  SELECT * FROM t059p WHERE land1 = country
-*                     AND   witht IN s_qsskz1.
-*
-* NEW CODE
-  SELECT *
- FROM t059p WHERE land1 = country
-                     AND   witht IN s_qsskz1 ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+  SELECT * FROM t059p WHERE land1 = country
+                     AND   witht IN s_qsskz1.
     IF sy-subrc = 0.
 *    get text string for withholding tax type
       CLEAR t059u.
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*      SELECT SINGLE * FROM t059u WHERE spras = sy-langu
-*                                 AND land1 = country
-*                                 AND witht = t059p-witht.
-*
-* NEW CODE
-      SELECT *
-      UP TO 1 ROWS  FROM t059u WHERE spras = sy-langu
+      SELECT SINGLE * FROM t059u WHERE spras = sy-langu
                                  AND land1 = country
-                                 AND witht = t059p-witht ORDER BY PRIMARY KEY.
-
-      ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                                 AND witht = t059p-witht.
 *    get all withholding tax codes for this type which
 *    also fit to select-options
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*      SELECT * FROM t059z    WHERE land1      = country
-*                             AND   witht      = t059p-witht
-*                             AND   wt_withcd    IN qkz0.
-*
-* NEW CODE
-      SELECT *
- FROM t059z    WHERE land1      = country
+      SELECT * FROM t059z    WHERE land1      = country
                              AND   witht      = t059p-witht
-                             AND   wt_withcd    IN qkz0 ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+                             AND   wt_withcd    IN qkz0.
 
         IF sy-subrc = 0.
           hit = 'X'.                  " One selection successful
@@ -1655,44 +1474,20 @@ FORM check_type_code   USING     country  LIKE  t001-land1.
 
 *    get name of withholding tax code
 *    get official text
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*          SELECT SINGLE text40 FROM t059ot INTO text
-*                  WHERE  land1 = country
-*                  AND   wt_qscod = code_inh-qscod.
-*
-* NEW CODE
-          SELECT text40
-          UP TO 1 ROWS  FROM t059ot INTO text
+          SELECT SINGLE text40 FROM t059ot INTO text
                   WHERE  land1 = country
-                  AND   wt_qscod = code_inh-qscod ORDER BY PRIMARY KEY.
-
-          ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                  AND   wt_qscod = code_inh-qscod.
           IF sy-subrc = 0.
             code_inh-text40 = text.
             APPEND code_inh.
             oftext = text-104.
           ELSE.
 *     try to get a not official text from t059zt
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*            SELECT SINGLE text40 FROM t059zt INTO text
-*                   WHERE land1 = country
-*                   AND   spras = sy-langu
-*                   AND   witht = code_inh-witht
-*                   AND   wt_withcd = code_inh-code_inh.
-*
-* NEW CODE
-            SELECT text40
-            UP TO 1 ROWS  FROM t059zt INTO text
+            SELECT SINGLE text40 FROM t059zt INTO text
                    WHERE land1 = country
                    AND   spras = sy-langu
                    AND   witht = code_inh-witht
-                   AND   wt_withcd = code_inh-code_inh ORDER BY PRIMARY KEY.
-
-            ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+                   AND   wt_withcd = code_inh-code_inh.
             IF sy-subrc = 0.
               code_inh-text40 = text.
               APPEND code_inh.
@@ -1930,37 +1725,14 @@ FORM print_final.
 
     CLEAR: type_desc,type_impuesto.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*    SELECT SINGLE  ltext FROM t003t INTO type_desc
-*     WHERE spras = 'S'
-*     AND   blart = wa-blart.
-*
-* NEW CODE
-    SELECT ltext
-    UP TO 1 ROWS  FROM t003t INTO type_desc
+    SELECT SINGLE  ltext FROM t003t INTO type_desc
      WHERE spras = 'S'
-     AND   blart = wa-blart ORDER BY PRIMARY KEY.
+     AND   blart = wa-blart.
 
-    ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
-
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*    SELECT SINGLE text40 FROM t059u INTO type_impuesto
-*    WHERE spras = 'S'
-*    AND  land1  = 'CL'
-*    AND witht   = wa-witht.
-*
-* NEW CODE
-    SELECT text40
-    UP TO 1 ROWS  FROM t059u INTO type_impuesto
+    SELECT SINGLE text40 FROM t059u INTO type_impuesto
     WHERE spras = 'S'
     AND  land1  = 'CL'
-    AND witht   = wa-witht ORDER BY PRIMARY KEY.
-
-    ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+    AND witht   = wa-witht.
 
 *    IF output_list-AUGBL IS NOT INITIAL.
 *      cont = cont + 1.
@@ -2071,18 +1843,8 @@ FORM write_header.
   WRITE: / ' ', 88 text-c01, 145 text-c03, p_cui.
 *  WRITE: / ' ', 145 text-c03, p_cui.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*  SELECT SINGLE * FROM t015m WHERE spras = sy-langu
-*                        AND monum = s_month.
-*
-* NEW CODE
-  SELECT *
-  UP TO 1 ROWS  FROM t015m WHERE spras = sy-langu
-                        AND monum = s_month ORDER BY PRIMARY KEY.
-
-  ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+  SELECT SINGLE * FROM t015m WHERE spras = sy-langu
+                        AND monum = s_month.
 *  SKIP.
 *  WRITE: / ' ', 82 t015m-monam, s_year.
   WRITE: / ' ', 88 idate_desc.
@@ -2141,18 +1903,8 @@ FORM get_date_desc .
 *     OTHERS                  = 2
 
   last_day = last_date+6(2).
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*  SELECT SINGLE * FROM t015m WHERE spras = sy-langu
-*                          AND monum = s_month.
-*
-* NEW CODE
-  SELECT *
-  UP TO 1 ROWS  FROM t015m WHERE spras = sy-langu
-                          AND monum = s_month ORDER BY PRIMARY KEY.
-
-  ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+  SELECT SINGLE * FROM t015m WHERE spras = sy-langu
+                          AND monum = s_month.
   .
   IF sy-subrc <> 0.
 * MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
@@ -2227,18 +1979,8 @@ FORM write_header_draft .
                145 text-c02, sy-datum DD/MM/YY.
   WRITE: / ' ', 88 idate_desc, 145 text-c03, p_cui.
 
-* BEGIN. 07-07-2026 - ATC - ATC-01
-* OLD CODE
-*  SELECT SINGLE * FROM t015m WHERE spras = sy-langu
-*                        AND monum = s_month.
-*
-* NEW CODE
-  SELECT *
-  UP TO 1 ROWS  FROM t015m WHERE spras = sy-langu
-                        AND monum = s_month ORDER BY PRIMARY KEY.
-
-  ENDSELECT.
-* END. 07-07-2026 - ATC - ATC-01
+  SELECT SINGLE * FROM t015m WHERE spras = sy-langu
+                        AND monum = s_month.
 *  SKIP.
 *  WRITE: / ' ', 82 t015m-monam, s_year.
 *  WRITE: / ' ', 85 idate_desc.
