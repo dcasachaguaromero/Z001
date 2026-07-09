@@ -183,33 +183,13 @@ CLASS lcl_report IMPLEMENTATION.
       ENDLOOP.
 *
       IF lt_lfa1[] IS NOT INITIAL.
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*        SELECT stcd1 lifnr name1 stcd1  INTO TABLE co_lfa1_out
-*              FROM lfa1 FOR ALL ENTRIES IN lt_lfa1
-*                        WHERE stcd1 EQ lt_lfa1-stcd1.
-*
-* NEW CODE
-        SELECT stcd1 lifnr name1 stcd1
-  INTO TABLE co_lfa1_out
+        SELECT stcd1 lifnr name1 stcd1  INTO TABLE co_lfa1_out
               FROM lfa1 FOR ALL ENTRIES IN lt_lfa1
-                        WHERE stcd1 EQ lt_lfa1-stcd1 ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+                        WHERE stcd1 EQ lt_lfa1-stcd1.
 *
-* BEGIN. 07-07-2026 - ATC - ATC-03
-* OLD CODE
-*        SELECT lifnr lifnr name1 stcd1  APPENDING TABLE co_lfa1_out
-*             FROM lfa1 FOR ALL ENTRIES IN lt_lfa1
-*                       WHERE lifnr EQ lt_lfa1-lifnr.
-*
-* NEW CODE
         SELECT lifnr lifnr name1 stcd1  APPENDING TABLE co_lfa1_out
-
              FROM lfa1 FOR ALL ENTRIES IN lt_lfa1
-                       WHERE lifnr EQ lt_lfa1-lifnr ORDER BY PRIMARY KEY.
-
-* END. 07-07-2026 - ATC - ATC-03
+                       WHERE lifnr EQ lt_lfa1-lifnr.
       ENDIF.
 *
       IF co_lfa1_out[] IS NOT INITIAL.
