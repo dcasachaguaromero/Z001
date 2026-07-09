@@ -1,0 +1,10 @@
+
+PROCESS BEFORE OUTPUT.
+  MODULE status_0100.
+*
+PROCESS AFTER INPUT.
+  CHAIN.
+    FIELD g_line.
+    MODULE check.
+  ENDCHAIN.
+  MODULE user_command_0100.
