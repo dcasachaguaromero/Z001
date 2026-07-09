@@ -209,12 +209,25 @@ SORT IT_DATA .
     READ TABLE IT_DATA INDEX 1 INTO WA_DATA.
 
 
-    SELECT  BANKL
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT  BANKL
+*    INTO   w_BANKL
+*     FROM T012
+*       WHERE
+*       bukrs = p_bukrs and
+*       HBKID in s_HBKID .  
+*
+* NEW CODE
+    SELECT BANKL
+
     INTO   w_BANKL
      FROM T012
        WHERE
        bukrs = p_bukrs and
-       HBKID in s_HBKID .  " Banmedica WA_DATA+52(3).
+       HBKID in s_HBKID  ORDER BY PRIMARY KEY.  
+
+* END. 07-07-2026 - ATC - ATC-03" Banmedica WA_DATA+52(3).
       if not w_bankl_ant is initial and w_bankl_ant ne w_bankl.
 
         MESSAGE I398(00) with text-003.
@@ -259,10 +272,21 @@ SORT IT_DATA .
 
 
 
-    select bankn into table t_bankn from t012k
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select bankn into table t_bankn from t012k
+*           where BUKRS = p_bukrs and
+*                 HBKID in s_hbkid and
+*                 HKTID in s_hktid.
+*
+* NEW CODE
+    SELECT bankn
+ into table t_bankn from t012k
            where BUKRS = p_bukrs and
                  HBKID in s_hbkid and
-                 HKTID in s_hktid.
+                 HKTID in s_hktid ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     loop at it_data INTO WA_DATA.
       read table t_bankn with  key w_bankn+0(12) = WA_DATA+2(12) into  w_bankn.
       if sy-subrc ne 0.
@@ -400,10 +424,22 @@ SORT IT_DATA .
                     WA_HEADER-FEC_CONT+6(2)
               INTO  WA_HEADER-FEC_CONT.
 
-        SELECT SINGLE WAERS
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE WAERS
+*          INTO W_WAERS
+*          FROM T012K
+*          WHERE BANKN = WA_HEADER-CTBKN.
+*
+* NEW CODE
+        SELECT WAERS
+        UP TO 1 ROWS 
           INTO W_WAERS
           FROM T012K
-          WHERE BANKN = WA_HEADER-CTBKN.
+          WHERE BANKN = WA_HEADER-CTBKN ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         WA_HEADER-MONEDA = W_WAERS.
 
         move wa_data+115(15) to w_carg.

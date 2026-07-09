@@ -249,7 +249,16 @@ AT SELECTION-SCREEN ON bukrs.
     MESSAGE E526(ICC_TR) WITH BUKRS.
   ENDIF.
 
-  select single * from t001 where bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from t001 where bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from t001 where bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR v_fecha.
 
@@ -426,10 +435,22 @@ INITIALIZATION.
 
 START-OF-SELECTION.
 
-  select single * from reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from reguh
+*                 where laufd       = V_fecha
+*                 and   laufi       = V_nomina
+*                 and   ZBUKR       = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from reguh
                  where laufd       = V_fecha
                  and   laufi       = V_nomina
-                 and   ZBUKR       = bukrs.
+                 and   ZBUKR       = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
   if sy-subrc <> 0.
@@ -441,12 +462,25 @@ START-OF-SELECTION.
   SORT t_bancos BY cod_ac.
 
 * Rescatamos Datos.
-  SELECT *  FROM  reguh
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  FROM  reguh
+*           WHERE  laufd      = v_fecha
+*           AND    laufi      = v_nomina
+*           and    xvorl      = ' '
+*           and    UBNKL      = '001'
+*           and  ( RZAWE      = 'T' or RZAWE = 'V' ).
+*
+* NEW CODE
+  SELECT *
+  FROM  reguh
            WHERE  laufd      = v_fecha
            AND    laufi      = v_nomina
            and    xvorl      = ' '
            and    UBNKL      = '001'
-           and  ( RZAWE      = 'T' or RZAWE = 'V' ).
+           and  ( RZAWE      = 'T' or RZAWE = 'V' ) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
  bukrs = reguh-ZBUKR.
 *    IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
 *      select single stcd1 into reguh-stcd1
@@ -460,33 +494,83 @@ CONCATENATE  reguh-valut+6(2) reguh-valut+4(2) reguh-valut+0(4) INTO zvalut.
 cuenta = reguh-ubhkt.
 CONCATENATE cuenta+0(9) '3' INTO cuenta_2.
 
- SELECT  SINGLE bktxt INTO  bktxt FROM bkpf
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+* SELECT  SINGLE bktxt INTO  bktxt FROM bkpf
+*                               WHERE bukrs      = bukrs
+*                                 AND belnr = reguh-vblnr
+*                                 AND gjahr = reguh-zaldt(4).
+*
+* NEW CODE
+ SELECT bktxt
+ UP TO 1 ROWS  INTO  bktxt FROM bkpf
                                WHERE bukrs      = bukrs
                                  AND belnr = reguh-vblnr
-                                 AND gjahr = reguh-zaldt(4).
+                                 AND gjahr = reguh-zaldt(4) ORDER BY PRIMARY KEY.
+
+ ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
  bktxtasi  =  bktxt(8)." HCD 20210329 se solicita que texto de asignacion se coloque en el comprobante
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-          SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                         AND laufi = reguh-laufi
+*                                         AND xvorl = reguh-xvorl
+*                                         AND zbukr = reguh-zbukr
+*                                         AND lifnr = reguh-lifnr
+*                                         AND kunnr = reguh-kunnr
+*                                         AND empfg = reguh-empfg
+*                                         AND vblnr = reguh-vblnr.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                          AND laufi = reguh-laufi
                                          AND xvorl = reguh-xvorl
                                          AND zbukr = reguh-zbukr
                                          AND lifnr = reguh-lifnr
                                          AND kunnr = reguh-kunnr
                                          AND empfg = reguh-empfg
-                                         AND vblnr = reguh-vblnr.
+                                         AND vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-          SELECT SINGLE  * FROM  bseg  WHERE bukrs = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE  * FROM  bseg  WHERE bukrs = regup-bukrs
+*                                         AND belnr = regup-belnr
+*                                         AND gjahr = regup-gjahr
+*                                         AND buzei = regup-buzei.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM  bseg  WHERE bukrs = regup-bukrs
                                          AND belnr = regup-belnr
                                          AND gjahr = regup-gjahr
-                                         AND buzei = regup-buzei.
+                                         AND buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
            IF sy-subrc = 0.
             zzmot_emis = bseg-zzmot_emis.
           ENDIF.
 "FIN HCD 06-10-2020 HCD
     IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
-      select single stcd1 ADRNR into (reguh-stcd1, reguh-ADRNR)
-        from lfa1 where lifnr = reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      select single stcd1 ADRNR into (reguh-stcd1, reguh-ADRNR)
+*        from lfa1 where lifnr = reguh-lifnr.
+*
+* NEW CODE
+      SELECT stcd1 ADRNR
+      UP TO 1 ROWS  into (reguh-stcd1, reguh-ADRNR)
+        from lfa1 where lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 
     IF ( NOT reguh-stcd1 IS INITIAL ) OR ( NOT reguh-zstc1 IS INITIAL ).
@@ -520,12 +604,26 @@ CONCATENATE cuenta+0(9) '3' INTO cuenta_2.
   contabilizar = 'N'.
  IF par_di = 'X'.
 
-      SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE *
+*      FROM zlog_pago_bancos
+*         WHERE bukrs = bukrs
+*           AND ubnkl = '001'
+*           AND laufd = v_fecha
+*           AND laufi = v_nomina.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS 
       FROM zlog_pago_bancos
          WHERE bukrs = bukrs
            AND ubnkl = '001'
            AND laufd = v_fecha
-           AND laufi = v_nomina.
+           AND laufi = v_nomina ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
        IF sy-subrc = 0.
 
@@ -589,7 +687,16 @@ FORM arma_registro.
 * Se ajusta Rut a la Izquierda.
   WRITE tabla_00-stcd1 TO reg_stder-rut_prov left-JUSTIFIED.
 
-  select single smtp_addr into reg_stder-mail from adr6 where ADDRNUMBER = tabla_00-ADRNR.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single smtp_addr into reg_stder-mail from adr6 where ADDRNUMBER = tabla_00-ADRNR.
+*
+* NEW CODE
+  SELECT smtp_addr
+  UP TO 1 ROWS  into reg_stder-mail from adr6 where ADDRNUMBER = tabla_00-ADRNR ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
   TRANSLATE   tabla_00-zbnkn USING '- '.
@@ -613,10 +720,22 @@ FORM arma_registro.
   IF tabla_00-rzawe = 'V'.
     reg_stder-mod_pago = '02'.
   ELSE.
-    SELECT SINGLE    CLAVE INTO P_CLAVE
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE    CLAVE INTO P_CLAVE
+*                     FROM  ZFITR001
+*                     WHERE BANKL = '001'
+*                     AND   BKONT = TABLA_00-ZBKON.
+*
+* NEW CODE
+    SELECT CLAVE
+    UP TO 1 ROWS  INTO P_CLAVE
                      FROM  ZFITR001
                      WHERE BANKL = '001'
-                     AND   BKONT = TABLA_00-ZBKON.
+                     AND   BKONT = TABLA_00-ZBKON ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF SY-SUBRC EQ 0.
       CONDENSE P_CLAVE NO-GAPS.
       REG_STDER-MOD_PAGO  = P_CLAVE.
@@ -705,11 +824,24 @@ AND VBLNR = TABLA_00-VBLNR ORDER BY PRIMARY KEY.
 
 *** buscamos ejercicio del docto de pago
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-    SELECT SINGLE * FROM  bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  bseg
+*              WHERE   bukrs   = tabla_00-zbukr
+*              AND     belnr   = tabla_00-vblnr
+*              AND     zfbdt   = tabla_00-zaldt              " ff 150306
+*              AND     koart   = 'K'.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  bseg
               WHERE   bukrs   = tabla_00-zbukr
               AND     belnr   = tabla_00-vblnr
               AND     zfbdt   = tabla_00-zaldt              " ff 150306
-              AND     koart   = 'K'.
+              AND     koart   = 'K' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       eje_pago = bseg-gjahr.
@@ -734,12 +866,25 @@ ENDFORM.                    "arma_registro
 FORM paga_sociedad.
 *-----------------*
   refresh T_DOCTOS.
-  SELECT * FROM bsak CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM bsak CLIENT SPECIFIED
+*          WHERE mandt   = sy-mandt
+*            AND  bukrs  = soc_pago    " soc.pagadora
+*            AND  augbl  = doc_pago    " Núm. doc.
+*            AND  lifnr  = acreedor
+*            AND  auggj  = eje_pago.   
+*
+* NEW CODE
+  SELECT *
+ FROM bsak CLIENT SPECIFIED
           WHERE mandt   = sy-mandt
             AND  bukrs  = soc_pago    " soc.pagadora
             AND  augbl  = doc_pago    " Núm. doc.
             AND  lifnr  = acreedor
-            AND  auggj  = eje_pago.   " ff 02.03.06
+            AND  auggj  = eje_pago ORDER BY PRIMARY KEY.   
+
+* END. 07-07-2026 - ATC - ATC-03" ff 02.03.06
 
     CHECK bsak-augbl <>  bsak-belnr.
     MOVE-CORRESPONDING bsak TO t_doctos.
@@ -757,13 +902,27 @@ ENDFORM.                    "paga_sociedad
 *----------------------------------------------------------------------*
 FORM PAGA_SOCIEDAD_ .
   refresh T_DOCTOS.
-  SELECT * FROM BSAK CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM BSAK CLIENT SPECIFIED
+*          WHERE MANDT   = SY-MANDT
+*            AND  BUKRS  = REGUP-BUKRS    " soc.pagadora
+*            AND  BELNR  = REGUP-BELNR    " Núm. doc.
+*            AND  GJAHR  = REGUP-GJAHR
+*            AND  BUZEI  = REGUP-BUZEI
+*            AND  LIFNR  = REGUP-LIFNR.
+*
+* NEW CODE
+  SELECT *
+ FROM BSAK CLIENT SPECIFIED
           WHERE MANDT   = SY-MANDT
             AND  BUKRS  = REGUP-BUKRS    " soc.pagadora
             AND  BELNR  = REGUP-BELNR    " Núm. doc.
             AND  GJAHR  = REGUP-GJAHR
             AND  BUZEI  = REGUP-BUZEI
-            AND  LIFNR  = REGUP-LIFNR.
+            AND  LIFNR  = REGUP-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     CHECK BSAK-AUGBL <>  BSAK-BELNR.
     MOVE-CORRESPONDING BSAK TO T_DOCTOS.
@@ -797,10 +956,22 @@ FORM distribucion.
     t_doctos-dmbtr = t_doctos-dmbtr * 10000.
     t_doctos-dmbtr = ABS( t_doctos-dmbtr ).
 
-    SELECT SINGLE * FROM  BKPF
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  BKPF
+*         WHERE  BUKRS  = t_doctos-bukrs
+*         AND    BELNR  = t_doctos-belnr
+*         AND    GJAHR  = t_doctos-gjahr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  BKPF
          WHERE  BUKRS  = t_doctos-bukrs
          AND    BELNR  = t_doctos-belnr
-         AND    GJAHR  = t_doctos-gjahr.
+         AND    GJAHR  = t_doctos-gjahr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     if sy-subrc = 0 and bkpf-xblnr is not initial.
       condense BKPF-XBLNR no-gaps.
@@ -955,9 +1126,20 @@ FORM listado.
 
   read table tabla_00 index 1.
 
-  SELECT SINGLE * FROM  bkpf
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM  bkpf
+*        WHERE  bukrs  = tabla_00-zbukr   " Soc. Paga
+*        AND    belnr  = tabla_00-vblnr.  
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM  bkpf
         WHERE  bukrs  = tabla_00-zbukr   " Soc. Paga
-        AND    belnr  = tabla_00-vblnr.  " Doc. pago
+        AND    belnr  = tabla_00-vblnr ORDER BY PRIMARY KEY.  
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01" Doc. pago
 
 
   monto_p = 0.
@@ -1096,11 +1278,24 @@ FORM doctos__.
 
 *** buscamos ejercicio del docto de pago
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-  SELECT SINGLE * FROM  bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM  bseg
+*            WHERE   bukrs   = tabla_00-zbukr
+*            AND     belnr   = tabla_00-vblnr
+*            AND     zfbdt   = tabla_00-zaldt                " ff 150306
+*            AND     koart   = 'K'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM  bseg
             WHERE   bukrs   = tabla_00-zbukr
             AND     belnr   = tabla_00-vblnr
             AND     zfbdt   = tabla_00-zaldt                " ff 150306
-            AND     koart   = 'K'.
+            AND     koart   = 'K' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     eje_pago = bseg-gjahr.
@@ -1109,11 +1304,23 @@ FORM doctos__.
 
 *****
 
-  SELECT * FROM bsak
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM bsak
+*          WHERE  bukrs  = soc_pago    " soc.pagadora
+*            AND  augbl  = doc_pago    " Núm. doc.
+*            AND  lifnr  = acreedor
+*            AND  auggj  = eje_pago.
+*
+* NEW CODE
+  SELECT *
+ FROM bsak
           WHERE  bukrs  = soc_pago    " soc.pagadora
             AND  augbl  = doc_pago    " Núm. doc.
             AND  lifnr  = acreedor
-            AND  auggj  = eje_pago.
+            AND  auggj  = eje_pago ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     CHECK bsak-augbl <>  bsak-belnr.
 
@@ -1124,10 +1331,22 @@ FORM doctos__.
   LOOP AT t_doctos.
 
 * Buscamos textos
-    SELECT SINGLE * FROM  bkpf
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  bkpf
+*            WHERE  bukrs  = soc_pago          " Soc. Paga
+*            AND    gjahr  = t_doctos-gjahr
+*            AND    belnr  = t_doctos-belnr.   
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  bkpf
             WHERE  bukrs  = soc_pago          " Soc. Paga
             AND    gjahr  = t_doctos-gjahr
-            AND    belnr  = t_doctos-belnr.   " Doc. pago
+            AND    belnr  = t_doctos-belnr ORDER BY PRIMARY KEY.   
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01" Doc. pago
 
 *Invertimos signo para el listado
 
@@ -1171,13 +1390,27 @@ FORM DOCTOS__2 .
 
   eje_pago = tabla_00-zaldt+0(4).
 
-  SELECT * FROM BSAK CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM BSAK CLIENT SPECIFIED
+*           WHERE MANDT   = SY-MANDT
+*             AND  BUKRS  = REGUP-BUKRS    " soc.pagadora
+*             AND  BELNR  = REGUP-BELNR    " Núm. doc.
+*             AND  GJAHR  = REGUP-GJAHR
+*             AND  BUZEI  = REGUP-BUZEI
+*             AND  LIFNR  = REGUP-LIFNR.
+*
+* NEW CODE
+  SELECT *
+ FROM BSAK CLIENT SPECIFIED
            WHERE MANDT   = SY-MANDT
              AND  BUKRS  = REGUP-BUKRS    " soc.pagadora
              AND  BELNR  = REGUP-BELNR    " Núm. doc.
              AND  GJAHR  = REGUP-GJAHR
              AND  BUZEI  = REGUP-BUZEI
-             AND  LIFNR  = REGUP-LIFNR.
+             AND  LIFNR  = REGUP-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
     CHECK BSAK-AUGBL <>  BSAK-BELNR.
@@ -1190,11 +1423,24 @@ FORM DOCTOS__2 .
   LOOP AT T_DOCTOS.
 
 * Buscamos textos
-    SELECT SINGLE * FROM  BKPF CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  BKPF CLIENT SPECIFIED
+*            WHERE  MANDT  = SY-MANDT
+*            AND    BUKRS  = T_DOCTOS-BUKRS          " Soc. Paga
+*            AND    GJAHR  = T_DOCTOS-GJAHR
+*            AND    BELNR  = T_DOCTOS-BELNR.   
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  BKPF CLIENT SPECIFIED
             WHERE  MANDT  = SY-MANDT
             AND    BUKRS  = T_DOCTOS-BUKRS          " Soc. Paga
             AND    GJAHR  = T_DOCTOS-GJAHR
-            AND    BELNR  = T_DOCTOS-BELNR.   " Doc. pago
+            AND    BELNR  = T_DOCTOS-BELNR ORDER BY PRIMARY KEY.   
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01" Doc. pago
 
 *Invertimos signo para el listado
 
@@ -1276,8 +1522,18 @@ FORM PREPARO_SALIDA.
   loop at reg_stder.
     at new  zbukr .
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-      select single paval into rut from t001z where bukrs = reg_stder-zbukr
-                                   and   party = 'TAXNR' .
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      select single paval into rut from t001z where bukrs = reg_stder-zbukr
+*                                   and   party = 'TAXNR' .
+*
+* NEW CODE
+      SELECT paval
+      UP TO 1 ROWS  into rut from t001z where bukrs = reg_stder-zbukr
+                                   and   party = 'TAXNR'  ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     endat.
 
     at new  rut_prov.

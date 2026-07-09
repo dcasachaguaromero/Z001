@@ -54,11 +54,24 @@ AT SELECTION-SCREEN OUTPUT.
   PERFORM invisible.
 
 AT SELECTION-SCREEN ON BLOCK marco1.
-  SELECT SINGLE bankl
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE bankl
+*         FROM  t012
+*         INTO  p_bankl
+*        WHERE  bukrs EQ bukrs
+*          AND  hbkid EQ v_hbkid.
+*
+* NEW CODE
+  SELECT bankl
+  UP TO 1 ROWS 
          FROM  t012
          INTO  p_bankl
         WHERE  bukrs EQ bukrs
-          AND  hbkid EQ v_hbkid.
+          AND  hbkid EQ v_hbkid ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   AUTHORITY-CHECK OBJECT 'F_BKPF_BUK' ID 'BUKRS' FIELD bukrs ID 'ACTVT' FIELD '03'.
     IF sy-subrc <> 0.
@@ -81,16 +94,38 @@ AT SELECTION-SCREEN ON bukrs.
 *--------'No authorization for company code &'------------------------
     MESSAGE e526(icc_tr) WITH bukrs.
   ENDIF.
-  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 START-OF-SELECTION.
 **
-  SELECT SINGLE bankl
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE bankl
+*         FROM  t012
+*         INTO  p_bankl
+*        WHERE  bukrs EQ bukrs
+*          AND  hbkid EQ v_hbkid.
+*
+* NEW CODE
+  SELECT bankl
+  UP TO 1 ROWS 
          FROM  t012
          INTO  p_bankl
         WHERE  bukrs EQ bukrs
-          AND  hbkid EQ v_hbkid.
+          AND  hbkid EQ v_hbkid ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF p_bankl = '016' OR
      p_bankl = '037'.
     PERFORM cargo_datos.
@@ -109,33 +144,81 @@ END-OF-SELECTION.
 *----------------------------------------------------------------------*
 FORM cargo_datos.
   REFRESH int_tabla.
-  SELECT * FROM bsik WHERE bukrs  = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM bsik WHERE bukrs  = bukrs
+*                     AND   hbkid  = v_hbkid
+*                     AND   zfbdt >= v_fechai
+*                     AND   zfbdt =< v_fechat
+*                     AND   zlspr = 'S'.
+*
+* NEW CODE
+  SELECT *
+ FROM bsik WHERE bukrs  = bukrs
                      AND   hbkid  = v_hbkid
                      AND   zfbdt >= v_fechai
                      AND   zfbdt =< v_fechat
-                     AND   zlspr = 'S'.
+                     AND   zlspr = 'S' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     IF bsik-blart = 'F7'.
       bsik-xblnr = bsik-zuonr.
     ENDIF.
 
-    SELECT SINGLE * FROM  zfitr004
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  zfitr004
+*                    WHERE bukrs  = bukrs
+*                    AND   belnr  = bsik-belnr
+*                    AND   gjahr  = bsik-gjahr
+*                    AND   xblnr  = bsik-xblnr
+*                    AND   lifnr  = bsik-lifnr
+*                    AND   estado = '1'.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  zfitr004
                     WHERE bukrs  = bukrs
                     AND   belnr  = bsik-belnr
                     AND   gjahr  = bsik-gjahr
                     AND   xblnr  = bsik-xblnr
                     AND   lifnr  = bsik-lifnr
-                    AND   estado = '1'.
+                    AND   estado = '1' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc <> 0.
       MOVE-CORRESPONDING bsik TO int_tabla.
 
-      SELECT SINGLE stcd1 name1 FROM lfa1 INTO  (int_tabla-stcd1, int_tabla-name1)
-                                    WHERE lifnr = int_tabla-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE stcd1 name1 FROM lfa1 INTO  (int_tabla-stcd1, int_tabla-name1)
+*                                    WHERE lifnr = int_tabla-lifnr.
+*
+* NEW CODE
+      SELECT stcd1 name1
+      UP TO 1 ROWS  FROM lfa1 INTO  (int_tabla-stcd1, int_tabla-name1)
+                                    WHERE lifnr = int_tabla-lifnr ORDER BY PRIMARY KEY.
 
-      SELECT SINGLE bankl bankn FROM lfbk INTO  (int_tabla-bankl, int_tabla-bankn)
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE bankl bankn FROM lfbk INTO  (int_tabla-bankl, int_tabla-bankn)
+*                                    WHERE lifnr = int_tabla-lifnr AND
+*                                          banks = 'CL'.
+*
+* NEW CODE
+      SELECT bankl bankn
+      UP TO 1 ROWS  FROM lfbk INTO  (int_tabla-bankl, int_tabla-bankn)
                                     WHERE lifnr = int_tabla-lifnr AND
-                                          banks = 'CL'.
+                                          banks = 'CL' ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF int_tabla-shkzg = 'S'.
         int_tabla-wrbtr = int_tabla-wrbtr * -1.
@@ -317,11 +400,24 @@ MODULE user_command_0200 INPUT.
     WHEN '%EX' OR 'RW'.
       LEAVE PROGRAM.
     WHEN 'GENERA'.
-      SELECT SINGLE bankl
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE bankl
+*         FROM  t012
+*         INTO  p_bankl
+*        WHERE  bukrs EQ bukrs
+*          AND  hbkid EQ v_hbkid.
+*
+* NEW CODE
+      SELECT bankl
+      UP TO 1 ROWS 
          FROM  t012
          INTO  p_bankl
         WHERE  bukrs EQ bukrs
-          AND  hbkid EQ v_hbkid.
+          AND  hbkid EQ v_hbkid ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF p_bankl = '037'.
         PERFORM genera_archivo_santander.
@@ -768,8 +864,18 @@ FORM preparo_salida_037.
   LOOP AT reg_stder.
     AT NEW  zbukr .
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES01 ECDK917080 *
-      SELECT SINGLE paval INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
-                                   AND   party = 'TAXNR' .
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE paval INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
+*                                   AND   party = 'TAXNR' .
+*
+* NEW CODE
+      SELECT paval
+      UP TO 1 ROWS  INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
+                                   AND   party = 'TAXNR'  ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDAT.
     AT LAST.
       SUM.
@@ -957,9 +1063,19 @@ FORM lee_ruta_server  CHANGING p_server p_dirpc.
         lv_dirpc    TYPE string.
 *
   CLEAR p_server.
-  SELECT zruta zruta_respaldo INTO (p_server, lv_dirpc)
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT zruta zruta_respaldo INTO (p_server, lv_dirpc)
+*    FROM ztparamftp  WHERE zbukr = bukrs
+*                       AND zprog = prgname.
+*
+* NEW CODE
+  SELECT zruta zruta_respaldo
+ INTO (p_server, lv_dirpc)
     FROM ztparamftp  WHERE zbukr = bukrs
-                       AND zprog = prgname.
+                       AND zprog = prgname ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   ENDSELECT.
 
   IF par_di EQ 'X' AND p_bankl EQ '016'.

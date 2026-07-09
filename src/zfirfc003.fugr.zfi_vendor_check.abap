@@ -35,8 +35,18 @@ REPLACE ALL OCCURRENCES OF '-' IN w_sortl WITH ''.
   ENDLOOP.
   if sy-subrc ne 0.
 
-      SELECT SINGLE * FROM LFA1 WHERE SORTL = W_SORTL
-                                      AND STCD1 = I_STCD1.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM LFA1 WHERE SORTL = W_SORTL
+*                                      AND STCD1 = I_STCD1.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM LFA1 WHERE SORTL = W_SORTL
+                                      AND STCD1 = I_STCD1 ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF NOT SY-SUBRC IS INITIAL.
 *        El acreedor no existe en registro maestro
         MESSAGE E104(F5) WITH I_STCD1 I_BUKRS RAISING VENDOR.
@@ -47,9 +57,20 @@ REPLACE ALL OCCURRENCES OF '-' IN w_sortl WITH ''.
         CLEAR VF_KRED.
         MOVE-CORRESPONDING LFA1 TO VF_KRED.
 
-        SELECT SINGLE * FROM VF_KRED WHERE  SORTL = W_SORTL
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM VF_KRED WHERE  SORTL = W_SORTL
+*                                            AND STCD1 = I_STCD1
+*                                            AND   BUKRS = I_BUKRS.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM VF_KRED WHERE  SORTL = W_SORTL
                                             AND STCD1 = I_STCD1
-                                            AND   BUKRS = I_BUKRS.
+                                            AND   BUKRS = I_BUKRS ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF NOT SY-SUBRC IS INITIAL.
 *          El acreedor no existe en la sociedad
 *          MESSAGE E104(F5) WITH I_STCD1 I_BUKRS RAISING VENDOR.

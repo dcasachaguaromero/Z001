@@ -235,15 +235,37 @@ START-OF-SELECTION.
   SORT t_bancos BY cod_ac.
 
 * Rescatamos Datos.
-  SELECT *  FROM  reguh      CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  FROM  reguh      CLIENT SPECIFIED
+*           WHERE  mandt       = sy-mandt
+*             AND  laufd       = v_fecha
+*             AND  laufi       = v_nomina
+*             AND  xvorl       = ' '     .
+*
+* NEW CODE
+  SELECT *
+  FROM  reguh      CLIENT SPECIFIED
            WHERE  mandt       = sy-mandt
              AND  laufd       = v_fecha
              AND  laufi       = v_nomina
-             AND  xvorl       = ' '     .
+             AND  xvorl       = ' '      ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
-      select single stcd1 into reguh-stcd1
-        from lfa1 where lifnr = reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      select single stcd1 into reguh-stcd1
+*        from lfa1 where lifnr = reguh-lifnr.
+*
+* NEW CODE
+      SELECT stcd1
+      UP TO 1 ROWS  into reguh-stcd1
+        from lfa1 where lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 
 *    IF NOT ( reguh-stcd1 IS INITIAL ).
@@ -417,7 +439,21 @@ FORM arma_registro.
 *** ff 02.03.06
 *** buscamos ejercicio del docto de pago
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES01 ECDK917080 *
-    SELECT SINGLE * FROM  bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  bseg
+*      CLIENT SPECIFIED
+*              WHERE  mandt       = sy-mandt
+*                     AND bukrs   = tabla_00-zbukr
+*                     AND belnr   = tabla_00-vblnr
+**agregamos la fecha (ff 01.03.06)
+**                   AND AUGDT   = TABLA_00-ZALDT
+*                     AND zfbdt   = tabla_00-zaldt           " ff 150306
+*                     AND koart   = 'K'.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  bseg
       CLIENT SPECIFIED
               WHERE  mandt       = sy-mandt
                      AND bukrs   = tabla_00-zbukr
@@ -425,7 +461,10 @@ FORM arma_registro.
 *agregamos la fecha (ff 01.03.06)
 *                   AND AUGDT   = TABLA_00-ZALDT
                      AND zfbdt   = tabla_00-zaldt           " ff 150306
-                     AND koart   = 'K'.
+                     AND koart   = 'K' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       eje_pago = bseg-gjahr.
@@ -433,11 +472,24 @@ FORM arma_registro.
 
 
 *****
-    SELECT SINGLE * FROM  bkpf CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  bkpf CLIENT SPECIFIED
+*           WHERE  mandt  = sy-mandt
+*           AND    bukrs  = tabla_00-zbukr
+*           AND    belnr  = tabla_00-vblnr
+*           AND    gjahr  = eje_pago.          
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  bkpf CLIENT SPECIFIED
            WHERE  mandt  = sy-mandt
            AND    bukrs  = tabla_00-zbukr
            AND    belnr  = tabla_00-vblnr
-           AND    gjahr  = eje_pago.          " (ff 01.03.06)
+           AND    gjahr  = eje_pago ORDER BY PRIMARY KEY.          
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01" (ff 01.03.06)
 
     CALL FUNCTION 'GET_CLEARED_ITEMS'
       EXPORTING
@@ -472,14 +524,30 @@ FORM arma_registro.
 *** ff 02.03.06
 *** buscamos ejercicio del docto de pago
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES01 ECDK917080 *
-    SELECT SINGLE * FROM  bseg   CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  bseg   CLIENT SPECIFIED
+*              WHERE  mandt       = sy-mandt
+*                     AND bukrs   = tabla_00-zbukr
+*                     AND belnr   = tabla_00-vblnr
+**agregamos la fecha (ff 01.03.06)
+**                   AND AUGDT   = TABLA_00-ZALDT
+*                     AND zfbdt   = tabla_00-zaldt           " ff 150306
+*                     AND koart   = 'K'.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  bseg   CLIENT SPECIFIED
               WHERE  mandt       = sy-mandt
                      AND bukrs   = tabla_00-zbukr
                      AND belnr   = tabla_00-vblnr
 *agregamos la fecha (ff 01.03.06)
 *                   AND AUGDT   = TABLA_00-ZALDT
                      AND zfbdt   = tabla_00-zaldt           " ff 150306
-                     AND koart   = 'K'.
+                     AND koart   = 'K' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       eje_pago = bseg-gjahr.
@@ -517,12 +585,25 @@ FORM paga_sociedad.
 ***        append t_doctos.
 ***ENDSELECT.
 
-  SELECT * FROM bsak CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM bsak CLIENT SPECIFIED
+*          WHERE mandt   = sy-mandt
+*            AND  bukrs  = soc_pago    " soc.pagadora
+*            AND  augbl  = doc_pago    " Núm. doc.
+*            AND  lifnr  = acreedor
+*            AND  auggj  = eje_pago.   
+*
+* NEW CODE
+  SELECT *
+ FROM bsak CLIENT SPECIFIED
           WHERE mandt   = sy-mandt
             AND  bukrs  = soc_pago    " soc.pagadora
             AND  augbl  = doc_pago    " Núm. doc.
             AND  lifnr  = acreedor
-            AND  auggj  = eje_pago.   " ff 02.03.06
+            AND  auggj  = eje_pago ORDER BY PRIMARY KEY.   
+
+* END. 07-07-2026 - ATC - ATC-03" ff 02.03.06
 
     CHECK bsak-augbl <>  bsak-belnr.
     MOVE-CORRESPONDING bsak TO t_doctos.
@@ -1150,10 +1231,22 @@ FORM listado.
 
     IF tabla_00-zbukr <> tabla_00-absbu.  " Soc_pagadora y Soc.emisora
 
-      SELECT SINGLE * FROM  bkpf CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM  bkpf CLIENT SPECIFIED
+*            WHERE  mandt  = sy-mandt
+*            AND    bukrs  = tabla_00-zbukr  " Soc. Paga
+*            AND    belnr  = tabla_00-vblnr.  
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM  bkpf CLIENT SPECIFIED
             WHERE  mandt  = sy-mandt
             AND    bukrs  = tabla_00-zbukr  " Soc. Paga
-            AND    belnr  = tabla_00-vblnr.  " Doc. pago
+            AND    belnr  = tabla_00-vblnr ORDER BY PRIMARY KEY.  
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01" Doc. pago
 *          AND    gjahr  = '2004'.
 
       CALL FUNCTION 'GET_CLEARED_ITEMS'
@@ -1226,14 +1319,30 @@ FORM doctos__.
 *** ff 02.03.06
 *** buscamos ejercicio del docto de pago
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES01 ECDK917080 *
-  SELECT SINGLE * FROM  bseg   CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM  bseg   CLIENT SPECIFIED
+*            WHERE  mandt       = sy-mandt
+*                   AND bukrs   = tabla_00-zbukr
+*                   AND belnr   = tabla_00-vblnr
+**agregamos la fecha (ff 01.03.06)
+**                   AND AUGDT   = TABLA_00-ZALDT
+*                   AND zfbdt   = tabla_00-zaldt             " ff 150306
+*                   AND koart   = 'K'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM  bseg   CLIENT SPECIFIED
             WHERE  mandt       = sy-mandt
                    AND bukrs   = tabla_00-zbukr
                    AND belnr   = tabla_00-vblnr
 *agregamos la fecha (ff 01.03.06)
 *                   AND AUGDT   = TABLA_00-ZALDT
                    AND zfbdt   = tabla_00-zaldt             " ff 150306
-                   AND koart   = 'K'.
+                   AND koart   = 'K' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     eje_pago = bseg-gjahr.
@@ -1242,12 +1351,25 @@ FORM doctos__.
 
 *****
 
-  SELECT * FROM bsak CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM bsak CLIENT SPECIFIED
+*          WHERE mandt   = sy-mandt
+*            AND  bukrs  = soc_pago    " soc.pagadora
+*            AND  augbl  = doc_pago    " Núm. doc.
+*            AND  lifnr  = acreedor
+*            AND  auggj  = eje_pago.
+*
+* NEW CODE
+  SELECT *
+ FROM bsak CLIENT SPECIFIED
           WHERE mandt   = sy-mandt
             AND  bukrs  = soc_pago    " soc.pagadora
             AND  augbl  = doc_pago    " Núm. doc.
             AND  lifnr  = acreedor
-            AND  auggj  = eje_pago.
+            AND  auggj  = eje_pago ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     CHECK bsak-augbl <>  bsak-belnr.
 
@@ -1261,11 +1383,24 @@ FORM doctos__.
   LOOP AT t_doctos.
 
 * Buscamos textos
-    SELECT SINGLE * FROM  bkpf CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM  bkpf CLIENT SPECIFIED
+*            WHERE  mandt  = sy-mandt
+*            AND    bukrs  = soc_pago          " Soc. Paga
+*            AND    gjahr  = t_doctos-gjahr
+*            AND    belnr  =  t_doctos-belnr.   
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM  bkpf CLIENT SPECIFIED
             WHERE  mandt  = sy-mandt
             AND    bukrs  = soc_pago          " Soc. Paga
             AND    gjahr  = t_doctos-gjahr
-            AND    belnr  =  t_doctos-belnr.   " Doc. pago
+            AND    belnr  =  t_doctos-belnr ORDER BY PRIMARY KEY.   
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01" Doc. pago
 
 *Invertimos signo para el listado
 

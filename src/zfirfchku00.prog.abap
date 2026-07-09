@@ -241,7 +241,15 @@ INITIALIZATION.
 * Check Of The Selections                                              *
 *----------------------------------------------------------------------*
 AT SELECTION-SCREEN ON s_zbuk.
-  SELECT * FROM t001 WHERE bukrs IN s_zbuk.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM t001 WHERE bukrs IN s_zbuk.
+*
+* NEW CODE
+  SELECT *
+ FROM t001 WHERE bukrs IN s_zbuk ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     AUTHORITY-CHECK OBJECT 'F_PAYR_BUK' ID 'BUKRS' FIELD t001-bukrs
                                         ID 'ACTVT' FIELD '02'.
 *   Authority check
@@ -381,7 +389,28 @@ START-OF-SELECTION.
 
 * Reading of the payment transfer mediums, whose numbers are to filled
 * in the selected field of document
-  SELECT * FROM payr INTO TABLE t_payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM payr INTO TABLE t_payr
+*         WHERE
+*           irefe =  p_refe
+*           AND voidr =  0
+*           AND laufd IN r_laufd
+*           AND laufi IN r_laufi
+*           AND zbukr IN s_zbuk
+*           AND hbkid IN s_bank
+*           AND hktid IN s_acco
+*           AND rzawe IN s_zweg
+*           AND chect IN s_chec
+*           AND zaldt IN s_zald
+*           AND pridt IN s_cpud
+*           AND prius IN s_user
+*           AND vblnr IN s_vbln
+*           AND vblnr <> space.
+*
+* NEW CODE
+  SELECT *
+ FROM payr INTO TABLE t_payr
          WHERE
            irefe =  p_refe
            AND voidr =  0
@@ -396,7 +425,9 @@ START-OF-SELECTION.
            AND pridt IN s_cpud
            AND prius IN s_user
            AND vblnr IN s_vbln
-           AND vblnr <> space.
+           AND vblnr <> space ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 * Aqui hacer select para traer los comprobantes que no tengan asignado los cheques
 
 
@@ -407,11 +438,23 @@ START-OF-SELECTION.
     REFRESH  t_bkpf.
 *   if a payment document is referenced more than once,
 *   it is not possible to determine the check number
-    SELECT * FROM payr UP TO 2 ROWS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM payr UP TO 2 ROWS
+*       WHERE zbukr = t_payr-zbukr
+*         AND vblnr = t_payr-vblnr
+*         AND gjahr = t_payr-gjahr
+*        AND voidr = 0.
+*
+* NEW CODE
+    SELECT *
+ FROM payr UP TO 2 ROWS
        WHERE zbukr = t_payr-zbukr
          AND vblnr = t_payr-vblnr
          AND gjahr = t_payr-gjahr
-        AND voidr = 0.
+        AND voidr = 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     ENDSELECT.
     IF sy-dbcnt > 1.
       MOVE-CORRESPONDING t_payr TO t_multi.
@@ -419,10 +462,22 @@ START-OF-SELECTION.
       CONTINUE.
     ENDIF.
 *   Reading of the document header
-    SELECT SINGLE * FROM bkpf INTO t_bkpf
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM bkpf INTO t_bkpf
+*           WHERE bukrs = t_payr-zbukr
+*             AND belnr = t_payr-vblnr
+*             AND gjahr = t_payr-gjahr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM bkpf INTO t_bkpf
            WHERE bukrs = t_payr-zbukr
              AND belnr = t_payr-vblnr
-             AND gjahr = t_payr-gjahr.
+             AND gjahr = t_payr-gjahr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CHECK sy-subrc = 0.
      *bkpf = t_bkpf.
 *   Fill a field of the BKPF table with the check number
@@ -431,9 +486,20 @@ START-OF-SELECTION.
 *      T_BKPF-XBLNR = T_PAYR-CHECT.
 
       CLEAR wa_rut.
-      SELECT SINGLE stcd1 INTO wa_rut
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE stcd1 INTO wa_rut
+*        FROM lfa1
+*        WHERE lifnr = t_payr-lifnr.
+*
+* NEW CODE
+      SELECT stcd1
+      UP TO 1 ROWS  INTO wa_rut
         FROM lfa1
-        WHERE lifnr = t_payr-lifnr.
+        WHERE lifnr = t_payr-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       CHECK sy-subrc EQ 0.
 
       CONDENSE wa_rut.
@@ -460,13 +526,28 @@ START-OF-SELECTION.
         CHECK t_bseg-zzmot_emis = ' ' OR t_bseg-xref1 = ' ' OR t_bseg-zuonr = ' '.
         CLEAR wa_bsak.
         IF sy-tabix = 1.
-          SELECT SINGLE * FROM bsak INTO wa_bsak
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * FROM bsak INTO wa_bsak
+*             WHERE lifnr = t_payr-lifnr
+*              AND bukrs = t_bseg-bukrs
+*              AND augbl = t_bseg-belnr
+*              AND augdt = t_bseg-augdt
+*              AND belnr NE t_bseg-belnr
+*              AND xzahl NE 'X'.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM bsak INTO wa_bsak
              WHERE lifnr = t_payr-lifnr
               AND bukrs = t_bseg-bukrs
               AND augbl = t_bseg-belnr
               AND augdt = t_bseg-augdt
               AND belnr NE t_bseg-belnr
-              AND xzahl NE 'X'.
+              AND xzahl NE 'X' ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           subrc_w = sy-subrc.
 
@@ -476,9 +557,20 @@ START-OF-SELECTION.
         CHECK subrc_w EQ 0.
 
         CLEAR wa_rut.
-        SELECT SINGLE stcd1 INTO wa_rut
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE stcd1 INTO wa_rut
+*          FROM lfa1
+*          WHERE lifnr = t_payr-lifnr.
+*
+* NEW CODE
+        SELECT stcd1
+        UP TO 1 ROWS  INTO wa_rut
           FROM lfa1
-          WHERE lifnr = t_payr-lifnr.
+          WHERE lifnr = t_payr-lifnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         CHECK sy-subrc EQ 0.
 
         CONDENSE wa_rut.

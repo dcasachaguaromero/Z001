@@ -69,9 +69,20 @@ FUNCTION zfirfc003.
             output = ti_bapi_acre-bankl.
 
         ti_bapi_acre-bankl := ti_bapi_acre-bankl+12.
-        SELECT SINGLE bankl FROM bnka INTO v_bankl
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE bankl FROM bnka INTO v_bankl
+*          WHERE bankl  EQ ti_bapi_acre-bankl
+*            AND banks EQ ti_bapi_acre-banks.
+*
+* NEW CODE
+        SELECT bankl
+        UP TO 1 ROWS  FROM bnka INTO v_bankl
           WHERE bankl  EQ ti_bapi_acre-bankl
-            AND banks EQ ti_bapi_acre-banks.
+            AND banks EQ ti_bapi_acre-banks ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc EQ 0 AND ( ti_bapi_acre-banks IS NOT INITIAL  AND ti_bapi_acre-banks NE '0' ) AND
                              ( ti_bapi_acre-bankl IS NOT INITIAL  AND ti_bapi_acre-bankl NE '0'  ).

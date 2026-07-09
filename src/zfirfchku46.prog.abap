@@ -86,11 +86,23 @@ START-OF-SELECTION.
 
   CONCATENATE sy-datum+6(2) '.' sy-datum+4(2) '.' sy-datum+0(4) INTO fecha.
 
-  SELECT * FROM febko INTO TABLE febko_t
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM febko INTO TABLE febko_t
+*        WHERE bukrs IN p_bukrs1
+*          AND hbkid IN p_hbkid1
+*          AND azdat IN p_azdat1
+*          AND astat <> 8.
+*
+* NEW CODE
+  SELECT *
+ FROM febko INTO TABLE febko_t
         WHERE bukrs IN p_bukrs1
           AND hbkid IN p_hbkid1
           AND azdat IN p_azdat1
-          AND astat <> 8.
+          AND astat <> 8 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   LOOP AT febko_t.
     PERFORM verdetalle.
@@ -103,12 +115,25 @@ START-OF-SELECTION.
 FORM verdetalle.
   REFRESH febep_t.
 
-  SELECT * FROM febep INTO TABLE febep_t
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM febep INTO TABLE febep_t
+*      WHERE kukey = febko_t-kukey
+*        AND belnr = ''
+*        AND vb1ok = ''
+*        AND  intag = '011'
+*        AND vgint = 'ZZ02'.
+*
+* NEW CODE
+  SELECT *
+ FROM febep INTO TABLE febep_t
       WHERE kukey = febko_t-kukey
         AND belnr = ''
         AND vb1ok = ''
         AND  intag = '011'
-        AND vgint = 'ZZ02'.
+        AND vgint = 'ZZ02' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   LOOP AT febep_t.
 
@@ -117,7 +142,15 @@ FORM verdetalle.
 
   CLEAR: cuentat, cuentaok.
 
-  SELECT * FROM febep WHERE kukey = febko_t-kukey.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM febep WHERE kukey = febko_t-kukey.
+*
+* NEW CODE
+  SELECT *
+ FROM febep WHERE kukey = febko_t-kukey ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     cuentat = cuentat + 1.
     IF febep-vb1ok = 'X'.
       cuentaok = cuentaok + 1.
@@ -139,20 +172,47 @@ ENDFORM.                    "verdetalle
 
 FORM vercheque.
 
-  SELECT SINGLE * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM payr
+*                 WHERE zbukr = febko_t-bukrs
+*                   AND hbkid = febko_t-hbkid
+*                   AND hktid = febko_t-hktid
+**          AND rzawe = 'C'
+*                   AND chect = febep_t-chect.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM payr
                  WHERE zbukr = febko_t-bukrs
                    AND hbkid = febko_t-hbkid
                    AND hktid = febko_t-hktid
 *          AND rzawe = 'C'
-                   AND chect = febep_t-chect.
+                   AND chect = febep_t-chect ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
 *ResQ Comment:Correction not required as Select Single is used 19/12/2019 EY_DES03 ECDK917080 *
-    SELECT  SINGLE * FROM bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT  SINGLE * FROM bseg
+*                 WHERE bukrs = payr-zbukr
+*                   AND belnr = payr-vblnr
+*                   AND gjahr = payr-gjahr
+*                   AND hkont = payr-ubhkt.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM bseg
                  WHERE bukrs = payr-zbukr
                    AND belnr = payr-vblnr
                    AND gjahr = payr-gjahr
-                   AND hkont = payr-ubhkt.
+                   AND hkont = payr-ubhkt ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       compensado = bseg-augbl.
@@ -178,8 +238,18 @@ FORM vercheque.
             difer = difer1.
             CONCATENATE febko_t-bukrs '000000' INTO ccosto.
             IF valor1 = valorc.
-              SELECT SINGLE * FROM zcb_ccosto
-                             WHERE bukrs = febko_t-bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE * FROM zcb_ccosto
+*                             WHERE bukrs = febko_t-bukrs.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM zcb_ccosto
+                             WHERE bukrs = febko_t-bukrs ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
               IF sy-subrc = 0.
                 ccosto = zcb_ccosto-kostl.
               ENDIF.

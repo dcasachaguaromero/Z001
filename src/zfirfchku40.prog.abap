@@ -62,16 +62,37 @@ INITIALIZATION.
 
 START-OF-SELECTION.
 
-  SELECT SINGLE * FROM febko
-  WHERE kukey = cartola.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM febko
+*  WHERE kukey = cartola.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM febko
+  WHERE kukey = cartola ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   CONCATENATE sy-datum+6(2) '.' sy-datum+4(2) '.' sy-datum+0(4) INTO fecha.
 
   IF sy-subrc = 0.
     IF febko-astat <>  8.
-      SELECT SINGLE * FROM febep
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM febep
+*            WHERE kukey = cartola
+*              AND esnum = linea.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM febep
             WHERE kukey = cartola
-              AND esnum = linea.
+              AND esnum = linea ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc = 0.
         IF febep-belnr IS INITIAL AND febep-vb1ok = ' '.
           PERFORM vercheque.
@@ -114,21 +135,48 @@ FORM vercheque.
 
   IF febep-intag = '011' AND febep-vgint = 'ZZ02'.
 
-    SELECT SINGLE * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM payr
+*    WHERE zbukr = febko-bukrs
+*    AND hbkid = febko-hbkid
+*    AND hktid = febko-hktid
+**          AND rzawe = 'C'
+*    AND chect = febep-chect.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM payr
     WHERE zbukr = febko-bukrs
     AND hbkid = febko-hbkid
     AND hktid = febko-hktid
 *          AND rzawe = 'C'
-    AND chect = febep-chect.
+    AND chect = febep-chect ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
 
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES02 ECDK917080 *
-      SELECT  SINGLE * FROM bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT  SINGLE * FROM bseg
+*             WHERE bukrs = payr-zbukr
+*               AND belnr = payr-vblnr
+*               AND gjahr = payr-gjahr
+*               AND hkont = payr-ubhkt.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM bseg
              WHERE bukrs = payr-zbukr
                AND belnr = payr-vblnr
                AND gjahr = payr-gjahr
-               AND hkont = payr-ubhkt.
+               AND hkont = payr-ubhkt ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc = 0.
         compensado = bseg-augbl.
@@ -161,8 +209,18 @@ FORM vercheque.
             difer = difer1.
             CONCATENATE febko-bukrs '000000' INTO ccosto.
             IF valor1 = valorc.
-              SELECT SINGLE * FROM zcb_ccosto
-                             WHERE bukrs = febko-bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE * FROM zcb_ccosto
+*                             WHERE bukrs = febko-bukrs.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM zcb_ccosto
+                             WHERE bukrs = febko-bukrs ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
               IF sy-subrc = 0.
                 ccosto = zcb_ccosto-kostl.
               ENDIF.
@@ -448,8 +506,18 @@ FORM actualiza_archivos.
                WHERE kukey = cartola AND
                      esnum = linea.
 
-  SELECT SINGLE * FROM febcl WHERE kukey = cartola
-                               AND esnum = linea.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM febcl WHERE kukey = cartola
+*                               AND esnum = linea.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM febcl WHERE kukey = cartola
+                               AND esnum = linea ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     UPDATE febcl SET selvon = idpago
@@ -457,12 +525,26 @@ FORM actualiza_archivos.
                      AND esnum = linea.
   ENDIF.
 
-  SELECT SINGLE * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM payr
+*         WHERE zbukr = febko-bukrs
+*           AND hbkid = febko-hbkid
+*           AND hktid = febko-hktid
+**          AND rzawe = 'C'
+*           AND chect = febep-chect.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM payr
          WHERE zbukr = febko-bukrs
            AND hbkid = febko-hbkid
            AND hktid = febko-hktid
 *          AND rzawe = 'C'
-           AND chect = febep-chect.
+           AND chect = febep-chect ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     UPDATE payr SET xbanc = 'X'
@@ -474,11 +556,24 @@ FORM actualiza_archivos.
   ENDIF.
 
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES02 ECDK917080 *
-  SELECT  SINGLE * FROM bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT  SINGLE * FROM bseg
+*         WHERE bukrs = febko-bukrs
+*           AND belnr =  w_doc
+*           AND gjahr = w_gjahr
+*           AND hkont = payr-ubhkt.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM bseg
          WHERE bukrs = febko-bukrs
            AND belnr =  w_doc
            AND gjahr = w_gjahr
-           AND hkont = payr-ubhkt.
+           AND hkont = payr-ubhkt ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     UPDATE bseg SET zuonr = febep-chect
@@ -488,14 +583,31 @@ FORM actualiza_archivos.
   ENDIF.
 
 
-  SELECT * FROM febep WHERE kukey = cartola.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM febep WHERE kukey = cartola.
+*
+* NEW CODE
+  SELECT *
+ FROM febep WHERE kukey = cartola ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     cuentat = cuentat + 1.
     IF febep-vb1ok = 'X'.
       cuentaok = cuentaok + 1.
     ENDIF.
   ENDSELECT.
 
-  SELECT SINGLE * FROM febko WHERE kukey = cartola.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM febko WHERE kukey = cartola.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM febko WHERE kukey = cartola ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF cuentat = cuentaok.
     UPDATE febko SET astat = 8
