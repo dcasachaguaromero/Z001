@@ -1,0 +1,2 @@
+FUNCTION-POOL ZFIRFC_B001.                  "MESSAGE-ID ..
+

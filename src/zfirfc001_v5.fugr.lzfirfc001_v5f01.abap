@@ -26,9 +26,20 @@ FORM val_cab  TABLES   return        STRUCTURE bapiret2
          error_so.
 
   IF p_ti_cabecera-recarga <> 'R'.
-    SELECT SINGLE *  FROM zfirfc01 WHERE bukrs     =  p_ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE *  FROM zfirfc01 WHERE bukrs     =  p_ti_cabecera-comp_code
+*                                   AND   grupo     =  p_ti_cabecera-grupo
+*                                   AND   zkey      =  p_ti_cabecera-key.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS   FROM zfirfc01 WHERE bukrs     =  p_ti_cabecera-comp_code
                                    AND   grupo     =  p_ti_cabecera-grupo
-                                   AND   zkey      =  p_ti_cabecera-key.
+                                   AND   zkey      =  p_ti_cabecera-key ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       p_t_error = 4.
@@ -48,11 +59,23 @@ FORM val_cab  TABLES   return        STRUCTURE bapiret2
           AND grupo =  p_ti_cabecera-grupo
           AND zkey  =  p_ti_cabecera-key.
 
-      SELECT * FROM zfirfc01
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM zfirfc01
+*        WHERE bukrs     =  p_ti_cabecera-comp_code
+*          AND grupo     =  p_ti_cabecera-grupo
+*          AND zkey      =  p_ti_cabecera-key
+*          AND secuencia = secuencia.
+*
+* NEW CODE
+      SELECT *
+ FROM zfirfc01
         WHERE bukrs     =  p_ti_cabecera-comp_code
           AND grupo     =  p_ti_cabecera-grupo
           AND zkey      =  p_ti_cabecera-key
-          AND secuencia = secuencia.
+          AND secuencia = secuencia ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
         p_ti_resumen-key       =   zfirfc01-zkey.
         p_ti_resumen-grupo     =   zfirfc01-grupo.
         p_ti_resumen-secuencia =   zfirfc01-secuencia.
@@ -80,10 +103,22 @@ FORM val_cab  TABLES   return        STRUCTURE bapiret2
     APPEND return.
   ENDIF.
 
-  SELECT SINGLE * FROM   zfirfc01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM   zfirfc01
+*    WHERE  bukrs = p_ti_cabecera-comp_code
+*      AND  grupo = p_ti_cabecera-grupo
+*      AND  zkey  = p_ti_cabecera-key.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM   zfirfc01
     WHERE  bukrs = p_ti_cabecera-comp_code
       AND  grupo = p_ti_cabecera-grupo
-      AND  zkey  = p_ti_cabecera-key.
+      AND  zkey  = p_ti_cabecera-key ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0 AND p_ti_cabecera-recarga IS INITIAL.
     p_t_error = 4.
@@ -238,9 +273,20 @@ FORM val_cab  TABLES   return        STRUCTURE bapiret2
 
   DATA: i_zzcod_unidad TYPE tsad4-prefix_key.
   IF ti_cont_cab-area_contab   NE space.
-    SELECT SINGLE prefix_key INTO i_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE prefix_key INTO i_zzcod_unidad
+*      FROM tsad4
+*      WHERE prefix_key =  ti_cont_cab-area_contab.
+*
+* NEW CODE
+    SELECT prefix_key
+    UP TO 1 ROWS  INTO i_zzcod_unidad
       FROM tsad4
-      WHERE prefix_key =  ti_cont_cab-area_contab.
+      WHERE prefix_key =  ti_cont_cab-area_contab ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-number            = '1'.
@@ -270,13 +316,33 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
 
 * Validación 1 – Número de cuenta de acreedor (VENDOR_NO)
   IF NOT p_ti_detalle-stcd1_d IS INITIAL.
-    SELECT SINGLE * FROM lfa1  WHERE stcd1 =  p_ti_detalle-stcd1_d.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM lfa1  WHERE stcd1 =  p_ti_detalle-stcd1_d.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM lfa1  WHERE stcd1 =  p_ti_detalle-stcd1_d ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       p_ti_detalle-vendor_no = lfa1-lifnr.
-      SELECT SINGLE * FROM lfb1
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM lfb1
+*        WHERE lifnr =  lfa1-lifnr
+*          AND bukrs =  p_ti_detalle-bukrs.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM lfb1
         WHERE lifnr =  lfa1-lifnr
-          AND bukrs =  p_ti_detalle-bukrs.
+          AND bukrs =  p_ti_detalle-bukrs ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ELSE.
       CLEAR: p_ti_detalle-vendor_no.
     ENDIF.
@@ -308,14 +374,35 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
 
 * Valida deudor
   IF NOT p_ti_detalle-stcd1_k IS INITIAL.
-    SELECT SINGLE * FROM kna1
-      WHERE stcd1 = p_ti_detalle-stcd1_k.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM kna1
+*      WHERE stcd1 = p_ti_detalle-stcd1_k.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM kna1
+      WHERE stcd1 = p_ti_detalle-stcd1_k ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       p_ti_detalle-customer = kna1-kunnr.
-      SELECT SINGLE * FROM knb1
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM knb1
+*        WHERE kunnr =  kna1-kunnr
+*          AND bukrs =  p_ti_detalle-bukrs.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM knb1
         WHERE kunnr =  kna1-kunnr
-          AND bukrs =  p_ti_detalle-bukrs.
+          AND bukrs =  p_ti_detalle-bukrs ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ELSE.
       CLEAR p_ti_detalle-customer.
     ENDIF.
@@ -995,10 +1082,22 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
 
   CLEAR: l_mitkz, l_xloev.
   IF NOT p_ti_detalle-asset_no IS INITIAL.
-    SELECT SINGLE mitkz INTO l_mitkz
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE mitkz INTO l_mitkz
+*      FROM skb1
+*      WHERE bukrs = p_ti_cabecera-comp_code  AND
+*            saknr = p_ti_detalle-hkont.
+*
+* NEW CODE
+    SELECT mitkz
+    UP TO 1 ROWS  INTO l_mitkz
       FROM skb1
       WHERE bukrs = p_ti_cabecera-comp_code  AND
-            saknr = p_ti_detalle-hkont.
+            saknr = p_ti_detalle-hkont ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF l_mitkz <> 'A'.
       p_t_error = 4.
       return-number            = '2'.
@@ -1013,11 +1112,24 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
       APPEND return.
       CLEAR: return.
     ELSE.
-      SELECT SINGLE xloev INTO l_xloev
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE xloev INTO l_xloev
+*        FROM anla
+*        WHERE bukrs = p_ti_cabecera-comp_code  AND
+*              anln1 = p_ti_detalle-asset_no    AND
+*              anln2 = p_ti_detalle-sub_number.
+*
+* NEW CODE
+      SELECT xloev
+      UP TO 1 ROWS  INTO l_xloev
         FROM anla
         WHERE bukrs = p_ti_cabecera-comp_code  AND
               anln1 = p_ti_detalle-asset_no    AND
-              anln2 = p_ti_detalle-sub_number.
+              anln2 = p_ti_detalle-sub_number ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc <> 0 OR NOT l_xloev IS INITIAL.
         p_t_error = 4.
         return-number            = '2'.
@@ -1044,10 +1156,22 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
       IMPORTING
         output = p_ti_detalle-zzprestac.
 
-    SELECT SINGLE zzprestac INTO p_zzprestac
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE zzprestac INTO p_zzprestac
+*      FROM zprestacion
+*      WHERE zzprestac = p_ti_detalle-zzprestac
+*        AND bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzprestac
+    UP TO 1 ROWS  INTO p_zzprestac
       FROM zprestacion
       WHERE zzprestac = p_ti_detalle-zzprestac
-        AND bukrs     = p_ti_cabecera-comp_code.
+        AND bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-number            = '2'.
@@ -1074,10 +1198,22 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
       IMPORTING
         output = p_ti_detalle-zzunid_pro.
 
-    SELECT SINGLE  zzcod_unidad INTO  p_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  zzcod_unidad INTO  p_zzcod_unidad
+*      FROM zunid_prod
+*      WHERE zzcod_unidad = p_ti_detalle-zzunid_pro
+*        AND bukrs        = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzcod_unidad
+    UP TO 1 ROWS  INTO  p_zzcod_unidad
       FROM zunid_prod
       WHERE zzcod_unidad = p_ti_detalle-zzunid_pro
-        AND bukrs        = p_ti_cabecera-comp_code.
+        AND bukrs        = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-number            = '2'.
@@ -1104,10 +1240,22 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
       IMPORTING
         output = p_ti_detalle-zzdesc_est.
 
-    SELECT SINGLE zzcod_unidad INTO e_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE zzcod_unidad INTO e_zzcod_unidad
+*      FROM zdesc_est
+*      WHERE zzcod_unidad = p_ti_detalle-zzdesc_est
+*        AND bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzcod_unidad
+    UP TO 1 ROWS  INTO e_zzcod_unidad
       FROM zdesc_est
       WHERE zzcod_unidad = p_ti_detalle-zzdesc_est
-        AND bukrs     = p_ti_cabecera-comp_code.
+        AND bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-number            = '2'.
@@ -1135,10 +1283,22 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
         output = p_ti_detalle-zzmot_emis.
 
 
-    SELECT SINGLE  zzmot_emis INTO  i_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  zzmot_emis INTO  i_zzcod_unidad
+*      FROM zmot_emis
+*      WHERE zzmot_emis =  p_ti_detalle-zzmot_emis
+*        AND bukrs      = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzmot_emis
+    UP TO 1 ROWS  INTO  i_zzcod_unidad
       FROM zmot_emis
       WHERE zzmot_emis =  p_ti_detalle-zzmot_emis
-        AND bukrs      = p_ti_cabecera-comp_code.
+        AND bukrs      = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-number            = '2'.
@@ -1166,10 +1326,22 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
         output = p_ti_detalle-zz_agencia.
 
 
-    SELECT SINGLE zzcod_unidad INTO  r_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE zzcod_unidad INTO  r_zzcod_unidad
+*      FROM zagencia
+*      WHERE zzcod_unidad = p_ti_detalle-zz_agencia
+*        AND bukrs        = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzcod_unidad
+    UP TO 1 ROWS  INTO  r_zzcod_unidad
       FROM zagencia
       WHERE zzcod_unidad = p_ti_detalle-zz_agencia
-        AND bukrs        = p_ti_cabecera-comp_code.
+        AND bukrs        = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-number            = '2'.
@@ -1189,9 +1361,20 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
 
   IF p_ti_detalle-fdlev  NE space.
     DATA: p_fdlev LIKE t036-ebene.
-    SELECT SINGLE ebene  FROM t036 INTO p_fdlev
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE ebene  FROM t036 INTO p_fdlev
+*      WHERE ebene EQ p_ti_detalle-fdlev
+*      AND orign = 'PSK'.
+*
+* NEW CODE
+    SELECT ebene
+    UP TO 1 ROWS   FROM t036 INTO p_fdlev
       WHERE ebene EQ p_ti_detalle-fdlev
-      AND orign = 'PSK'.
+      AND orign = 'PSK' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-number            = '2'.
@@ -1229,17 +1412,42 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
 
     IF NOT p_ti_detalle-vendor_no IS INITIAL
       AND  p_ti_detalle-amt_doccur < '0.00'.
-      SELECT SINGLE * FROM bsik WHERE bukrs = p_ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM bsik WHERE bukrs = p_ti_cabecera-comp_code
+*                                AND   lifnr = p_ti_detalle-vendor_no
+*                                AND   bschl = '21'
+*                                AND   zlspr = 'Z'
+*                                AND   zfbdt <= p_ti_detalle-bline_date.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM bsik WHERE bukrs = p_ti_cabecera-comp_code
                                 AND   lifnr = p_ti_detalle-vendor_no
                                 AND   bschl = '21'
                                 AND   zlspr = 'Z'
-                                AND   zfbdt <= p_ti_detalle-bline_date.
+                                AND   zfbdt <= p_ti_detalle-bline_date ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc = 0.
-        SELECT  * FROM bsik     WHERE bukrs = p_ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT  * FROM bsik     WHERE bukrs = p_ti_cabecera-comp_code
+*                                AND   lifnr = p_ti_detalle-vendor_no
+*                                AND   bschl = '21'
+*                                AND   zfbdt <= p_ti_detalle-bline_date
+*                                AND   zlspr = 'Z'.
+*
+* NEW CODE
+        SELECT *
+ FROM bsik     WHERE bukrs = p_ti_cabecera-comp_code
                                 AND   lifnr = p_ti_detalle-vendor_no
                                 AND   bschl = '21'
                                 AND   zfbdt <= p_ti_detalle-bline_date
-                                AND   zlspr = 'Z'.
+                                AND   zlspr = 'Z' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
           nc_bloqueadas = nc_bloqueadas + bsik-dmbtr.
 
@@ -1247,11 +1455,23 @@ FORM val_detalle  TABLES  return         STRUCTURE bapiret2
             zfbdt_aux = bsik-zfbdt.
           ENDIF.
         ENDSELECT.
-        SELECT  * FROM bsik     WHERE bukrs = p_ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT  * FROM bsik     WHERE bukrs = p_ti_cabecera-comp_code
+*                                AND   lifnr = p_ti_detalle-vendor_no
+*                                AND   bschl = '31'
+*                                AND   zfbdt >= zfbdt_aux
+*                                AND   zlspr = 'Z'.
+*
+* NEW CODE
+        SELECT *
+ FROM bsik     WHERE bukrs = p_ti_cabecera-comp_code
                                 AND   lifnr = p_ti_detalle-vendor_no
                                 AND   bschl = '31'
                                 AND   zfbdt >= zfbdt_aux
-                                AND   zlspr = 'Z'.
+                                AND   zlspr = 'Z' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           fa_bloqueadas = fa_bloqueadas + bsik-dmbtr.
         ENDSELECT.
 
@@ -1739,7 +1959,7 @@ FORM ejecuta_bapi TABLES  return       STRUCTURE bapiret2
   ENDIF.
 * FIN - WALDO ALARCON - VISIONONE - 08-06-2020
 
-  CALL FUNCTION 'BAPI_ACC_DOCUMENT_POST'
+  CALL FUNCTION 'BAPI_ACC_DOCUMENT_POST' "#EC CI_USAGE_OK[2438131]
     EXPORTING
       documentheader    = documentheader
     IMPORTING

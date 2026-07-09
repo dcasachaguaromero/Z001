@@ -180,11 +180,24 @@ FORM crea_acreedor  TABLES  return STRUCTURE bapiret2
     v_msgv3 = messtab-msgv3.
     v_msgv4 = messtab-msgv4.
 
-    SELECT SINGLE text
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE text
+*      INTO  v_texto
+*       FROM t100 WHERE sprsl = sy-langu
+*                   AND arbgb = v_msgid
+*                   AND msgnr = v_msgno.
+*
+* NEW CODE
+    SELECT text
+    UP TO 1 ROWS 
       INTO  v_texto
        FROM t100 WHERE sprsl = sy-langu
                    AND arbgb = v_msgid
-                   AND msgnr = v_msgno.
+                   AND msgnr = v_msgno ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       DATA:
         maximum_length TYPE i,
@@ -330,9 +343,20 @@ FORM valida_acreedor  TABLES  return STRUCTURE bapiret2
 
   IF es_lfa1-ktokk EQ space.
     DATA:  numkr LIKE t077k-numkr.
-    SELECT SINGLE numkr INTO numkr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE numkr INTO numkr
+*    FROM t077k
+*    WHERE ktokk  EQ p_ti_acreedor-ktokk.
+*
+* NEW CODE
+    SELECT numkr
+    UP TO 1 ROWS  INTO numkr
     FROM t077k
-    WHERE ktokk  EQ p_ti_acreedor-ktokk.
+    WHERE ktokk  EQ p_ti_acreedor-ktokk ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc =  0.
       CALL FUNCTION 'NUMBER_GET_INFO'
         EXPORTING
@@ -726,8 +750,18 @@ FORM valida_acreedor  TABLES  return STRUCTURE bapiret2
   IF p_ti_acreedor-zgrup NE space.
     DATA: p_zgrup LIKE tzgr-zgrup.
 *ResQ Comment:Correction not required as Select Single is used 19/12/2019 EY_DES01 ECDK917080 *
-    SELECT SINGLE zgrup INTO p_zgrup FROM tzgr
-      WHERE zgrup EQ p_ti_acreedor-zgrup.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE zgrup INTO p_zgrup FROM tzgr
+*      WHERE zgrup EQ p_ti_acreedor-zgrup.
+*
+* NEW CODE
+    SELECT zgrup
+    UP TO 1 ROWS  INTO p_zgrup FROM tzgr
+      WHERE zgrup EQ p_ti_acreedor-zgrup ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-type             = 'E'.
@@ -1101,8 +1135,18 @@ FORM valida_update_acreedor TABLES return STRUCTURE bapiret2
   IF p_ti_acreedor-zgrup NE space.
     DATA: p_zgrup LIKE tzgr-zgrup.
 *ResQ Comment:Correction not required as Select Single is used 19/12/2019 EY_DES01 ECDK917080 *
-    SELECT SINGLE zgrup INTO p_zgrup FROM tzgr
-      WHERE zgrup EQ p_ti_acreedor-zgrup.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE zgrup INTO p_zgrup FROM tzgr
+*      WHERE zgrup EQ p_ti_acreedor-zgrup.
+*
+* NEW CODE
+    SELECT zgrup
+    UP TO 1 ROWS  INTO p_zgrup FROM tzgr
+      WHERE zgrup EQ p_ti_acreedor-zgrup ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       return-type             = 'E'.
@@ -1454,11 +1498,24 @@ FORM update_acreedor  TABLES  return STRUCTURE bapiret2
     v_msgv3 = messtab-msgv3.
     v_msgv4 = messtab-msgv4.
 
-    SELECT SINGLE text
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE text
+*      INTO  v_texto
+*       FROM t100 WHERE sprsl = sy-langu
+*                   AND arbgb = v_msgid
+*                   AND msgnr = v_msgno.
+*
+* NEW CODE
+    SELECT text
+    UP TO 1 ROWS 
       INTO  v_texto
        FROM t100 WHERE sprsl = sy-langu
                    AND arbgb = v_msgid
-                   AND msgnr = v_msgno.
+                   AND msgnr = v_msgno ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       DATA:
         maximum_length TYPE i,
@@ -1811,9 +1868,19 @@ FORM matchcodefield_fill USING    VALUE(p_ktoid)
   DATA: upper_value LIKE bapi1008_8-fieldvalue.
 
 
-  SELECT * FROM tfmc WHERE ktoid = p_ktoid
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM tfmc WHERE ktoid = p_ktoid
+*                       AND fldnr BETWEEN '1' AND '3'
+*                       AND fldna = p_fieldname.
+*
+* NEW CODE
+  SELECT *
+ FROM tfmc WHERE ktoid = p_ktoid
                        AND fldnr BETWEEN '1' AND '3'
-                       AND fldna = p_fieldname.
+                       AND fldna = p_fieldname ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   ENDSELECT.
   IF sy-subrc = 0.
     upper_value = p_fieldvalue.
@@ -2376,11 +2443,24 @@ FORM update_acreedor2  TABLES  return STRUCTURE bapiret2
     v_msgv3 = messtab-msgv3.
     v_msgv4 = messtab-msgv4.
 
-    SELECT SINGLE text
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE text
+*      INTO  v_texto
+*       FROM t100 WHERE sprsl = sy-langu
+*                   AND arbgb = v_msgid
+*                   AND msgnr = v_msgno.
+*
+* NEW CODE
+    SELECT text
+    UP TO 1 ROWS 
       INTO  v_texto
        FROM t100 WHERE sprsl = sy-langu
                    AND arbgb = v_msgid
-                   AND msgnr = v_msgno.
+                   AND msgnr = v_msgno ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       DATA:
         maximum_length TYPE i,

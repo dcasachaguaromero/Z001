@@ -172,8 +172,18 @@ CHANGING p_t_error.
 
   IF ti_cont_cab-area_contab   NE space.
     DATA: i_zzcod_unidad TYPE tsad4-prefix_key.
-    SELECT SINGLE  prefix_key FROM tsad4 INTO  i_zzcod_unidad
-    WHERE prefix_key =  ti_cont_cab-area_contab.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  prefix_key FROM tsad4 INTO  i_zzcod_unidad
+*    WHERE prefix_key =  ti_cont_cab-area_contab.
+*
+* NEW CODE
+    SELECT prefix_key
+    UP TO 1 ROWS  FROM tsad4 INTO  i_zzcod_unidad
+    WHERE prefix_key =  ti_cont_cab-area_contab ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '1'.
@@ -822,9 +832,20 @@ CHANGING p_t_error.
     IMPORTING
       OUTPUT = p_ti_detalle-zzprestac.
 
-    SELECT SINGLE zzprestac FROM zprestacion INTO p_zzprestac
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE zzprestac FROM zprestacion INTO p_zzprestac
+*    WHERE zzprestac = p_ti_detalle-zzprestac
+*    AND    bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzprestac
+    UP TO 1 ROWS  FROM zprestacion INTO p_zzprestac
     WHERE zzprestac = p_ti_detalle-zzprestac
-    AND    bukrs     = p_ti_cabecera-comp_code.
+    AND    bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '2'.
@@ -851,9 +872,20 @@ CHANGING p_t_error.
       OUTPUT = p_ti_detalle-zzunid_pro.
 
 
-    SELECT SINGLE  zzcod_unidad FROM zunid_prod INTO  p_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  zzcod_unidad FROM zunid_prod INTO  p_zzcod_unidad
+*    WHERE zzcod_unidad = p_ti_detalle-zzunid_pro
+*    AND    bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzcod_unidad
+    UP TO 1 ROWS  FROM zunid_prod INTO  p_zzcod_unidad
     WHERE zzcod_unidad = p_ti_detalle-zzunid_pro
-    AND    bukrs     = p_ti_cabecera-comp_code.
+    AND    bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '2'.
@@ -879,9 +911,20 @@ CHANGING p_t_error.
       OUTPUT = p_ti_detalle-zzdesc_est.
 
 
-    SELECT SINGLE  zzcod_unidad FROM zdesc_est INTO  e_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  zzcod_unidad FROM zdesc_est INTO  e_zzcod_unidad
+*    WHERE zzcod_unidad = p_ti_detalle-zzdesc_est
+*    AND    bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzcod_unidad
+    UP TO 1 ROWS  FROM zdesc_est INTO  e_zzcod_unidad
     WHERE zzcod_unidad = p_ti_detalle-zzdesc_est
-    AND    bukrs     = p_ti_cabecera-comp_code.
+    AND    bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '2'.
@@ -909,9 +952,20 @@ CHANGING p_t_error.
       OUTPUT = p_ti_detalle-zzmot_emis.
 
 
-    SELECT SINGLE  zzmot_emis FROM zmot_emis INTO  i_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  zzmot_emis FROM zmot_emis INTO  i_zzcod_unidad
+*    WHERE zzmot_emis =  p_ti_detalle-zzmot_emis
+*    AND    bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzmot_emis
+    UP TO 1 ROWS  FROM zmot_emis INTO  i_zzcod_unidad
     WHERE zzmot_emis =  p_ti_detalle-zzmot_emis
-    AND    bukrs     = p_ti_cabecera-comp_code.
+    AND    bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '2'.
@@ -938,9 +992,20 @@ CHANGING p_t_error.
       OUTPUT = p_ti_detalle-zzrut_terc.
 
 
-    SELECT SINGLE  lifnr FROM lfb1 INTO  a_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  lifnr FROM lfb1 INTO  a_zzcod_unidad
+*    WHERE lifnr =  p_ti_detalle-zzrut_terc
+*    AND    bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT lifnr
+    UP TO 1 ROWS  FROM lfb1 INTO  a_zzcod_unidad
     WHERE lifnr =  p_ti_detalle-zzrut_terc
-    AND    bukrs     = p_ti_cabecera-comp_code.
+    AND    bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '2'.
@@ -967,9 +1032,20 @@ CHANGING p_t_error.
       OUTPUT = p_ti_detalle-zz_agencia.
 
 
-    SELECT SINGLE  zzcod_unidad FROM zagencia INTO  r_zzcod_unidad
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  zzcod_unidad FROM zagencia INTO  r_zzcod_unidad
+*    WHERE zzcod_unidad = p_ti_detalle-zz_agencia
+*    AND    bukrs     = p_ti_cabecera-comp_code.
+*
+* NEW CODE
+    SELECT zzcod_unidad
+    UP TO 1 ROWS  FROM zagencia INTO  r_zzcod_unidad
     WHERE zzcod_unidad = p_ti_detalle-zz_agencia
-    AND    bukrs     = p_ti_cabecera-comp_code.
+    AND    bukrs     = p_ti_cabecera-comp_code ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '2'.
@@ -987,9 +1063,20 @@ CHANGING p_t_error.
   ENDIF.
   IF p_ti_detalle-fdlev  NE space.
     DATA: p_fdlev LIKE t036-ebene.
-    SELECT SINGLE ebene  FROM t036 INTO p_fdlev
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE ebene  FROM t036 INTO p_fdlev
+*    WHERE ebene EQ p_ti_detalle-fdlev
+*    AND orign = 'PSK'.
+*
+* NEW CODE
+    SELECT ebene
+    UP TO 1 ROWS   FROM t036 INTO p_fdlev
     WHERE ebene EQ p_ti_detalle-fdlev
-    AND orign = 'PSK'.
+    AND orign = 'PSK' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       p_t_error = 4.
       RETURN-NUMBER            = '2'.
@@ -1239,7 +1326,7 @@ USING   contador.
   documentheader-ref_doc_no = ti_cont_cab-ref_doc_no.
   APPEND documentheader.
 
-  CALL FUNCTION 'BAPI_ACC_DOCUMENT_POST'
+  CALL FUNCTION 'BAPI_ACC_DOCUMENT_POST' "#EC CI_USAGE_OK[2438131]
   EXPORTING
     documentheader    = documentheader
   TABLES

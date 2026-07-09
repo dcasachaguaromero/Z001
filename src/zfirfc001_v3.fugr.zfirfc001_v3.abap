@@ -45,9 +45,20 @@ FUNCTION zfirfc001_v3.
 
   LOOP AT  ti_cabecera.
     IF ti_cabecera-recarga  = 'V'.
-      SELECT SINGLE * FROM zfirfc04 WHERE   bukrs = ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zfirfc04 WHERE   bukrs = ti_cabecera-comp_code
+*                                    AND     grupo = ti_cabecera-grupo
+*                                    AND     zkey  =  ti_cabecera-key.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zfirfc04 WHERE   bukrs = ti_cabecera-comp_code
                                     AND     grupo = ti_cabecera-grupo
-                                    AND     zkey  =  ti_cabecera-key.
+                                    AND     zkey  =  ti_cabecera-key ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF  sy-subrc  = 0.
         t_error = 4.
         return-number            = '1'.
@@ -82,8 +93,18 @@ FUNCTION zfirfc001_v3.
 
       CLEAR: return, t_error.
 
-      SELECT SINGLE * FROM zfirfc03 WHERE  bukrs = ti_cabecera-comp_code
-                                       AND    grupo = ti_cabecera-grupo.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zfirfc03 WHERE  bukrs = ti_cabecera-comp_code
+*                                       AND    grupo = ti_cabecera-grupo.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zfirfc03 WHERE  bukrs = ti_cabecera-comp_code
+                                       AND    grupo = ti_cabecera-grupo ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       graba_grupo = 'N'.
 
       IF sy-subrc = 0.
@@ -97,11 +118,24 @@ FUNCTION zfirfc001_v3.
           ENDIF.
         ENDLOOP.
 
-        SELECT SINGLE * FROM zfirfc02 WHERE  bukrs = ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM zfirfc02 WHERE  bukrs = ti_cabecera-comp_code
+*                                      AND    grupo = ti_cabecera-grupo
+*                                      AND    lineas = lineas
+*                                      AND    valord = valord
+*                                      AND    valorh = valorh.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM zfirfc02 WHERE  bukrs = ti_cabecera-comp_code
                                       AND    grupo = ti_cabecera-grupo
                                       AND    lineas = lineas
                                       AND    valord = valord
-                                      AND    valorh = valorh.
+                                      AND    valorh = valorh ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc = 0.
           SELECT MAX( secuencia ) INTO gsecuencia  FROM zfirfc02 WHERE  bukrs = ti_cabecera-comp_code
@@ -111,12 +145,26 @@ FUNCTION zfirfc001_v3.
                                     AND    valorh = valorh.
 
 
-          SELECT SINGLE * FROM zfirfc02 WHERE  bukrs = ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * FROM zfirfc02 WHERE  bukrs = ti_cabecera-comp_code
+*                                      AND    grupo = ti_cabecera-grupo
+*                                      AND    lineas = lineas
+*                                      AND    valord = valord
+*                                      AND    valorh = valorh
+*                                      AND    secuencia = gsecuencia.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM zfirfc02 WHERE  bukrs = ti_cabecera-comp_code
                                       AND    grupo = ti_cabecera-grupo
                                       AND    lineas = lineas
                                       AND    valord = valord
                                       AND    valorh = valorh
-                                      AND    secuencia = gsecuencia.
+                                      AND    secuencia = gsecuencia ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           IF ti_cabecera-recarga <> 'R'.
             t_error = 4.
@@ -135,10 +183,21 @@ FUNCTION zfirfc001_v3.
                                          AND   zkey      =  zfirfc02-zkey.
 
 
-            SELECT  *  FROM zfirfc01 WHERE bukrs     =  ti_cabecera-comp_code
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*            SELECT  *  FROM zfirfc01 WHERE bukrs     =  ti_cabecera-comp_code
+*                                           AND   grupo     =  ti_cabecera-grupo
+*                                           AND   zkey      =  zfirfc02-zkey
+*                                           AND   secuencia = xsecuencia.
+*
+* NEW CODE
+            SELECT *
+  FROM zfirfc01 WHERE bukrs     =  ti_cabecera-comp_code
                                            AND   grupo     =  ti_cabecera-grupo
                                            AND   zkey      =  zfirfc02-zkey
-                                           AND   secuencia = xsecuencia.
+                                           AND   secuencia = xsecuencia ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
               ti_resumen-key       =   zfirfc01-zkey.
               ti_resumen-grupo     =   zfirfc01-grupo.
               ti_resumen-secuencia =   zfirfc01-secuencia.
