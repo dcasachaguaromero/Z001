@@ -1,0 +1,230 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZFIPG002_000
+*&---------------------------------------------------------------------*
+
+START-OF-SELECTION.
+
+  PERFORM proceso.
+
+  CALL SCREEN 100.
+
+
+END-OF-SELECTION.
+
+*---------------------------------------------------------------------*
+*       FORM PROCESO                                                  *
+*---------------------------------------------------------------------*
+FORM proceso.
+
+  DATA: v_txt(100) TYPE c.
+
+  REFRESH int_tabla.
+  CLEAR  int_tabla.
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM zfipg002_det WHERE bukrs  = bukrs
+*                             AND   estado <> 'P'
+*                              AND   zlsch = zlsch .
+*
+* NEW CODE
+  SELECT *
+ FROM zfipg002_det WHERE bukrs  = bukrs
+                             AND   estado <> 'P'
+                              AND   zlsch = zlsch  ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
+
+
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM reguv WHERE laufd = zfipg002_det-laufd
+*                               AND   laufi = zfipg002_det-laufi.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM reguv WHERE laufd = zfipg002_det-laufd
+                               AND   laufi = zfipg002_det-laufi ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+    IF sy-subrc = 0 AND   reguv-xvore = 'X'.
+
+      MOVE-CORRESPONDING zfipg002_det  TO int_tabla.
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE descr INTO int_tabla-descr
+*                        FROM   zfipg002_cab  WHERE bukrs     =  zfipg002_det-bukrs
+*                                             AND   nproceso  =  zfipg002_det-nproceso.
+*
+* NEW CODE
+      SELECT descr
+      UP TO 1 ROWS  INTO int_tabla-descr
+                        FROM   zfipg002_cab  WHERE bukrs     =  zfipg002_det-bukrs
+                                             AND   nproceso  =  zfipg002_det-nproceso ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+      IF int_tabla-estado  = ''.
+        CONCATENATE '@JL\Q' 'Listo Para Confirmar Pago' '@' INTO int_tabla-listopara.
+      ELSE.
+        IF int_tabla-estado  = 'I'.
+          CONCATENATE '@0X\Q' 'Listo Para Impresion' '@' INTO int_tabla-listopara.
+        ENDIF.
+      ENDIF.
+
+
+
+      PERFORM busco_resumen.
+
+      int_tabla-nhojas =  ( ( int_tabla-nchequ - int_tabla-nchequ_s ) / 4 ).
+      resto  =  ( ( int_tabla-nchequ - int_tabla-nchequ_s ) MOD 4 ).
+      IF resto = 1 .
+        int_tabla-nhojas = int_tabla-nhojas + 1.
+      ENDIF.
+
+* Chidalgo quintec 29.04.10
+* Agrego el campo de ultima remesa
+      IF int_tabla-nchequ EQ 0.
+        int_tabla-tot_remesa = 0.
+        int_tabla-ult_remesa = 0.
+      ELSE.
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT stapl fstap chect checl FROM pcec INTO CORRESPONDING FIELDS OF TABLE ti_pcec
+*           WHERE zbukr = bukrs
+*                 AND hbkid = int_tabla-hbkid
+*                 and XCHCH NE 'X'.
+*
+* NEW CODE
+        SELECT stapl fstap chect checl
+ FROM pcec INTO CORRESPONDING FIELDS OF TABLE ti_pcec
+           WHERE zbukr = bukrs
+                 AND hbkid = int_tabla-hbkid
+                 and XCHCH NE 'X' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
+*               and hktid = reguh-hktid.
+        LOOP AT ti_pcec.
+          int_tabla-chect = ti_pcec-chect.
+          IF ti_pcec-checl < ti_pcec-chect.
+            int_tabla-ult_remesa = ti_pcec-checl + 1.
+            int_tabla-fstap = ti_pcec-fstap.
+            EXIT.
+          ENDIF.
+        ENDLOOP.
+
+        int_tabla-tot_remesa = ( int_tabla-ult_remesa + int_tabla-nchequ ) - 1.
+
+        IF int_tabla-tot_remesa > int_tabla-chect.
+          CLEAR band.
+          LOOP AT ti_pcec.
+            IF ti_pcec-stapl = int_tabla-fstap AND ti_pcec-chect >= int_tabla-tot_remesa.
+              band = 1.
+              int_tabla-chect = ti_pcec-chect.
+              EXIT.
+            ENDIF.
+          ENDLOOP.
+
+          IF band IS INITIAL.
+            int_tabla-tot_remesa = int_tabla-chect.
+          ENDIF.
+
+        ENDIF.
+
+      ENDIF.
+
+      IF int_tabla-estado  = 'I' AND ( zlsch = 'T' OR zlsch = 'V' ).
+        CONTINUE.
+      ENDIF.
+* fin chidalgo
+
+      APPEND int_tabla.
+
+    ENDIF.
+
+  ENDSELECT.
+
+  DESCRIBE TABLE int_tabla LINES fill.
+  SORT int_tabla BY descr  laufd laufi.
+
+  tabla-lines = fill.
+
+  IF zlsch = 'C'.
+    tabla-line_sel_mode = 1.
+    LOOP AT tabla-cols INTO cols WHERE index = 12 .
+      cols-invisible = '1'.
+      MODIFY tabla-cols FROM cols INDEX sy-tabix.
+    ENDLOOP.
+    LOOP AT tabla-cols INTO cols WHERE index > 12 .
+      cols-invisible = '0'.
+      MODIFY tabla-cols FROM cols INDEX sy-tabix.
+    ENDLOOP.
+
+  ELSE.
+    tabla-line_sel_mode = 2.
+    LOOP AT tabla-cols INTO cols WHERE index > 12 .
+      cols-invisible = '1'.
+      MODIFY tabla-cols FROM cols INDEX sy-tabix.
+    ENDLOOP.
+
+    LOOP AT tabla-cols INTO cols WHERE index = 12.
+      cols-invisible = '0'.
+      MODIFY tabla-cols FROM cols INDEX sy-tabix.
+    ENDLOOP.
+
+  ENDIF.
+
+ENDFORM.                    "PROCESO
+*&---------------------------------------------------------------------*
+*&      Form  BUSCO_RESUMEN
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM busco_resumen .
+
+  CLEAR: int_tabla-monto,int_tabla-npagos,int_tabla-semaforo, int_tabla-nchequ.
+
+  CONCATENATE '@5B\Q' 'Pago' '@' INTO int_tabla-semaforo.
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM  reguh   WHERE  laufd = int_tabla-laufd
+*                         AND    laufi = int_tabla-laufi.
+*
+* NEW CODE
+  SELECT *
+ FROM  reguh   WHERE  laufd = int_tabla-laufd
+                         AND    laufi = int_tabla-laufi ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
+
+
+    IF  ( int_tabla-estado  = 'I' AND reguh-xvorl = '' )    OR  int_tabla-estado  <> 'I'.
+
+      IF reguh-vblnr NE space.
+        int_tabla-monto   = int_tabla-monto + reguh-rbetr.
+        int_tabla-npagos  = int_tabla-npagos + 1.
+        int_tabla-nchequ  = int_tabla-nchequ + 1.
+      ELSE.
+        CONCATENATE '@5C\Q' 'Excepción' '@' INTO int_tabla-semaforo.
+
+      ENDIF.
+
+    ENDIF.
+
+  ENDSELECT.
+
+  IF int_tabla-npagos = 0.
+    CLEAR int_tabla-listopara.
+    int_tabla-estado = 'E'.
+  ENDIF.
+ENDFORM.                    " BUSCO_RESUMEN
