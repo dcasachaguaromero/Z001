@@ -250,8 +250,18 @@ FORM cargar_excel.
                 wf_error = 'X'.
               ELSE.
                 w_correln = w_correl.
-                SELECT SINGLE * FROM zmm_correlativo
-                  WHERE correlativo = w_correln.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*                SELECT SINGLE * FROM zmm_correlativo
+*                  WHERE correlativo = w_correln.
+*
+* NEW CODE
+                SELECT *
+                UP TO 1 ROWS  FROM zmm_correlativo
+                  WHERE correlativo = w_correln ORDER BY PRIMARY KEY.
+
+                ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
                 IF sy-subrc = 0.
                   wc_existe = 'X'.
                 ENDIF.

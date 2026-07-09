@@ -124,9 +124,20 @@ ENDFORM.                    "ELIMINO_BASE
 *&---------------------------------------------------------------------*
 MODULE valido-pantalla_0200 INPUT.
 
-  SELECT SINGLE descrip FROM zcb_iter
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE descrip FROM zcb_iter
+*    INTO zcb_iter_cc_est-descrip
+*    WHERE coditer = zcb_iter_cc_est-coditer.
+*
+* NEW CODE
+  SELECT descrip
+  UP TO 1 ROWS  FROM zcb_iter
     INTO zcb_iter_cc_est-descrip
-    WHERE coditer = zcb_iter_cc_est-coditer.
+    WHERE coditer = zcb_iter_cc_est-coditer ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *  IF sy-ucomm <> 'CANC'.
 *    PERFORM valido_0200.

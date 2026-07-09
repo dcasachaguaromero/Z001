@@ -169,16 +169,37 @@ FORM valido_0200.
     IF zfimotemisan_est-bukrs IS INITIAL.
       MESSAGE e004(zfi) WITH 'Debe ingresar Sociedad'.
     ELSE.
-      SELECT SINGLE * FROM t001
-             WHERE bukrs = zfimotemisan_est-bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM t001
+*             WHERE bukrs = zfimotemisan_est-bukrs.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM t001
+             WHERE bukrs = zfimotemisan_est-bukrs ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc <> 0.
         MESSAGE e004(zfi) WITH 'Debe ingresar Sociedad Válida'.
       ELSE.
         zfimotemisan_est-butxt = t001-butxt.
       ENDIF.
-      SELECT SINGLE * FROM zfimotemisan
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zfimotemisan
+*          WHERE bukrs  = zfimotemisan_est-bukrs
+*            AND zmotiv = zfimotemisan_est-zmotiv.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zfimotemisan
           WHERE bukrs  = zfimotemisan_est-bukrs
-            AND zmotiv = zfimotemisan_est-zmotiv.
+            AND zmotiv = zfimotemisan_est-zmotiv ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc = 0.
         MESSAGE e004(zfi) WITH 'Sociedad/Motivo ya existe en tabla'.
       ENDIF.
@@ -188,9 +209,20 @@ FORM valido_0200.
   IF zfimotemisan_est-zmotiv IS INITIAL.
     MESSAGE e004(zfi) WITH 'Debe ingresar MOTIVO DE EMISION'.
   ELSE.
-    SELECT SINGLE * FROM zmot_emis
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM zmot_emis
+*          WHERE bukrs = zfimotemisan_est-bukrs
+*            AND zzmot_emis = zfimotemisan_est-zmotiv.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM zmot_emis
           WHERE bukrs = zfimotemisan_est-bukrs
-            AND zzmot_emis = zfimotemisan_est-zmotiv.
+            AND zzmot_emis = zfimotemisan_est-zmotiv ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc <> 0.
       MESSAGE e004(zfi) WITH 'MOTIVO Emisión no valido para sociedad'.
     ENDIF.

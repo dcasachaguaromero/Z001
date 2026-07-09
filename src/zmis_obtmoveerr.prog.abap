@@ -81,13 +81,27 @@ exec sql.
   commit
 endexec.
 
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from bkpf
+*  into corresponding fields of table it_bkpf
+*  where bukrs in s_bukrs
+*  and budat ge p_fecini
+*  and budat lt p_fecfin
+*  and gjahr eq p_gjahr.
+*
+* NEW CODE
+SELECT *
+
   from bkpf
   into corresponding fields of table it_bkpf
   where bukrs in s_bukrs
   and budat ge p_fecini
   and budat lt p_fecfin
-  and gjahr eq p_gjahr.
+  and gjahr eq p_gjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 loop at it_bkpf.
     clear: ihkont,iprctr,isgtxt,ilifnr,izzprestac,izzunid_pro,izzdesc_est,izzmot_emis,izzrut_terc,izz_agencia,ishkzg,idmbtr.
@@ -119,10 +133,22 @@ AND ( ( HKONT GE '4100000000' AND HKONT LE '5511110000' ) OR ( HKONT GE '9000000
       refresh: it_lfa1.
 
       if ilifnr ne '' and izzrut_terc eq ''.
-        select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single *
+*          into corresponding fields of it_lfa1
+*          from lfa1
+*          where lifnr eq ilifnr.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS 
           into corresponding fields of it_lfa1
           from lfa1
-          where lifnr eq ilifnr.
+          where lifnr eq ilifnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         if sy-subrc = 0.
           izzrut_terc = ilifnr.
@@ -135,10 +161,22 @@ AND ( ( HKONT GE '4100000000' AND HKONT LE '5511110000' ) OR ( HKONT GE '9000000
         endif.
 
       elseif ilifnr eq '' and izzrut_terc ne ''.
-        select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single *
+*          into corresponding fields of it_lfa1
+*          from lfa1
+*          where lifnr eq izzrut_terc.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS 
           into corresponding fields of it_lfa1
           from lfa1
-          where lifnr eq izzrut_terc.
+          where lifnr eq izzrut_terc ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         if sy-subrc = 0.
           izznom_prov = it_lfa1-name1.
@@ -150,10 +188,22 @@ AND ( ( HKONT GE '4100000000' AND HKONT LE '5511110000' ) OR ( HKONT GE '9000000
         endif.
 
       elseif ilifnr ne '' and izzrut_terc ne ''.
-        select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single *
+*          into corresponding fields of it_lfa1
+*          from lfa1
+*          where lifnr eq izzrut_terc.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS 
           into corresponding fields of it_lfa1
           from lfa1
-          where lifnr eq izzrut_terc.
+          where lifnr eq izzrut_terc ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         if sy-subrc = 0.
           izznom_prov = it_lfa1-name1.

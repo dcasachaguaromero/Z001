@@ -17,13 +17,28 @@ PARAMETERS: P_LAUFD type  LAUFD,
 
 START-OF-SELECTION.
 
-SELECT single * from reguh CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*SELECT single * from reguh CLIENT SPECIFIED
+*  where
+*      MANDT	= sy-mandt
+*      and LAUFD = P_LAUFD
+*      and LAUFI	= P_LAUFI
+*      and XVORL =	P_XVORL
+*      and IDENTIF_PAGO = P_IPAGO.
+*
+* NEW CODE
+SELECT *
+UP TO 1 ROWS  from reguh CLIENT SPECIFIED
   where
       MANDT	= sy-mandt
       and LAUFD = P_LAUFD
       and LAUFI	= P_LAUFI
       and XVORL =	P_XVORL
-      and IDENTIF_PAGO = P_IPAGO.
+      and IDENTIF_PAGO = P_IPAGO ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc eq 0.
     REGUH-IDENTIF_PAGO = P_MIPAG.
     REGUH-USUARIO_ENVIO = P_USER.

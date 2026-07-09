@@ -373,10 +373,22 @@ form skat_lesen using
      text like skat-txt50.
 
   clear text.
-  select single * from skat
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from skat
+*         where spras = sy-langu
+*         and   ktopl = t001-ktopl
+*         and   saknr = skb1-saknr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from skat
          where spras = sy-langu
          and   ktopl = t001-ktopl
-         and   saknr = skb1-saknr.
+         and   saknr = skb1-saknr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   check sy-subrc = 0.
   if not skat-txt50 is initial.
     text = skat-txt50.
@@ -511,10 +523,22 @@ endform.                    "suchen_in_feldtab
 * <---  T01_ZFELD  Zielfeld für den gelesenen Text                    *
 *---------------------------------------------------------------------*
 form text_aus_050t using t01_txtnr t01_zfeld.
-  select single * from  t050t
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from  t050t
+*                  where spras = sy-langu
+*                  and   msgid = 'RF'
+*                  and   txtnr = t01_txtnr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from  t050t
                   where spras = sy-langu
                   and   msgid = 'RF'
-                  and   txtnr = t01_txtnr.
+                  and   txtnr = t01_txtnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if sy-subrc = 0.
     t01_zfeld = t050t-ltext.
   else.
@@ -789,8 +813,17 @@ form xt052_fuellen.
   endif.
 
 *------- XT052 füllen --------------------------------------------------
-  select * from t052 into table xt052
-         where (wtab).
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * from t052 into table xt052
+*         where (wtab).
+*
+* NEW CODE
+  SELECT *
+ from t052 into table xt052
+         where (wtab) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 endform.                    "xt052_fuellen
 
@@ -811,10 +844,22 @@ form zbtxt_fuellen.
     zbtxt-zterm = xt052-zterm.
 
 *------- Beschreibung aus T052U ----------------------------------------
-    select single * from t052u
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    select single * from t052u
+*           where spras = sy-langu
+*           and   zterm = xt052-zterm
+*           and   ztagg = xt052-ztagg.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  from t052u
            where spras = sy-langu
            and   zterm = xt052-zterm
-           and   ztagg = xt052-ztagg.
+           and   ztagg = xt052-ztagg ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     if  sy-subrc = 0
     and not t052u-text1 is initial.
       zbtxt-ztext = t052u-text1.
@@ -850,10 +895,22 @@ form zbtxt_fuellen_print.
 
 *------- Beschreibung aus T052U, falls gewünscht -----------------------
     if i_xt052u <> space.
-      select single * from t052u
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      select single * from t052u
+*             where spras = i_langu
+*             and   zterm = xt052-zterm
+*             and   ztagg = xt052-ztagg.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  from t052u
              where spras = i_langu
              and   zterm = xt052-zterm
-             and   ztagg = xt052-ztagg.
+             and   ztagg = xt052-ztagg ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       if  sy-subrc = 0
       and not t052u-text1 is initial.
         zbtxt-ztext = t052u-text1.
@@ -866,10 +923,22 @@ form zbtxt_fuellen_print.
           select * from t052s
             where zterm = xt052-zterm
             order by primary key.
-            select single * from t052u
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            select single * from t052u
+*              where spras = i_langu
+*                and zterm = t052s-ratzt
+*                and ztagg = '00'.
+*
+* NEW CODE
+            SELECT *
+            UP TO 1 ROWS  from t052u
               where spras = i_langu
                 and zterm = t052s-ratzt
-                and ztagg = '00'.
+                and ztagg = '00' ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             if sy-subrc = 0 and not t052u-text1 is initial.
               zbtxt-ztext = t052u-text1.
               append zbtxt.
@@ -1118,8 +1187,17 @@ form ztext_ermitteln_print using
 
 *------- ...... Beschreibung der Zahlungsbed. aus der Rate -------------
 *ResQ Comment:Correction not required 24/12/2019 EY_DES02 ECDK917080 *
-      select * from t052 into xt052
-             where zterm = t052s-ratzt.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      select * from t052 into xt052
+*             where zterm = t052s-ratzt.
+*
+* NEW CODE
+      SELECT *
+ from t052 into xt052
+             where zterm = t052s-ratzt ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
         perform ztext_ermitteln using zbtxt-ztext.
       endselect.
     endselect.

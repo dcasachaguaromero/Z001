@@ -24,12 +24,26 @@ data belnr like bseg-belnr.
 START-OF-SELECTION.
 MOVE p_belnr to belnr.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-SELECT single * from bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*SELECT single * from bseg
+*  where
+*      BUKRS = bukrs
+*      and BELNR = belnr
+*      and GJAHR = gjahr
+*      and BUZEI = buzei.
+*
+* NEW CODE
+SELECT *
+UP TO 1 ROWS  from bseg
   where
       BUKRS = bukrs
       and BELNR = belnr
       and GJAHR = gjahr
-      and BUZEI = buzei.
+      and BUZEI = buzei ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc eq 0.
     bseg-ZZMOT_EMIS = ZZMEMI.
     MODIFY bseg.

@@ -184,9 +184,20 @@ AT SELECTION-SCREEN ON p_coste.
 
   nocentro = 'S'.
 
-  SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *
+*    FROM csks
+*    WHERE kostl EQ p_coste.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS 
     FROM csks
-    WHERE kostl EQ p_coste.
+    WHERE kostl EQ p_coste ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     CONCATENATE csks-stras '---' csks-ort01 INTO value-text.
@@ -200,9 +211,19 @@ AT SELECTION-SCREEN ON p_coste.
     nocentro = 'N'.
   ENDIF.
 
-  SELECT * FROM zdireccguia
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM zdireccguia
+*    WHERE bukrs = lv_bukrs
+*      AND kostl = p_coste.
+*
+* NEW CODE
+  SELECT *
+ FROM zdireccguia
     WHERE bukrs = lv_bukrs
-      AND kostl = p_coste.
+      AND kostl = p_coste ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     n3 = n3 + 1.
     CONCATENATE zdireccguia-stras '---' zdireccguia-ort01 INTO value-text.
     IF n3 = 1 AND n4 = 0.
@@ -243,10 +264,22 @@ START-OF-SELECTION.
 
         n1 = p_list.
 
-        SELECT  SINGLE * FROM zdireccguia
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT  SINGLE * FROM zdireccguia
+*          WHERE bukrs = lv_bukrs
+*          AND kostl = p_coste
+*          AND correl = n1.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM zdireccguia
           WHERE bukrs = lv_bukrs
           AND kostl = p_coste
-          AND correl = n1.
+          AND correl = n1 ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc = 0.
           lv_calle  = zdireccguia-stras.
@@ -260,13 +293,35 @@ START-OF-SELECTION.
 * START-OF-SELECTION
 *--------------------------------------------------------------------*
 
-        SELECT SINGLE bukrs INTO cia
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE bukrs INTO cia
+*        FROM mseg   WHERE zznfolio EQ p_folio
+*        AND  kostl  EQ p_coste.
+*
+* NEW CODE
+        SELECT bukrs
+        UP TO 1 ROWS  INTO cia
         FROM mseg   WHERE zznfolio EQ p_folio
-        AND  kostl  EQ p_coste.
+        AND  kostl  EQ p_coste ORDER BY PRIMARY KEY.
 
-        SELECT SINGLE zznfolio INTO x_folio
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE zznfolio INTO x_folio
+*        FROM mseg
+*        WHERE zznfolio EQ p_folio AND bukrs = cia.
+*
+* NEW CODE
+        SELECT zznfolio
+        UP TO 1 ROWS  INTO x_folio
         FROM mseg
-        WHERE zznfolio EQ p_folio AND bukrs = cia.
+        WHERE zznfolio EQ p_folio AND bukrs = cia ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF x_folio IS  INITIAL. " si existe.
           CLEAR: x_folio.
@@ -290,15 +345,36 @@ START-OF-SELECTION.
 *----------------------------------------------------------------------*
 FORM seleccion_datos.
 
-  SELECT mblnr mjahr zeile werks kostl zzunid_pro matnr menge meins dmbtr bwart smbln sjahr smblp INTO CORRESPONDING FIELDS OF TABLE gt_alv
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT mblnr mjahr zeile werks kostl zzunid_pro matnr menge meins dmbtr bwart smbln sjahr smblp INTO CORRESPONDING FIELDS OF TABLE gt_alv
+*  FROM mseg   WHERE zznfolio EQ p_folio
+*  AND  kostl  EQ p_coste.
+*
+* NEW CODE
+  SELECT mblnr mjahr zeile werks kostl zzunid_pro matnr menge meins dmbtr bwart smbln sjahr smblp
+ INTO CORRESPONDING FIELDS OF TABLE gt_alv
   FROM mseg   WHERE zznfolio EQ p_folio
-  AND  kostl  EQ p_coste.
+  AND  kostl  EQ p_coste ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   LOOP AT gt_alv INTO gs_alv.
 
-    SELECT SINGLE maktg INTO gs_alv-descrip_material
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE maktg INTO gs_alv-descrip_material
+*    FROM makt
+*    WHERE matnr EQ gs_alv-matnr.
+*
+* NEW CODE
+    SELECT maktg
+    UP TO 1 ROWS  INTO gs_alv-descrip_material
     FROM makt
-    WHERE matnr EQ gs_alv-matnr.
+    WHERE matnr EQ gs_alv-matnr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     MODIFY gt_alv FROM gs_alv INDEX  sy-tabix.
 
@@ -552,20 +628,53 @@ FORM datos_impresion.
 *  FROM csks
 *  WHERE kostl EQ p_coste.
 
-  SELECT SINGLE bukrs name1 INTO (lv_bukrs, lv_nombre)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE bukrs name1 INTO (lv_bukrs, lv_nombre)
+*  FROM csks
+*  WHERE kostl EQ p_coste.
+*
+* NEW CODE
+  SELECT bukrs name1
+  UP TO 1 ROWS  INTO (lv_bukrs, lv_nombre)
   FROM csks
-  WHERE kostl EQ p_coste.
+  WHERE kostl EQ p_coste ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *&---------------------------------------------------------------------*
 
-  SELECT SINGLE name1 INTO lv_bukrs_name
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE name1 INTO lv_bukrs_name
+*   FROM t880
+*    WHERE rcomp EQ lv_bukrs.
+*
+* NEW CODE
+  SELECT name1
+  UP TO 1 ROWS  INTO lv_bukrs_name
    FROM t880
-    WHERE rcomp EQ lv_bukrs.
+    WHERE rcomp EQ lv_bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *ResQ Comment:Correction not required as Select Single is used 19/12/2019 EY_DES04 ECDK917080 *
-  SELECT SINGLE paval INTO lv_rut
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE paval INTO lv_rut
+*   FROM t001z
+*   WHERE bukrs EQ lv_bukrs.
+*
+* NEW CODE
+  SELECT paval
+  UP TO 1 ROWS  INTO lv_rut
    FROM t001z
-   WHERE bukrs EQ lv_bukrs.
+   WHERE bukrs EQ lv_bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   " DETALLE
 
@@ -727,9 +836,20 @@ MODULE validacion INPUT.
 
   DATA: lv_folio TYPE mseg-zznfolio.
 
-  SELECT SINGLE zznfolio INTO lv_folio
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE zznfolio INTO lv_folio
+*    FROM mseg
+*    WHERE zznfolio EQ p_num AND bukrs = cia.
+*
+* NEW CODE
+  SELECT zznfolio
+  UP TO 1 ROWS  INTO lv_folio
     FROM mseg
-    WHERE zznfolio EQ p_num AND bukrs = cia.
+    WHERE zznfolio EQ p_num AND bukrs = cia ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF lv_folio IS NOT INITIAL. " si existe.
     CLEAR: lv_folio.

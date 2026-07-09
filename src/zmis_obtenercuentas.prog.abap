@@ -28,9 +28,19 @@ selection-screen begin of block b1 with frame.
   select-options s_bukrs for it_skb1-bukrs obligatory.
 selection-screen end of block b1.
 
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from skb1 into table it_skb1
+*  where bukrs in s_bukrs.
+*
+* NEW CODE
+SELECT *
+
   from skb1 into table it_skb1
-  where bukrs in s_bukrs.
+  where bukrs in s_bukrs ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 *Obtener  los codigos de cuentas y agrego a rango
 loop at it_skb1.
@@ -44,10 +54,21 @@ sort r_saknr.
 delete ADJACENT DUPLICATES FROM r_saknr.
 
 * Solo se sacan las descripciones de las cuentas que existen en la tabla interna.
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from skat into table it_skat
+*  where saknr in r_saknr
+*  and ktopl eq 'B100'.
+*
+* NEW CODE
+SELECT *
+
   from skat into table it_skat
   where saknr in r_saknr
-  and ktopl eq 'B100'.
+  and ktopl eq 'B100' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 * Llena la tabla de salida
 loop at it_skb1.

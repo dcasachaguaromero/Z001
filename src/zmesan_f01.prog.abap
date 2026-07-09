@@ -170,7 +170,16 @@ FORM proceso.
 
   SELECT * FROM zfimotemisan.
     MOVE-CORRESPONDING zfimotemisan TO int_tabla.
-    SELECT SINGLE * FROM t001 WHERE bukrs = zfimotemisan-bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t001 WHERE bukrs = zfimotemisan-bukrs.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t001 WHERE bukrs = zfimotemisan-bukrs ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       MOVE t001-butxt TO  int_tabla-butxt.
     ENDIF.

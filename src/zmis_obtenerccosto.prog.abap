@@ -17,9 +17,19 @@ types: begin of est_salida,
 data: it_salida type standard table of est_salida with header line,
       w_archivo(100) type c.
 
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from cskt into CORRESPONDING FIELDS OF TABLE it_salida
+*  where kokrs eq 'BMSA'.
+*
+* NEW CODE
+SELECT *
+
   from cskt into CORRESPONDING FIELDS OF TABLE it_salida
-  where kokrs eq 'BMSA'.
+  where kokrs eq 'BMSA' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 exec sql.
   connect to 'MISGES' as 'con'

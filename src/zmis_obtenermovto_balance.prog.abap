@@ -69,13 +69,27 @@ selection-screen begin of block b2 with frame.
              p_fecfin type datum.
 selection-screen end of block b2.
 
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from bkpf
+*  into corresponding fields of table it_bkpf
+*  where bukrs in s_bukrs
+*  and budat ge p_fecini
+*  and budat lt p_fecfin
+*  and gjahr eq '2010'.
+*
+* NEW CODE
+SELECT *
+
   from bkpf
   into corresponding fields of table it_bkpf
   where bukrs in s_bukrs
   and budat ge p_fecini
   and budat lt p_fecfin
-  and gjahr eq '2010'.
+  and gjahr eq '2010' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 sort it_bkpf.
 delete adjacent duplicates from it_bkpf.
@@ -125,10 +139,22 @@ loop at it_bkpf.
       wa-zzrut_terc = it_bseg-lifnr.
 
       if it_bseg-lifnr ne ''.
-        select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single *
+*          into corresponding fields of it_lfa1
+*          from lfa1
+*          where lifnr eq it_bseg-lifnr.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS 
           into corresponding fields of it_lfa1
           from lfa1
-          where lifnr eq it_bseg-lifnr.
+          where lifnr eq it_bseg-lifnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         wa-zznom_prov = it_lfa1-name1.
         wa-zzrut_prov = it_lfa1-stcd1.

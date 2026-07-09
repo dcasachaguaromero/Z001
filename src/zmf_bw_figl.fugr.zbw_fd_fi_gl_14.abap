@@ -138,18 +138,37 @@ FUNCTION zbw_fd_fi_gl_14.
 * In other cases, it may be impossible and some estimated value has to
 * be determined.
       OPEN CURSOR WITH HOLD s_cursor FOR
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT rclnt ryear docnr rldnr rbukrs docln activ rmvct rtcur runit
+*             awtyp rrcty rvers logsys racct cost_elem rcntr prctr rfarea
+*             rbusa kokrs segment zzprestac zzdesc_est zzmot_emis zzrut_terc
+*             zzunid_pro zz_agencia scntr pprctr sfarea sbusa rassc psegment
+*             tsl hsl ksl osl msl wsl drcrk poper rwcur gjahr budat belnr
+*             buzei bschl bstat linetype xsplitmod timestamp
+*        FROM faglflexa
+*       WHERE ryear  IN l_r_ryear AND
+*             docnr  IN l_r_docnr AND
+*             rldnr  IN l_r_rldnr AND
+*             rbukrs IN l_r_rbukrs AND
+*             budat  IN l_r_budat.
+*
+* NEW CODE
       SELECT rclnt ryear docnr rldnr rbukrs docln activ rmvct rtcur runit
              awtyp rrcty rvers logsys racct cost_elem rcntr prctr rfarea
              rbusa kokrs segment zzprestac zzdesc_est zzmot_emis zzrut_terc
              zzunid_pro zz_agencia scntr pprctr sfarea sbusa rassc psegment
              tsl hsl ksl osl msl wsl drcrk poper rwcur gjahr budat belnr
              buzei bschl bstat linetype xsplitmod timestamp
+
         FROM faglflexa
        WHERE ryear  IN l_r_ryear AND
              docnr  IN l_r_docnr AND
              rldnr  IN l_r_rldnr AND
              rbukrs IN l_r_rbukrs AND
-             budat  IN l_r_budat.
+             budat  IN l_r_budat ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     ENDIF.                             "First data package ?
 
 * Fetch records into interface table.
@@ -165,30 +184,73 @@ FUNCTION zbw_fd_fi_gl_14.
 
     ELSE.
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT *
+*        FROM bkpf
+*        INTO CORRESPONDING FIELDS OF TABLE it_bkpf
+*        FOR ALL ENTRIES IN e_t_data
+*       WHERE bukrs = e_t_data-rbukrs AND
+*             belnr = e_t_data-docnr  AND
+*             gjahr = e_t_data-ryear.
+*
+* NEW CODE
       SELECT *
+
         FROM bkpf
         INTO CORRESPONDING FIELDS OF TABLE it_bkpf
         FOR ALL ENTRIES IN e_t_data
        WHERE bukrs = e_t_data-rbukrs AND
              belnr = e_t_data-docnr  AND
-             gjahr = e_t_data-ryear.
+             gjahr = e_t_data-ryear ORDER BY PRIMARY KEY.
 
+* END. 07-07-2026 - ATC - ATC-03
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT *
+*        FROM bseg
+*        INTO CORRESPONDING FIELDS OF TABLE it_bseg
+*        FOR ALL ENTRIES IN e_t_data
+*       WHERE bukrs = e_t_data-rbukrs AND
+*             belnr = e_t_data-docnr  AND
+*             gjahr = e_t_data-ryear  AND
+*             buzei = e_t_data-buzei.
+*
+* NEW CODE
       SELECT *
+
         FROM bseg
         INTO CORRESPONDING FIELDS OF TABLE it_bseg
         FOR ALL ENTRIES IN e_t_data
        WHERE bukrs = e_t_data-rbukrs AND
              belnr = e_t_data-docnr  AND
              gjahr = e_t_data-ryear  AND
-             buzei = e_t_data-buzei.
+             buzei = e_t_data-buzei ORDER BY PRIMARY KEY.
 
+* END. 07-07-2026 - ATC - ATC-03
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT *
+*        FROM bseg_add
+*        INTO CORRESPONDING FIELDS OF TABLE it_bseg_add
+*        FOR ALL ENTRIES IN e_t_data
+*       WHERE bukrs = e_t_data-rbukrs AND
+*             belnr = e_t_data-docnr  AND
+*             gjahr = e_t_data-ryear.
+*
+* NEW CODE
       SELECT *
+
         FROM bseg_add
         INTO CORRESPONDING FIELDS OF TABLE it_bseg_add
         FOR ALL ENTRIES IN e_t_data
        WHERE bukrs = e_t_data-rbukrs AND
              belnr = e_t_data-docnr  AND
-             gjahr = e_t_data-ryear.
+             gjahr = e_t_data-ryear ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 *          AND buzei = e_t_data-buzei.
 
       LOOP AT e_t_data INTO wa_data.

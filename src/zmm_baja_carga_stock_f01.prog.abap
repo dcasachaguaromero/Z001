@@ -512,7 +512,7 @@ FORM carga_stock .
       EXIT.
     ENDIF.
 *
-    CALL FUNCTION 'BAPI_GOODSMVT_CREATE'
+    CALL FUNCTION 'BAPI_GOODSMVT_CREATE' "#EC CI_USAGE_OK[2438131]
       EXPORTING
         goodsmvt_header  = lw_gmhead
         goodsmvt_code    = lw_gmcode
