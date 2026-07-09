@@ -6,10 +6,22 @@
 
 form nvo_formato_012.
 REFRESH: ti_adrc, file.
-  select single adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single adrnr
+*         from t001
+*         into v_adrnr
+*         where bukrs eq bukrs.
+*
+* NEW CODE
+  SELECT adrnr
+  UP TO 1 ROWS 
          from t001
          into v_adrnr
-         where bukrs eq bukrs.
+         where bukrs eq bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   f_adrnr = v_adrnr.
 
@@ -58,9 +70,20 @@ REFRESH: ti_adrc, file.
        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  SELECT SINGLE *  FROM zfolio_pagobanco  WHERE bukrs  = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *  FROM zfolio_pagobanco  WHERE bukrs  = bukrs
+*                                            AND ubnkl  = tabla_00-ubnkl
+*                                            AND codigo = '001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS   FROM zfolio_pagobanco  WHERE bukrs  = bukrs
                                             AND ubnkl  = tabla_00-ubnkl
-                                            AND codigo = '001'.
+                                            AND codigo = '001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     zfolio_pagobanco-bukrs = bukrs.
     zfolio_pagobanco-codigo ='001'.
@@ -106,15 +129,39 @@ REFRESH: ti_adrc, file.
       CLEAR:  f_adrnr, v_adrnr, ti_adrc, v_mail.
       REFRESH ti_adrc.
 
-      SELECT SINGLE adrnd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE adrnd
+*             INTO v_adrnr
+*             FROM knvk
+*             WHERE lifnr EQ tabla_00-lifnr.
+*
+* NEW CODE
+      SELECT adrnd
+      UP TO 1 ROWS 
              INTO v_adrnr
              FROM knvk
-             WHERE lifnr EQ tabla_00-lifnr.
+             WHERE lifnr EQ tabla_00-lifnr ORDER BY PRIMARY KEY.
 
-      SELECT SINGLE smtp_addr
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE smtp_addr
+*             INTO v_mail
+*             FROM adr6
+*             WHERE addrnumber EQ tabla_00-adrnr.
+*
+* NEW CODE
+      SELECT smtp_addr
+      UP TO 1 ROWS 
              INTO v_mail
              FROM adr6
-             WHERE addrnumber EQ tabla_00-adrnr.
+             WHERE addrnumber EQ tabla_00-adrnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       f_adrnr = v_adrnr.
 
@@ -192,11 +239,23 @@ REFRESH: ti_adrc, file.
 * --------------------------------------------------------------------------
 * AQUI DEBE ESTAR EL LOOP DE REGUP
 * --------------------------------------------------------------------------
-      SELECT * FROM  regup   WHERE   laufd = tabla_00-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM  regup   WHERE   laufd = tabla_00-laufd
+*                               AND   laufi = tabla_00-laufi
+*                               AND   xvorl = tabla_00-xvorl
+*                               AND   lifnr = tabla_00-lifnr
+*                               AND   zbukr = tabla_00-zbukr.
+*
+* NEW CODE
+      SELECT *
+ FROM  regup   WHERE   laufd = tabla_00-laufd
                                AND   laufi = tabla_00-laufi
                                AND   xvorl = tabla_00-xvorl
                                AND   lifnr = tabla_00-lifnr
-                               AND   zbukr = tabla_00-zbukr.
+                               AND   zbukr = tabla_00-zbukr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
          v_monto13 = regup-dmbtr.
 
@@ -211,13 +270,28 @@ REFRESH: ti_adrc, file.
 
          clear bsik.
 
-         select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*         select single *
+*            from  bsik
+*           where lifnr  = regup-lifnr
+*             and bukrs  = regup-bukrs
+*             and gjahr  = regup-gjahr
+*             and belnr  = regup-belnr
+*             and buzei  = regup-buzei.
+*
+* NEW CODE
+         SELECT *
+         UP TO 1 ROWS 
             from  bsik
            where lifnr  = regup-lifnr
              and bukrs  = regup-bukrs
              and gjahr  = regup-gjahr
              and belnr  = regup-belnr
-             and buzei  = regup-buzei.
+             and buzei  = regup-buzei ORDER BY PRIMARY KEY.
+
+         ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
          perform busca_tipdoc012.
 
@@ -540,10 +614,23 @@ ENDFORM.                    "contabilizacion
 *&---------------------------------------------------------------------*
 FORM Busca_tipdoc012.
  Clear tipdoc.
- SELECT SINGLE codban
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+* SELECT SINGLE codban
+*         into tipdoc
+*         FROM  ztd_pagobanco
+*         WHERE banco  = v_banco
+*           and codigo = bsik-bukrs.
+*
+* NEW CODE
+ SELECT codban
+ UP TO 1 ROWS 
          into tipdoc
          FROM  ztd_pagobanco
          WHERE banco  = v_banco
-           and codigo = bsik-bukrs.
+           and codigo = bsik-bukrs ORDER BY PRIMARY KEY.
+
+ ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 ENDFORM.                    "busca tipo documento

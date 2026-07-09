@@ -21,10 +21,21 @@ if p_todo eq 'X'.
   clear: p_belnr[], p_gjhar[], p_belnr, p_gjhar.
 endif.
 
-SELECT * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T01
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*SELECT * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T01
+*  from ZFITR020_T01
+*  WHERE BELNR in p_belnr
+*    and GJAHR in p_gjhar.
+*
+* NEW CODE
+SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T01
   from ZFITR020_T01
   WHERE BELNR in p_belnr
-    and GJAHR in p_gjhar.
+    and GJAHR in p_gjhar ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 LOOP AT ti_ZFITR020_T01.
   delete ZFITR020_T01 from ti_ZFITR020_T01.

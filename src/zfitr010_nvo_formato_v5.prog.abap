@@ -39,8 +39,18 @@ FORM nvo_formato.
   CLEAR:   ti_adrc, file, v_adrnr, numero, num_c, rut, f_rut, v_rut, dv, v_cod, v_flag, v_cta, v_vta, v_cla, td, lineas, monto_z.
   REFRESH: ti_adrc, file.
 
-  SELECT SINGLE adrnr  FROM t001  INTO v_adrnr
-                       WHERE bukrs EQ bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE adrnr  FROM t001  INTO v_adrnr
+*                       WHERE bukrs EQ bukrs.
+*
+* NEW CODE
+  SELECT adrnr
+  UP TO 1 ROWS   FROM t001  INTO v_adrnr
+                       WHERE bukrs EQ bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   f_adrnr = v_adrnr.
   IF f_adrnr IS NOT INITIAL.
     PERFORM datos_direccion USING    f_adrnr
@@ -77,11 +87,24 @@ FORM nvo_formato.
   file-linea+49(1)      = dv.
 
   READ TABLE tabla_00 INDEX 1.
-  SELECT SINGLE *  FROM bsak
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *  FROM bsak
+*                   WHERE bukrs EQ bukrs
+*                   AND   lifnr EQ tabla_00-lifnr
+*                   AND   augbl EQ tabla_00-vblnr
+*                   AND   belnr <> tabla_00-vblnr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS   FROM bsak
                    WHERE bukrs EQ bukrs
                    AND   lifnr EQ tabla_00-lifnr
                    AND   augbl EQ tabla_00-vblnr
-                   AND   belnr <> tabla_00-vblnr.
+                   AND   belnr <> tabla_00-vblnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   READ TABLE ti_exc WITH KEY bukrs = bukrs
                              hbkid = tabla_00-hbkid
                              zmotiv = bsak-zzmot_emis.
@@ -135,8 +158,18 @@ FORM nvo_formato.
        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  SELECT SINGLE *  FROM zfolio_bbva  WHERE bukrs  = bukrs
-                                     AND codigo = '001'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *  FROM zfolio_bbva  WHERE bukrs  = bukrs
+*                                     AND codigo = '001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS   FROM zfolio_bbva  WHERE bukrs  = bukrs
+                                     AND codigo = '001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     zfolio_bbva-bukrs = bukrs.
     zfolio_bbva-codigo ='001'.
@@ -177,11 +210,31 @@ FORM nvo_formato.
     CLEAR:  f_adrnr, v_adrnr, ti_adrc, v_mail.
     REFRESH ti_adrc.
 
-    SELECT SINGLE adrnd  INTO v_adrnr  FROM knvk
-       WHERE lifnr EQ tabla_00-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE adrnd  INTO v_adrnr  FROM knvk
+*       WHERE lifnr EQ tabla_00-lifnr.
+*
+* NEW CODE
+    SELECT adrnd
+    UP TO 1 ROWS   INTO v_adrnr  FROM knvk
+       WHERE lifnr EQ tabla_00-lifnr ORDER BY PRIMARY KEY.
 
-    SELECT SINGLE smtp_addr  INTO v_mail  FROM adr6
-       WHERE addrnumber EQ tabla_00-adrnr.
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE smtp_addr  INTO v_mail  FROM adr6
+*       WHERE addrnumber EQ tabla_00-adrnr.
+*
+* NEW CODE
+    SELECT smtp_addr
+    UP TO 1 ROWS   INTO v_mail  FROM adr6
+       WHERE addrnumber EQ tabla_00-adrnr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     f_adrnr = v_adrnr.
 
@@ -304,12 +357,26 @@ AND VBLNR = TABLA_00-VBLNR ORDER BY PRIMARY KEY.
 * CBD SE CAMBIA V_DOC POR EL COMPROBANTE POR LA ASIGNACION (XBLNR).
 
       CLEAR regup-sgtxt.
-      SELECT SINGLE bktxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE bktxt
+*        INTO regup-sgtxt
+*        FROM bkpf
+*        WHERE bukrs = regup-bukrs
+*          AND belnr = regup-belnr
+*          AND gjahr = regup-gjahr.
+*
+* NEW CODE
+      SELECT bktxt
+      UP TO 1 ROWS 
         INTO regup-sgtxt
         FROM bkpf
         WHERE bukrs = regup-bukrs
           AND belnr = regup-belnr
-          AND gjahr = regup-gjahr.
+          AND gjahr = regup-gjahr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       file-linea+33(20)   = regup-sgtxt.
 
 *    Resta montos correspondientes a descuentos.
@@ -333,11 +400,24 @@ AND VBLNR = TABLA_00-VBLNR ORDER BY PRIMARY KEY.
       file-linea+53(15)   = v_monto.
 
 
-      SELECT SINGLE * FROM bsak
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM bsak
+*                      WHERE bukrs EQ bukrs
+*                      AND lifnr EQ tabla_00-lifnr
+*                      AND augbl EQ tabla_00-vblnr
+*                      AND belnr <> tabla_00-vblnr.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM bsak
                       WHERE bukrs EQ bukrs
                       AND lifnr EQ tabla_00-lifnr
                       AND augbl EQ tabla_00-vblnr
-                      AND belnr <> tabla_00-vblnr.
+                      AND belnr <> tabla_00-vblnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       file-linea+68(20)   = folio_aux.
       file-linea+88(10)   = bsak-zzmot_emis.
       APPEND file.

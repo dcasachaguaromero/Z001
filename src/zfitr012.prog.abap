@@ -145,17 +145,39 @@ AT SELECTION-SCREEN ON bukrs.
     MESSAGE e526(icc_tr) WITH bukrs.
   ENDIF.
 
-  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 START-OF-SELECTION.
 
-  SELECT *  FROM  reguh   INTO CORRESPONDING FIELDS OF TABLE consulta1
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  FROM  reguh   INTO CORRESPONDING FIELDS OF TABLE consulta1
+*    WHERE laufd IN  v_fecha
+*                          AND   zbukr = bukrs
+*                          AND   hbkid IN v_hbkid
+*                          AND   hktid IN v_hktid
+*                          AND   identif_pago <>''.
+*
+* NEW CODE
+  SELECT *
+  FROM  reguh   INTO CORRESPONDING FIELDS OF TABLE consulta1
     WHERE laufd IN  v_fecha
                           AND   zbukr = bukrs
                           AND   hbkid IN v_hbkid
                           AND   hktid IN v_hktid
-                          AND   identif_pago <>''.
+                          AND   identif_pago <>'' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
   SORT consulta1 BY laufd laufi hbkid hktid.

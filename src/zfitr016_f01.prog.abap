@@ -91,14 +91,32 @@ FORM carga_datos .
 *
   CLEAR: gr_fac[], gr_ncr[].
 
-  SELECT valsign valoption valfrom valto  INTO TABLE gr_fac
-         FROM setleaf   WHERE setname = 'ZFITR001'.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT valsign valoption valfrom valto  INTO TABLE gr_fac
+*         FROM setleaf   WHERE setname = 'ZFITR001'.
+*
+* NEW CODE
+  SELECT valsign valoption val
+from valto  INTO TABLE gr_fac
+         FROM setleaf   WHERE setname = 'ZFITR001' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   IF gr_fac[] IS INITIAL.
     MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos Factura'.
   ENDIF.
 *
-  SELECT valsign valoption valfrom valto  INTO TABLE gr_ncr
-         FROM setleaf   WHERE setname = 'ZFITR002'.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT valsign valoption valfrom valto  INTO TABLE gr_ncr
+*         FROM setleaf   WHERE setname = 'ZFITR002'.
+*
+* NEW CODE
+  SELECT valsign valoption val
+from valto  INTO TABLE gr_ncr
+         FROM setleaf   WHERE setname = 'ZFITR002' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   IF gr_ncr[] IS INITIAL.
     MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos N.Crédito'.
   ENDIF.
@@ -167,13 +185,28 @@ FORM verifica_datos USING p_sem.
         gv_contabilizar = 'N'.
       ELSE.
 *
-        SELECT SINGLE bukrs INTO lv_bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE bukrs INTO lv_bukrs
+*             FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
+*                             AND   ubnkl       EQ gc_banco
+*                             AND   laufd       EQ p_fecha
+*                             AND   laufi       EQ p_nomina
+*                             AND   proceso     EQ 'CARGAR_NOMINA'
+*                             AND   num_folio   NE 0.
+*
+* NEW CODE
+        SELECT bukrs
+        UP TO 1 ROWS  INTO lv_bukrs
              FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
                              AND   ubnkl       EQ gc_banco
                              AND   laufd       EQ p_fecha
                              AND   laufi       EQ p_nomina
                              AND   proceso     EQ 'CARGAR_NOMINA'
-                             AND   num_folio   NE 0.
+                             AND   num_folio   NE 0 ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc EQ 0.
           CALL FUNCTION 'POPUP_TO_CONFIRM'
             EXPORTING
@@ -190,14 +223,30 @@ FORM verifica_datos USING p_sem.
         ENDIF.
       ENDIF.
     WHEN OTHERS.
-      SELECT SINGLE bukrs INTO lv_bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE bukrs INTO lv_bukrs
+*           FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
+*                           AND   ubnkl       EQ gc_banco
+*                           AND   laufd       EQ p_fecha
+*                           AND   laufi       EQ p_nomina
+*                           AND   proceso     EQ 'RENDICION_NOMINA'
+*                           AND   codigo_ret  IN gr_proceso        "('COD20','COD200')
+*                           AND   num_folio   NE 0.
+*
+* NEW CODE
+      SELECT bukrs
+      UP TO 1 ROWS  INTO lv_bukrs
            FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
                            AND   ubnkl       EQ gc_banco
                            AND   laufd       EQ p_fecha
                            AND   laufi       EQ p_nomina
                            AND   proceso     EQ 'RENDICION_NOMINA'
                            AND   codigo_ret  IN gr_proceso        "('COD20','COD200')
-                           AND   num_folio   NE 0.
+                           AND   num_folio   NE 0 ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc EQ 0.
         CALL FUNCTION 'POPUP_TO_CONFIRM'
           EXPORTING
@@ -353,12 +402,26 @@ FORM cargo_datos .
     MESSAGE e004(zfi) WITH 'Nomina no corresponde a Sociedad' p_bukrs.
   ENDIF.
 *
-  SELECT SINGLE * INTO lw_reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * INTO lw_reguh
+*         FROM reguh WHERE  laufd   = p_fecha
+*                      AND  laufi   = p_nomina
+*                      AND  zbukr   = p_bukrs
+*                      AND  ubnkl   = gc_banco
+*                      AND  xvorl   = ' '.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  INTO lw_reguh
          FROM reguh WHERE  laufd   = p_fecha
                       AND  laufi   = p_nomina
                       AND  zbukr   = p_bukrs
                       AND  ubnkl   = gc_banco
-                      AND  xvorl   = ' '.
+                      AND  xvorl   = ' ' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     MESSAGE e004(zfi) WITH 'Nomina sin movimientos a Generar'.
   ENDIF.
@@ -394,8 +457,18 @@ FORM cargo_datos .
     gv_contardoc = gv_contardoc + lw_reguh-rpost.
 *
     IF ( lw_reguh-stcd1 IS INITIAL ) OR ( lw_reguh-zstc1 IS INITIAL ).
-      SELECT SINGLE stcd1 INTO lw_reguh-stcd1
-             FROM lfa1 WHERE lifnr = lw_reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE stcd1 INTO lw_reguh-stcd1
+*             FROM lfa1 WHERE lifnr = lw_reguh-lifnr.
+*
+* NEW CODE
+      SELECT stcd1
+      UP TO 1 ROWS  INTO lw_reguh-stcd1
+             FROM lfa1 WHERE lifnr = lw_reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
     CHECK ( NOT lw_reguh-stcd1 IS INITIAL ) OR ( NOT lw_reguh-zstc1 IS INITIAL ).
     MOVE-CORRESPONDING lw_reguh TO lw_tabla_00.
@@ -450,10 +523,22 @@ FORM datos_fi  USING    p_lw_reguh  TYPE reguh
   gv_cuenta_2 = gv_cuenta+0(9) && '3'.
 *  gv_cuenta   = gv_cuenta_2. " 24052023 se elimina el cambio de cuenta
 
-  SELECT  SINGLE bktxt INTO p_lv_bktxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT  SINGLE bktxt INTO p_lv_bktxt
+*           FROM bkpf WHERE bukrs EQ p_bukrs
+*                       AND belnr EQ p_lw_reguh-vblnr
+*                       AND gjahr EQ p_lw_reguh-zaldt(4).
+*
+* NEW CODE
+  SELECT bktxt
+  UP TO 1 ROWS  INTO p_lv_bktxt
            FROM bkpf WHERE bukrs EQ p_bukrs
                        AND belnr EQ p_lw_reguh-vblnr
-                       AND gjahr EQ p_lw_reguh-zaldt(4).
+                       AND gjahr EQ p_lw_reguh-zaldt(4) ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   SELECT SINGLE  bukrs, belnr, gjahr, buzei INTO @DATA(lw_regup)
          FROM  regup WHERE laufd EQ @p_lw_reguh-laufd
@@ -941,9 +1026,20 @@ FORM lee_xml  USING    p_wa_in
         l_transf TYPE sychar50.
 *
   CHECK p_wa_in IS NOT INITIAL.
-  SELECT SINGLE name INTO l_name
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE name INTO l_name
+*          FROM sproxxsl WHERE class  EQ p_obj_name AND
+*                              method EQ p_method.
+*
+* NEW CODE
+  SELECT name
+  UP TO 1 ROWS  INTO l_name
           FROM sproxxsl WHERE class  EQ p_obj_name AND
-                              method EQ p_method.
+                              method EQ p_method ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0.
     CASE p_tipo_envio.
       WHEN 'I'.
@@ -991,13 +1087,27 @@ FORM lee_datos .
                       ( low = p_fecpag ) ).
   ENDIF.
 *
-  SELECT * INTO TABLE gt_salida
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * INTO TABLE gt_salida
+*         FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
+*                         AND   laufd       IN lr_fecha
+*                         AND   datum       IN s_datum
+*                         AND   fecha_pago  IN lr_pago
+*                         AND   uname       IN s_uname
+*                         AND   proceso     IN lr_proce.
+*
+* NEW CODE
+  SELECT *
+ INTO TABLE gt_salida
          FROM zfi_log_ws WHERE bukrs       EQ p_bukrs
                          AND   laufd       IN lr_fecha
                          AND   datum       IN s_datum
                          AND   fecha_pago  IN lr_pago
                          AND   uname       IN s_uname
-                         AND   proceso     IN lr_proce.
+                         AND   proceso     IN lr_proce ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 *
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -1630,9 +1740,20 @@ FORM numero_folio CHANGING p_numlot.
         OTHERS            = 3.
   ENDWHILE.
 *
-  SELECT SINGLE *  INTO lw_zfolio
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *  INTO lw_zfolio
+*     FROM zfolio_soc02  WHERE bukrs  EQ p_bukrs
+*                          AND fecha  EQ sy-datum.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS   INTO lw_zfolio
      FROM zfolio_soc02  WHERE bukrs  EQ p_bukrs
-                          AND fecha  EQ sy-datum.
+                          AND fecha  EQ sy-datum ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     lw_zfolio-bukrs    = p_bukrs.
     lw_zfolio-fecha    = sy-datum.
@@ -1664,13 +1785,34 @@ FORM validacion_accesos USING p_lv_bukrs.
                           sy-repid p_lv_bukrs.
     LEAVE PROGRAM.
   ELSE.
-    SELECT SINGLE * INTO wa_zfitr016
-           FROM zfitr016 WHERE bukrs EQ p_lv_bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * INTO wa_zfitr016
+*           FROM zfitr016 WHERE bukrs EQ p_lv_bukrs.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  INTO wa_zfitr016
+           FROM zfitr016 WHERE bukrs EQ p_lv_bukrs ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc EQ 0.
       wa_sociedad-puerto = lv_puerto.
-      SELECT SINGLE bukrs paval INTO (wa_sociedad-bukrs, wa_sociedad-stcd1 )
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE bukrs paval INTO (wa_sociedad-bukrs, wa_sociedad-stcd1 )
+*             FROM t001z WHERE bukrs EQ p_lv_bukrs
+*                          AND party EQ 'TAXNR'.
+*
+* NEW CODE
+      SELECT bukrs paval
+      UP TO 1 ROWS  INTO (wa_sociedad-bukrs, wa_sociedad-stcd1 )
              FROM t001z WHERE bukrs EQ p_lv_bukrs
-                          AND party EQ 'TAXNR'.
+                          AND party EQ 'TAXNR' ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ELSE.
       MESSAGE i899(fi) WITH 'No existen datos fijos para el WS '
                             ' verificar tabla ZFITR016  '.
@@ -1691,9 +1833,19 @@ FORM lee_datos_set .
   DATA : lr_rango TYPE TABLE OF ty_rango.
 
   CLEAR gr_proceso[].
-  SELECT sign opti low high INTO TABLE lr_rango
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT sign opti low high INTO TABLE lr_rango
+*        FROM tvarvc WHERE name EQ 'ZWS_BCI_PROCESOS'
+*                    AND   type EQ 'S'.
+*
+* NEW CODE
+  SELECT sign opti low high
+ INTO TABLE lr_rango
         FROM tvarvc WHERE name EQ 'ZWS_BCI_PROCESOS'
-                    AND   type EQ 'S'.
+                    AND   type EQ 'S' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   DELETE lr_rango WHERE opti EQ space.
 
   gr_proceso[] = lr_rango[].

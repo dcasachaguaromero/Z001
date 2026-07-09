@@ -113,12 +113,26 @@ FORM efectuar_contabilizacion .
 
   LOOP AT int_tabla2.
 
-    SELECT  SINGLE * FROM reguh WHERE laufd = int_tabla2-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT  SINGLE * FROM reguh WHERE laufd = int_tabla2-laufd
+*                        AND   laufi = int_tabla2-laufi
+*                        AND   xvorl = ''
+*                        AND   zbukr = bukrs
+*                        AND   lifnr = int_tabla2-lifnr
+*                        AND   vblnr = int_tabla2-vblnr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM reguh WHERE laufd = int_tabla2-laufd
                         AND   laufi = int_tabla2-laufi
                         AND   xvorl = ''
                         AND   zbukr = bukrs
                         AND   lifnr = int_tabla2-lifnr
-                        AND   vblnr = int_tabla2-vblnr.
+                        AND   vblnr = int_tabla2-vblnr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     SELECT  COUNT(*) INTO filas   FROM  regup WHERE laufd = reguh-laufd
                         AND   laufi = reguh-laufi
@@ -207,10 +221,22 @@ FORM efectuar_contabilizacion .
                           AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
 *End of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 27/12/2019 EY_DES01 ECDK916994*
 
-      SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                              AND  belnr = regup-belnr
+*                              AND  gjahr = regup-gjahr
+*                              AND  buzei = regup-buzei.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                               AND  belnr = regup-belnr
                               AND  gjahr = regup-gjahr
-                              AND  buzei = regup-buzei.
+                              AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 
@@ -307,8 +333,18 @@ FORM efectuar_contabilizacion .
                                    bseg-zz_agencia.
       ENDIF.
 
-      SELECT SINGLE * FROM lfb1 WHERE lifnr = reguh-lifnr AND
-                                       bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM lfb1 WHERE lifnr = reguh-lifnr AND
+*                                       bukrs = bukrs.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM lfb1 WHERE lifnr = reguh-lifnr AND
+                                       bukrs = bukrs ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc = 0.
         SELECT COUNT(*) INTO cant_imp FROM lfbw

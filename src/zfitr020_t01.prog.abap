@@ -47,9 +47,20 @@ INITIALIZATION.
 AT SELECTION-SCREEN OUTPUT.
   "si el flag esta marcado quita los select-options
   data: lv_existe like ZFITR020_T04-valor.
-  select single valor into lv_existe
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single valor into lv_existe
+*    from ZFITR020_T04
+*    where nombre = 'P_BELNR'.
+*
+* NEW CODE
+  SELECT valor
+  UP TO 1 ROWS  into lv_existe
     from ZFITR020_T04
-    where nombre = 'P_BELNR'.
+    where nombre = 'P_BELNR' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if lv_existe eq ' '.
     LOOP AT SCREEN.
       IF SCREEN-GROUP1 = 'TWO'.
@@ -87,11 +98,23 @@ FORM SUBRUTINA .
 *   Primer proceso de actualizacion: datos adicionales
 **********************************************************************
   "rescatamos los documentos a los cuales les falta ser procesados
-  SELECT * into CORRESPONDING FIELDS OF TABLE ti_salida
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE ti_salida
+*      from ZFITR020_T01
+*    where VBLNR_PAGO = ' '
+*      and belnr in p_belnr
+*      and GJAHR in p_gjahr.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_salida
       from ZFITR020_T01
     where VBLNR_PAGO = ' '
       and belnr in p_belnr
-      and GJAHR in p_gjahr.
+      and GJAHR in p_gjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   loop at ti_salida into ti_salida.
 
@@ -104,9 +127,20 @@ FORM SUBRUTINA .
     append rango_fecha.
 
     "Cambio de Estado:
-    SELECT single CAMBIO_ESTADO into ti_salida-CAMBIO_ESTADO
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT single CAMBIO_ESTADO into ti_salida-CAMBIO_ESTADO
+*     from ZFITR020_T03
+*     where CLASE_DOC = ti_salida-BLART.
+*
+* NEW CODE
+    SELECT CAMBIO_ESTADO
+    UP TO 1 ROWS  into ti_salida-CAMBIO_ESTADO
      from ZFITR020_T03
-     where CLASE_DOC = ti_salida-BLART.
+     where CLASE_DOC = ti_salida-BLART ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     "N° docum cpompen: si el documento compensado es vacio se
     "busca los campos a actualizar.
@@ -121,17 +155,43 @@ FORM SUBRUTINA .
 
       if ti_salida-BLART_PAGO  eq 'AU'.
         "entra el 81
-        SELECT single * into CORRESPONDING FIELDS OF ti_salida2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT single * into CORRESPONDING FIELDS OF ti_salida2
+*          from ZFITR020_T01
+*          where VBLNR_PAGO = ti_salida-BELNR "81
+*            and GJAHR_PAGO = ti_salida-GJAHR
+*            and BLART_PAGO = ti_salida-blart.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  into CORRESPONDING FIELDS OF ti_salida2
           from ZFITR020_T01
           where VBLNR_PAGO = ti_salida-BELNR "81
             and GJAHR_PAGO = ti_salida-GJAHR
-            and BLART_PAGO = ti_salida-blart.
+            and BLART_PAGO = ti_salida-blart ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
                                                             "sale el 20
-        SELECT single * into CORRESPONDING FIELDS OF ti_salida3
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT single * into CORRESPONDING FIELDS OF ti_salida3
+*          from ZFITR020_T01
+*          where VBLNR_PAGO = ti_salida2-BELNR "
+*            and GJAHR_PAGO = ti_salida2-GJAHR
+*            and BLART_PAGO = ti_salida2-blart.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  into CORRESPONDING FIELDS OF ti_salida3
           from ZFITR020_T01
           where VBLNR_PAGO = ti_salida2-BELNR "
             and GJAHR_PAGO = ti_salida2-GJAHR
-            and BLART_PAGO = ti_salida2-blart.
+            and BLART_PAGO = ti_salida2-blart ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         clear ti_salida2-VBLNR_PAGO.
         clear ti_salida2-GJAHR_PAGO.
@@ -156,14 +216,36 @@ FORM SUBRUTINA .
 
 
       if ti_salida-VBLNR_PAGO is not INITIAL.
-        SELECT single CAMBIO_ESTADO into ti_salida-PROCESO_COMPEN
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT single CAMBIO_ESTADO into ti_salida-PROCESO_COMPEN
+*          from ZFITR020_T03
+*          where CLASE_DOC = ti_salida-BLART_PAGO.
+*
+* NEW CODE
+        SELECT CAMBIO_ESTADO
+        UP TO 1 ROWS  into ti_salida-PROCESO_COMPEN
           from ZFITR020_T03
-          where CLASE_DOC = ti_salida-BLART_PAGO.
+          where CLASE_DOC = ti_salida-BLART_PAGO ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         if sy-subrc <> 0.
-          SELECT single valor into ti_salida-PROCESO_COMPEN
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT single valor into ti_salida-PROCESO_COMPEN
+*            from ZFITR020_T04
+*            where nombre = ti_salida-BLART_PAGO.
+*
+* NEW CODE
+          SELECT valor
+          UP TO 1 ROWS  into ti_salida-PROCESO_COMPEN
             from ZFITR020_T04
-            where nombre = ti_salida-BLART_PAGO.
+            where nombre = ti_salida-BLART_PAGO ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           if sy-subrc <> 0.
             ti_salida-PROCESO_COMPEN = 'DOC. COMPENSACION'.
@@ -183,39 +265,94 @@ FORM SUBRUTINA .
 
         ti_salida-MODALIDAD_PAGO = 'C'.
         "Consulta de cheques y datos adicionales.
-        SELECT single chect laufd laufi
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT single chect laufd laufi
+*          into (ti_salida-CHECT, ti_salida-ZALDT, ti_salida-ID_PROP_PAGO )
+*         from payr
+*          where zbukr = ti_salida-bukrs
+*            and vblnr = ti_salida-belnr
+*            and gjahr = ti_salida-gjahr
+*            and rzawe = ti_salida-MODALIDAD_PAGO.
+*
+* NEW CODE
+        SELECT chect laufd laufi
+        UP TO 1 ROWS 
           into (ti_salida-CHECT, ti_salida-ZALDT, ti_salida-ID_PROP_PAGO )
          from payr
           where zbukr = ti_salida-bukrs
             and vblnr = ti_salida-belnr
             and gjahr = ti_salida-gjahr
-            and rzawe = ti_salida-MODALIDAD_PAGO.
+            and rzawe = ti_salida-MODALIDAD_PAGO ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
       ELSEIF ti_salida-hkonth+9(1) eq '5'.
         "consulta de pago a los diferentes a cheques.
-        SELECT single rzawe into ti_salida-MODALIDAD_PAGO
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT single rzawe into ti_salida-MODALIDAD_PAGO
+*          from reguh
+*          where vblnr = ti_salida-belnr
+*            and zbukr = ti_salida-bukrs
+*            and zaldt = ti_salida-budat.
+*
+* NEW CODE
+        SELECT rzawe
+        UP TO 1 ROWS  into ti_salida-MODALIDAD_PAGO
           from reguh
           where vblnr = ti_salida-belnr
             and zbukr = ti_salida-bukrs
-            and zaldt = ti_salida-budat.
+            and zaldt = ti_salida-budat ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         "llena datos adicionales
-        SELECT single laufi into ti_salida-ID_PROP_PAGO
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT single laufi into ti_salida-ID_PROP_PAGO
+*              from reguh
+*              where vblnr = ti_salida-belnr
+*                and zbukr = ti_salida-bukrs
+*                and zaldt = ti_salida-budat
+*                and rzawe = ti_salida-MODALIDAD_PAGO.
+*
+* NEW CODE
+        SELECT laufi
+        UP TO 1 ROWS  into ti_salida-ID_PROP_PAGO
               from reguh
               where vblnr = ti_salida-belnr
                 and zbukr = ti_salida-bukrs
                 and zaldt = ti_salida-budat
-                and rzawe = ti_salida-MODALIDAD_PAGO.
+                and rzawe = ti_salida-MODALIDAD_PAGO ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       endif.
 
       "busca el banco con cuenta al haber
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-      SELECT single hbkid hktid into (ti_salida-hbkid, ti_salida-hktid )
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT single hbkid hktid into (ti_salida-hbkid, ti_salida-hktid )
+*        from t042I
+*        where zbukr = ti_salida-bukrs
+*          and ukont = ti_salida-hkonth
+*          and zlsch = ti_salida-MODALIDAD_PAGO.
+*
+* NEW CODE
+      SELECT hbkid hktid
+      UP TO 1 ROWS  into (ti_salida-hbkid, ti_salida-hktid )
         from t042I
         where zbukr = ti_salida-bukrs
           and ukont = ti_salida-hkonth
-          and zlsch = ti_salida-MODALIDAD_PAGO.
+          and zlsch = ti_salida-MODALIDAD_PAGO ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       if ti_salida-bvorg is INITIAL.
         PERFORM busca_motemi_agen_normal.
@@ -225,17 +362,43 @@ FORM SUBRUTINA .
       if ti_salida-chect is NOT INITIAL and ti_salida-VBLNR_PAGO is not  INITIAL.
         data: l_kukey TYPE febko-kukey.
 
-        SELECT single azdat aznum kukey into (ti_salida-azdat, ti_salida-aznum, l_kukey)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT single azdat aznum kukey into (ti_salida-azdat, ti_salida-aznum, l_kukey)
+*          from febko
+*          where azdat = ti_salida-budat_pago
+*            and bukrs = ti_salida-bukrs
+*            and hbkid = ti_salida-hbkid
+*            and hktid = ti_salida-hktid.
+*
+* NEW CODE
+        SELECT azdat aznum kukey
+        UP TO 1 ROWS  into (ti_salida-azdat, ti_salida-aznum, l_kukey)
           from febko
           where azdat = ti_salida-budat_pago
             and bukrs = ti_salida-bukrs
             and hbkid = ti_salida-hbkid
-            and hktid = ti_salida-hktid.
+            and hktid = ti_salida-hktid ORDER BY PRIMARY KEY.
 
-        SELECT SINGLE kukey INTO l_kukey
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE kukey INTO l_kukey
+*          from febep
+*          where kukey = l_kukey
+*            and chect = ti_salida-chect.
+*
+* NEW CODE
+        SELECT kukey
+        UP TO 1 ROWS  INTO l_kukey
           from febep
           where kukey = l_kukey
-            and chect = ti_salida-chect.
+            and chect = ti_salida-chect ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         if SY-subrc <> 0.
           CLEAR ti_salida-azdat .
@@ -247,11 +410,24 @@ FORM SUBRUTINA .
 
     else.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-      SELECT single zzmot_emis into ti_salida-MOTIVO_EMISION
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT single zzmot_emis into ti_salida-MOTIVO_EMISION
+*        from bseg
+*        where bukrs = ti_salida-bukrs
+*          and gjahr = ti_salida-gjahr
+*          and belnr = ti_salida-belnr.
+*
+* NEW CODE
+      SELECT zzmot_emis
+      UP TO 1 ROWS  into ti_salida-MOTIVO_EMISION
         from bseg
         where bukrs = ti_salida-bukrs
           and gjahr = ti_salida-gjahr
-          and belnr = ti_salida-belnr.
+          and belnr = ti_salida-belnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     ENDIF.
 
@@ -268,22 +444,49 @@ FORM SUBRUTINA .
 *  Segundo proceso de actualizacion: llave y llave_pos
 **********************************************************************
   refresh ti_salida.
-  SELECT * into CORRESPONDING FIELDS OF TABLE ti_salida
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE ti_salida
+*    from ZFITR020_T01
+*    where llave = ' '
+*      and belnr in p_belnr.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_salida
     from ZFITR020_T01
     where llave = ' '
-      and belnr in p_belnr.
+      and belnr in p_belnr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   "se construye la llave.
   loop at ti_salida into ti_salida.
     "recordatorio se excluyen los anulados
-    SELECT single llave llave_pos into (ti_salida-llave, ti_salida-llave_pos)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT single llave llave_pos into (ti_salida-llave, ti_salida-llave_pos)
+*     from ZFITR020_T01
+*     where bukrs      = ti_salida-bukrs
+*       and VBLNR_PAGO = ti_salida-belnr
+*       and GJAHR_PAGO = ti_salida-gjahr
+*       and BLART_PAGO = ti_salida-blart
+*       and blart <> 'AU'
+*       .
+*
+* NEW CODE
+    SELECT llave llave_pos
+    UP TO 1 ROWS  into (ti_salida-llave, ti_salida-llave_pos)
      from ZFITR020_T01
      where bukrs      = ti_salida-bukrs
        and VBLNR_PAGO = ti_salida-belnr
        and GJAHR_PAGO = ti_salida-gjahr
        and BLART_PAGO = ti_salida-blart
        and blart <> 'AU'
-       .
+        ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     "se copia la llave si es exitoso o se crea 1
     "si cumple las condiciones
     if SY-subrc <> 0 and ( ti_salida-blart eq 'ZP' ).
@@ -317,18 +520,41 @@ FORM SUBRUTINA .
   refresh ti_salida.
   "con cualquiera de los datos adicionales se llenan los vacios
   "se usa chect sin ningun motivo en especial
-  SELECT * into CORRESPONDING FIELDS OF TABLE ti_salida
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE ti_salida
+*    from ZFITR020_T01
+*    where chect = ' '
+*     and  belnr in p_belnr.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_salida
     from ZFITR020_T01
     where chect = ' '
-     and  belnr in p_belnr.
+     and  belnr in p_belnr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   loop at ti_salida into ti_salida.
     CLEAR ti_salida2.
 
-    SELECT single * into CORRESPONDING FIELDS OF ti_salida2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT single * into CORRESPONDING FIELDS OF ti_salida2
+*       from ZFITR020_T01
+*        where VBLNR_PAGO = ti_salida-belnr
+*          and GJAHR_PAGO = ti_salida-gjahr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  into CORRESPONDING FIELDS OF ti_salida2
        from ZFITR020_T01
         where VBLNR_PAGO = ti_salida-belnr
-          and GJAHR_PAGO = ti_salida-gjahr.
+          and GJAHR_PAGO = ti_salida-gjahr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     if sy-subrc = 0.
       ti_salida-lifnr          = ti_salida2-lifnr.
@@ -370,13 +596,28 @@ FORM BUSCA_DOC_COM_NORMAL .
 
     ti_salida-GJAHR_PAGO = lv_augdt(4).
   "vamos a verificar la fecha del documento y que no este anulado
-  SELECT single blart BLDAT budat
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single blart BLDAT budat
+*    into (ti_salida-BLART_PAGO, ti_salida-BLDAT_PAGO, ti_salida-budat_pago )
+*    from bkpf
+*    where bukrs = ti_salida-bukrs
+*      and belnr = ti_salida-VBLNR_PAGO
+*      and gjahr = ti_salida-GJAHR_PAGO
+*      .
+*
+* NEW CODE
+  SELECT blart BLDAT budat
+  UP TO 1 ROWS 
     into (ti_salida-BLART_PAGO, ti_salida-BLDAT_PAGO, ti_salida-budat_pago )
     from bkpf
     where bukrs = ti_salida-bukrs
       and belnr = ti_salida-VBLNR_PAGO
       and gjahr = ti_salida-GJAHR_PAGO
-      .
+       ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 ENDFORM.                    " BUSCA_DOC_COM_NORMAL
 *&---------------------------------------------------------------------*
 *&      Form  BUSCA_DOC_COM_MULTI_SOC
@@ -388,22 +629,49 @@ FORM BUSCA_DOC_COM_MULTI_SOC .
   data: lv_bukrs like ZFITR020_T01-bukrs.
   data: lv_belnr like ZFITR020_T01-belnr.
 
-  select single bukrs GJAHR belnr into (lv_bukrs, lv_gjahr, lv_belnr)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single bukrs GJAHR belnr into (lv_bukrs, lv_gjahr, lv_belnr)
+*    from bvor
+*    where bvorg = ti_salida-belnr
+*      and bukrs <> ti_salida-bukrs
+*      and GJAHR = ti_salida-GJAHR
+*      .
+*
+* NEW CODE
+  SELECT bukrs GJAHR belnr
+  UP TO 1 ROWS  into (lv_bukrs, lv_gjahr, lv_belnr)
     from bvor
     where bvorg = ti_salida-belnr
       and bukrs <> ti_salida-bukrs
       and GJAHR = ti_salida-GJAHR
-      .
+       ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   data: lv_gjahr_orig like ZFITR020_T01-GJAHR.
   data: lv_bukrs_orig like ZFITR020_T01-bukrs.
   data: lv_belnr_orig like ZFITR020_T01-belnr.
 
-  select single belnr bukrs GJAHR into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single belnr bukrs GJAHR into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
+*    from bse_clr
+*   where belnr = lv_belnr
+*     and bukrs = lv_bukrs
+*     and GJAHR = lv_gjahr.
+*
+* NEW CODE
+  SELECT belnr bukrs GJAHR
+  UP TO 1 ROWS  into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
     from bse_clr
    where belnr = lv_belnr
      and bukrs = lv_bukrs
-     and GJAHR = lv_gjahr.
+     and GJAHR = lv_gjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 
@@ -418,18 +686,44 @@ ENDFORM.                    " BUSCA_DOC_COM_MULTI_SOC
 *----------------------------------------------------------------------*
 FORM BUSCA_MOTEMI_AGEN_NORMAL .
   "busca los datos del acreedor
-  SELECT single stcd1 name1 into (ti_salida-stcd1, ti_salida-name1)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single stcd1 name1 into (ti_salida-stcd1, ti_salida-name1)
+*    from lfa1
+*    where lifnr = ti_salida-lifnr.
+*
+* NEW CODE
+  SELECT stcd1 name1
+  UP TO 1 ROWS  into (ti_salida-stcd1, ti_salida-name1)
     from lfa1
-    where lifnr = ti_salida-lifnr.
+    where lifnr = ti_salida-lifnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
-  SELECT single zzmot_emis ZZ_AGENCIA into (ti_salida-MOTIVO_EMISION, ti_salida-num_agencia)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single zzmot_emis ZZ_AGENCIA into (ti_salida-MOTIVO_EMISION, ti_salida-num_agencia)
+*    from bsak
+*    where bukrs = ti_salida-bukrs
+*      and lifnr = ti_salida-lifnr
+*      and augdt IN rango_fecha "rango segun gjahr 01.01.2013 a 31.12.2013
+*      and augbl = ti_salida-belnr
+*      and belnr NE ti_salida-belnr.
+*
+* NEW CODE
+  SELECT zzmot_emis ZZ_AGENCIA
+  UP TO 1 ROWS  into (ti_salida-MOTIVO_EMISION, ti_salida-num_agencia)
     from bsak
     where bukrs = ti_salida-bukrs
       and lifnr = ti_salida-lifnr
       and augdt IN rango_fecha "rango segun gjahr 01.01.2013 a 31.12.2013
       and augbl = ti_salida-belnr
-      and belnr NE ti_salida-belnr.
+      and belnr NE ti_salida-belnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 ENDFORM.                    " BUSCA_MOTEMI_AGEN_NORMAL
 *&---------------------------------------------------------------------*
 *&      Form  BUSCA_MOTEMI_AGEN_MULTI_SOC
@@ -442,38 +736,92 @@ FORM BUSCA_MOTEMI_AGEN_MULTI_SOC .
   data: lv_belnr like ZFITR020_T01-belnr.
 
   "aca buscamos el documento multisociedad en la otra sociedad
-  select single bukrs GJAHR belnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single bukrs GJAHR belnr
+*      into (lv_bukrs, lv_gjahr, lv_belnr)
+*    from bvor
+*    where bvorg = ti_salida-bvorg
+*      and bukrs <> ti_salida-bukrs
+*      and GJAHR = ti_salida-GJAHR
+*      .
+*
+* NEW CODE
+  SELECT bukrs GJAHR belnr
+  UP TO 1 ROWS 
       into (lv_bukrs, lv_gjahr, lv_belnr)
     from bvor
     where bvorg = ti_salida-bvorg
       and bukrs <> ti_salida-bukrs
       and GJAHR = ti_salida-GJAHR
-      .
+       ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   data: lv_gjahr_orig like ZFITR020_T01-GJAHR.
   data: lv_bukrs_orig like ZFITR020_T01-bukrs.
   data: lv_belnr_orig like ZFITR020_T01-belnr.
 
   "con el documento obtenido buscamos el documento pagado
-  select single belnr bukrs GJAHR
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single belnr bukrs GJAHR
+*      into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
+*    from bse_clr
+*   where belnr_clr = lv_belnr
+*     and bukrs_clr = lv_bukrs
+*     and GJAHR_clr = lv_gjahr.
+*
+* NEW CODE
+  SELECT belnr bukrs GJAHR
+  UP TO 1 ROWS 
       into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
     from bse_clr
    where belnr_clr = lv_belnr
      and bukrs_clr = lv_bukrs
-     and GJAHR_clr = lv_gjahr.
+     and GJAHR_clr = lv_gjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   "se rescatan los datos del documento pagado
-  SELECT single lifnr zzmot_emis ZZ_AGENCIA
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single lifnr zzmot_emis ZZ_AGENCIA
+*      into (ti_salida-lifnr, ti_salida-MOTIVO_EMISION, ti_salida-num_agencia)
+*    from bsak
+*    where bukrs = lv_bukrs_orig
+*      and belnr = lv_belnr_orig
+*      and GJAHR = lv_gjahr_orig.
+*
+* NEW CODE
+  SELECT lifnr zzmot_emis ZZ_AGENCIA
+  UP TO 1 ROWS 
       into (ti_salida-lifnr, ti_salida-MOTIVO_EMISION, ti_salida-num_agencia)
     from bsak
     where bukrs = lv_bukrs_orig
       and belnr = lv_belnr_orig
-      and GJAHR = lv_gjahr_orig.
+      and GJAHR = lv_gjahr_orig ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   "busca los datos del acreedor
-  SELECT single stcd1 name1 into (ti_salida-stcd1, ti_salida-name1)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single stcd1 name1 into (ti_salida-stcd1, ti_salida-name1)
+*    from lfa1
+*    where lifnr = ti_salida-lifnr.
+*
+* NEW CODE
+  SELECT stcd1 name1
+  UP TO 1 ROWS  into (ti_salida-stcd1, ti_salida-name1)
     from lfa1
-    where lifnr = ti_salida-lifnr.
+    where lifnr = ti_salida-lifnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   ti_salida-BELNR_BVORG = lv_belnr_orig.
   ti_salida-BUKRS_BVORG = lv_bukrs_orig.

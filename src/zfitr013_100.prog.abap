@@ -179,19 +179,41 @@ FORM carga_tabla .
   REFRESH int_tabla.
 
 
-  SELECT SINGLE * FROM lfa1 WHERE lifnr = *lfa1-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM lfa1 WHERE lifnr = *lfa1-lifnr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM lfa1 WHERE lifnr = *lfa1-lifnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc <> 0.
     MESSAGE e016(z1) WITH 'Proveedor  no Existe' rzawe.
   ENDIF.
 
 
-  SELECT * FROM reguh WHERE valut IN  v_fecha
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM reguh WHERE valut IN  v_fecha
+*                     AND   zbukr = bukrs
+*                     AND   hbkid = v_hbkid
+*                     AND   lifnr = *lfa1-lifnr
+*                     AND   rzawe = rzawe
+*                     AND   xvorl = ''.
+*
+* NEW CODE
+  SELECT *
+ FROM reguh WHERE valut IN  v_fecha
                      AND   zbukr = bukrs
                      AND   hbkid = v_hbkid
                      AND   lifnr = *lfa1-lifnr
                      AND   rzawe = rzawe
-                     AND   xvorl = ''.
+                     AND   xvorl = '' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     READ TABLE int_tabla2 WITH KEY   laufi = reguh-laufi
                                laufd = reguh-laufd
@@ -220,20 +242,48 @@ SORT TAGE BY BUKRS ZZCOD_UNIDAD .
       int_tabla-sel = ''.
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-      SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                      AND   laufi = reguh-laufi
+*                                      AND   xvorl = reguh-xvorl
+*                                      AND   zbukr = reguh-zbukr
+*                                      AND   lifnr = reguh-lifnr
+*                                      AND   kunnr = reguh-kunnr
+*                                      AND   empfg = reguh-empfg
+*                                      AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                       AND   laufi = reguh-laufi
                                       AND   xvorl = reguh-xvorl
                                       AND   zbukr = reguh-zbukr
                                       AND   lifnr = reguh-lifnr
                                       AND   kunnr = reguh-kunnr
                                       AND   empfg = reguh-empfg
-                                      AND   vblnr = reguh-vblnr.
+                                      AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-      SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                             AND  belnr = regup-belnr
+*                             AND  gjahr = regup-gjahr
+*                             AND  buzei = regup-buzei.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                              AND  belnr = regup-belnr
                              AND  gjahr = regup-gjahr
-                             AND  buzei = regup-buzei.
+                             AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       int_tabla-zz_agencia = bseg-zz_agencia.
 

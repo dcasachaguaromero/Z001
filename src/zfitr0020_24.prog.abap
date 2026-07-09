@@ -261,7 +261,21 @@ START-OF-SELECTION.
 FORM seleccion_datos .
 
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+*    from ZFITR020_T01
+*    where BUKRS in p_bukrs1
+*      and BELNR in p_belnr1
+*      and GJAHR in p_gjahr1
+*      and BLDAT in p_budat1
+*      and lifnr in p_lifnr1
+*      and blart = 'ZP'
+*      and MOTIVO_EMISION in p_motemi.
+*
+* NEW CODE
   SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+
     from ZFITR020_T01
     where BUKRS in p_bukrs1
       and BELNR in p_belnr1
@@ -269,17 +283,31 @@ FORM seleccion_datos .
       and BLDAT in p_budat1
       and lifnr in p_lifnr1
       and blart = 'ZP'
-      and MOTIVO_EMISION in p_motemi.
+      and MOTIVO_EMISION in p_motemi ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if t_itab[] is INITIAL.
     MESSAGE 'No se encontraron registros para la consultas' type 'E'.
   endif.
   "se rescata la posicion inicial de cada llave
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
+*    where BUKRS = t_itab-bukrs
+*      and llave = t_itab-LLAVE
+*      and LLAVE_POS = '1'.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab2
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
     where BUKRS = t_itab-bukrs
       and llave = t_itab-LLAVE
-      and LLAVE_POS = '1'.
+      and LLAVE_POS = '1' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   sort t_itab2 by BELNR GJAHR LLAVE LLAVE_POS.
   delete ADJACENT DUPLICATES FROM t_itab2.
@@ -302,24 +330,50 @@ FORM seleccion_datos .
     CONCATENATE t_itab2-GJAHR '1231' INTO r_date-high   .
     append r_date.
 
-    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+*      from bsak "FOR ALL ENTRIES IN t_itab2
+*      where BUKRS = t_itab2-bukrs
+*        and augbl = t_itab2-belnr
+*        and augdt in r_date
+*        and BELNR <> t_itab2-belnr
+**      and GJAHR = t_itab2-GJAHR
+*        and LIFNR = t_itab2-LIFNR.
+*
+* NEW CODE
+    SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+
       from bsak "FOR ALL ENTRIES IN t_itab2
       where BUKRS = t_itab2-bukrs
         and augbl = t_itab2-belnr
         and augdt in r_date
         and BELNR <> t_itab2-belnr
 *      and GJAHR = t_itab2-GJAHR
-        and LIFNR = t_itab2-LIFNR.
+        and LIFNR = t_itab2-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   ENDLOOP.
 
   sort ti_bsak by BELNR budat bldat GJAHR LIFNR.
   delete ADJACENT DUPLICATES FROM ti_bsak.
 
   "se rescatan todas las posiciones de cada llave
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab3
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab3
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab2
+*    where BUKRS = t_itab2-bukrs
+*      and llave = t_itab2-LLAVE.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab3
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab2
     where BUKRS = t_itab2-bukrs
-      and llave = t_itab2-LLAVE.
+      and llave = t_itab2-LLAVE ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   sort t_itab3 by  LLAVE  LLAVE_POS DESCENDING.
   DELETE ADJACENT DUPLICATES FROM t_itab3.

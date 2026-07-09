@@ -200,9 +200,28 @@ FORM preparo_salida.
   LOOP AT reg_stder.
     AT NEW  zbukr .
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES01 ECDK917080 *
-      SELECT SINGLE paval INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
-                                   AND   party = 'TAXNR' .
-      SELECT SINGLE * FROM t001 WHERE bukrs = reg_stder-zbukr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE paval INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
+*                                   AND   party = 'TAXNR' .
+*
+* NEW CODE
+      SELECT paval
+      UP TO 1 ROWS  INTO rut FROM t001z WHERE bukrs = reg_stder-zbukr
+                                   AND   party = 'TAXNR'  ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM t001 WHERE bukrs = reg_stder-zbukr.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM t001 WHERE bukrs = reg_stder-zbukr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       WRITE rut TO rut LEFT-JUSTIFIED.
 
@@ -794,8 +813,18 @@ FORM documentos USING i_laufd i_laufi.
          AND  ( rzawe      IN  s_rzawe ).
 *         AND  ( rzawe      = 'C' ).
     IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
-      SELECT SINGLE stcd1 INTO reguh-stcd1
-        FROM lfa1 WHERE lifnr = ti_reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE stcd1 INTO reguh-stcd1
+*        FROM lfa1 WHERE lifnr = ti_reguh-lifnr.
+*
+* NEW CODE
+      SELECT stcd1
+      UP TO 1 ROWS  INTO reguh-stcd1
+        FROM lfa1 WHERE lifnr = ti_reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 
 
@@ -1102,11 +1131,24 @@ FORM get_description_bukrs USING p_bukrs TYPE bukrs
          l_address_selection TYPE addr1_sel,
          l_zgiro TYPE zfigiro.
 
-  SELECT SINGLE butxt adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE butxt adrnr
+*    FROM t001
+*    INTO (p_butxt, l_adrnr)
+*    WHERE bukrs EQ p_bukrs
+*    AND spras EQ sy-langu.
+*
+* NEW CODE
+  SELECT butxt adrnr
+  UP TO 1 ROWS 
     FROM t001
     INTO (p_butxt, l_adrnr)
     WHERE bukrs EQ p_bukrs
-    AND spras EQ sy-langu.
+    AND spras EQ sy-langu ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   MOVE l_adrnr TO  l_address_selection-addrnumber.
 
@@ -1154,10 +1196,22 @@ FORM arma_registro.
 
   reg_stder-mod_pago  = 'CAT_CSH_TRANSFER'.
 
-  SELECT SINGLE clave INTO p_clave
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE clave INTO p_clave
+*                FROM zfitr001
+*                WHERE   bankl = '027'
+*                AND     bkont = tabla_00-zbkon.
+*
+* NEW CODE
+  SELECT clave
+  UP TO 1 ROWS  INTO p_clave
                 FROM zfitr001
                 WHERE   bankl = '027'
-                AND     bkont = tabla_00-zbkon.
+                AND     bkont = tabla_00-zbkon ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0.
     CONDENSE p_clave NO-GAPS.
     reg_stder-tipo_cta = p_clave.
@@ -1220,23 +1274,52 @@ FORM arma_registro.
 
 *** buscamos ejercicio del docto de pago
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES01 ECDK917080 *
-    SELECT SINGLE gjahr FROM  bseg INTO eje_pago
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE gjahr FROM  bseg INTO eje_pago
+*              WHERE   bukrs   = tabla_00-zbukr
+*              AND     belnr   = tabla_00-vblnr
+*              AND     zfbdt   = tabla_00-zaldt              " ff 150306
+*              AND     koart   = 'K'.
+*
+* NEW CODE
+    SELECT gjahr
+    UP TO 1 ROWS  FROM  bseg INTO eje_pago
               WHERE   bukrs   = tabla_00-zbukr
               AND     belnr   = tabla_00-vblnr
               AND     zfbdt   = tabla_00-zaldt              " ff 150306
-              AND     koart   = 'K'.
+              AND     koart   = 'K' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   ENDIF.
 
 *  CLEAR: gs_outtab-hbkid, gs_outtab-hktid. -- 5 modificado abril 2011
-  SELECT SINGLE chect hbkid hktid FROM  payr INTO (reg_stder-chect, gs_outtab-hbkid, gs_outtab-hktid)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE chect hbkid hktid FROM  payr INTO (reg_stder-chect, gs_outtab-hbkid, gs_outtab-hktid)
+*  WHERE  zbukr  = tabla_00-zbukr AND
+**         rzawe  = 'C' AND
+*         laufd  = tabla_00-laufd AND
+*         laufi  = tabla_00-laufi AND
+*         vblnr  = tabla_00-vblnr AND
+*         hktid  = tabla_00-hktid AND
+*         hbkid  = tabla_00-hbkid .
+*
+* NEW CODE
+  SELECT chect hbkid hktid
+  UP TO 1 ROWS  FROM  payr INTO (reg_stder-chect, gs_outtab-hbkid, gs_outtab-hktid)
   WHERE  zbukr  = tabla_00-zbukr AND
 *         rzawe  = 'C' AND
          laufd  = tabla_00-laufd AND
          laufi  = tabla_00-laufi AND
          vblnr  = tabla_00-vblnr AND
          hktid  = tabla_00-hktid AND
-         hbkid  = tabla_00-hbkid .
+         hbkid  = tabla_00-hbkid  ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     gs_outtab-estatus = 'PAGADO'.

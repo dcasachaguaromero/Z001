@@ -51,13 +51,28 @@ FORM lee_datos .
             PERFORM actualizo_sapbbva_emitidos.
           ELSE.
             IF reg-estado_pago = 'CHEQUE DEVUELTO'  OR reg-estado_pago = 'VALE VISTA REINTEGRAD'.
-              SELECT SINGLE * INTO reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE * INTO reguh
+*                 FROM reguh WHERE identif_pago = reg-codigo_identificacion
+*                            AND   zstc1 =  rut_aux
+*                            AND ( ind_pago      = 'X' OR
+*                                  ind_rescatado = 'X' OR
+*                                  ind_devuelto  = 'X' OR
+*                                  ind_rechazo   = 'X' ).
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  INTO reguh
                  FROM reguh WHERE identif_pago = reg-codigo_identificacion
                             AND   zstc1 =  rut_aux
                             AND ( ind_pago      = 'X' OR
                                   ind_rescatado = 'X' OR
                                   ind_devuelto  = 'X' OR
-                                  ind_rechazo   = 'X' ).
+                                  ind_rechazo   = 'X' ) ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
               IF sy-subrc <> 0.
                 CLEAR tdev.
                 MOVE-CORRESPONDING reg TO tdev.
@@ -76,10 +91,22 @@ FORM lee_datos .
               ENDIF.
             ELSE.
               IF reg-estado_pago = 'CHEQUE RECHAZADO'.
-                SELECT SINGLE * INTO reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*                SELECT SINGLE * INTO reguh
+*                  FROM reguh WHERE identif_pago = reg-codigo_identificacion
+*                              AND  zstc1 =  rut_aux
+*                AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+*
+* NEW CODE
+                SELECT *
+                UP TO 1 ROWS  INTO reguh
                   FROM reguh WHERE identif_pago = reg-codigo_identificacion
                               AND  zstc1 =  rut_aux
-                AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+                AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ) ORDER BY PRIMARY KEY.
+
+                ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
                 IF sy-subrc <> 0.
                   MOVE-CORRESPONDING reg TO trec.
                   APPEND trec.
@@ -101,8 +128,18 @@ FORM lee_datos .
   SORT tdev .
 *End of change: ReSQ Correction for MODIFY on an unsorted Internal Table 26/12/2019 EY_DES02 ECDK917080 *
   LOOP AT tdev WHERE estado_pago = 'VALE VISTA REINTEGRAD'.
-    SELECT SINGLE *
-           FROM reguh  WHERE identif_pago = reg-codigo_identificacion.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE *
+*           FROM reguh  WHERE identif_pago = reg-codigo_identificacion.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS 
+           FROM reguh  WHERE identif_pago = reg-codigo_identificacion ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       IF reguh-rzawe = 'V' AND reguh-ind_redepo IS INITIAL.
         correlativo =  correlativo + 1.
@@ -166,9 +203,20 @@ FORM cuadratura.
       MOVE tdev-fecha_pago   TO int_tabla-fechadev.
       MOVE tdev-correl       TO int_tabla-correl.
       int_tabla-montodev = tdev-monto / 10000.
-      SELECT SINGLE * FROM zctarechazo WHERE bukrs = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zctarechazo WHERE bukrs = bukrs
+*                                       AND   ctacte_bco = int_tabla-ctactedev
+*      AND   rzawe_d = ''.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zctarechazo WHERE bukrs = bukrs
                                        AND   ctacte_bco = int_tabla-ctactedev
-      AND   rzawe_d = ''.
+      AND   rzawe_d = '' ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc = 0.
         int_tabla-cuentadep = zctarechazo-hkont_dep.
         SELECT * FROM bsis
@@ -266,9 +314,19 @@ FORM confirma_contabilizacion.
     APPEND int_tabla.
   ENDLOOP.
 
-  SELECT *  INTO CORRESPONDING FIELDS OF TABLE tcuenta
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  INTO CORRESPONDING FIELDS OF TABLE tcuenta
+*          FROM zctarechazo WHERE bukrs   = bukrs
+*                           AND   rzawe_d = ''.
+*
+* NEW CODE
+  SELECT *
+  INTO CORRESPONDING FIELDS OF TABLE tcuenta
           FROM zctarechazo WHERE bukrs   = bukrs
-                           AND   rzawe_d = ''.
+                           AND   rzawe_d = '' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   SORT tcuenta BY bukrs rzawe hkont_orig.
   LOOP AT int_tabla WHERE sel <> 'X'.
     LOOP AT tdev WHERE estado_pago  = int_tabla-estado_pago
@@ -432,8 +490,18 @@ FORM contabilizo   TABLES tdat LIKE reg1x USING texto LIKE bkpf-bktxt
     CONCATENATE rut_aux '-'  tdat-rut_beneficiario+largo_rut(1) INTO rut_aux.
 
 
-    SELECT  SINGLE * FROM reguh WHERE identif_pago  = tdat-codigo_identificacion
-    AND   zstc1 =  rut_aux.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT  SINGLE * FROM reguh WHERE identif_pago  = tdat-codigo_identificacion
+*    AND   zstc1 =  rut_aux.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM reguh WHERE identif_pago  = tdat-codigo_identificacion
+    AND   zstc1 =  rut_aux ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     largo = strlen( reguh-ubhkt ) - 1.
     reguh-ubhkt+largo(1) = '1'.
@@ -529,10 +597,22 @@ FORM contabilizo   TABLES tdat LIKE reg1x USING texto LIKE bkpf-bktxt
                           AND vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
 *End of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 26/12/2019 EY_DES02 ECDK917080 *
 
-      SELECT SINGLE  * FROM bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE  * FROM bseg WHERE bukrs  = regup-bukrs
+*                             AND  belnr = regup-belnr
+*                             AND  gjahr = regup-gjahr
+*      AND  buzei = regup-buzei.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM bseg WHERE bukrs  = regup-bukrs
                              AND  belnr = regup-belnr
                              AND  gjahr = regup-gjahr
-      AND  buzei = regup-buzei.
+      AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
       IF  regup-shkzg = 'H'.
@@ -641,8 +721,18 @@ FORM contabilizo   TABLES tdat LIKE reg1x USING texto LIKE bkpf-bktxt
         PERFORM bdc_field       USING 'BSEG-ZZMOT_EMIS'    bseg-zzmot_emis.
         PERFORM bdc_field       USING 'BSEG-ZZ_AGENCIA'    bseg-zz_agencia.
 
-        SELECT SINGLE * FROM lfb1 WHERE lifnr = reguh-lifnr AND
-        bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM lfb1 WHERE lifnr = reguh-lifnr AND
+*        bukrs = bukrs.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM lfb1 WHERE lifnr = reguh-lifnr AND
+        bukrs = bukrs ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc = 0.
           SELECT COUNT(*) INTO cant_imp FROM lfbw
@@ -723,12 +813,26 @@ FORM cierro_voucher  USING    p_proceso p_texto.
       PERFORM bdc_field       USING 'BDC_CURSOR'      'BSEG-SGTXT'.
       PERFORM bdc_field       USING 'BDC_OKCODE'      '/00'.
       PERFORM bdc_field       USING 'BSEG-WRBTR'      valor.
-      SELECT SINGLE zuonr INTO asignacion
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE zuonr INTO asignacion
+*                          FROM bseg
+*                          WHERE bukrs = bukrs
+*                          AND   belnr = tdep-belnr
+*                          AND   gjahr = tdep-gjahr
+*                          AND   bschl = '50'.
+*
+* NEW CODE
+      SELECT zuonr
+      UP TO 1 ROWS  INTO asignacion
                           FROM bseg
                           WHERE bukrs = bukrs
                           AND   belnr = tdep-belnr
                           AND   gjahr = tdep-gjahr
-                          AND   bschl = '50'.
+                          AND   bschl = '50' ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       PERFORM bdc_field       USING 'BSEG-ZUONR'      asignacion.
       PERFORM bdc_field       USING 'BSEG-SGTXT'      p_texto.
       PERFORM bdc_field       USING 'DKACB-FMORE'    ' '.
@@ -1039,8 +1143,18 @@ FORM ajusta_tabla USING ls_outtab  TYPE ty_outtab.
       MOVE tdev-numero_lote  TO int_tabla-lotedev.
       MOVE tdev-fecha_pago   TO int_tabla-fechadev.
       MOVE tdev-correl       TO int_tabla-correl.
-      SELECT SINGLE * FROM zctarechazo WHERE bukrs      = bukrs
-                                         AND ctacte_bco = int_tabla-ctactedev.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zctarechazo WHERE bukrs      = bukrs
+*                                         AND ctacte_bco = int_tabla-ctactedev.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zctarechazo WHERE bukrs      = bukrs
+                                         AND ctacte_bco = int_tabla-ctactedev ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc = 0.
         int_tabla-cuentadep = zctarechazo-hkont_dep.
         LOOP AT tdep     WHERE estado_pago     = int_tabla-estado_pago

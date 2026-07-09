@@ -111,7 +111,16 @@ AT SELECTION-SCREEN ON bukrs.
     MESSAGE e526(icc_tr) WITH bukrs.
   ENDIF.
 
-  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR v_fecha.
 
@@ -275,9 +284,20 @@ START-OF-SELECTION.
   "  ENDIF.
   "
   IF par_di = 'X'.
-    SELECT SINGLE * FROM zlog_bbva_vv WHERE bukrs = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM zlog_bbva_vv WHERE bukrs = bukrs
+*                                      AND   laufd = v_fecha
+*                                      AND   laufi = v_nomina.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM zlog_bbva_vv WHERE bukrs = bukrs
                                       AND   laufd = v_fecha
-                                      AND   laufi = v_nomina.
+                                      AND   laufi = v_nomina ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
 
@@ -328,10 +348,22 @@ END-OF-SELECTION.
 *       text
 *----------------------------------------------------------------------*
 FORM cargo_datos.
-  SELECT SINGLE * FROM reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM reguh
+*                 WHERE laufd       = v_fecha
+*                 AND   laufi       = v_nomina
+*                 AND   zbukr       = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM reguh
                  WHERE laufd       = v_fecha
                  AND   laufi       = v_nomina
-                 AND   zbukr       = bukrs.
+                 AND   zbukr       = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
   IF sy-subrc <> 0.
@@ -341,15 +373,37 @@ FORM cargo_datos.
 
 
 * Rescatamos Datos.
-  SELECT *  FROM  reguh
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  FROM  reguh
+*           WHERE  laufd      = v_fecha
+*           AND    laufi      = v_nomina
+*           AND    xvorl      = ' '
+*           AND  ( rzawe = 'V' ).
+*
+* NEW CODE
+  SELECT *
+  FROM  reguh
            WHERE  laufd      = v_fecha
            AND    laufi      = v_nomina
            AND    xvorl      = ' '
-           AND  ( rzawe = 'V' ).
+           AND  ( rzawe = 'V' ) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
-      SELECT SINGLE stcd1 INTO reguh-stcd1
-        FROM lfa1 WHERE lifnr = reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE stcd1 INTO reguh-stcd1
+*        FROM lfa1 WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+      SELECT stcd1
+      UP TO 1 ROWS  INTO reguh-stcd1
+        FROM lfa1 WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 
     IF ( NOT reguh-stcd1 IS INITIAL ) OR ( NOT reguh-zstc1 IS INITIAL ).
@@ -371,21 +425,59 @@ FORM cargo_datos.
 * CBD - 2012-01-11 - MANEJO CUENTA CARGO
         CONCATENATE cuenta+0(9) '3' into cuenta_2.
 * CBD - 2012-01-11 - MANEJO CUENTA CARGO
-        SELECT  SINGLE bktxt INTO bktxt FROM bkpf WHERE belnr =  reguh-vblnr
-                                          AND   gjahr = reguh-zaldt(4).
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT  SINGLE bktxt INTO bktxt FROM bkpf WHERE belnr =  reguh-vblnr
+*                                          AND   gjahr = reguh-zaldt(4).
+*
+* NEW CODE
+        SELECT bktxt
+        UP TO 1 ROWS  INTO bktxt FROM bkpf WHERE belnr =  reguh-vblnr
+                                          AND   gjahr = reguh-zaldt(4) ORDER BY PRIMARY KEY.
 
-        SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                 AND   laufi = reguh-laufi
+*                                 AND   xvorl = reguh-xvorl
+*                                 AND   zbukr = reguh-zbukr
+*                                 AND   lifnr = reguh-lifnr
+*                                 AND   kunnr = reguh-kunnr
+*                                 AND   empfg = reguh-empfg
+*                                 AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                  AND   laufi = reguh-laufi
                                  AND   xvorl = reguh-xvorl
                                  AND   zbukr = reguh-zbukr
                                  AND   lifnr = reguh-lifnr
                                  AND   kunnr = reguh-kunnr
                                  AND   empfg = reguh-empfg
-                                 AND   vblnr = reguh-vblnr.
-        SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+                                 AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                               AND  belnr = regup-belnr
+*                               AND  gjahr = regup-gjahr
+*                               AND  buzei = regup-buzei.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                                AND  belnr = regup-belnr
                                AND  gjahr = regup-gjahr
-                               AND  buzei = regup-buzei.
+                               AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc = 0.
           zzmot_emis = bseg-zzmot_emis.
@@ -442,8 +534,18 @@ FORM preparo_salida.
        with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   endif.
 
-  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
-                                   AND   codigo ='001'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
+*                                   AND   codigo ='001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM zfolio_bbva WHERE bukrs = bukrs
+                                   AND   codigo ='001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     zfolio_bbva-bukrs = bukrs.
     zfolio_bbva-codigo ='001'.

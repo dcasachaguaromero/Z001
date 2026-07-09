@@ -200,29 +200,67 @@ START-OF-SELECTION.
 FORM seleccion_datos .
 
   "se rescatan los documentos asociados al folio
-  select * into CORRESPONDING FIELDS OF TABLE ti_bsak
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_bsak
+*    from bsak
+*    where BUKRS in p_bukrs1
+*      and lifnr in p_lifnr1
+*      and zuonr in p_zuonr1.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_bsak
     from bsak
     where BUKRS in p_bukrs1
       and lifnr in p_lifnr1
-      and zuonr in p_zuonr1.
+      and zuonr in p_zuonr1 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if sy-subrc <> 0.
     MESSAGE 'No se encontraron los folios solicitados' type 'E'.
   endif.
   "se rescata la informacion asociada al folio
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab
+*    from ZFITR020_T01 FOR ALL ENTRIES IN ti_bsak
+*    where BUKRS = ti_bsak-BUKRS
+*      and belnr = ti_bsak-augbl
+*      and GJAHR = ti_bsak-augdt(4)
+*
+*
+*        .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab
     from ZFITR020_T01 FOR ALL ENTRIES IN ti_bsak
     where BUKRS = ti_bsak-BUKRS
       and belnr = ti_bsak-augbl
       and GJAHR = ti_bsak-augdt(4)
 
 
-        .
+         ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   "se rescatan todas las posiciones asociadas  a cada llave
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
+*    where BUKRS = t_itab-bukrs
+*      and llave = t_itab-LLAVE.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab2
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
     where BUKRS = t_itab-bukrs
-      and llave = t_itab-LLAVE.
+      and llave = t_itab-LLAVE ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   sort t_itab2 by  LLAVE  LLAVE_POS DESCENDING.
 

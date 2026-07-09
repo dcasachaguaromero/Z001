@@ -190,7 +190,21 @@ START-OF-SELECTION.
 FORM seleccion_datos .
 
   loop at p_belnr1.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+*      from ZFITR020_T01
+*      where BUKRS in p_bukrs1
+*        and hbkid in p_hbkid1
+*        and hktid in p_hktid1
+*        and BELNR eq p_belnr1-low
+**        and GJAHR in p_gjahr1
+*        and budat in p_budat1
+*        .
+*
+* NEW CODE
     SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+
       from ZFITR020_T01
       where BUKRS in p_bukrs1
         and hbkid in p_hbkid1
@@ -198,7 +212,9 @@ FORM seleccion_datos .
         and BELNR eq p_belnr1-low
 *        and GJAHR in p_gjahr1
         and budat in p_budat1
-        .
+         ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     if sy-subrc <> 0.
       clear ti_error.
@@ -210,10 +226,21 @@ FORM seleccion_datos .
   endloop.
 
   "se rescatan todas las posiciones de cada llave
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
+*    where BUKRS = t_itab-bukrs
+*      and llave = t_itab-LLAVE.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab2
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
     where BUKRS = t_itab-bukrs
-      and llave = t_itab-LLAVE.
+      and llave = t_itab-LLAVE ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   sort t_itab2 by  LLAVE  LLAVE_POS DESCENDING.
 

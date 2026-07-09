@@ -168,7 +168,16 @@ AT SELECTION-SCREEN ON bukrs.
     MESSAGE e526(icc_tr) WITH bukrs.
   ENDIF.
 
-  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR v_fecha.
 
@@ -341,10 +350,21 @@ INITIALIZATION.
            ti_set_ncr.
 
 *  Carga Clases de Documento, Facturas y N. Crédito
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *
+*  FROM setleaf
+*  INTO CORRESPONDING FIELDS OF TABLE  ti_set_fac
+*     WHERE setname = 'ZFITR001'.
+*
+* NEW CODE
   SELECT *
+
   FROM setleaf
   INTO CORRESPONDING FIELDS OF TABLE  ti_set_fac
-     WHERE setname = 'ZFITR001'.
+     WHERE setname = 'ZFITR001' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   IF ti_set_fac[] IS INITIAL.
     MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos Factura'.
@@ -361,10 +381,21 @@ INITIALIZATION.
 
   ENDLOOP.
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *
+*  FROM setleaf
+*  INTO CORRESPONDING FIELDS OF TABLE  ti_set_ncr
+*     WHERE setname = 'ZFITR002'.
+*
+* NEW CODE
   SELECT *
+
   FROM setleaf
   INTO CORRESPONDING FIELDS OF TABLE  ti_set_ncr
-     WHERE setname = 'ZFITR002'.
+     WHERE setname = 'ZFITR002' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   IF ti_set_ncr[] IS INITIAL.
     MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos N.Crédito'.
@@ -385,11 +416,24 @@ START-OF-SELECTION.
 
   IF par_di = 'X'.
 
-    SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE *
+*    FROM zlog_bbva_vv
+*       WHERE bukrs = bukrs
+*         AND laufd = v_fecha
+*         AND laufi = v_nomina.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS 
     FROM zlog_bbva_vv
        WHERE bukrs = bukrs
          AND laufd = v_fecha
-         AND laufi = v_nomina.
+         AND laufi = v_nomina ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
 
@@ -434,29 +478,66 @@ END-OF-SELECTION.
 *       text
 *----------------------------------------------------------------------*
 FORM cargo_datos.
-  SELECT SINGLE * FROM reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM reguh
+*                 WHERE laufd  = v_fecha
+*                 AND   laufi  = v_nomina
+*                 AND   zbukr  = bukrs
+**HCASTILLO 10082021
+*                AND   rzawe       EQ p_viapag.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM reguh
                  WHERE laufd  = v_fecha
                  AND   laufi  = v_nomina
                  AND   zbukr  = bukrs
 *HCASTILLO 10082021
-                AND   rzawe       EQ p_viapag.
+                AND   rzawe       EQ p_viapag ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *HCASTILLO 10082021
   IF sy-subrc <> 0.
     MESSAGE e004(zfi) WITH 'Nomina no corresponde a Sociedad' bukrs.
   ENDIF.
 
-  SELECT *  FROM   reguh
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  FROM   reguh
+*            WHERE  laufd = v_fecha
+*            AND    laufi = v_nomina
+*            AND    xvorl = ' '
+**HCASTILLO 10082021
+*        AND   rzawe       EQ p_viapag.
+*
+* NEW CODE
+  SELECT *
+  FROM   reguh
             WHERE  laufd = v_fecha
             AND    laufi = v_nomina
             AND    xvorl = ' '
 *HCASTILLO 10082021
-        AND   rzawe       EQ p_viapag.
+        AND   rzawe       EQ p_viapag ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 *HCASTILLO 10082021
 .
 
     IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
-      SELECT SINGLE stcd1 INTO reguh-stcd1
-        FROM lfa1 WHERE lifnr = reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE stcd1 INTO reguh-stcd1
+*        FROM lfa1 WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+      SELECT stcd1
+      UP TO 1 ROWS  INTO reguh-stcd1
+        FROM lfa1 WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 
     IF ( NOT reguh-stcd1 IS INITIAL ) OR ( NOT reguh-zstc1 IS INITIAL ).
@@ -475,22 +556,60 @@ FORM cargo_datos.
         cuenta = reguh-ubhkt.
 " Cambia cuenta HABER numero final de 5 a 3 HCD 07-10-2020
         CONCATENATE cuenta+0(9) '3' INTO cuenta_2.
-        SELECT  SINGLE bktxt INTO bktxt FROM bkpf WHERE belnr =  reguh-vblnr
-                                          AND   gjahr = reguh-zaldt(4).
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT  SINGLE bktxt INTO bktxt FROM bkpf WHERE belnr =  reguh-vblnr
+*                                          AND   gjahr = reguh-zaldt(4).
+*
+* NEW CODE
+        SELECT bktxt
+        UP TO 1 ROWS  INTO bktxt FROM bkpf WHERE belnr =  reguh-vblnr
+                                          AND   gjahr = reguh-zaldt(4) ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-        SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                 AND   laufi = reguh-laufi
+*                                 AND   xvorl = reguh-xvorl
+*                                 AND   zbukr = reguh-zbukr
+*                                 AND   lifnr = reguh-lifnr
+*                                 AND   kunnr = reguh-kunnr
+*                                 AND   empfg = reguh-empfg
+*                                 AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                  AND   laufi = reguh-laufi
                                  AND   xvorl = reguh-xvorl
                                  AND   zbukr = reguh-zbukr
                                  AND   lifnr = reguh-lifnr
                                  AND   kunnr = reguh-kunnr
                                  AND   empfg = reguh-empfg
-                                 AND   vblnr = reguh-vblnr.
+                                 AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-        SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                               AND  belnr = regup-belnr
+*                               AND  gjahr = regup-gjahr
+*                               AND  buzei = regup-buzei.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                                AND  belnr = regup-belnr
                                AND  gjahr = regup-gjahr
-                               AND  buzei = regup-buzei.
+                               AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc = 0.
           zzmot_emis = bseg-zzmot_emis.
@@ -514,22 +633,48 @@ FORM cargo_datos.
 
   v_hbkid = tabla_00-hbkid.
 * Rescata motivos de emisión
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *
+*    INTO CORRESPONDING FIELDS OF TABLE ti_exc
+*    FROM zfitr005
+*    WHERE bukrs = bukrs
+*      AND hbkid = v_hbkid.
+*
+* NEW CODE
   SELECT *
+
     INTO CORRESPONDING FIELDS OF TABLE ti_exc
     FROM zfitr005
     WHERE bukrs = bukrs
-      AND hbkid = v_hbkid.
+      AND hbkid = v_hbkid ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   LOOP AT tabla_00.
     CLEAR indice.
     MOVE sy-tabix TO indice.
 *   Valida Motivo de Emisión 4° Copia
-    SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE *
+*    FROM bsak
+*       WHERE bukrs EQ bukrs
+*         AND lifnr EQ tabla_00-lifnr
+*         AND augbl EQ tabla_00-vblnr
+*         AND belnr <> tabla_00-vblnr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS 
     FROM bsak
        WHERE bukrs EQ bukrs
          AND lifnr EQ tabla_00-lifnr
          AND augbl EQ tabla_00-vblnr
-         AND belnr <> tabla_00-vblnr.
+         AND belnr <> tabla_00-vblnr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *  Lee el registro en la tabla de motivos de emisión
     READ TABLE ti_exc WITH KEY bukrs = bukrs
                                hbkid = v_hbkid
@@ -610,8 +755,18 @@ FORM preparo_salida.
             WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
-                                   AND   codigo ='001'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
+*                                   AND   codigo ='001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM zfolio_bbva WHERE bukrs = bukrs
+                                   AND   codigo ='001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     zfolio_bbva-bukrs = bukrs.
     zfolio_bbva-codigo ='001'.

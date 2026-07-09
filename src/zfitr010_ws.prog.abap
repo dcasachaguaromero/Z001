@@ -159,7 +159,16 @@ AT SELECTION-SCREEN ON bukrs.
 *--------'No authorization for company code &'------------------------
     MESSAGE e526(icc_tr) WITH bukrs.
   ENDIF.
-  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR v_fecha.
   REFRESH lt_dynpfields.
@@ -299,9 +308,19 @@ AT SELECTION-SCREEN ON VALUE-REQUEST FOR v_modulo.
   TRANSLATE bukrs TO UPPER CASE.
 
 
-  SELECT modulo descripcion FROM zfitr007
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT modulo descripcion FROM zfitr007
+*         INTO TABLE it_modulo
+*         WHERE bukrs =  bukrs.
+*
+* NEW CODE
+  SELECT modulo descripcion
+ FROM zfitr007
          INTO TABLE it_modulo
-         WHERE bukrs =  bukrs.
+         WHERE bukrs =  bukrs ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   CALL FUNCTION 'F4IF_INT_TABLE_VALUE_REQUEST'
     EXPORTING
@@ -350,10 +369,21 @@ AT SELECTION-SCREEN ON VALUE-REQUEST FOR v_servi.
   READ TABLE lt_dynpfields INDEX 2.
   v_modulo = lt_dynpfields-fieldvalue .
 
-  SELECT servicio descripcion FROM zfitr008
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT servicio descripcion FROM zfitr008
+*         INTO TABLE it_servicios
+*         WHERE bukrs =  bukrs
+*          AND   modulo = v_modulo.
+*
+* NEW CODE
+  SELECT servicio descripcion
+ FROM zfitr008
          INTO TABLE it_servicios
          WHERE bukrs =  bukrs
-          AND   modulo = v_modulo.
+          AND   modulo = v_modulo ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   CALL FUNCTION 'F4IF_INT_TABLE_VALUE_REQUEST'
     EXPORTING
@@ -405,9 +435,20 @@ START-OF-SELECTION.
   DATA final(1).
   CLEAR final.
 
-  SELECT SINGLE * FROM zws_puerto WHERE sociedad = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM zws_puerto WHERE sociedad = bukrs
+*                                          AND programa  = 'ZFITR010_WS'
+*                                          AND estado = 'H'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM zws_puerto WHERE sociedad = bukrs
                                           AND programa  = 'ZFITR010_WS'
-                                          AND estado = 'H'.
+                                          AND estado = 'H' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     MESSAGE i016(z1) WITH 'No existe puerto ws habilitado ' ' para este programa y Sociedad : ' bukrs.
     LEAVE PROGRAM.
@@ -418,11 +459,24 @@ START-OF-SELECTION.
   IF v_nrotra IS INITIAL.
     MESSAGE i004(zfi) WITH 'Debe Ingresar Numero Transferencia'.
   ELSE.
-    SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE *
+*        FROM zlog_bbva_ws
+*         WHERE bukrs = bukrs
+*            AND laufd = v_fecha
+*            AND laufi = v_nomina.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS 
         FROM zlog_bbva_ws
          WHERE bukrs = bukrs
             AND laufd = v_fecha
-            AND laufi = v_nomina.
+            AND laufi = v_nomina ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
       IF NOT zlog_bbva_ws-id_nomina IS INITIAL AND par_rej IS INITIAL.
@@ -457,12 +511,26 @@ END-OF-SELECTION.
 *       text
 *----------------------------------------------------------------------*
 FORM cargo_datos.
-  SELECT SINGLE * FROM reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM reguh
+*                 WHERE laufd       = v_fecha
+*                 AND   laufi       = v_nomina
+*                 AND   zbukr       = bukrs
+** ini - Waldo Alarcón - Visionone - 03-02-2021
+*                 AND   rzawe       EQ p_viapag.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM reguh
                  WHERE laufd       = v_fecha
                  AND   laufi       = v_nomina
                  AND   zbukr       = bukrs
 * ini - Waldo Alarcón - Visionone - 03-02-2021
-                 AND   rzawe       EQ p_viapag.
+                 AND   rzawe       EQ p_viapag ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 * fin - Waldo Alarcón - Visionone - 03-02-2021
 
   IF sy-subrc <> 0.
@@ -470,18 +538,42 @@ FORM cargo_datos.
   ENDIF.
 
 * Rescatamos Datos.
-  SELECT *  FROM  reguh
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  FROM  reguh
+*           WHERE  laufd      = v_fecha
+*           AND    laufi      = v_nomina
+*           AND    xvorl      = ' '
+** ini - Waldo Alarcón - Visionone - 03-02-2021
+**           AND  ( rzawe = 'V' )
+*           AND   rzawe       EQ p_viapag.
+*
+* NEW CODE
+  SELECT *
+  FROM  reguh
            WHERE  laufd      = v_fecha
            AND    laufi      = v_nomina
            AND    xvorl      = ' '
 * ini - Waldo Alarcón - Visionone - 03-02-2021
 *           AND  ( rzawe = 'V' )
-           AND   rzawe       EQ p_viapag.
+           AND   rzawe       EQ p_viapag ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 * fin - Waldo Alarcón - Visionone - 03-02-2021
 
     IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
-      SELECT SINGLE stcd1 INTO reguh-stcd1
-        FROM lfa1 WHERE lifnr = reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE stcd1 INTO reguh-stcd1
+*        FROM lfa1 WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+      SELECT stcd1
+      UP TO 1 ROWS  INTO reguh-stcd1
+        FROM lfa1 WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 
     IF ( NOT reguh-stcd1 IS INITIAL ) OR ( NOT reguh-zstc1 IS INITIAL ).
@@ -503,24 +595,64 @@ FORM cargo_datos.
 * CBD - 2012-01-11 - MANEJO CUENTA CARGO
         CONCATENATE cuenta+0(9) '3' INTO cuenta_2.
 * CBD - 2012-01-11 - MANEJO CUENTA CARGO
-        SELECT  SINGLE bktxt INTO bktxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT  SINGLE bktxt INTO bktxt
+*                FROM bkpf WHERE bukrs = bukrs
+*                          AND   belnr = reguh-vblnr
+*                          AND   gjahr = reguh-zaldt(4).
+*
+* NEW CODE
+        SELECT bktxt
+        UP TO 1 ROWS  INTO bktxt
                 FROM bkpf WHERE bukrs = bukrs
                           AND   belnr = reguh-vblnr
-                          AND   gjahr = reguh-zaldt(4).
+                          AND   gjahr = reguh-zaldt(4) ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-        SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                 AND   laufi = reguh-laufi
+*                                 AND   xvorl = reguh-xvorl
+*                                 AND   zbukr = reguh-zbukr
+*                                 AND   lifnr = reguh-lifnr
+*                                 AND   kunnr = reguh-kunnr
+*                                 AND   empfg = reguh-empfg
+*                                 AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                  AND   laufi = reguh-laufi
                                  AND   xvorl = reguh-xvorl
                                  AND   zbukr = reguh-zbukr
                                  AND   lifnr = reguh-lifnr
                                  AND   kunnr = reguh-kunnr
                                  AND   empfg = reguh-empfg
-                                 AND   vblnr = reguh-vblnr.
+                                 AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-        SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                               AND  belnr = regup-belnr
+*                               AND  gjahr = regup-gjahr
+*                               AND  buzei = regup-buzei.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                                AND  belnr = regup-belnr
                                AND  gjahr = regup-gjahr
-                               AND  buzei = regup-buzei.
+                               AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc = 0.
           zzmot_emis = bseg-zzmot_emis.
@@ -579,8 +711,18 @@ FORM preparo_salida.
        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
-                                   AND   codigo ='001'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
+*                                   AND   codigo ='001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM zfolio_bbva WHERE bukrs = bukrs
+                                   AND   codigo ='001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     zfolio_bbva-bukrs = bukrs.
     zfolio_bbva-codigo ='001'.
@@ -613,7 +755,21 @@ FORM preparo_salida.
 * ini - Waldo Alarcón - Visionone - 03-02-2021
 * obtiene el identificador ya grabado desde la REGUH
     IF par_rej EQ 'X'.
-      SELECT SINGLE identif_pago INTO reg01-identificador
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE identif_pago INTO reg01-identificador
+*           FROM reguh WHERE  laufd = tabla_00-laufd
+*                         AND laufi = tabla_00-laufi
+*                         AND xvorl = tabla_00-xvorl
+*                         AND zbukr = tabla_00-zbukr
+*                         AND lifnr = tabla_00-lifnr
+*                         AND kunnr = tabla_00-kunnr
+*                         AND empfg = tabla_00-empfg
+*                         AND vblnr = tabla_00-vblnr.
+*
+* NEW CODE
+      SELECT identif_pago
+      UP TO 1 ROWS  INTO reg01-identificador
            FROM reguh WHERE  laufd = tabla_00-laufd
                          AND laufi = tabla_00-laufi
                          AND xvorl = tabla_00-xvorl
@@ -621,7 +777,10 @@ FORM preparo_salida.
                          AND lifnr = tabla_00-lifnr
                          AND kunnr = tabla_00-kunnr
                          AND empfg = tabla_00-empfg
-                         AND vblnr = tabla_00-vblnr.
+                         AND vblnr = tabla_00-vblnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 * fin - Waldo Alarcón - Visionone - 03-02-2021
     APPEND reg01.
@@ -686,8 +845,18 @@ FORM preparo_salida_t.
        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
-                                   AND   codigo ='001'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM zfolio_bbva WHERE bukrs = bukrs
+*                                   AND   codigo ='001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM zfolio_bbva WHERE bukrs = bukrs
+                                   AND   codigo ='001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     zfolio_bbva-bukrs = bukrs.
     zfolio_bbva-codigo ='001'.
@@ -728,7 +897,21 @@ FORM preparo_salida_t.
 * ini - Waldo Alarcón - Visionone - 03-02-2021
 * obtiene el identificador ya grabado desde la REGUH
     IF par_rej EQ 'X'.
-      SELECT SINGLE identif_pago INTO reg02-identificador
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE identif_pago INTO reg02-identificador
+*           FROM reguh WHERE  laufd = tabla_00-laufd
+*                         AND laufi = tabla_00-laufi
+*                         AND xvorl = tabla_00-xvorl
+*                         AND zbukr = tabla_00-zbukr
+*                         AND lifnr = tabla_00-lifnr
+*                         AND kunnr = tabla_00-kunnr
+*                         AND empfg = tabla_00-empfg
+*                         AND vblnr = tabla_00-vblnr.
+*
+* NEW CODE
+      SELECT identif_pago
+      UP TO 1 ROWS  INTO reg02-identificador
            FROM reguh WHERE  laufd = tabla_00-laufd
                          AND laufi = tabla_00-laufi
                          AND xvorl = tabla_00-xvorl
@@ -736,7 +919,10 @@ FORM preparo_salida_t.
                          AND lifnr = tabla_00-lifnr
                          AND kunnr = tabla_00-kunnr
                          AND empfg = tabla_00-empfg
-                         AND vblnr = tabla_00-vblnr.
+                         AND vblnr = tabla_00-vblnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 * fin - Waldo Alarcón - Visionone - 03-02-2021
 
@@ -987,10 +1173,21 @@ ENDFORM.                    "contabilizacion
 *       text
 *----------------------------------------------------------------------*
 FORM reenvio_ws.
-  SELECT  *  FROM zlog_bbva_ws_det
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT  *  FROM zlog_bbva_ws_det
+*             WHERE bukrs = bukrs
+*                AND laufd = v_fecha
+*                AND laufi = v_nomina.
+*
+* NEW CODE
+  SELECT *
+  FROM zlog_bbva_ws_det
              WHERE bukrs = bukrs
                 AND laufd = v_fecha
-                AND laufi = v_nomina.
+                AND laufi = v_nomina ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     file-linea+0(200) = zlog_bbva_ws_det-linea_p1.
     file-linea+199(200) = zlog_bbva_ws_det-linea_p2.
@@ -1045,11 +1242,31 @@ FORM llamar_ws .
 
   TRY.
 
-      SELECT SINGLE * FROM zfitr006 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zfitr006 WHERE bukrs = bukrs.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zfitr006 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
 
-      SELECT SINGLE * FROM zfitr008 WHERE bukrs    = bukrs
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zfitr008 WHERE bukrs    = bukrs
+*                                    AND   modulo   = v_modulo
+*                                    AND   servicio = v_servi.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zfitr008 WHERE bukrs    = bukrs
                                     AND   modulo   = v_modulo
-                                    AND   servicio = v_servi.
+                                    AND   servicio = v_servi ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       input-user_name         = zfitr006-usuario.
       input-password          = zfitr006-clave.
@@ -1076,9 +1293,20 @@ FORM llamar_ws .
   IF  output-identificador_nomina IS INITIAL.
     WRITE : / 'Error : ', output-motivo_no_exito.
   ELSE.
-    SELECT SINGLE * FROM zlog_bbva_ws WHERE  bukrs = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM zlog_bbva_ws WHERE  bukrs = bukrs
+*                                      AND    laufd = v_fecha
+*                                      AND    laufi = v_nomina.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM zlog_bbva_ws WHERE  bukrs = bukrs
                                       AND    laufd = v_fecha
-                                      AND    laufi = v_nomina.
+                                      AND    laufi = v_nomina ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       zlog_bbva_ws-id_nomina    = output-identificador_nomina.
       zlog_bbva_ws-modulo       = v_modulo.

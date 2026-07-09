@@ -52,8 +52,17 @@ START-OF-SELECTION.
 
       write: / datos-bukrs, datos-identif_pago, datos-lineas.
 
-      select  * from reguh where identif_pago = datos-identif_pago
-                           and zbukr =  bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      select  * from reguh where identif_pago = datos-identif_pago
+*                           and zbukr =  bukrs.
+*
+* NEW CODE
+      SELECT *
+ from reguh where identif_pago = datos-identif_pago
+                           and zbukr =  bukrs ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
               write: / reguh-zbukr, reguh-LAUFD, reguh-LAUFI, reguh-LIFNR, reguh-NAME1, reguh-RWBTR currency 'CLP'.
 
       endselect.

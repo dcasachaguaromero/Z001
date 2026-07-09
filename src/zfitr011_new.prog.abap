@@ -19,7 +19,16 @@ INCLUDE zfitr011_new_001. "valores de dynpro 100
 INCLUDE zfitr011_new_002. "valores de dynpro 200
 *
 START-OF-SELECTION.
-  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *
   EXEC SQL.
     connect to 'SAPCSC' as 'con'

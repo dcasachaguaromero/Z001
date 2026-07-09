@@ -45,9 +45,19 @@ AT SELECTION-SCREEN ON p_bukrs.
 AT SELECTION-SCREEN ON p_hbkid.
 
   IF p_hbkid NE space AND p_bukrs NE space.
-    SELECT * FROM t012k INTO TABLE gt_t012k
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM t012k INTO TABLE gt_t012k
+*            WHERE bukrs = p_bukrs
+*            AND   hbkid = p_hbkid.
+*
+* NEW CODE
+    SELECT *
+ FROM t012k INTO TABLE gt_t012k
             WHERE bukrs = p_bukrs
-            AND   hbkid = p_hbkid.
+            AND   hbkid = p_hbkid ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF sy-subrc NE 0.
       MESSAGE e002(z001) WITH p_hbkid p_bukrs.
 * error HBKID no es valido para la Sociedad.
@@ -56,10 +66,21 @@ AT SELECTION-SCREEN ON p_hbkid.
 
 AT SELECTION-SCREEN ON p_hktid.
   IF p_hbkid NE space AND  p_hktid NE space AND p_bukrs NE space.
-    SELECT * FROM t012k INTO TABLE gt_t012k
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM t012k INTO TABLE gt_t012k
+*           WHERE bukrs = p_bukrs
+*           AND   hbkid = p_hbkid
+*           AND   hktid = p_hktid.
+*
+* NEW CODE
+    SELECT *
+ FROM t012k INTO TABLE gt_t012k
            WHERE bukrs = p_bukrs
            AND   hbkid = p_hbkid
-           AND   hktid = p_hktid.
+           AND   hktid = p_hktid ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF sy-subrc NE 0.
       MESSAGE e003(z001) WITH p_bukrs p_hbkid p_hktid.
 * error HKTID no es valido para la Sociedad.

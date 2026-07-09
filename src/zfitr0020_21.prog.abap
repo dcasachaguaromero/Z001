@@ -207,7 +207,22 @@ START-OF-SELECTION.
 *&---------------------------------------------------------------------*
 FORM seleccion_datos .
   "Se rescatan los registros zp que van a rescatar las llaves
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab
+*    from ZFITR020_T01
+*    where BUKRS in p_bukrs1
+*      and hbkid in p_hbkid1
+*      and hktid in p_hktid1
+*      and chect in p_chect1
+*      and budat in p_budat1
+*      and chect <> ' '
+*      and blart = 'ZP'
+*        .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab
     from ZFITR020_T01
     where BUKRS in p_bukrs1
       and hbkid in p_hbkid1
@@ -216,18 +231,32 @@ FORM seleccion_datos .
       and budat in p_budat1
       and chect <> ' '
       and blart = 'ZP'
-        .
+         ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if t_itab[] is INITIAL.
     MESSAGE 'No se encontraron datos' type 'E'.
   endif.
 
   "agrupamos por los registros ZP que tengan posicion de llave 1
-  SELECT * into CORRESPONDING FIELDS OF   t_itab2
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF   t_itab2
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
+*    where BUKRS = t_itab-bukrs
+*      and llave = t_itab-LLAVE
+*      and LLAVE_POS = '1'.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF   t_itab2
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
     where BUKRS = t_itab-bukrs
       and llave = t_itab-LLAVE
-      and LLAVE_POS = '1'.
+      and LLAVE_POS = '1' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     append t_itab2.
   ENDSELECT.
@@ -242,14 +271,29 @@ FORM seleccion_datos .
     append r_date.
     "rescatamos el documento compensado y guardamos el cheque
     "que genero la busqueda
-    select * into CORRESPONDING FIELDS OF  wa_bsak
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * into CORRESPONDING FIELDS OF  wa_bsak
+*      from bsak
+*      where BUKRS = t_itab2-bukrs
+*        and augbl = t_itab2-belnr
+*        and augdt in r_date
+*        and BELNR <> t_itab2-belnr
+**        and GJAHR = t_itab2-GJAHR
+*        and LIFNR = t_itab2-LIFNR.
+*
+* NEW CODE
+    SELECT *
+ into CORRESPONDING FIELDS OF  wa_bsak
       from bsak
       where BUKRS = t_itab2-bukrs
         and augbl = t_itab2-belnr
         and augdt in r_date
         and BELNR <> t_itab2-belnr
 *        and GJAHR = t_itab2-GJAHR
-        and LIFNR = t_itab2-LIFNR.
+        and LIFNR = t_itab2-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
       wa_bsak-cheque_cons = t_itab2-CHECT.
       APPEND wa_bsak to ti_bsak.
@@ -257,10 +301,21 @@ FORM seleccion_datos .
   ENDLOOP.
 
   "rescatamos los registros asociados a las llaves
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab3
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab3
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab2
+*    where BUKRS = t_itab2-bukrs
+*      and llave = t_itab2-LLAVE .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab3
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab2
     where BUKRS = t_itab2-bukrs
-      and llave = t_itab2-LLAVE .
+      and llave = t_itab2-LLAVE  ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   sort t_itab3 by LLAVE LLAVE_POS DESCENDING.
   DELETE ADJACENT DUPLICATES FROM t_itab3.

@@ -208,10 +208,22 @@ START-OF-SELECTION.
 * CBD                WHERE identif_pago = reg-codigo_identificacion
 * CBD                  AND ( ind_devuelto = 'X' OR ind_rechazo = 'X' ).
                 IF reg-estado_pago = 'CHEQUE DEVUELTO'.
-                  SELECT SINGLE * INTO reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*                  SELECT SINGLE * INTO reguh
+*                    FROM reguh
+*                  WHERE identif_pago = reg-codigo_identificacion
+*                    AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+*
+* NEW CODE
+                  SELECT *
+                  UP TO 1 ROWS  INTO reguh
                     FROM reguh
                   WHERE identif_pago = reg-codigo_identificacion
-                    AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+                    AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ) ORDER BY PRIMARY KEY.
+
+                  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 * CBD - 2011-12-21 - 08:15 / SE AGREGA VALIDACION PARA ESTADO PAGADO, ES DECIR AL ESTAR PAGADO TAMPOCO DEBE GENERAR UNA NUEVA OBLIGACION
                   IF sy-subrc <> 0.
                     MOVE-CORRESPONDING reg TO tdev.
@@ -240,10 +252,22 @@ START-OF-SELECTION.
 * CBD                   WHERE identif_pago = reg-codigo_identificacion
 * CBD                     AND ( ind_devuelto = 'X' OR ind_rechazo = 'X' ).
                   IF reg-estado_pago = 'CHEQUE RECHAZADO'.
-                    SELECT SINGLE * INTO reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*                    SELECT SINGLE * INTO reguh
+*                      FROM reguh
+*                     WHERE identif_pago = reg-codigo_identificacion
+*                       AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+*
+* NEW CODE
+                    SELECT *
+                    UP TO 1 ROWS  INTO reguh
                       FROM reguh
                      WHERE identif_pago = reg-codigo_identificacion
-                       AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+                       AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ) ORDER BY PRIMARY KEY.
+
+                    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 * CBD - 2011-12-21 - 08:18 / SE AGREGA VALIDACION PARA ESTADO PAGADO, ES DECIR AL ESTAR PAGADO TAMPOCO DEBE GENERAR UNA NUEVA OBLIGACION
                     IF sy-subrc <> 0.
                       MOVE-CORRESPONDING reg TO trec.
@@ -268,10 +292,22 @@ START-OF-SELECTION.
 * CBD - 2012-01-10 - 23:06 / INCORPORO TRATAMIENTO PARA EL ESTADO "CHEQUE RESCATADO"
                   IF reg-estado_pago = 'CHEQUE RESCATADO' OR reg-estado_pago = 'CHEQUE RESCATADO R'.
                     IF reg-estado_pago = 'CHEQUE RESCATADO'.
-                      SELECT SINGLE * INTO reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*                      SELECT SINGLE * INTO reguh
+*                        FROM reguh
+*                       WHERE identif_pago = reg-codigo_identificacion
+*                         AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+*
+* NEW CODE
+                      SELECT *
+                      UP TO 1 ROWS  INTO reguh
                         FROM reguh
                        WHERE identif_pago = reg-codigo_identificacion
-                         AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ).
+                         AND ( ind_pago = 'X' OR ind_rescatado = 'X' OR ind_devuelto = 'X' OR ind_rechazo = 'X' ) ORDER BY PRIMARY KEY.
+
+                      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
                       IF sy-subrc <> 0.
                         MOVE-CORRESPONDING reg TO tres.
                         APPEND tres.
@@ -405,9 +441,19 @@ FORM contabilizo   TABLES tdat LIKE reg1x USING texto LIKE bkpf-bktxt.
     SORT tdat BY codigo_identificacion.
 
     IF bukrs_x <> tdat-codigo_identificacion+0(4).
-      SELECT *  FROM zctarechazo INTO CORRESPONDING FIELDS OF TABLE tcuenta
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT *  FROM zctarechazo INTO CORRESPONDING FIELDS OF TABLE tcuenta
+*                                   WHERE bukrs = tdat-codigo_identificacion+0(4)
+*                                   and   RZAWE_D = ''.
+*
+* NEW CODE
+      SELECT *
+  FROM zctarechazo INTO CORRESPONDING FIELDS OF TABLE tcuenta
                                    WHERE bukrs = tdat-codigo_identificacion+0(4)
-                                   and   RZAWE_D = ''.
+                                   and   RZAWE_D = '' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
       SORT tcuenta BY bukrs rzawe hkont_orig.
     ENDIF.
@@ -478,7 +524,16 @@ FORM contabilizo   TABLES tdat LIKE reg1x USING texto LIKE bkpf-bktxt.
 *      cuenta = '00315'.
 *    ENDIF.
 
-    SELECT  SINGLE * FROM reguh WHERE identif_pago  = tdat-codigo_identificacion.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT  SINGLE * FROM reguh WHERE identif_pago  = tdat-codigo_identificacion.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM reguh WHERE identif_pago  = tdat-codigo_identificacion ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     largo = STRLEN( reguh-ubhkt ) - 1.
     reguh-ubhkt+largo(1) = '1'.
 
@@ -559,10 +614,22 @@ FORM contabilizo   TABLES tdat LIKE reg1x USING texto LIKE bkpf-bktxt.
                           AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
 *End of change: ReSQ Correction for Addition ORDER BY PRIMARY KEY 27/12/2019 EY_DES01 ECDK916992*
 
-      SELECT SINGLE  * FROM bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE  * FROM bseg WHERE bukrs  = regup-bukrs
+*                             AND  belnr = regup-belnr
+*                             AND  gjahr = regup-gjahr
+*                             AND  buzei = regup-buzei.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM bseg WHERE bukrs  = regup-bukrs
                              AND  belnr = regup-belnr
                              AND  gjahr = regup-gjahr
-                             AND  buzei = regup-buzei.
+                             AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF nuevo = 'S'.
         IF tdat-fecha_estado IS INITIAL.
@@ -656,8 +723,18 @@ FORM contabilizo   TABLES tdat LIKE reg1x USING texto LIKE bkpf-bktxt.
       PERFORM bdc_field       USING 'BSEG-ZZ_AGENCIA'
                                      bseg-zz_agencia.
 * CBD
-      SELECT SINGLE * FROM lfb1 WHERE lifnr = reguh-lifnr AND
-                                       bukrs = bukrs_x.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM lfb1 WHERE lifnr = reguh-lifnr AND
+*                                       bukrs = bukrs_x.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM lfb1 WHERE lifnr = reguh-lifnr AND
+                                       bukrs = bukrs_x ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc = 0.
 * CBD NO ES NECESARIO PREGUNTAR POR "IF NOT lfb1-qland IS INITIAL" YA QUE BASTA CON QUE EXISTA EN TABLA LFB1 PARA REALIZAR COUNT(*) EN TABLA LFBW

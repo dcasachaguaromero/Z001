@@ -430,14 +430,29 @@ ENDFORM.                    " DESPLIEGA_ALV
 FORM SELECCION_DATOS1 .
 
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+*    from ZFITR020_T01
+*    where BUKRS in p_bukrs1
+*      and budat in p_budat1
+*      and blart in p_rango
+*      and MOTIVO_EMISION in p_motem1
+*      and BELNR in p_belnr1
+*      and GJAHR in p_gjahr1.
+*
+* NEW CODE
   SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+
     from ZFITR020_T01
     where BUKRS in p_bukrs1
       and budat in p_budat1
       and blart in p_rango
       and MOTIVO_EMISION in p_motem1
       and BELNR in p_belnr1
-      and GJAHR in p_gjahr1.
+      and GJAHR in p_gjahr1 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
   if t_itab[] is INITIAL.
@@ -453,12 +468,25 @@ FORM SELECCION_DATOS1 .
   endloop.
 
   "se busca la posicion inicial de esa llave
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab_min
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab_min
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab_max
+*    where BUKRS = t_itab_max-bukrs
+*      and llave = t_itab_max-LLAVE
+*      and LLAVE_POS = '1'
+*      and blart = 'ZP'.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab_min
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab_max
     where BUKRS = t_itab_max-bukrs
       and llave = t_itab_max-LLAVE
       and LLAVE_POS = '1'
-      and blart = 'ZP'.
+      and blart = 'ZP' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   sort t_itab3 by BELNR GJAHR LLAVE LLAVE_POS.
 *Begin of change: ReSQ Correction for DELETE ADJACENT DUPLICATE 19/12/2019 EY_DES03 ECDK917080 *
@@ -477,14 +505,29 @@ SORT T_ITAB_MIN .
     append r_date.
 
     "se buscan los datos adicionales correspondientes
-    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+*      from bsak "FOR ALL ENTRIES IN t_itab_min
+*      where BUKRS =  t_itab_min-bukrs
+*        and augbl =  t_itab_min-belnr
+*        and augdt in r_date
+*        and BELNR <> t_itab_min-belnr
+**        and GJAHR =  t_itab_min-GJAHR
+*        and LIFNR =  t_itab_min-LIFNR.
+*
+* NEW CODE
+    SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+
       from bsak "FOR ALL ENTRIES IN t_itab_min
       where BUKRS =  t_itab_min-bukrs
         and augbl =  t_itab_min-belnr
         and augdt in r_date
         and BELNR <> t_itab_min-belnr
 *        and GJAHR =  t_itab_min-GJAHR
-        and LIFNR =  t_itab_min-LIFNR.
+        and LIFNR =  t_itab_min-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   endloop.
 
 ENDFORM.                    " SELECCION_DATOS1
@@ -534,14 +577,29 @@ ENDFORM.                    " CREA_ALV_SALIDA1
 FORM SELECCION_DATOS2 .
 
   "se rescatan las posciciones asociados al motivo de emision
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+*    from ZFITR020_T01
+*    where BUKRS in p_bukrs2
+*      and budat in p_budat2
+*      and blart in p_rango2
+*      and MOTIVO_EMISION in p_motem2
+*      and BELNR in p_belnr2
+*      and GJAHR in p_gjahr2.
+*
+* NEW CODE
   SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+
     from ZFITR020_T01
     where BUKRS in p_bukrs2
       and budat in p_budat2
       and blart in p_rango2
       and MOTIVO_EMISION in p_motem2
       and BELNR in p_belnr2
-      and GJAHR in p_gjahr2.
+      and GJAHR in p_gjahr2 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
   if t_itab[] is INITIAL.
@@ -558,12 +616,25 @@ FORM SELECCION_DATOS2 .
   endloop.
 
   "se rescata el primer movimiento de cada llave
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab_min
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab_min
+*    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab_max
+*    where BUKRS = t_itab_max-bukrs
+*      and llave = t_itab_max-LLAVE
+*      and LLAVE_POS = '1'
+*      and blart = 'ZP'.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab_min
     from ZFITR020_T01 FOR ALL ENTRIES IN t_itab_max
     where BUKRS = t_itab_max-bukrs
       and llave = t_itab_max-LLAVE
       and LLAVE_POS = '1'
-      and blart = 'ZP'.
+      and blart = 'ZP' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 **ins ini
     sort t_itab_min by bukrs blart belnr bldat budat gjahr.
 **ins fin
@@ -583,21 +654,48 @@ FORM SELECCION_DATOS2 .
     append r_date.
     "se rescatan los folios asociados a los movimientos
     "minimos
-    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+*      from bsak "FOR ALL ENTRIES IN t_itab_min
+*      where BUKRS =  t_itab_min-bukrs
+*        and augbl =  t_itab_min-belnr
+*        and augdt in r_date
+*        and BELNR <> t_itab_min-belnr
+**      and GJAHR =  t_itab_min-GJAHR
+*        and LIFNR =  t_itab_min-LIFNR.
+*
+* NEW CODE
+    SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+
       from bsak "FOR ALL ENTRIES IN t_itab_min
       where BUKRS =  t_itab_min-bukrs
         and augbl =  t_itab_min-belnr
         and augdt in r_date
         and BELNR <> t_itab_min-belnr
 *      and GJAHR =  t_itab_min-GJAHR
-        and LIFNR =  t_itab_min-LIFNR.
+        and LIFNR =  t_itab_min-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   endloop.
   "
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+*   from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
+*   where BELNR = t_itab-VBLNR_PAGO
+*     and GJAHR = t_itab-gjahr_pago
+*     and BUKRS = t_itab-BUKRS.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab2
    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
    where BELNR = t_itab-VBLNR_PAGO
      and GJAHR = t_itab-gjahr_pago
-     and BUKRS = t_itab-BUKRS.
+     and BUKRS = t_itab-BUKRS ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
 ENDFORM.                    " SELECCION_DATOS2
@@ -662,7 +760,21 @@ ENDFORM.                    " CREA_ALV_SALIDA2
 FORM SELECCION_DATOS3 .
 
   "selecciona los datos minimos de manera directa
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+*    from ZFITR020_T01
+*    where BUKRS in p_bukrs3
+*      and budat in p_budat3
+*      and blart in p_rango3
+*      and MOTIVO_EMISION in p_motem3
+*      and LLAVE_POS eq '1'
+*      and BELNR in p_belnr3
+*      and GJAHR in p_gjahr3.
+*
+* NEW CODE
   SELECT * APPENDING CORRESPONDING FIELDS OF TABLE t_itab
+
     from ZFITR020_T01
     where BUKRS in p_bukrs3
       and budat in p_budat3
@@ -670,7 +782,9 @@ FORM SELECCION_DATOS3 .
       and MOTIVO_EMISION in p_motem3
       and LLAVE_POS eq '1'
       and BELNR in p_belnr3
-      and GJAHR in p_gjahr3.
+      and GJAHR in p_gjahr3 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if t_itab[] is INITIAL.
     MESSAGE 'No se encontraron datos' type 'E'.
@@ -687,19 +801,44 @@ FORM SELECCION_DATOS3 .
     append r_date.
 
     "busca los folios respectivos
-    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+*      from bsak "FOR ALL ENTRIES IN t_itab
+*      where BUKRS =  t_itab-bukrs
+*        and augbl =  t_itab-belnr
+*        and augdt in r_date
+*        and BELNR <> t_itab-belnr
+**        and GJAHR =  t_itab-GJAHR
+*        and LIFNR =  t_itab-LIFNR.
+*
+* NEW CODE
+    SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsak
+
       from bsak "FOR ALL ENTRIES IN t_itab
       where BUKRS =  t_itab-bukrs
         and augbl =  t_itab-belnr
         and augdt in r_date
         and BELNR <> t_itab-belnr
 *        and GJAHR =  t_itab-GJAHR
-        and LIFNR =  t_itab-LIFNR.
+        and LIFNR =  t_itab-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   endloop.
   "busca todos los movientos relacionados a la llave
-  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE t_itab2
+*   from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
+*   where LLAVE = t_itab-LLAVE.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE t_itab2
    from ZFITR020_T01 FOR ALL ENTRIES IN t_itab
-   where LLAVE = t_itab-LLAVE.
+   where LLAVE = t_itab-LLAVE ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   "ordena  y borra los duplicados
   sort t_itab2 by  LLAVE  DESCENDING LLAVE_POS DESCENDING.

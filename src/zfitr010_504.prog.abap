@@ -10,10 +10,22 @@
 
   REFRESH: ti_adrc, file.
 
-  SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE adrnr
+*         FROM t001
+*         INTO v_adrnr
+*         WHERE bukrs EQ bukrs.
+*
+* NEW CODE
+  SELECT adrnr
+  UP TO 1 ROWS 
          FROM t001
          INTO v_adrnr
-         WHERE bukrs EQ bukrs.
+         WHERE bukrs EQ bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   f_adrnr = v_adrnr.
 
@@ -55,12 +67,26 @@
   file-linea+41(8)      = num_c.
   file-linea+49(1)      = dv.
 
-  SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *
+*    FROM bsak
+*    WHERE bukrs EQ bukrs
+*      AND lifnr EQ tabla_00-lifnr
+*      AND augbl EQ tabla_00-vblnr
+*      AND belnr <> tabla_00-vblnr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS 
     FROM bsak
     WHERE bukrs EQ bukrs
       AND lifnr EQ tabla_00-lifnr
       AND augbl EQ tabla_00-vblnr
-      AND belnr <> tabla_00-vblnr.
+      AND belnr <> tabla_00-vblnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   READ TABLE ti_exc WITH KEY bukrs = bukrs
                              hbkid = tabla_00-hbkid
@@ -109,8 +135,18 @@
        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  SELECT SINGLE *  FROM zfolio_pagobanco  WHERE bukrs  = bukrs
-                                            AND codigo = '001'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *  FROM zfolio_pagobanco  WHERE bukrs  = bukrs
+*                                            AND codigo = '001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS   FROM zfolio_pagobanco  WHERE bukrs  = bukrs
+                                            AND codigo = '001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     zfolio_pagobanco-bukrs = bukrs.
     zfolio_pagobanco-codigo ='001'.
@@ -161,15 +197,39 @@
       CLEAR:  f_adrnr, v_adrnr, ti_adrc, v_mail.
       REFRESH ti_adrc.
 
-      SELECT SINGLE adrnd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE adrnd
+*             INTO v_adrnr
+*             FROM knvk
+*             WHERE lifnr EQ tabla_00-lifnr.
+*
+* NEW CODE
+      SELECT adrnd
+      UP TO 1 ROWS 
              INTO v_adrnr
              FROM knvk
-             WHERE lifnr EQ tabla_00-lifnr.
+             WHERE lifnr EQ tabla_00-lifnr ORDER BY PRIMARY KEY.
 
-      SELECT SINGLE smtp_addr
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE smtp_addr
+*             INTO v_mail
+*             FROM adr6
+*             WHERE addrnumber EQ tabla_00-adrnr.
+*
+* NEW CODE
+      SELECT smtp_addr
+      UP TO 1 ROWS 
              INTO v_mail
              FROM adr6
-             WHERE addrnumber EQ tabla_00-adrnr.
+             WHERE addrnumber EQ tabla_00-adrnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       f_adrnr = v_adrnr.
 
@@ -216,11 +276,23 @@
 * --------------------------------------------------------------------------
 * AQUI DEBE ESTAR EL LOOP DE REGUP
 * --------------------------------------------------------------------------
-      SELECT * FROM  regup   WHERE   laufd = tabla_00-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM  regup   WHERE   laufd = tabla_00-laufd
+*                               AND   laufi = tabla_00-laufi
+*                               AND   xvorl = tabla_00-xvorl
+*                               AND   lifnr = tabla_00-lifnr
+*                               AND   zbukr = tabla_00-zbukr.
+*
+* NEW CODE
+      SELECT *
+ FROM  regup   WHERE   laufd = tabla_00-laufd
                                AND   laufi = tabla_00-laufi
                                AND   xvorl = tabla_00-xvorl
                                AND   lifnr = tabla_00-lifnr
-                               AND   zbukr = tabla_00-zbukr.
+                               AND   zbukr = tabla_00-zbukr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
         v_monto = regup-dmbtr.
 
@@ -235,13 +307,28 @@
 
         clear bsik.
 
-        select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single *
+*          from  bsik
+*          where lifnr  = regup-lifnr
+*            and bukrs  = regup-bukrs
+*            and gjahr  = regup-gjahr
+*            and belnr  = regup-belnr
+*            and buzei  = regup-buzei.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS 
           from  bsik
           where lifnr  = regup-lifnr
             and bukrs  = regup-bukrs
             and gjahr  = regup-gjahr
             and belnr  = regup-belnr
-            and buzei  = regup-buzei.
+            and buzei  = regup-buzei ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF bsik-blart    IN r_fac.
           td = '1'.
@@ -278,12 +365,26 @@
         file-linea+53(15)   = v_monto.
 
 *     Valida Motivo de Emisión
-        SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE *
+*        FROM bsak
+*           WHERE bukrs EQ bukrs
+*             AND lifnr EQ tabla_00-lifnr
+*             AND augbl EQ tabla_00-vblnr
+*             AND belnr <> tabla_00-vblnr.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS 
         FROM bsak
            WHERE bukrs EQ bukrs
              AND lifnr EQ tabla_00-lifnr
              AND augbl EQ tabla_00-vblnr
-             AND belnr <> tabla_00-vblnr.
+             AND belnr <> tabla_00-vblnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         file-linea+68(20)   = folio_aux.
         file-linea+88(10)   = bsak-zzmot_emis.
@@ -490,9 +591,20 @@ FORM ant_formato_504.
   endif.
 
 
-  select single * from zfolio_pagobanco where bukrs  = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from zfolio_pagobanco where bukrs  = bukrs
+*                                          and ubnkl  = v_banco
+*                                          and codigo ='001'.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from zfolio_pagobanco where bukrs  = bukrs
                                           and ubnkl  = v_banco
-                                          and codigo ='001'.
+                                          and codigo ='001' ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if sy-subrc <> 0.
     zfolio_pagobanco-bukrs = bukrs.
     zfolio_pagobanco-codigo ='001'.
