@@ -206,17 +206,41 @@ FORM carga_tabla .
     linea = sy-tabix.
     REFRESH tabla_trab.
     CONCATENATE   tl_exc-rutpr '-' tl_exc-dvrutpr INTO rut.
-    SELECT SINGLE * FROM lfa1 WHERE stcd1 = rut.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM lfa1 WHERE stcd1 = rut.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM lfa1 WHERE stcd1 = rut ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc = 0.
-      SELECT * FROM reguh WHERE valut IN  v_fecha
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM reguh WHERE valut IN  v_fecha
+*                          AND   zbukr  = bukrs
+*                          AND   hbkid  = v_hbkid
+*                          AND   lifnr  = lfa1-lifnr
+*                          AND   rzawe = rzawe
+*                          AND   xvorl  = ''
+*                          AND   zbnkn  = tl_exc-cuenta
+*                          AND   zbnkl  = tl_exc-banco.
+*
+* NEW CODE
+      SELECT *
+ FROM reguh WHERE valut IN  v_fecha
                           AND   zbukr  = bukrs
                           AND   hbkid  = v_hbkid
                           AND   lifnr  = lfa1-lifnr
                           AND   rzawe = rzawe
                           AND   xvorl  = ''
                           AND   zbnkn  = tl_exc-cuenta
-                          AND   zbnkl  = tl_exc-banco.
+                          AND   zbnkl  = tl_exc-banco ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
         valor = reguh-rbetr * -1.
         valor_rec = tl_exc-valor .
@@ -224,19 +248,47 @@ FORM carga_tabla .
         IF valor = valor_rec.
           CLEAR bseg-zzmot_emis.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-          SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                        AND   laufi = reguh-laufi
+*                                        AND   xvorl = reguh-xvorl
+*                                        AND   zbukr = reguh-zbukr
+*                                        AND   lifnr = reguh-lifnr
+*                                        AND   kunnr = reguh-kunnr
+*                                        AND   empfg = reguh-empfg
+*                                        AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                         AND   laufi = reguh-laufi
                                         AND   xvorl = reguh-xvorl
                                         AND   zbukr = reguh-zbukr
                                         AND   lifnr = reguh-lifnr
                                         AND   kunnr = reguh-kunnr
                                         AND   empfg = reguh-empfg
-                                        AND   vblnr = reguh-vblnr.
+                                        AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-          SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                                      AND  belnr = regup-belnr
+*                                      AND  gjahr = regup-gjahr
+*                                      AND  buzei = regup-buzei.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                                       AND  belnr = regup-belnr
                                       AND  gjahr = regup-gjahr
-                                      AND  buzei = regup-buzei.
+                                      AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
           IF bseg-zzmot_emis = tl_exc-emision.
             CLEAR   tabla_trab.
             tabla_trab-laufi = reguh-laufi.
@@ -284,33 +336,76 @@ SORT TAGE BY BUKRS ZZCOD_UNIDAD .
       IF fill = 0.
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-        SELECT * FROM reguh WHERE valut IN  v_fecha
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT * FROM reguh WHERE valut IN  v_fecha
+*                          AND   zbukr  = bukrs
+*                          AND   hbkid  = v_hbkid
+*                          AND   lifnr  = lfa1-lifnr
+*                          AND   rzawe = rzawe
+*                          AND   xvorl  = ''
+*                          AND   zbnkn  = tl_exc-cuenta
+*                          AND   zbnkl  = tl_exc-banco.
+*
+* NEW CODE
+        SELECT *
+ FROM reguh WHERE valut IN  v_fecha
                           AND   zbukr  = bukrs
                           AND   hbkid  = v_hbkid
                           AND   lifnr  = lfa1-lifnr
                           AND   rzawe = rzawe
                           AND   xvorl  = ''
                           AND   zbnkn  = tl_exc-cuenta
-                          AND   zbnkl  = tl_exc-banco.
+                          AND   zbnkl  = tl_exc-banco ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           valor = reguh-rbetr * -1.
           valor_rec = tl_exc-valor .
           valor_rec = valor_rec / 100.
           IF valor = valor_rec.
             CLEAR bseg-zzmot_emis.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-            SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                          AND   laufi = reguh-laufi
+*                                          AND   xvorl = reguh-xvorl
+*                                          AND   zbukr = reguh-zbukr
+*                                          AND   lifnr = reguh-lifnr
+*                                          AND   kunnr = reguh-kunnr
+*                                          AND   empfg = reguh-empfg
+*                                          AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+            SELECT *
+            UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                           AND   laufi = reguh-laufi
                                           AND   xvorl = reguh-xvorl
                                           AND   zbukr = reguh-zbukr
                                           AND   lifnr = reguh-lifnr
                                           AND   kunnr = reguh-kunnr
                                           AND   empfg = reguh-empfg
-                                          AND   vblnr = reguh-vblnr.
+                                          AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
 
-            SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                                        AND  belnr = regup-belnr
+*                                        AND  gjahr = regup-gjahr
+*                                        AND  buzei = regup-buzei.
+*
+* NEW CODE
+            SELECT *
+            UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                                         AND  belnr = regup-belnr
                                         AND  gjahr = regup-gjahr
-                                        AND  buzei = regup-buzei.
+                                        AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             CLEAR   tabla_trab.
             tabla_trab-laufi = reguh-laufi.
             tabla_trab-laufd = reguh-laufd.
@@ -352,32 +447,73 @@ SORT TAGE BY BUKRS ZZCOD_UNIDAD .
         DESCRIBE TABLE tabla_trab LINES fill.
 
         IF fill = 0.
-          SELECT * FROM reguh WHERE valut IN  v_fecha
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          SELECT * FROM reguh WHERE valut IN  v_fecha
+*                            AND   zbukr  = bukrs
+*                            AND   hbkid  = v_hbkid
+*                            AND   lifnr  = lfa1-lifnr
+*                            AND   rzawe = rzawe
+*                            AND   xvorl  = ''.
+*
+* NEW CODE
+          SELECT *
+ FROM reguh WHERE valut IN  v_fecha
                             AND   zbukr  = bukrs
                             AND   hbkid  = v_hbkid
                             AND   lifnr  = lfa1-lifnr
                             AND   rzawe = rzawe
-                            AND   xvorl  = ''.
+                            AND   xvorl  = '' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
             valor = reguh-rbetr * -1.
             valor_rec = tl_exc-valor .
             valor_rec = valor_rec / 100.
             IF valor = valor_rec.
               CLEAR bseg-zzmot_emis.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-              SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                            AND   laufi = reguh-laufi
+*                                            AND   xvorl = reguh-xvorl
+*                                            AND   zbukr = reguh-zbukr
+*                                            AND   lifnr = reguh-lifnr
+*                                            AND   kunnr = reguh-kunnr
+*                                            AND   empfg = reguh-empfg
+*                                            AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                             AND   laufi = reguh-laufi
                                             AND   xvorl = reguh-xvorl
                                             AND   zbukr = reguh-zbukr
                                             AND   lifnr = reguh-lifnr
                                             AND   kunnr = reguh-kunnr
                                             AND   empfg = reguh-empfg
-                                            AND   vblnr = reguh-vblnr.
+                                            AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-              SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                                          AND  belnr = regup-belnr
+*                                          AND  gjahr = regup-gjahr
+*                                          AND  buzei = regup-buzei.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                                           AND  belnr = regup-belnr
                                           AND  gjahr = regup-gjahr
-                                          AND  buzei = regup-buzei.
+                                          AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
               CLEAR   tabla_trab.
               tabla_trab-laufi = reguh-laufi.
               tabla_trab-laufd = reguh-laufd.
@@ -420,29 +556,70 @@ SORT TAGE BY BUKRS ZZCOD_UNIDAD .
           DESCRIBE TABLE tabla_trab LINES fill.
 
           IF fill = 0.
-            SELECT * FROM reguh WHERE valut IN  v_fecha
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*            SELECT * FROM reguh WHERE valut IN  v_fecha
+*                           AND   zbukr  = bukrs
+*                           AND   hbkid  = v_hbkid
+*                           AND   lifnr  = lfa1-lifnr
+*                           AND   rzawe = rzawe
+*                           AND   xvorl  = ''.
+*
+* NEW CODE
+            SELECT *
+ FROM reguh WHERE valut IN  v_fecha
                            AND   zbukr  = bukrs
                            AND   hbkid  = v_hbkid
                            AND   lifnr  = lfa1-lifnr
                            AND   rzawe = rzawe
-                           AND   xvorl  = ''.
+                           AND   xvorl  = '' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
               CLEAR bseg-zzmot_emis.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-              SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                            AND   laufi = reguh-laufi
+*                                            AND   xvorl = reguh-xvorl
+*                                            AND   zbukr = reguh-zbukr
+*                                            AND   lifnr = reguh-lifnr
+*                                            AND   kunnr = reguh-kunnr
+*                                            AND   empfg = reguh-empfg
+*                                            AND   vblnr = reguh-vblnr.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                             AND   laufi = reguh-laufi
                                             AND   xvorl = reguh-xvorl
                                             AND   zbukr = reguh-zbukr
                                             AND   lifnr = reguh-lifnr
                                             AND   kunnr = reguh-kunnr
                                             AND   empfg = reguh-empfg
-                                            AND   vblnr = reguh-vblnr.
+                                            AND   vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-              SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE  * FROM  bseg WHERE bukrs  = regup-bukrs
+*                                          AND  belnr = regup-belnr
+*                                          AND  gjahr = regup-gjahr
+*                                          AND  buzei = regup-buzei.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM  bseg WHERE bukrs  = regup-bukrs
                                           AND  belnr = regup-belnr
                                           AND  gjahr = regup-gjahr
-                                          AND  buzei = regup-buzei.
+                                          AND  buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
               CLEAR   tabla_trab.
               tabla_trab-laufi = reguh-laufi.
               tabla_trab-laufd = reguh-laufd.

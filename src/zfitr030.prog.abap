@@ -248,7 +248,16 @@ screen-invisible = 1. " Campo invisible
       MESSAGE e526(icc_tr) WITH bukrs.
     ENDIF.
 
-    SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   AT SELECTION-SCREEN ON VALUE-REQUEST FOR v_fecha.
 
@@ -427,10 +436,21 @@ screen-invisible = 1. " Campo invisible
 
 
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT *
+*    FROM setleaf
+*    INTO CORRESPONDING FIELDS OF TABLE  ti_set_fac
+*       WHERE setname = 'ZFITR001'.
+*
+* NEW CODE
     SELECT *
+
     FROM setleaf
     INTO CORRESPONDING FIELDS OF TABLE  ti_set_fac
-       WHERE setname = 'ZFITR001'.
+       WHERE setname = 'ZFITR001' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     IF ti_set_fac[] IS INITIAL.
       MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos Factura'.
@@ -445,10 +465,21 @@ screen-invisible = 1. " Campo invisible
       CLEAR  r_fac.
     ENDLOOP.
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT *
+*    FROM setleaf
+*    INTO CORRESPONDING FIELDS OF TABLE  ti_set_ncr
+*       WHERE setname = 'ZFITR002'.
+*
+* NEW CODE
     SELECT *
+
     FROM setleaf
     INTO CORRESPONDING FIELDS OF TABLE  ti_set_ncr
-       WHERE setname = 'ZFITR002'.
+       WHERE setname = 'ZFITR002' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     IF ti_set_ncr[] IS INITIAL.
       MESSAGE e899(v1) WITH 'Revisar Set de Datos Cl. Doctos N.Crédito'.
@@ -473,14 +504,30 @@ IF archivo IS INITIAL.
       EXIT.
 ENDIF.
 
-  SELECT SINGLE rutn rutd apellidop apellidom nombres
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE rutn rutd apellidop apellidom nombres
+*                rutn2 rutd2 apellidop2 apellidom nombres2
+*     FROM ZFITR026
+*     INTO (v_rutn, v_rutd, v_apellidoP, V_apellidom, v_nombres,
+*           v_rutn2, v_rutd2, v_apellidoP2, V_apellidom2, v_nombres2)
+*    WHERE bukrs = bukrs AND
+*          BANKS = 'CL'  AND
+*          BANKL = v_banco.
+*
+* NEW CODE
+  SELECT rutn rutd apellidop apellidom nombres
                 rutn2 rutd2 apellidop2 apellidom nombres2
+  UP TO 1 ROWS 
      FROM ZFITR026
      INTO (v_rutn, v_rutd, v_apellidoP, V_apellidom, v_nombres,
            v_rutn2, v_rutd2, v_apellidoP2, V_apellidom2, v_nombres2)
     WHERE bukrs = bukrs AND
           BANKS = 'CL'  AND
-          BANKL = v_banco.
+          BANKL = v_banco ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF Par_VV = 'X'.
      IF sy-subrc <> 0.
@@ -500,10 +547,22 @@ ENDIF.
 *ENDIF.
 *ENDIF.
 *COmentarioado por no tener pruebnas de CSM 18052023 FIN
-    SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE adrnr
+*            FROM t001
+*            INTO v_adrnr
+*            WHERE bukrs EQ t001-bukrs.
+*
+* NEW CODE
+    SELECT adrnr
+    UP TO 1 ROWS 
             FROM t001
             INTO v_adrnr
-            WHERE bukrs EQ t001-bukrs.
+            WHERE bukrs EQ t001-bukrs ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     f_adrnr = v_adrnr.
 
@@ -528,12 +587,26 @@ ENDIF.
 
     IF par_di = 'X'.
 
-      SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE *
+*      FROM zlog_pago_bancos
+*         WHERE bukrs = bukrs
+*           AND ubnkl = v_banco
+*           AND laufd = v_fecha
+*           AND laufi = v_nomina.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS 
       FROM zlog_pago_bancos
          WHERE bukrs = bukrs
            AND ubnkl = v_banco
            AND laufd = v_fecha
-           AND laufi = v_nomina.
+           AND laufi = v_nomina ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *&---------------------------------------------------------------------*
 *&     Si encuentra registro de proceso previo
 *&         Solicita confirmar
@@ -583,31 +656,68 @@ ENDIF.
 
   FORM cargo_datos.
 
-    SELECT SINGLE * FROM reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM reguh
+*                  WHERE  laufd     = v_fecha
+*                    AND  laufi     = v_nomina
+*                    AND  zbukr     = bukrs.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM reguh
                   WHERE  laufd     = v_fecha
                     AND  laufi     = v_nomina
-                    AND  zbukr     = bukrs.
+                    AND  zbukr     = bukrs ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc <> 0.
       MESSAGE e004(zfi) WITH 'Nomina no corresponde a Sociedad' bukrs.
     ENDIF.
 
 
-    SELECT SINGLE * FROM reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM reguh
+*                  WHERE  laufd   = v_fecha
+*                    AND  laufi   = v_nomina
+*                    AND  zbukr   = bukrs
+*                    AND  ubnkl   = v_banco
+*                    AND  xvorl   = ' '.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM reguh
                   WHERE  laufd   = v_fecha
                     AND  laufi   = v_nomina
                     AND  zbukr   = bukrs
                     AND  ubnkl   = v_banco
-                    AND  xvorl   = ' '.
+                    AND  xvorl   = ' ' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc <> 0.
       MESSAGE e004(zfi) WITH 'Nomina sin movimientos a Generar'.
     ENDIF.
 
     nomban = 'NO esta en tabla de Bancos'.
-    SELECT SINGLE * FROM t012t
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t012t
+*                   WHERE bukrs      = bukrs
+*                     AND hbkid      = reguh-hbkid.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t012t
                    WHERE bukrs      = bukrs
-                     AND hbkid      = reguh-hbkid.
+                     AND hbkid      = reguh-hbkid ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       nomban = t012t-text1.
     ELSE.
@@ -619,28 +729,62 @@ ENDIF.
     CLEAR contarnvo.
     CLEAR contardoc.
 
-    SELECT SINGLE * FROM zfolio_pagobanco  WHERE bukrs   = reguh-zbukr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM zfolio_pagobanco  WHERE bukrs   = reguh-zbukr
+*                                           AND ubnkl  = reguh-ubnkl
+*                                           AND codigo = '001'.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM zfolio_pagobanco  WHERE bukrs   = reguh-zbukr
                                            AND ubnkl  = reguh-ubnkl
-                                           AND codigo = '001'.
+                                           AND codigo = '001' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc <> 0.
       MESSAGE e004(zfi) WITH 'Sociedad-Banco no tiene Folios'.
     ENDIF.
 
 * Rescatamos Datos LOOP de lectura con SELECT a REGUH.
-    SELECT *  FROM  reguh
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT *  FROM  reguh
+*             WHERE  laufd      = v_fecha
+*               AND  laufi      = v_nomina
+*               AND  zbukr      = bukrs
+*               AND  ubnkl      = v_banco
+*               AND  xvorl      = ' '.
+*
+* NEW CODE
+    SELECT *
+  FROM  reguh
              WHERE  laufd      = v_fecha
                AND  laufi      = v_nomina
                AND  zbukr      = bukrs
                AND  ubnkl      = v_banco
-               AND  xvorl      = ' '.
+               AND  xvorl      = ' ' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
       contar   = contar   + 1.
       sumpagos = sumpagos + ( reguh-rbetr * -100 ).
       contardoc = contardoc + reguh-rpost.
 
       IF ( reguh-stcd1 IS INITIAL ) OR ( reguh-zstc1 IS INITIAL ).
-        SELECT SINGLE stcd1 INTO reguh-stcd1
-          FROM lfa1 WHERE lifnr = reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE stcd1 INTO reguh-stcd1
+*          FROM lfa1 WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+        SELECT stcd1
+        UP TO 1 ROWS  INTO reguh-stcd1
+          FROM lfa1 WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       ENDIF.
 
       IF ( NOT reguh-stcd1 IS INITIAL ) OR ( NOT reguh-zstc1 IS INITIAL ).
@@ -668,24 +812,64 @@ ENDIF.
 
 *          cuenta  = cuenta_2. HCD 18-05-2023   Se solicita no cambiar a cuenta de trnasfer
 "   Cambio de cuanta corriente HCD 21-09-2020 FIN
-          SELECT  SINGLE bktxt INTO  bktxt FROM bkpf
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT  SINGLE bktxt INTO  bktxt FROM bkpf
+*                               WHERE bukrs      = bukrs
+*                                 AND belnr = reguh-vblnr
+*                                 AND gjahr = reguh-zaldt(4).
+*
+* NEW CODE
+          SELECT bktxt
+          UP TO 1 ROWS  INTO  bktxt FROM bkpf
                                WHERE bukrs      = bukrs
                                  AND belnr = reguh-vblnr
-                                 AND gjahr = reguh-zaldt(4).
+                                 AND gjahr = reguh-zaldt(4) ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-          SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE  * FROM  regup WHERE laufd = reguh-laufd
+*                                         AND laufi = reguh-laufi
+*                                         AND xvorl = reguh-xvorl
+*                                         AND zbukr = reguh-zbukr
+*                                         AND lifnr = reguh-lifnr
+*                                         AND kunnr = reguh-kunnr
+*                                         AND empfg = reguh-empfg
+*                                         AND vblnr = reguh-vblnr.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM  regup WHERE laufd = reguh-laufd
                                          AND laufi = reguh-laufi
                                          AND xvorl = reguh-xvorl
                                          AND zbukr = reguh-zbukr
                                          AND lifnr = reguh-lifnr
                                          AND kunnr = reguh-kunnr
                                          AND empfg = reguh-empfg
-                                         AND vblnr = reguh-vblnr.
+                                         AND vblnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-          SELECT SINGLE  * FROM  bseg  WHERE bukrs = regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE  * FROM  bseg  WHERE bukrs = regup-bukrs
+*                                         AND belnr = regup-belnr
+*                                         AND gjahr = regup-gjahr
+*                                         AND buzei = regup-buzei.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM  bseg  WHERE bukrs = regup-bukrs
                                          AND belnr = regup-belnr
                                          AND gjahr = regup-gjahr
-                                         AND buzei = regup-buzei.
+                                         AND buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 *          bseg-zzmot_emis = 'PAGOPRES'.
@@ -698,8 +882,18 @@ ENDIF.
 
           IF reguh-ubnkl = '037'.
 
-            SELECT SINGLE  * FROM  zfimotemisan WHERE bukrs      = regup-bukrs
-                                                  AND zmotiv     = bseg-zzmot_emis.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE  * FROM  zfimotemisan WHERE bukrs      = regup-bukrs
+*                                                  AND zmotiv     = bseg-zzmot_emis.
+*
+* NEW CODE
+            SELECT *
+            UP TO 1 ROWS  FROM  zfimotemisan WHERE bukrs      = regup-bukrs
+                                                  AND zmotiv     = bseg-zzmot_emis ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
             IF sy-subrc = 0.
               numsan = zfimotemisan-znumero.
@@ -717,11 +911,24 @@ ENDIF.
           v_hbkid = tabla_00-hbkid.
 *
 *          SELECT SINGLE *
-          SELECT SINGLE * INTO ti_exc
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * INTO ti_exc
+*                           FROM zfitr005
+*              WHERE bukrs = bukrs
+*                AND hbkid = v_hbkid
+*                AND zmotiv = zzmot_emis.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  INTO ti_exc
                            FROM zfitr005
               WHERE bukrs = bukrs
                 AND hbkid = v_hbkid
-                AND zmotiv = zzmot_emis.
+                AND zmotiv = zzmot_emis ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           IF sy-subrc = 0.
             forma  = ti_exc-zformat.
@@ -787,10 +994,22 @@ ENDIF.
 * ini Waldo Alarcón - Visionone - 23-07-2020
       ELSEIF v_banco = '001'.
         CLEAR gv_forma.
-        SELECT SINGLE zformat INTO gv_forma
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE zformat INTO gv_forma
+*               FROM zfitr005 WHERE bukrs  EQ bukrs
+*                               AND hbkid  EQ v_hbkid
+*                               AND zmotiv EQ zzmot_emis.
+*
+* NEW CODE
+        SELECT zformat
+        UP TO 1 ROWS  INTO gv_forma
                FROM zfitr005 WHERE bukrs  EQ bukrs
                                AND hbkid  EQ v_hbkid
-                               AND zmotiv EQ zzmot_emis.
+                               AND zmotiv EQ zzmot_emis ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc EQ 0 AND gv_forma IS NOT INITIAL.
           CONCATENATE 'ZBANCO_' v_banco '_' gv_forma INTO nombrefuncion.
         ENDIF.

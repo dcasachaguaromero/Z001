@@ -45,8 +45,18 @@ SELECTION-SCREEN END OF LINE.
 SELECTION-SCREEN END OF BLOCK b2.
 
 AT SELECTION-SCREEN ON ubnkl.
-  SELECT SINGLE usa_fecha INTO lv_fecha
-         FROM zbancossbif WHERE banco EQ ubnkl.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE usa_fecha INTO lv_fecha
+*         FROM zbancossbif WHERE banco EQ ubnkl.
+*
+* NEW CODE
+  SELECT usa_fecha
+  UP TO 1 ROWS  INTO lv_fecha
+         FROM zbancossbif WHERE banco EQ ubnkl ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 AT SELECTION-SCREEN ON p_fecha.
   IF lv_fecha IS NOT INITIAL AND p_fecha IS INITIAL AND
@@ -64,8 +74,18 @@ AT SELECTION-SCREEN ON BLOCK b1 .
 
 AT SELECTION-SCREEN OUTPUT.
   IF ubnkl IS NOT INITIAL.
-    SELECT SINGLE usa_fecha INTO lv_fecha
-           FROM zbancossbif WHERE banco EQ ubnkl.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE usa_fecha INTO lv_fecha
+*           FROM zbancossbif WHERE banco EQ ubnkl.
+*
+* NEW CODE
+    SELECT usa_fecha
+    UP TO 1 ROWS  INTO lv_fecha
+           FROM zbancossbif WHERE banco EQ ubnkl ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 
   LOOP AT SCREEN.
@@ -84,8 +104,18 @@ START-OF-SELECTION.
                           'Banco Seleccionado'.
   ELSE.
 * fin Waldo Alarcón - Visionone - 05-10-2020
-    SELECT SINGLE * FROM zbancossbif
-    WHERE banco   = ubnkl.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM zbancossbif
+*    WHERE banco   = ubnkl.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM zbancossbif
+    WHERE banco   = ubnkl ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF sy-subrc <> 0.
       WRITE: / '--------------------------------------------------------------'.

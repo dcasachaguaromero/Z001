@@ -299,9 +299,20 @@ AT SELECTION-SCREEN OUTPUT.
   if flag_ini is INITIAL.
     flag_ini = 'X'.
     data: lv_caduco type C LENGTH 2.
-    SELECT single valor into lv_caduco
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT single valor into lv_caduco
+*      from ZFITR020_T04
+*      where nombre = 'D_CADUCO'.
+*
+* NEW CODE
+    SELECT valor
+    UP TO 1 ROWS  into lv_caduco
       from ZFITR020_T04
-      where nombre = 'D_CADUCO'.
+      where nombre = 'D_CADUCO' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     p_dcadu1 = lv_caduco.
     p_dcadu3 = lv_caduco.
@@ -698,10 +709,22 @@ FORM SET_SPECIFIC_FIELD_ATTRIBUTES .
       INSERT ls_stylerow into table itab-field_style.
       modify itab.
     else.                                                                   " Ini. agregado 27.10.2014  desactiva los qe no son maternales
-      SELECT single maternal
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT single maternal
+*        into v_mat
+*        FROM ZMOT_EMIS
+*        where ZZMOT_EMIS = itab-zzmot_emis.
+*
+* NEW CODE
+      SELECT maternal
+      UP TO 1 ROWS 
         into v_mat
         FROM ZMOT_EMIS
-        where ZZMOT_EMIS = itab-zzmot_emis.
+        where ZZMOT_EMIS = itab-zzmot_emis ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF v_mat is INITIAL.
         ls_stylerow-fieldname = 'FLAG'.
@@ -978,9 +1001,20 @@ endform.                    " EJECUTA_FUNCION
 *----------------------------------------------------------------------*
 FORM CARGA_DATOS .
 
-  SELECT single CLASE_DOC CAMBIO_ESTADO into (l_clase_doc, l_nom_proceso)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single CLASE_DOC CAMBIO_ESTADO into (l_clase_doc, l_nom_proceso)
+*    from ZFITR020_T03
+*    where ID_PROCESO = '1004'. 
+*
+* NEW CODE
+  SELECT CLASE_DOC CAMBIO_ESTADO
+  UP TO 1 ROWS  into (l_clase_doc, l_nom_proceso)
     from ZFITR020_T03
-    where ID_PROCESO = '1004'. "XB; CADUCA FISICO
+    where ID_PROCESO = '1004' ORDER BY PRIMARY KEY. 
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01"XB; CADUCA FISICO
 
   if tabname eq '101' or tabname is INITIAL.
     l_fecha = p_budat1.
@@ -991,11 +1025,24 @@ FORM CARGA_DATOS .
   endif.
 
   "se busca la cuenta de la contrapartida
-  select single CTA_CDCO_F into l_cta_contrap
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single CTA_CDCO_F into l_cta_contrap
+*    from ZFITR020_T05
+*    where bukrs = t_itab-BUKRS
+*      and hbkid = t_itab-HBKID
+*      and HKTID = t_itab-HKTID.
+*
+* NEW CODE
+  SELECT CTA_CDCO_F
+  UP TO 1 ROWS  into l_cta_contrap
     from ZFITR020_T05
     where bukrs = t_itab-BUKRS
       and hbkid = t_itab-HBKID
-      and HKTID = t_itab-HKTID.
+      and HKTID = t_itab-HKTID ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 ENDFORM.                    " CARGA_DATOS
 *&---------------------------------------------------------------------*
@@ -1134,16 +1181,42 @@ FORM selecciona .
   lv_budat = p_budat1 - p_dcadu1.
 
   "rescato las cuentas de la tabla mantenedora.
-  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+*    from ZFITR020_T05
+*    where bukrs eq p_bukrs1
+*      and hbkid eq p_hbkid1
+*      and hktid eq p_hktid1.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
     from ZFITR020_T05
     where bukrs eq p_bukrs1
       and hbkid eq p_hbkid1
-      and hktid eq p_hktid1.
+      and hktid eq p_hktid1 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   READ TABLE ti_ZFITR020_T04 into wa_ZFITR020_T04 index 1.
 
   "rescato los cheques para luego buscar las partidas abiertas
-  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+*    from payr
+*    where ZBUKR eq p_bukrs1
+*      and hbkid eq p_hbkid1
+*      and hktid eq p_hktid1
+*      and chect in p_chect1
+**      and voidr eq '00'"cheque NO anulado
+**      and xbanc eq ' ' "cheque NO cobrado
+*          .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_payr
     from payr
     where ZBUKR eq p_bukrs1
       and hbkid eq p_hbkid1
@@ -1151,7 +1224,9 @@ FORM selecciona .
       and chect in p_chect1
 *      and voidr eq '00'"cheque NO anulado
 *      and xbanc eq ' ' "cheque NO cobrado
-          .
+           ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 *  if sy-subrc <> 0.
 *    MESSAGE 'NO SE SELECCIONARON PARTIDAS PARA LA CONSULTA' type 'E'.
@@ -1306,11 +1381,23 @@ FORM SELECCIONA3 .
   "todas las cuentas y bancos asociados a la sociedad.
   if p_hbkid3 is not INITIAL and p_hktid3 is not initial.
     "rescato las cuentas asociadas en la tabla mantenedora
-    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+*      from ZFITR020_T05
+*      where bukrs eq p_bukrs3
+*        and hbkid eq p_hbkid3
+*        and hktid eq p_hktid3.
+*
+* NEW CODE
+    SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
       from ZFITR020_T05
       where bukrs eq p_bukrs3
         and hbkid eq p_hbkid3
-        and hktid eq p_hktid3.
+        and hktid eq p_hktid3 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     if sy-subrc <> 0.
       MESSAGE 'combinacion no existente en tabla de cuentas' type 'E'.
@@ -1344,9 +1431,19 @@ FORM SELECCIONA3 .
     ENDLOOP.
   else.
     "rescato las cuentas asociadas en la tabla mantenedora
-    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+*      from ZFITR020_T05
+*      where bukrs eq p_bukrs3.
+*
+* NEW CODE
+    SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
       from ZFITR020_T05
-      where bukrs eq p_bukrs3.
+      where bukrs eq p_bukrs3 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     "armo el rango de cuentas
     loop at ti_ZFITR020_T04 into wa_ZFITR020_T04.
@@ -1386,39 +1483,84 @@ FORM SELECCIONA3 .
 
   "se ubican los cheques asociados a los documentos.
   "ingresados como parametro de entrada
-  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+*    from payr
+*    where ZBUKR eq p_bukrs3
+*      and VBLNR in p_belnr3
+*      and GJaHR eq p_gjahr3
+*      and voidr eq '00'"cheque NO anulado
+*      and xbanc eq ' ' "cheque NO cobrado
+*          .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_payr
     from payr
     where ZBUKR eq p_bukrs3
       and VBLNR in p_belnr3
       and GJaHR eq p_gjahr3
       and voidr eq '00'"cheque NO anulado
       and xbanc eq ' ' "cheque NO cobrado
-          .
+           ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   "por cada documento ingresado como parametro de entrada.
   "se verifica que si corresponde a un pago se busca la
   "partida abierta.
   loop at p_belnr3.
 
-    select single * into CORRESPONDING FIELDS OF wa_payr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    select single * into CORRESPONDING FIELDS OF wa_payr
+*      from payr
+*      where zbukr = p_bukrs3
+*        and vblnr = p_belnr3-low
+*        and gjahr = p_gjahr3
+*        and voidr eq '00'"cheque NO anulado
+*        and xbanc eq ' ' "cheque NO cobrado
+*            .
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  into CORRESPONDING FIELDS OF wa_payr
       from payr
       where zbukr = p_bukrs3
         and vblnr = p_belnr3-low
         and gjahr = p_gjahr3
         and voidr eq '00'"cheque NO anulado
         and xbanc eq ' ' "cheque NO cobrado
-            .
+             ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     if sy-subrc = 0.
       "si la consulta por el cheque es exitosa se consulta por
       "el documento en la bsis
-      select * into CORRESPONDING FIELDS OF wa_bsis
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      select * into CORRESPONDING FIELDS OF wa_bsis
+*          from bsis
+*          where bukrs eq p_bukrs3
+*            and hkont in r_hkont
+*            and bldat =< lv_budat
+*            and GJaHR eq p_gjahr3
+*            and belnr eq p_belnr3-low.
+*
+* NEW CODE
+      SELECT *
+ into CORRESPONDING FIELDS OF wa_bsis
           from bsis
           where bukrs eq p_bukrs3
             and hkont in r_hkont
             and bldat =< lv_budat
             and GJaHR eq p_gjahr3
-            and belnr eq p_belnr3-low.
+            and belnr eq p_belnr3-low ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
         wa_bsis-xbukr = wa_payr-xbukr."si no es inicial este es un
         wa_bsis-zbukr_payr = wa_payr-ZBUKR.
@@ -1433,14 +1575,29 @@ FORM SELECCIONA3 .
         "del cheque en el campo zuonr, Este registro si es exitoso se
         "marca con un flag, puesto que el campo cheque viene en el
         "campo asignacion.
-        select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        select *
+*         into CORRESPONDING FIELDS OF wa_bsis
+*         from bsis
+*         where bukrs eq p_bukrs3
+*           and hkont in r_hkont
+*           and zuonr eq wa_payr-chect
+*           and bldat =< lv_budat
+*             .
+*
+* NEW CODE
+        SELECT *
+
          into CORRESPONDING FIELDS OF wa_bsis
          from bsis
          where bukrs eq p_bukrs3
            and hkont in r_hkont
            and zuonr eq wa_payr-chect
            and bldat =< lv_budat
-             .
+              ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           wa_bsis-xbukr = wa_payr-xbukr."si no es inicial este es un
                                         "X - Pago multisociedades
           wa_bsis-zbukr_payr = wa_payr-ZBUKR.
@@ -1453,25 +1610,54 @@ FORM SELECCIONA3 .
     else.
       "Consulta a la payr NO es exitosa. Buscamos la partida abierta
       "con el documento
-      select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsis
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsis
+*           from bsis
+*           where bukrs eq p_bukrs3
+*             and hkont in r_hkont
+*             and bldat =< lv_budat
+*             and GJaHR eq p_gjahr3
+*             and belnr eq p_belnr3-low.
+*
+* NEW CODE
+      SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsis
+
            from bsis
            where bukrs eq p_bukrs3
              and hkont in r_hkont
              and bldat =< lv_budat
              and GJaHR eq p_gjahr3
-             and belnr eq p_belnr3-low.
+             and belnr eq p_belnr3-low ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
       if sy-subrc <> 0.
         data: lv_existe type bsas-BELNR.
         "si el comprobante no existe en la bsis se verifica que
         "corresponda al ejercicio.
-        select Single belnr into lv_Existe
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select Single belnr into lv_Existe
+*          from bsas
+*          where bukrs eq p_bukrs3
+*            and hkont in r_hkont
+*            and bldat =< lv_budat
+*            and GJaHR eq p_gjahr3
+*            and belnr eq p_belnr3-low.
+*
+* NEW CODE
+        SELECT belnr
+        UP TO 1 ROWS  into lv_Existe
           from bsas
           where bukrs eq p_bukrs3
             and hkont in r_hkont
             and bldat =< lv_budat
             and GJaHR eq p_gjahr3
-            and belnr eq p_belnr3-low.
+            and belnr eq p_belnr3-low ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         if sy-subrc = 0.
           "y si es exitosa la consulta se addicionan las
@@ -1480,13 +1666,27 @@ FORM SELECCIONA3 .
 
           CONCATENATE p_belnr3-low p_gjahr3 into lv_zuonr.
 
-          select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsis
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          select * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsis
+*              from bsis
+*              where bukrs eq p_bukrs3
+*                and hkont in r_hkont
+*                and bldat =< lv_budat
+*                and zuonr eq lv_zuonr
+*                  .
+*
+* NEW CODE
+          SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_bsis
+
               from bsis
               where bukrs eq p_bukrs3
                 and hkont in r_hkont
                 and bldat =< lv_budat
                 and zuonr eq lv_zuonr
-                  .
+                   ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
         endif.
       endif.
     endif.
@@ -1637,11 +1837,23 @@ FORM SELECCIONA4 .
   "todas las cuentas y bancos asociados a la sociedad.
   if p_hbkid4 is not INITIAL and p_hktid4 is not initial.
     "rescato las cuentas asociadas en la tabla mantenedora
-    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+*      from ZFITR020_T05
+*      where bukrs in p_bukrs4
+*        and hbkid in p_hbkid4
+*        and hktid in p_hktid4.
+*
+* NEW CODE
+    SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
       from ZFITR020_T05
       where bukrs in p_bukrs4
         and hbkid in p_hbkid4
-        and hktid in p_hktid4.
+        and hktid in p_hktid4 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     if sy-subrc <> 0.
       MESSAGE 'combinacion no existente en tabla de cuentas' type 'E'.
@@ -1676,9 +1888,19 @@ FORM SELECCIONA4 .
     ENDLOOP.
   else.
     "rescato las cuentas asociadas en la tabla mantenedora
-    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
+*      from ZFITR020_T05
+*      where bukrs in p_bukrs4.
+*
+* NEW CODE
+    SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T04
       from ZFITR020_T05
-      where bukrs in p_bukrs4.
+      where bukrs in p_bukrs4 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     "armo el rango de cuentas
     loop at ti_ZFITR020_T04 into wa_ZFITR020_T04.
@@ -1714,12 +1936,25 @@ FORM SELECCIONA4 .
   endif.
   lv_budat = p_budat4 - p_dcadu4.
   "se buscan las partidas abiertas.
-  select * into CORRESPONDING FIELDS OF TABLE ti_bsis
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_bsis
+*    from bsis
+*    where bukrs in p_bukrs4
+*      and hkont in r_hkont
+*      and budat < lv_budat
+*      and ( blart eq 'ZP' or blart eq 'XC' or blart eq 'XD' or blart eq 'ZA'  ).
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_bsis
     from bsis
     where bukrs in p_bukrs4
       and hkont in r_hkont
       and budat < lv_budat
-      and ( blart eq 'ZP' or blart eq 'XC' or blart eq 'XD' or blart eq 'ZA'  ).
+      and ( blart eq 'ZP' or blart eq 'XC' or blart eq 'XD' or blart eq 'ZA'  ) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if sy-subrc <> 0.
     MESSAGE 'No se encontraron partidas abiertas' Type 'E'.
@@ -1727,24 +1962,51 @@ FORM SELECCIONA4 .
 
   loop at ti_bsis into wa_bsis.
     "se buscan los cheques asociados a los documentos de la bsis
-    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * APPENDING CORRESPONDING FIELDS OF TABLE ti_payr
+*      from payr "FOR ALL ENTRIES IN ti_bsis
+*      where zbukr = wa_bsis-BUKRS
+*        and HBKID in p_hbkid4
+*        and HKTID in p_hktid4
+*        and vblnr = wa_bsis-belnr
+*        and gjahr = wa_bsis-gjahr.
+*
+* NEW CODE
+    SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_payr
+
       from payr "FOR ALL ENTRIES IN ti_bsis
       where zbukr = wa_bsis-BUKRS
         and HBKID in p_hbkid4
         and HKTID in p_hktid4
         and vblnr = wa_bsis-belnr
-        and gjahr = wa_bsis-gjahr.
+        and gjahr = wa_bsis-gjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     if sy-subrc <> 0.
       data: lv_chect like payr-chect.
 
       lv_chect = wa_bsis-zuonr.
-      select * APPENDING CORRESPONDING FIELDS OF TABLE ti_payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      select * APPENDING CORRESPONDING FIELDS OF TABLE ti_payr
+*       from payr "FOR ALL ENTRIES IN ti_bsis_aux
+*       where zbukr = wa_bsis_aux-BUKRS
+*         and HBKID in p_hbkid4
+*         and HKTID in p_hktid4
+*         and CHECT = lv_chect.
+*
+* NEW CODE
+      SELECT * APPENDING CORRESPONDING FIELDS OF TABLE ti_payr
+
        from payr "FOR ALL ENTRIES IN ti_bsis_aux
        where zbukr = wa_bsis_aux-BUKRS
          and HBKID in p_hbkid4
          and HKTID in p_hktid4
-         and CHECT = lv_chect.
+         and CHECT = lv_chect ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     endif.
   endloop.
@@ -1766,12 +2028,25 @@ FORM SELECCIONA4 .
     r_budat-OPTION = 'BT'.
     append r_budat.
 
-    SELECT * into CORRESPONDING FIELDS OF wa_bsas
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * into CORRESPONDING FIELDS OF wa_bsas
+*      from bsas
+*      where bukrs in p_bukrs4
+*        and augdt IN r_budat
+*        and augbl = wa_bsis-belnr
+*        and belnr <> wa_bsis-belnr.
+*
+* NEW CODE
+    SELECT *
+ into CORRESPONDING FIELDS OF wa_bsas
       from bsas
       where bukrs in p_bukrs4
         and augdt IN r_budat
         and augbl = wa_bsis-belnr
-        and belnr <> wa_bsis-belnr.
+        and belnr <> wa_bsis-belnr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
       wa_bsas-bukrs_bsis = wa_bsis-BUKRS.
@@ -1917,9 +2192,20 @@ FORM CONVIERTE_MENSAJE  USING    P_SY_MSGID like sy-msgid
                                  P_SY_MSGNO like sy-msgno
                         CHANGING RETURN_MESSAGE   .
 
-  SELECT SINGLE * FROM t100 WHERE sprsl = 'S'
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t100 WHERE sprsl = 'S'
+*                             AND   arbgb = sy-msgid
+*                             AND   msgnr = sy-msgno.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t100 WHERE sprsl = 'S'
                              AND   arbgb = sy-msgid
-                             AND   msgnr = sy-msgno.
+                             AND   msgnr = sy-msgno ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc = 0.
     return_message = t100-text.
     IF return_message CS '&1'.
@@ -1958,14 +2244,29 @@ FORM BUSCA_PARTIDA_ABIERTA_NORMAL USING fecha dia_cadu.
   lv_budat = fecha - dia_cadu.
 
   "se buscan las partidas abiertas con el documento compensado.
-  select * into CORRESPONDING FIELDS OF   wa_bsis
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF   wa_bsis
+*    from bsis
+*    where bukrs eq wa_payr-ZBUKR
+*      and hkont eq wa_payr-UBHKT
+*      and GJaHR eq wa_payr-GJaHR
+*      and BELNR eq wa_payr-vbLNR
+*      and budat < lv_budat
+*      and blart eq 'ZP'.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF   wa_bsis
     from bsis
     where bukrs eq wa_payr-ZBUKR
       and hkont eq wa_payr-UBHKT
       and GJaHR eq wa_payr-GJaHR
       and BELNR eq wa_payr-vbLNR
       and budat < lv_budat
-      and blart eq 'ZP'.
+      and blart eq 'ZP' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     wa_bsis-xbukr = wa_payr-xbukr. "si no es inicial este es un
     wa_bsis-zbukr_payr = wa_payr-ZBUKR.
@@ -1978,7 +2279,21 @@ FORM BUSCA_PARTIDA_ABIERTA_NORMAL USING fecha dia_cadu.
     "del cheque en el campo zuonr, Este registro si es exitoso se
     "marca con un flag, puesto que el campo cheque viene en el
     "campo asignacion.
-    select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select *
+*      into CORRESPONDING FIELDS OF wa_bsis
+*      from bsis
+*      where bukrs eq wa_payr-ZBUKR
+*        and ( hkont eq wa_payr-UBHKT
+*         or hkont eq wa_ZFITR020_T04-revalidad
+*         or hkont eq wa_ZFITR020_T04-CTA_CDCO_E )
+*        and zuonr eq wa_payr-CHECT
+*        and budat < lv_budat.
+*
+* NEW CODE
+    SELECT *
+
       into CORRESPONDING FIELDS OF wa_bsis
       from bsis
       where bukrs eq wa_payr-ZBUKR
@@ -1986,7 +2301,9 @@ FORM BUSCA_PARTIDA_ABIERTA_NORMAL USING fecha dia_cadu.
          or hkont eq wa_ZFITR020_T04-revalidad
          or hkont eq wa_ZFITR020_T04-CTA_CDCO_E )
         and zuonr eq wa_payr-CHECT
-        and budat < lv_budat.
+        and budat < lv_budat ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
       wa_bsis-marca = 'X'.
       wa_bsis-xbukr = wa_payr-xbukr."si no es inicial este es un
@@ -2020,13 +2337,27 @@ FORM BUSCA_DOC_PAGO_NORMAL CHANGING lv_sy_subrc.
   append r_budat.
   "Se busca el documento general de pago el que tiene
   "el concepto de emision
-  SELECT * into CORRESPONDING FIELDS OF wa_bsas
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF wa_bsas
+*    from bsas
+*    where bukrs eq wa_bsis-BUKRS
+*      and augdt in r_budat
+*      and augbl eq wa_bsis-BELNR
+*      and belnr <> wa_bsis-BELNR
+*    .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF wa_bsas
     from bsas
     where bukrs eq wa_bsis-BUKRS
       and augdt in r_budat
       and augbl eq wa_bsis-BELNR
       and belnr <> wa_bsis-BELNR
-    .
+     ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     wa_bsas-gjahr_bsis = wa_bsis-GJaHR. "se  guardan estos campos adicionalmente
     wa_bsas-bukrs_bsis = wa_bsis-BUKRS. "para realizar una sola busqueda para los
     APPEND wa_Bsas to ti_Bsas2.          "dos motivos de emision
@@ -2063,33 +2394,76 @@ FORM BUSCA_DOC_PAGO_MULTI  using  vblnr_payr   zbukr_payr   gjahr_payr bsis_beln
   data: lv_belnr2 like ZFITR020_T01-belnr.
 
   "aca buscamos el documento multisociedad en la otra sociedad
-  select single bvorg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single bvorg
+*      into (lv_bvorg)
+*    from bvor
+*    where belnr =  vblnr_payr
+*      and bukrs = zbukr_payr
+*      and GJAHR = gjahr_payr
+*      .
+*
+* NEW CODE
+  SELECT bvorg
+  UP TO 1 ROWS 
       into (lv_bvorg)
     from bvor
     where belnr =  vblnr_payr
       and bukrs = zbukr_payr
       and GJAHR = gjahr_payr
-      .
+       ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   "busco: Número de operación contabilización multisociedades
-  select single bukrs GJAHR belnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single bukrs GJAHR belnr
+*      into (lv_bukrs2, lv_gjahr2, lv_belnr2)
+*    from bvor
+*    where bvorg = lv_bvorg
+*      and bukrs <> zbukr_payr
+*      .
+*
+* NEW CODE
+  SELECT bukrs GJAHR belnr
+  UP TO 1 ROWS 
       into (lv_bukrs2, lv_gjahr2, lv_belnr2)
     from bvor
     where bvorg = lv_bvorg
       and bukrs <> zbukr_payr
-      .
+       ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   data: lv_gjahr_orig like ZFITR020_T01-GJAHR.
   data: lv_bukrs_orig like ZFITR020_T01-bukrs.
   data: lv_belnr_orig like ZFITR020_T01-belnr.
 
   "con el documento obtenido buscamos el documento pagado
-  select single belnr bukrs GJAHR
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single belnr bukrs GJAHR
+*      into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
+*    from bse_clr
+*   where belnr_clr = lv_belnr2
+*     and bukrs_clr = lv_bukrs2
+*     and GJAHR_clr = lv_gjahr2.
+*
+* NEW CODE
+  SELECT belnr bukrs GJAHR
+  UP TO 1 ROWS 
       into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
     from bse_clr
    where belnr_clr = lv_belnr2
      and bukrs_clr = lv_bukrs2
-     and GJAHR_clr = lv_gjahr2.
+     and GJAHR_clr = lv_gjahr2 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   if sy-subrc = 0.
     wa_Bsas-belnr      = lv_belnr_orig.
@@ -2115,31 +2489,72 @@ FORM BUSCA_DOC_PAGO_MULTI_COM .
   data: lv_bukrs2 like ZFITR020_T01-bukrs.
   data: lv_belnr2 like ZFITR020_T01-belnr.
 
-  SELECT single bvorg into lv_bvorg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single bvorg into lv_bvorg
+*    from bkpf
+*    where bukrs = wa_bsis-BUKRS
+*      and belnr = wa_bsis-BELNR
+*      and gjahr = wa_bsis-GJaHR.
+*
+* NEW CODE
+  SELECT bvorg
+  UP TO 1 ROWS  into lv_bvorg
     from bkpf
     where bukrs = wa_bsis-BUKRS
       and belnr = wa_bsis-BELNR
-      and gjahr = wa_bsis-GJaHR.
+      and gjahr = wa_bsis-GJaHR ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
-  select single bukrs GJAHR belnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single bukrs GJAHR belnr
+*     into (lv_bukrs2, lv_gjahr2, lv_belnr2)
+*   from bvor
+*   where bvorg = lv_bvorg
+*     and bukrs <> wa_bsis-BUKRS
+*     .
+*
+* NEW CODE
+  SELECT bukrs GJAHR belnr
+  UP TO 1 ROWS 
      into (lv_bukrs2, lv_gjahr2, lv_belnr2)
    from bvor
    where bvorg = lv_bvorg
      and bukrs <> wa_bsis-BUKRS
-     .
+      ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   data: lv_gjahr_orig like ZFITR020_T01-GJAHR.
   data: lv_bukrs_orig like ZFITR020_T01-bukrs.
   data: lv_belnr_orig like ZFITR020_T01-belnr.
 
   "con el documento obtenido buscamos el documento pagado
-  select single belnr bukrs GJAHR
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single belnr bukrs GJAHR
+*      into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
+*    from bse_clr
+*   where belnr_clr = lv_belnr2
+*     and bukrs_clr = lv_bukrs2
+*     and GJAHR_clr = lv_gjahr2.
+*
+* NEW CODE
+  SELECT belnr bukrs GJAHR
+  UP TO 1 ROWS 
       into (lv_belnr_orig, lv_bukrs_orig, lv_gjahr_orig)
     from bse_clr
    where belnr_clr = lv_belnr2
      and bukrs_clr = lv_bukrs2
-     and GJAHR_clr = lv_gjahr2.
+     and GJAHR_clr = lv_gjahr2 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   if sy-subrc = 0.
     wa_Bsas-belnr      = lv_belnr_orig.

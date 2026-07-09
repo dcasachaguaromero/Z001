@@ -66,8 +66,18 @@ DATA  p_fecha  TYPE sydatum.
 
 
 START-OF-SELECTION.
-  SELECT SINGLE * FROM ztparamftp WHERE zbukr = 'CL01'
-                            AND      zprog = sy-repid.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM ztparamftp WHERE zbukr = 'CL01'
+*                            AND      zprog = sy-repid.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM ztparamftp WHERE zbukr = 'CL01'
+                            AND      zprog = sy-repid ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc <> 0.
     MESSAGE e016(z1) WITH  'Programa no tienen ' ' registrado rutas de archvos'.

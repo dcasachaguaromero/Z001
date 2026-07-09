@@ -16,11 +16,23 @@ FORM lee_datos_fecha .
          wa_bkpf   TYPE ty_bkpf,
          lv_column TYPE i.
 *
-  SELECT bukrs belnr gjahr blart budat waers INTO TABLE ti_bkpf
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT bukrs belnr gjahr blart budat waers INTO TABLE ti_bkpf
+*         FROM bkpf WHERE bukrs IN s_bukrs AND
+*                         belnr IN s_belnr AND
+*                         cpudt IN s_cpudt AND
+*                         blart IN s_blart.
+*
+* NEW CODE
+  SELECT bukrs belnr gjahr blart budat waers
+ INTO TABLE ti_bkpf
          FROM bkpf WHERE bukrs IN s_bukrs AND
                          belnr IN s_belnr AND
                          cpudt IN s_cpudt AND
-                         blart IN s_blart.
+                         blart IN s_blart ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   gv_column = 1.
   LOOP AT ti_bkpf INTO wa_bkpf.
     gv_belnr  = wa_bkpf-belnr.
@@ -170,12 +182,26 @@ FORM lee_flujo USING p_wa_bkpf TYPE ty_bkpf
                                           lv_wrbtr
                                           lv_sgtxt.
 *
-          SELECT SINGLE blart budat waers stblg stjah
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE blart budat waers stblg stjah
+*                 INTO (lv_blart, lv_budat, lv_waers, lv_stblg,lv_stjah )
+*                 FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs_clr AND
+*                                 belnr  EQ wa_base_clr-belnr_clr AND
+*                                 gjahr  EQ wa_base_clr-gjahr_clr AND
+*                                 blart  IN s_blart.
+*
+* NEW CODE
+          SELECT blart budat waers stblg stjah
+          UP TO 1 ROWS 
                  INTO (lv_blart, lv_budat, lv_waers, lv_stblg,lv_stjah )
                  FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs_clr AND
                                  belnr  EQ wa_base_clr-belnr_clr AND
                                  gjahr  EQ wa_base_clr-gjahr_clr AND
-                                 blart  IN s_blart."               AND
+                                 blart  IN s_blart ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01"               AND
 *                                 stblg  EQ space.
           IF sy-subrc EQ 0.
             IF lv_blart IN s_blaz6.
@@ -239,12 +265,26 @@ FORM lee_flujo USING p_wa_bkpf TYPE ty_bkpf
               CONCATENATE wa_hist_bkpf-bukrs wa_hist_bkpf-gjahr
                           wa_hist_bkpf-belnr gv_corr        INTO gv_clave.
 
-              SELECT SINGLE blart budat waers
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE blart budat waers
+*                     INTO (lv_blart, lv_budat, lv_waers )
+*                     FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs_clr AND
+*                                     belnr  EQ wa_base_clr-belnr_clr AND
+*                                     gjahr  EQ wa_base_clr-gjahr_clr AND
+*                                     blart  IN s_blart.
+*
+* NEW CODE
+              SELECT blart budat waers
+              UP TO 1 ROWS 
                      INTO (lv_blart, lv_budat, lv_waers )
                      FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs_clr AND
                                      belnr  EQ wa_base_clr-belnr_clr AND
                                      gjahr  EQ wa_base_clr-gjahr_clr AND
-                                     blart  IN s_blart.
+                                     blart  IN s_blart ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
               PERFORM lee_motiv_emis USING wa_base_clr-bukrs_clr
                                            wa_base_clr-belnr_clr
@@ -286,12 +326,26 @@ FORM lee_flujo USING p_wa_bkpf TYPE ty_bkpf
             CONCATENATE wa_hist_bkpf-bukrs wa_hist_bkpf-gjahr
                         wa_hist_bkpf-belnr gv_corr        INTO gv_clave.
 
-            SELECT SINGLE blart budat waers
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE blart budat waers
+*                   INTO (lv_blart, lv_budat, lv_waers )
+*                   FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs_clr AND
+*                                   belnr  EQ wa_base_clr-belnr_clr AND
+*                                   gjahr  EQ wa_base_clr-gjahr_clr AND
+*                                   blart  IN s_blart.
+*
+* NEW CODE
+            SELECT blart budat waers
+            UP TO 1 ROWS 
                    INTO (lv_blart, lv_budat, lv_waers )
                    FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs_clr AND
                                    belnr  EQ wa_base_clr-belnr_clr AND
                                    gjahr  EQ wa_base_clr-gjahr_clr AND
-                                   blart  IN s_blart.
+                                   blart  IN s_blart ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
             PERFORM lee_motiv_emis USING wa_base_clr-bukrs_clr
                                          wa_base_clr-belnr_clr
@@ -338,13 +392,28 @@ FORM lee_flujo USING p_wa_bkpf TYPE ty_bkpf
                                           lv_wrbtr
                                           lv_sgtxt.
 *
-          SELECT SINGLE blart budat waers
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE blart budat waers
+*                 INTO (lv_blart, lv_budat, lv_waers )
+*                 FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs AND
+*                                 belnr  EQ wa_base_clr-belnr AND
+*                                 gjahr  EQ wa_base_clr-gjahr AND
+*                                 blart  IN s_blart           AND
+*                                 stblg  EQ space.
+*
+* NEW CODE
+          SELECT blart budat waers
+          UP TO 1 ROWS 
                  INTO (lv_blart, lv_budat, lv_waers )
                  FROM bkpf WHERE bukrs  EQ wa_base_clr-bukrs AND
                                  belnr  EQ wa_base_clr-belnr AND
                                  gjahr  EQ wa_base_clr-gjahr AND
                                  blart  IN s_blart           AND
-                                 stblg  EQ space.
+                                 stblg  EQ space ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
           IF sy-subrc EQ 0.
             wa_hist-bukrs_clr     = wa_base_clr-bukrs.
             wa_hist-belnr_clr     = wa_base_clr-belnr.
@@ -690,8 +759,17 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 FORM selecciona_blart .
 
-  SELECT sign opti low high INTO TABLE s_blart
-    FROM tvarvc WHERE name EQ 'ZFI_MOTIVEMIS_BLART'.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT sign opti low high INTO TABLE s_blart
+*    FROM tvarvc WHERE name EQ 'ZFI_MOTIVEMIS_BLART'.
+*
+* NEW CODE
+  SELECT sign opti low high
+ INTO TABLE s_blart
+    FROM tvarvc WHERE name EQ 'ZFI_MOTIVEMIS_BLART' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 *
   CLEAR s_blaz6[].
   s_blaz6-sign = 'I'.     s_blaz6-option = 'EQ'.
@@ -843,10 +921,22 @@ FORM lee_motiv_emis  USING    p_bukrs
   DATA : lv_buzei TYPE buzei.
 * Busca la posicon del documento buscado.
   IF p_sem EQ gc_x.
-    SELECT SINGLE buzei INTO lv_buzei
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE buzei INTO lv_buzei
+*         FROM bse_clr  WHERE bukrs  EQ p_bukrs AND
+*                             belnr  EQ p_belnr AND
+*                             gjahr  EQ p_gjahr.
+*
+* NEW CODE
+    SELECT buzei
+    UP TO 1 ROWS  INTO lv_buzei
          FROM bse_clr  WHERE bukrs  EQ p_bukrs AND
                              belnr  EQ p_belnr AND
-                             gjahr  EQ p_gjahr.
+                             gjahr  EQ p_gjahr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       lv_buzei = p_buzei.
     ENDIF.
@@ -856,28 +946,72 @@ FORM lee_motiv_emis  USING    p_bukrs
 *
 *
   CLEAR : p_lv_zzmot_emis, p_buzei_sal, p_lifnr, p_wrbtr.
-  SELECT SINGLE zzmot_emis buzei lifnr wrbtr sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE zzmot_emis buzei lifnr wrbtr sgtxt
+*         INTO (p_lv_zzmot_emis, p_buzei_sal, p_lifnr, p_wrbtr, p_sgtxt )
+*         FROM bseg WHERE bukrs  EQ p_bukrs AND
+*                         belnr  EQ p_belnr AND
+*                         gjahr  EQ p_gjahr AND
+*                         buzei  EQ lv_buzei.
+*
+* NEW CODE
+  SELECT zzmot_emis buzei lifnr wrbtr sgtxt
+  UP TO 1 ROWS 
          INTO (p_lv_zzmot_emis, p_buzei_sal, p_lifnr, p_wrbtr, p_sgtxt )
          FROM bseg WHERE bukrs  EQ p_bukrs AND
                          belnr  EQ p_belnr AND
                          gjahr  EQ p_gjahr AND
-                         buzei  EQ lv_buzei.
+                         buzei  EQ lv_buzei ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   CHECK p_lv_zzmot_emis IS INITIAL.
-  SELECT SINGLE zzmot_emis buzei lifnr wrbtr sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE zzmot_emis buzei lifnr wrbtr sgtxt
+*         INTO (p_lv_zzmot_emis, p_buzei_sal, p_lifnr, p_wrbtr, p_sgtxt )
+*         FROM bseg WHERE bukrs      EQ p_bukrs AND
+*                         belnr      EQ p_belnr AND
+*                         gjahr      EQ p_gjahr AND
+*                         zzmot_emis NE space AND
+*                         koart      IN ('K','D').
+*
+* NEW CODE
+  SELECT zzmot_emis buzei lifnr wrbtr sgtxt
+  UP TO 1 ROWS 
          INTO (p_lv_zzmot_emis, p_buzei_sal, p_lifnr, p_wrbtr, p_sgtxt )
          FROM bseg WHERE bukrs      EQ p_bukrs AND
                          belnr      EQ p_belnr AND
                          gjahr      EQ p_gjahr AND
                          zzmot_emis NE space AND
-                         koart      IN ('K','D').
+                         koart      IN ('K','D') ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   CHECK p_lv_zzmot_emis IS INITIAL.
-  SELECT SINGLE zzmot_emis buzei lifnr wrbtr sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE zzmot_emis buzei lifnr wrbtr sgtxt
+*         INTO (p_lv_zzmot_emis, p_buzei_sal, p_lifnr, p_wrbtr, p_sgtxt )
+*         FROM bseg WHERE bukrs      EQ p_bukrs AND
+*                         belnr      EQ p_belnr AND
+*                         gjahr      EQ p_gjahr AND
+*                         zzmot_emis EQ space AND
+*                         koart      IN ('K','D').
+*
+* NEW CODE
+  SELECT zzmot_emis buzei lifnr wrbtr sgtxt
+  UP TO 1 ROWS 
          INTO (p_lv_zzmot_emis, p_buzei_sal, p_lifnr, p_wrbtr, p_sgtxt )
          FROM bseg WHERE bukrs      EQ p_bukrs AND
                          belnr      EQ p_belnr AND
                          gjahr      EQ p_gjahr AND
                          zzmot_emis EQ space AND
-                         koart      IN ('K','D').
+                         koart      IN ('K','D') ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *
 ENDFORM.
 *&---------------------------------------------------------------------*

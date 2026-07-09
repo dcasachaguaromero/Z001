@@ -267,9 +267,20 @@ FORM detalle .
       MOVE tdev-numero_lote TO int_tabla-lotedev.
       MOVE tdev-fecha_pago TO int_tabla-fechadev.
       MOVE tdev-correl     TO int_tabla-correl.
-      SELECT SINGLE * FROM zctarechazobco WHERE bukrs      = bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM zctarechazobco WHERE bukrs      = bukrs
+*                                            AND hbkid_dest = bancopropio
+*                                            AND ctacte_bco = int_tabla-ctactedev.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM zctarechazobco WHERE bukrs      = bukrs
                                             AND hbkid_dest = bancopropio
-                                            AND ctacte_bco = int_tabla-ctactedev.
+                                            AND ctacte_bco = int_tabla-ctactedev ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc = 0.
         int_tabla-cuentadep = zctarechazobco-hkont_dep.
         LOOP AT tdep     WHERE estado_pago = int_tabla-estado_pago

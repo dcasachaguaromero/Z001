@@ -922,9 +922,20 @@ endform.                    " EJECUTA_FUNCION
 *       segun el id de proceso.
 *----------------------------------------------------------------------*
 FORM CARGA_DATOS .
-  SELECT single CLASE_DOC CAMBIO_ESTADO into (l_clase_doc, l_nom_proceso)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT single CLASE_DOC CAMBIO_ESTADO into (l_clase_doc, l_nom_proceso)
+*    from ZFITR020_T03
+*    where ID_PROCESO = '1007'.  
+*
+* NEW CODE
+  SELECT CLASE_DOC CAMBIO_ESTADO
+  UP TO 1 ROWS  into (l_clase_doc, l_nom_proceso)
     from ZFITR020_T03
-    where ID_PROCESO = '1007'.  "XE; PRESCRIPCION
+    where ID_PROCESO = '1007' ORDER BY PRIMARY KEY.  
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01"XE; PRESCRIPCION
 
   "dependiendo del tab se asigna a l_fecha para hacer mas generica la funcion
   if tabname eq '101' or tabname is INITIAL.
@@ -1089,11 +1100,23 @@ FORM selecciona .
   refresh ti_bseg.
 
   "rescato las cuentas de la tabla mantenedora.
-  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+*       from ZFITR020_T05
+*       where bukrs in p_bukrs1
+*         and hbkid in p_hbkid1
+*         and hktid in p_hktid1.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
        from ZFITR020_T05
        where bukrs in p_bukrs1
          and hbkid in p_hbkid1
-         and hktid in p_hktid1.
+         and hktid in p_hktid1 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if sy-subrc <> 0.
     MESSAGE 'combinacion no existente en tabla de cuentas' type 'E'.
@@ -1117,17 +1140,40 @@ FORM selecciona .
 
   "rescato los dias a caducar que dependen de los motivos
   "de emision
-  SELECT * into CORRESPONDING FIELDS OF TABLE ti_ZRANGOS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE ti_ZRANGOS
+*    from ZRANGOS_PRESCRI
+*    where MOTIVOEMISION in p_zzmot1.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZRANGOS
     from ZRANGOS_PRESCRI
-    where MOTIVOEMISION in p_zzmot1.
+    where MOTIVOEMISION in p_zzmot1 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   "SE BUSCAN LAS PARTIDAS ABIERTAS
-  select * into CORRESPONDING FIELDS OF TABLE ti_bsis
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_bsis
+*    from bsis
+*    where bukrs in p_bukrs1
+*      and HKONT in r_hkont
+*      and BELNR in p_belnr1
+*      and GJaHR in p_gjahr1.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_bsis
     from bsis
     where bukrs in p_bukrs1
       and HKONT in r_hkont
       and BELNR in p_belnr1
-      and GJaHR in p_gjahr1.
+      and GJaHR in p_gjahr1 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if sy-subrc <> 0.
     MESSAGE 'No se encontraron partidas' type 'E'.
@@ -1238,11 +1284,23 @@ FORM SELECCIONA2 .
   data:   lv_fecha type datum.
 
   "rescato las cuentas de la tabla mantenedora.
-  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+*       from ZFITR020_T05
+*       where bukrs in p_bukrs2
+*         and hbkid in p_hbkid2
+*         and hktid in p_hktid2.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
        from ZFITR020_T05
        where bukrs in p_bukrs2
          and hbkid in p_hbkid2
-         and hktid in p_hktid2.
+         and hktid in p_hktid2 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if sy-subrc <> 0.
     MESSAGE 'combinacion no existente en tabla de cuentas' type 'E'.
@@ -1266,9 +1324,19 @@ FORM SELECCIONA2 .
 
   "rescato los dias a caducar que dependen de los motivos
   "de emision
-  SELECT * into CORRESPONDING FIELDS OF TABLE ti_ZRANGOS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE ti_ZRANGOS
+*    from ZRANGOS_PRESCRI
+*    where MOTIVOEMISION in p_zzmot2.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZRANGOS
     from ZRANGOS_PRESCRI
-    where MOTIVOEMISION in p_zzmot2.
+    where MOTIVOEMISION in p_zzmot2 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   clear lv_fecha.
 **MOD INI
@@ -1439,9 +1507,20 @@ FORM CONVIERTE_MENSAJE  USING    P_SY_MSGID like sy-msgid
                                  P_SY_MSGNO like sy-msgno
                         CHANGING RETURN_MESSAGE   .
 
-  SELECT SINGLE * FROM t100 WHERE sprsl = 'S'
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t100 WHERE sprsl = 'S'
+*                             AND   arbgb = sy-msgid
+*                             AND   msgnr = sy-msgno.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t100 WHERE sprsl = 'S'
                              AND   arbgb = sy-msgid
-                             AND   msgnr = sy-msgno.
+                             AND   msgnr = sy-msgno ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc = 0.
     return_message = t100-text.
     IF return_message CS '&1'.

@@ -197,13 +197,32 @@ AT SELECTION-SCREEN ON bukrs.
     MESSAGE e526(icc_tr) WITH bukrs.
   ENDIF.
 
-  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001 WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001 WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 AT SELECTION-SCREEN ON rzawe.
 
-  SELECT SINGLE * FROM t042z WHERE land1 = 'CL'
-                             AND   zlsch = rzawe.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t042z WHERE land1 = 'CL'
+*                             AND   zlsch = rzawe.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t042z WHERE land1 = 'CL'
+                             AND   zlsch = rzawe ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     MESSAGE e001(z1) WITH 'Medio de Pago no Existe' rzawe.
   ENDIF.
@@ -215,9 +234,20 @@ AT SELECTION-SCREEN ON rzawe.
 
 AT SELECTION-SCREEN ON v_hbkid.
 
-  SELECT SINGLE * FROM t012t WHERE spras = sy-langu
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t012t WHERE spras = sy-langu
+*                             AND   bukrs = bukrs
+*                             AND   hbkid = v_hbkid.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t012t WHERE spras = sy-langu
                              AND   bukrs = bukrs
-                             AND   hbkid = v_hbkid.
+                             AND   hbkid = v_hbkid ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc <> 0.
     MESSAGE e016(z1) WITH 'Banco no existe ' .
@@ -234,9 +264,19 @@ START-OF-SELECTION.
   PERFORM cargo_planilla.
 
   SELECT *  FROM zagencia INTO CORRESPONDING FIELDS OF TABLE tage.
-  SELECT *  FROM zctarechazo INTO CORRESPONDING FIELDS OF TABLE tcuenta
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT *  FROM zctarechazo INTO CORRESPONDING FIELDS OF TABLE tcuenta
+*                             WHERE bukrs = bukrs
+*                             AND rzawe_d <> ''.
+*
+* NEW CODE
+  SELECT *
+  FROM zctarechazo INTO CORRESPONDING FIELDS OF TABLE tcuenta
                              WHERE bukrs = bukrs
-                             AND rzawe_d <> ''.
+                             AND rzawe_d <> '' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   SORT tage    BY  bukrs  zzcod_unidad.
   SORT tcuenta BY bukrs rzawe hkont_orig rzawe_d.

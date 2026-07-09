@@ -53,8 +53,18 @@ INITIALIZATION.
   CLEAR : bukrs, idpago, rutben.
 
 AT SELECTION-SCREEN ON  idpago.
-  SELECT SINGLE * FROM reguh
-            WHERE identif_pago = idpago.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM reguh
+*            WHERE identif_pago = idpago.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM reguh
+            WHERE identif_pago = idpago ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc <> 0.
     MESSAGE e004(zfi) WITH 'ID de pago no existe en Pagos'.
@@ -98,10 +108,22 @@ START-OF-SELECTION.
 
   CLEAR : v_rut.
 * OBTIENE INFORMACION DE LA SOCIEDAD
-  SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE adrnr
+*              FROM t001
+*              INTO v_adrnr
+*              WHERE bukrs EQ bukrs.
+*
+* NEW CODE
+  SELECT adrnr
+  UP TO 1 ROWS 
               FROM t001
               INTO v_adrnr
-              WHERE bukrs EQ bukrs.
+              WHERE bukrs EQ bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0 AND v_adrnr IS NOT INITIAL.
     CALL FUNCTION 'RTP_US_DB_ADRC_READ'
       EXPORTING
@@ -123,14 +145,29 @@ START-OF-SELECTION.
   CLEAR : veces, gv_mod,
           gt_znovedad[], gt_log_noved[], gt_itab[].
 * ini - Waldo Alarcón - Visionone - 17-11-2020
-  SELECT * INTO TABLE gt_znovedad
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * INTO TABLE gt_znovedad
+*     FROM znovedadbanco
+*           WHERE sociedad EQ bukrs
+*             AND identif  EQ idpago
+*             AND rutben   EQ f_rut2
+*             AND ( estpag   EQ 'CHEQUE PAGADO' OR
+*                   estpag   EQ 'CHEQUE DEVUELTO' )
+*             AND estado   NE '9'.
+*
+* NEW CODE
+  SELECT *
+ INTO TABLE gt_znovedad
      FROM znovedadbanco
            WHERE sociedad EQ bukrs
              AND identif  EQ idpago
              AND rutben   EQ f_rut2
              AND ( estpag   EQ 'CHEQUE PAGADO' OR
                    estpag   EQ 'CHEQUE DEVUELTO' )
-             AND estado   NE '9'.
+             AND estado   NE '9' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 * si no encuentra
   IF gt_znovedad[] IS INITIAL.
 
@@ -164,12 +201,25 @@ START-OF-SELECTION.
     APPEND 'GRABAR' TO gt_itab.
     gv_titulo = TEXT-ti1.
 *
-    SELECT *  INTO TABLE gt_znovedad
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT *  INTO TABLE gt_znovedad
+*       FROM znovedadbanco
+*             WHERE sociedad = bukrs
+*               AND identif  = idpago
+*               AND rutben   = f_rut2
+*               AND estado   = 0.
+*
+* NEW CODE
+    SELECT *
+  INTO TABLE gt_znovedad
        FROM znovedadbanco
              WHERE sociedad = bukrs
                AND identif  = idpago
                AND rutben   = f_rut2
-               AND estado   = 0.
+               AND estado   = 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF veces GT 1.
       PERFORM muestra_datos.
     ELSE.

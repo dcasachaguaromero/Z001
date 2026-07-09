@@ -29,8 +29,18 @@ PARAMETER : motivo   LIKE mot                    obligatory.
 *&---------------------------------------------------------------------*
   at selection-screen on bukrs.
 sw = 0.
-SELECT SINGLE * FROM t001
-                WHERE bukrs = bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*SELECT SINGLE * FROM t001
+*                WHERE bukrs = bukrs.
+*
+* NEW CODE
+SELECT *
+UP TO 1 ROWS  FROM t001
+                WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
  IF sy-subrc <> 0.
       message w899(v1) with 'Sociedad no existe'.
@@ -40,8 +50,18 @@ SELECT SINGLE * FROM t001
   at selection-screen on ubnkl.
 
 sw = 0.
- SELECT SINGLE * FROM zbancossbif
-                WHERE banco   = ubnkl.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+* SELECT SINGLE * FROM zbancossbif
+*                WHERE banco   = ubnkl.
+*
+* NEW CODE
+ SELECT *
+ UP TO 1 ROWS  FROM zbancossbif
+                WHERE banco   = ubnkl ORDER BY PRIMARY KEY.
+
+ ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
  IF sy-subrc <> 0.
       message w899(v1) with 'Banco No en tabla ZBANCOSSBIF'.
@@ -57,20 +77,45 @@ ENDIF.
 sw = 0.
 
 *--------------------------------------------------------------------------------
-SELECT SINGLE * FROM znovedadbanco
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*SELECT SINGLE * FROM znovedadbanco
+*                WHERE sociedad = bukrs
+*                  AND banco    = ubnkl
+*                  AND identif  = identif.
+*
+* NEW CODE
+SELECT *
+UP TO 1 ROWS  FROM znovedadbanco
                 WHERE sociedad = bukrs
                   AND banco    = ubnkl
-                  AND identif  = identif.
+                  AND identif  = identif ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 IF sy-subrc <> 0.
       message w899(v1) with 'No existe Novedad, revise datos'.
        sw = sw + 1.
 else.
-  SELECT SINGLE * FROM znovedadbanco
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM znovedadbanco
+*                WHERE sociedad = bukrs
+*                  AND banco    = ubnkl
+*                  AND identif  = identif
+*                  and estado   = 0.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM znovedadbanco
                 WHERE sociedad = bukrs
                   AND banco    = ubnkl
                   AND identif  = identif
-                  and estado   = 0.
+                  and estado   = 0 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
    IF sy-subrc <> 0.
       message w899(v1) with 'Novedad existe, pero no pendiente de proceso'.
    endif.
