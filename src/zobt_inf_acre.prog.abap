@@ -34,24 +34,59 @@ selection-screen begin of block b1 with frame.
   select-options s_lifnr for it_lfb1-lifnr obligatory.
 selection-screen end of block b1.
 
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from lfb1
+*  into corresponding fields of table it_lfb1
+*  where bukrs in s_bukrs
+*  and lifnr in s_lifnr.
+*
+* NEW CODE
+SELECT *
+
   from lfb1
   into corresponding fields of table it_lfb1
   where bukrs in s_bukrs
-  and lifnr in s_lifnr.
+  and lifnr in s_lifnr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 loop at it_lfb1.
   "Datos del Acreedor
-  select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single *
+*    from lfa1
+*    into corresponding fields of wa_lfa1
+*    where lifnr eq it_lfb1-lifnr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS 
     from lfa1
     into corresponding fields of wa_lfa1
-    where lifnr eq it_lfb1-lifnr.
+    where lifnr eq it_lfb1-lifnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   "Puede tener mas de una cuenta corriente
-  select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select *
+*    from lfbk
+*    into corresponding fields of table it_lfbk
+*    where lifnr eq it_lfb1-lifnr.
+*
+* NEW CODE
+  SELECT *
+
     from lfbk
     into corresponding fields of table it_lfbk
-    where lifnr eq it_lfb1-lifnr.
+    where lifnr eq it_lfb1-lifnr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   if ( sy-subrc = 0 ).
     loop at it_lfbk.

@@ -171,10 +171,21 @@ START-OF-SELECTION.
   ENDIF.
 
 * Informationen zu Z-Strukturen einlesen
-  SELECT * FROM dd02l WHERE ( tabname = 'ZBSEG' OR
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM dd02l WHERE ( tabname = 'ZBSEG' OR
+*                              tabname = 'ZSELP' )
+*                      AND   as4local = 'A'
+*                      AND   tabclass = 'INTTAB'.
+*
+* NEW CODE
+  SELECT *
+ FROM dd02l WHERE ( tabname = 'ZBSEG' OR
                               tabname = 'ZSELP' )
                       AND   as4local = 'A'
-                      AND   tabclass = 'INTTAB'.
+                      AND   tabclass = 'INTTAB' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     MOVE-CORRESPONDING dd02l TO tabtab.
     APPEND tabtab.
   ENDSELECT.
@@ -195,9 +206,19 @@ START-OF-SELECTION.
   READ TABLE rep INDEX 4.             "read generated time
   gtime = rep-z+30.
 * Informationen zum Include COPABBSEG einlesen
-  SELECT * FROM dd02l WHERE tabname = 'COPABBSEG'
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM dd02l WHERE tabname = 'COPABBSEG'
+*                             AND   as4local = 'A'
+*                             AND   tabclass = 'INTTAB'.
+*
+* NEW CODE
+  SELECT *
+ FROM dd02l WHERE tabname = 'COPABBSEG'
                              AND   as4local = 'A'
-                             AND   tabclass = 'INTTAB'.
+                             AND   tabclass = 'INTTAB' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF  dd02l-as4date GT gdate
     OR ( dd02l-as4date EQ gdate AND dd02l-as4time GT gtime ).
       MOVE-CORRESPONDING dd02l TO tabtab.
@@ -206,9 +227,19 @@ START-OF-SELECTION.
   ENDSELECT.
 
 * Informationen zu BBSEG einlesen
-  SELECT * FROM dd02l WHERE tabname = 'BBSEG'
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM dd02l WHERE tabname = 'BBSEG'
+*                             AND   as4local = 'A'
+*                             AND   tabclass = 'INTTAB'.
+*
+* NEW CODE
+  SELECT *
+ FROM dd02l WHERE tabname = 'BBSEG'
                              AND   as4local = 'A'
-                             AND   tabclass = 'INTTAB'.
+                             AND   tabclass = 'INTTAB' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF  dd02l-as4date GT gdate
     OR ( dd02l-as4date EQ gdate AND dd02l-as4time GT gtime ).
       MOVE-CORRESPONDING dd02l TO tabtab.

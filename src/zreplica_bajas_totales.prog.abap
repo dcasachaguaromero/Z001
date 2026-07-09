@@ -67,7 +67,21 @@ start-of-selection.
 * Rescata Movimientos que cumplen la condición
 * Desde Area modelo
 
-  select * from v_anepk
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * from v_anepk
+*   APPENDING CORRESPONDING FIELDS OF table XANEK
+*                   WHERE BUKRS = P_BUKRS
+*                   AND   ANLN1 IN S_ANLN1
+*                   AND   ANLN2 IN S_ANLN2
+*                   AND   GJAHR = P_GJAHR
+*                   AND   BUDAT IN S_BUDAT
+*                   AND   BWASL IN S_BWASL
+*                   AND   AFABE = P_AFABEM.
+*
+* NEW CODE
+  SELECT *
+ from v_anepk
    APPENDING CORRESPONDING FIELDS OF table XANEK
                    WHERE BUKRS = P_BUKRS
                    AND   ANLN1 IN S_ANLN1
@@ -75,7 +89,9 @@ start-of-selection.
                    AND   GJAHR = P_GJAHR
                    AND   BUDAT IN S_BUDAT
                    AND   BWASL IN S_BWASL
-                   AND   AFABE = P_AFABEM.
+                   AND   AFABE = P_AFABEM ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 *Begin of change: ReSQ Correction for DELETE ADJACENT DUPLICATE 19/12/2019 EY_DES04 ECDK917080 *
 SORT XANEK .
@@ -85,22 +101,47 @@ SORT XANEK .
   IF NOT XANEK[] IS INITIAL.
 
     LOOP AT XANEK.
-      select * from ANEP appending table WANEP
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      select * from ANEP appending table WANEP
+*               WHERE BUKRS = XANEK-BUKRS
+*               AND   ANLN1 = XANEK-ANLN1
+*               AND   ANLN2 = XANEK-ANLN2
+*               AND   GJAHR = XANEK-GJAHR
+*               AND   LNRAN = XANEK-LNRAN
+*               AND   AFABE = P_AFABEM.
+*
+* NEW CODE
+      SELECT *
+ from ANEP appending table WANEP
                WHERE BUKRS = XANEK-BUKRS
                AND   ANLN1 = XANEK-ANLN1
                AND   ANLN2 = XANEK-ANLN2
                AND   GJAHR = XANEK-GJAHR
                AND   LNRAN = XANEK-LNRAN
-               AND   AFABE = P_AFABEM.
+               AND   AFABE = P_AFABEM ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     ENDLOOP.
 
     IF WANEP[] IS INITIAL.
       WRITE:/ 'NO SE SELECCIONARON MOVIMIENTOS BAJAS'.
     ELSE.
       LOOP AT WANEP.
-        SELECT SINGLE * FROM ANLA WHERE bukrs = p_bukrs       and
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM ANLA WHERE bukrs = p_bukrs       and
+*                                        anln1 = WANEP-ANLN1 and
+*                                        anln2 = WANEP-ANLN2.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM ANLA WHERE bukrs = p_bukrs       and
                                         anln1 = WANEP-ANLN1 and
-                                        anln2 = WANEP-ANLN2.
+                                        anln2 = WANEP-ANLN2 ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 * Solo Activos Vigentes entran en proceso.
         IF ANLA-DEAKT IS INITIAL.
           MOVE-CORRESPONDING WANEP TO XANEP.
@@ -121,13 +162,27 @@ SORT XANEK .
 * y TAMBIEN AREA CM = 02.
 *          IF P_AFABEN = '50'.
 
-          select * from ANEA appending table XANEA
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          select * from ANEA appending table XANEA
+*             WHERE BUKRS = XANEP-BUKRS
+*             AND   ANLN1 = XANEP-ANLN1
+*             AND   ANLN2 = XANEP-ANLN2
+*             AND   GJAHR = XANEP-GJAHR
+*             AND   LNRAN = XANEP-LNRAN
+*             AND   AFABE = XANEP-AFABE.
+*
+* NEW CODE
+          SELECT *
+ from ANEA appending table XANEA
              WHERE BUKRS = XANEP-BUKRS
              AND   ANLN1 = XANEP-ANLN1
              AND   ANLN2 = XANEP-ANLN2
              AND   GJAHR = XANEP-GJAHR
              AND   LNRAN = XANEP-LNRAN
-             AND   AFABE = XANEP-AFABE.
+             AND   AFABE = XANEP-AFABE ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           COMMIT WORK .
 
 

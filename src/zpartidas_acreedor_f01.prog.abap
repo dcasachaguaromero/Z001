@@ -214,8 +214,18 @@ FORM select_data.
       MULTIPLY gr_outtab-monto1 BY -1.
     ENDIF.
 
-    SELECT SINGLE  name1 stcd1 FROM lfa1 INTO (gr_outtab-name1, gr_outtab-stcd1)
-      WHERE lifnr EQ gt_bsak-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  name1 stcd1 FROM lfa1 INTO (gr_outtab-name1, gr_outtab-stcd1)
+*      WHERE lifnr EQ gt_bsak-lifnr.
+*
+* NEW CODE
+    SELECT name1 stcd1
+    UP TO 1 ROWS  FROM lfa1 INTO (gr_outtab-name1, gr_outtab-stcd1)
+      WHERE lifnr EQ gt_bsak-lifnr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
     IF gr_outtab-augbl IS NOT INITIAL.
 *PYV 02/01/2011 Se ordena Select segun indices existentes
@@ -228,19 +238,47 @@ FORM select_data.
 *PYV 02/01/2011 Se ordena Select segun indices existentes
 *** INI V1 RVY 19-022024
       IF gr_outtab-zlsch = 'C'.
-        SELECT SINGLE znme1 rwbtr checf FROM payr INTO
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE znme1 rwbtr checf FROM payr INTO
+*                     (gr_outtab-znme1, gr_outtab-rwbtr, gr_outtab-checf)
+*          WHERE zbukr EQ gt_bsak-bukrs AND
+*                hbkid EQ gt_bsak-hbkid AND
+*                hktid EQ gt_bsak-hktid AND
+*                vblnr EQ gt_bsak-augbl AND
+*                voidr EQ ''.
+*
+* NEW CODE
+        SELECT znme1 rwbtr checf
+        UP TO 1 ROWS  FROM payr INTO
                      (gr_outtab-znme1, gr_outtab-rwbtr, gr_outtab-checf)
           WHERE zbukr EQ gt_bsak-bukrs AND
                 hbkid EQ gt_bsak-hbkid AND
                 hktid EQ gt_bsak-hktid AND
                 vblnr EQ gt_bsak-augbl AND
-                voidr EQ ''.
+                voidr EQ '' ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       ELSE.
-        SELECT SINGLE znme1 rwbtr FROM reguh INTO
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE znme1 rwbtr FROM reguh INTO
+*                    (gr_outtab-znme1, gr_outtab-rwbtr)
+*           WHERE zbukr EQ gt_bsak-bukrs AND
+*                 vblnr EQ gt_bsak-augbl AND
+*                 zaldt EQ gt_bsak-augdt.
+*
+* NEW CODE
+        SELECT znme1 rwbtr
+        UP TO 1 ROWS  FROM reguh INTO
                     (gr_outtab-znme1, gr_outtab-rwbtr)
            WHERE zbukr EQ gt_bsak-bukrs AND
                  vblnr EQ gt_bsak-augbl AND
-                 zaldt EQ gt_bsak-augdt.
+                 zaldt EQ gt_bsak-augdt ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       ENDIF.
 *** FIN V1 RVY 19-022024
     ENDIF.
@@ -839,11 +877,24 @@ FORM get_description_bukrs USING p_bukrs TYPE bukrs
          l_address_selection TYPE addr1_sel,
          l_zgiro             TYPE zfigiro.
 
-  SELECT SINGLE butxt adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE butxt adrnr
+*    FROM t001
+*    INTO (p_butxt, l_adrnr)
+*    WHERE bukrs EQ p_bukrs
+*    AND spras EQ sy-langu.
+*
+* NEW CODE
+  SELECT butxt adrnr
+  UP TO 1 ROWS 
     FROM t001
     INTO (p_butxt, l_adrnr)
     WHERE bukrs EQ p_bukrs
-    AND spras EQ sy-langu.
+    AND spras EQ sy-langu ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   MOVE l_adrnr TO  l_address_selection-addrnumber.
 

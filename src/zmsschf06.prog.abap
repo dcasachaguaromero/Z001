@@ -60,10 +60,22 @@ endform.
 *&---------------------------------------------------------------------*
 form save_stxh_titles.
 
-  select single * from stxh where tdobject = g_stxh-tdobject
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from stxh where tdobject = g_stxh-tdobject
+*                            and   tdname   = g_stxh-tdname
+*                            and   tdid     = g_stxh-tdid
+*                            and   tdspras  = g_stxh-tdspras.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from stxh where tdobject = g_stxh-tdobject
                             and   tdname   = g_stxh-tdname
                             and   tdid     = g_stxh-tdid
-                            and   tdspras  = g_stxh-tdspras.
+                            and   tdspras  = g_stxh-tdspras ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if sy-subrc = 0.
     g_stxh-tdluser   = sy-uname.
     g_stxh-tdldate   = sy-datum.

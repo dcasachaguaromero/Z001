@@ -462,9 +462,20 @@ FORM vorbereitung.
 * Prüfung, ob Lauf erfolgreich abgeschlossen ---------------------------
 * check that payment run was completed successfully --------------------
   IF hlp_laufk NE '*'.                 "keine Prüfung bei Online-Druck
-    SELECT SINGLE * FROM reguv         "online print => no check
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM reguv         "online print => no check
+*      WHERE laufd EQ zw_laufd
+*      AND   laufi EQ zw_laufi.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM reguv         "online print => no check
       WHERE laufd EQ zw_laufd
-      AND   laufi EQ zw_laufi.
+      AND   laufi EQ zw_laufi ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF zw_xvorl EQ space.
       IF reguv-xecht NE 'X'.
         IF sy-batch EQ space.
@@ -506,7 +517,16 @@ FORM vorbereitung.
 
 * logisches System des Mandanten lesen
 * read logical system of client
-  SELECT SINGLE * FROM t000 WHERE mandt EQ sy-mandt.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t000 WHERE mandt EQ sy-mandt.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t000 WHERE mandt EQ sy-mandt ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   REFRESH tab_rfc.
 
 * prüfen, ob IBAN-Funktionalität verfügbar
@@ -539,8 +559,18 @@ FORM pruefung.
 * Nachlesen der Buchungskreisdaten / des Geschäftsjahres
 * read company code data / business year
   ON CHANGE OF reguh-zbukr.
-    SELECT SINGLE * FROM t001
-      WHERE bukrs EQ reguh-zbukr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t001
+*      WHERE bukrs EQ reguh-zbukr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t001
+      WHERE bukrs EQ reguh-zbukr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDON.
   ON CHANGE OF reguh-zaldt OR t001-periv.
     CALL FUNCTION 'DATE_TO_PERIOD_CONVERT'
@@ -620,9 +650,20 @@ FORM pruefung.
     READ TABLE tab_t042z WITH KEY land1 = t001-land1
                                   zlsch = reguh-rzawe.
     IF sy-subrc NE 0.
-      SELECT SINGLE * FROM t042z
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM t042z
+*        WHERE land1 EQ t001-land1
+*        AND   zlsch EQ reguh-rzawe.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM t042z
         WHERE land1 EQ t001-land1
-        AND   zlsch EQ reguh-rzawe.
+        AND   zlsch EQ reguh-rzawe ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc NE 0.
         IF sy-batch EQ space.
           MESSAGE a350 WITH reguh-rzawe t001-land1.
@@ -664,14 +705,36 @@ FORM pruefung.
     AND hlp_laufk NE 'P'.              "not HR
 
     IF reguh-pyord EQ space.           "payment document
-      SELECT SINGLE * FROM bkpf
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM bkpf
+*        WHERE bukrs EQ reguh-zbukr
+*        AND   belnr EQ reguh-vblnr
+*        AND   gjahr EQ regud-gjahr.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM bkpf
         WHERE bukrs EQ reguh-zbukr
         AND   belnr EQ reguh-vblnr
-        AND   gjahr EQ regud-gjahr.
+        AND   gjahr EQ regud-gjahr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ELSE.                              "payment order
       CLEAR bkpf.
-      SELECT SINGLE * FROM pyordh
-        WHERE pyord EQ reguh-pyord.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM pyordh
+*        WHERE pyord EQ reguh-pyord.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM pyordh
+        WHERE pyord EQ reguh-pyord ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
 
     IF sy-subrc NE 0.
@@ -736,12 +799,30 @@ FORM pruefung.
   IF reguh-empfg(1)    NE '>' AND      "abweichender Zahlungsempfänger
      reguh-empfg       NE space.       "im Beleg, nicht CPD-Konto
     IF reguh-lifnr NE space.
-      SELECT SINGLE * FROM lfa1 WHERE lifnr EQ reguh-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM lfa1 WHERE lifnr EQ reguh-lifnr.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM lfa1 WHERE lifnr EQ reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc EQ 0 AND lfa1-xcpdk EQ space.
         regud-xabwz = 'X'.
       ENDIF.
     ELSE.
-      SELECT SINGLE * FROM kna1 WHERE kunnr EQ reguh-kunnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM kna1 WHERE kunnr EQ reguh-kunnr.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM kna1 WHERE kunnr EQ reguh-kunnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc EQ 0 AND kna1-xcpdk EQ space.
         regud-xabwz = 'X'.
       ENDIF.
@@ -877,9 +958,20 @@ FORM sortierung USING satz.
 * Lesen der Tabelle T021M mit den Sortiervarianten
   ON CHANGE OF reguh-zbukr OR reguh-rzawe.
     IF NOT reguh-rzawe IS INITIAL.
-      SELECT SINGLE * FROM t042e
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM t042e
+*        WHERE zbukr EQ reguh-zbukr
+*          AND zlsch EQ reguh-rzawe.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM t042e
         WHERE zbukr EQ reguh-zbukr
-          AND zlsch EQ reguh-rzawe.
+          AND zlsch EQ reguh-rzawe ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF t042e-svarh IS INITIAL.
         st_svarh = hlp_svarh.
@@ -900,19 +992,43 @@ FORM sortierung USING satz.
   ENDON.
 
   IF hlp_t021m_h-srvar NE st_svarh.
-    SELECT SINGLE * FROM t021m INTO hlp_t021m_h
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t021m INTO hlp_t021m_h
+*      WHERE progn = 'RFFO*   '
+*        AND anwnd = 'REGUH'
+*        AND srvar = st_svarh.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t021m INTO hlp_t021m_h
       WHERE progn = 'RFFO*   '
         AND anwnd = 'REGUH'
-        AND srvar = st_svarh.
+        AND srvar = st_svarh ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       CLEAR hlp_t021m_h.
     ENDIF.
   ENDIF.
   IF hlp_t021m_p-srvar NE st_svarp.
-    SELECT SINGLE * FROM t021m INTO hlp_t021m_p
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t021m INTO hlp_t021m_p
+*      WHERE progn = 'RFFO*   '
+*        AND anwnd = 'REGUP'
+*        AND srvar = st_svarp.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t021m INTO hlp_t021m_p
       WHERE progn = 'RFFO*   '
         AND anwnd = 'REGUP'
-        AND srvar = st_svarp.
+        AND srvar = st_svarp ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.
       CLEAR hlp_t021m_p.
     ENDIF.
@@ -1091,8 +1207,18 @@ FORM isocode_umsetzen USING waers isocd.
   sy-subrc = 0.
   IF tcurc-waers NE waers.
     CLEAR tcurc.
-    SELECT SINGLE * FROM tcurc
-      WHERE waers EQ waers.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM tcurc
+*      WHERE waers EQ waers.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM tcurc
+      WHERE waers EQ waers ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
   IF sy-subrc EQ 0 AND tcurc-isocd NE space.
     isocd = tcurc-isocd.
@@ -1127,8 +1253,18 @@ FORM buchungskreis_daten_lesen.
 * Tabelle T001 lesen ---------------------------------------------------
 * read table T001 ------------------------------------------------------
   CLEAR t001.
-  SELECT SINGLE * FROM t001
-    WHERE bukrs EQ reguh-zbukr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t001
+*    WHERE bukrs EQ reguh-zbukr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t001
+    WHERE bukrs EQ reguh-zbukr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   hlp_sprache = t001-spras.
   IF hlp_sprache IS INITIAL.
@@ -1139,8 +1275,18 @@ FORM buchungskreis_daten_lesen.
 * Avisformular lesen ---------------------------------------------------
 * read name of remittance advice form ----------------------------------
   CLEAR t042b.
-  SELECT SINGLE * FROM t042b
-    WHERE zbukr EQ reguh-zbukr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t042b
+*    WHERE zbukr EQ reguh-zbukr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t042b
+    WHERE zbukr EQ reguh-zbukr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     IF sy-batch EQ space.
       MESSAGE a345 WITH reguh-zbukr.
@@ -1185,8 +1331,18 @@ FORM buchungskreis_daten_lesen.
 * Brieftexte bereitstellen ---------------------------------------------
 * read names of standard texts -----------------------------------------
   CLEAR t042t.
-  SELECT SINGLE * FROM t042t
-    WHERE bukrs EQ reguh-zbukr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t042t
+*    WHERE bukrs EQ reguh-zbukr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t042t
+    WHERE bukrs EQ reguh-zbukr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     MOVE-CORRESPONDING reguh TO err_t042t.
     COLLECT err_t042t.
@@ -1229,9 +1385,20 @@ FORM zahlweg_daten_lesen.
 * Formulardaten (Name, maximale Postenanzahl, Austeller) lesen ---------
 * read form data (form name, line items per form, issuer) --------------
   CLEAR t042e.
-  SELECT SINGLE * FROM t042e
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t042e
+*    WHERE zbukr EQ reguh-zbukr
+*    AND   zlsch EQ reguh-rzawe.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t042e
     WHERE zbukr EQ reguh-zbukr
-    AND   zlsch EQ reguh-rzawe.
+    AND   zlsch EQ reguh-rzawe ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     IF sy-batch EQ space.
       MESSAGE a347 WITH reguh-rzawe reguh-zbukr.
@@ -1273,17 +1440,41 @@ FORM zahlweg_daten_lesen.
 
 * Sortierdaten lesen
 * read sort data
-  SELECT SINGLE * FROM t021m INTO hlp_t021m_h
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t021m INTO hlp_t021m_h
+*    WHERE progn = 'RFFO*   '
+*      AND anwnd = 'REGUH'
+*      AND srvar = t042e-svarh.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t021m INTO hlp_t021m_h
     WHERE progn = 'RFFO*   '
       AND anwnd = 'REGUH'
-      AND srvar = t042e-svarh.
+      AND srvar = t042e-svarh ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     CLEAR hlp_t021m_h.
   ENDIF.
-  SELECT SINGLE * FROM t021m INTO hlp_t021m_p
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t021m INTO hlp_t021m_p
+*    WHERE progn = 'RFFO*   '
+*      AND anwnd = 'REGUP'
+*      AND srvar = t042e-svarp.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t021m INTO hlp_t021m_p
     WHERE progn = 'RFFO*   '
       AND anwnd = 'REGUP'
-      AND srvar = t042e-svarp.
+      AND srvar = t042e-svarp ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.
     CLEAR hlp_t021m_p.
   ENDIF.
@@ -1311,9 +1502,20 @@ FORM hausbank_daten_lesen.
 * Hausbank-Anschriftsdaten lesen ---------------------------------------
 * read house bank address ----------------------------------------------
   CLEAR bnka.
-  SELECT SINGLE * FROM bnka
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM bnka
+*    WHERE banks EQ reguh-ubnks
+*    AND   bankl EQ reguh-ubnky.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM bnka
     WHERE banks EQ reguh-ubnks
-    AND   bankl EQ reguh-ubnky.
+    AND   bankl EQ reguh-ubnky ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   regud-ubnka    = bnka-banka.
   regud-ubstr    = bnka-stras.
   regud-ubort    = bnka-ort01.
@@ -1365,10 +1567,22 @@ FORM hausbank_konto_lesen.
       IF sy-subrc = 0.
         t012k = tab_t012k.
       ELSE.
-        SELECT SINGLE * FROM t012k
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM t012k
+*          WHERE bukrs EQ reguh-zbukr
+*            AND hbkid EQ reguh-hbkid
+*            AND hktid EQ reguh-hktid.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM t012k
           WHERE bukrs EQ reguh-zbukr
             AND hbkid EQ reguh-hbkid
-            AND hktid EQ reguh-hktid.
+            AND hktid EQ reguh-hktid ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc = 0.
           tab_t012k = t012k.
           APPEND tab_t012k.
@@ -1526,9 +1740,20 @@ FORM print_on USING p_bukrs        LIKE t001-bukrs
 * TLSEP lesen ---------------------------------------------------------*
 * read TLSEP  ---------------------------------------------------------*
   CLEAR sy-spono.                                         "#EC WRITE_OK
-  SELECT SINGLE * FROM  tlsep
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM  tlsep
+*         WHERE  domai       = 'BUKRS'
+*         AND    werte       = p_bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM  tlsep
          WHERE  domai       = 'BUKRS'
-         AND    werte       = p_bukrs.
+         AND    werte       = p_bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF sy-subrc = 0.
     MOVE-CORRESPONDING tlsep TO up_param.
@@ -1641,9 +1866,20 @@ FORM empfbank_daten_lesen.
 * Empfängerbank-Anschriftsdaten lesen ----------------------------------
 * read address of payee ------------------------------------------------
   CLEAR bnka.
-  SELECT SINGLE * FROM bnka
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM bnka
+*    WHERE banks EQ reguh-zbnks
+*    AND   bankl EQ reguh-zbnky.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM bnka
     WHERE banks EQ reguh-zbnks
-    AND   bankl EQ reguh-zbnky.
+    AND   bankl EQ reguh-zbnky ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   regud-zbnka    = bnka-banka.
   regud-zbstr    = bnka-stras.
   regud-zbort    = bnka-ort01.
@@ -1781,9 +2017,20 @@ FORM zahlungs_daten_lesen_hlp.
       up_uiban-zbukr = reguh-zbukr.
       up_uiban-hbkid = reguh-hbkid.
       up_uiban-hktid = reguh-hktid.
-      SELECT SINGLE * FROM t012k WHERE bukrs EQ reguh-zbukr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM t012k WHERE bukrs EQ reguh-zbukr
+*                                 AND   hbkid EQ reguh-hbkid
+*                                 AND   hktid EQ reguh-hktid.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM t012k WHERE bukrs EQ reguh-zbukr
                                  AND   hbkid EQ reguh-hbkid
-                                 AND   hktid EQ reguh-hktid.
+                                 AND   hktid EQ reguh-hktid ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc EQ 0.
         up_bkref = t012k-refzl.
       ENDIF.
@@ -1827,26 +2074,60 @@ FORM zahlungs_daten_lesen_hlp.
 * Ländername des Zahlungsempfängers lesen ------------------------------
 * read country name of payee -------------------------------------------
   CLEAR t005t.
-  SELECT SINGLE * FROM t005t
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t005t
+*    WHERE spras EQ hlp_sprache
+*    AND   land1 EQ reguh-land1.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t005t
     WHERE spras EQ hlp_sprache
-    AND   land1 EQ reguh-land1.
+    AND   land1 EQ reguh-land1 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   regud-landx = t005t-landx.
 
   IF reguh-land1 NE reguh-zland.
     CLEAR t005t.
-    SELECT SINGLE * FROM t005t
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t005t
+*      WHERE spras EQ hlp_sprache
+*      AND   land1 EQ reguh-zland.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t005t
       WHERE spras EQ hlp_sprache
-      AND   land1 EQ reguh-zland.
+      AND   land1 EQ reguh-zland ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
   regud-zlndx = t005t-landx.
 
 * Bezeichnung der Region lesen -----------------------------------------
 * read name of region --------------------------------------------------
   CLEAR t005u.
-  SELECT SINGLE * FROM t005u
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t005u
+*    WHERE spras EQ hlp_sprache
+*    AND   land1 EQ reguh-zland
+*    AND   bland EQ reguh-zregi.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t005u
     WHERE spras EQ hlp_sprache
     AND   land1 EQ reguh-zland
-    AND   bland EQ reguh-zregi.
+    AND   bland EQ reguh-zregi ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   regud-zregx = t005u-bezei.
 
 * Ausgabefelder für Postleitzahl und Ort füllen ------------------------
@@ -1968,17 +2249,38 @@ FORM zahlungs_daten_lesen_hlp.
   regud-abstx = space.
   regud-absor = space.
   IF reguh-absbu NE reguh-zbukr.
-    SELECT SINGLE * FROM t001 INTO up_t001
-      WHERE bukrs EQ reguh-absbu.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t001 INTO up_t001
+*      WHERE bukrs EQ reguh-absbu.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t001 INTO up_t001
+      WHERE bukrs EQ reguh-absbu ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     regud-abstx = up_t001-butxt.
     regud-absor = up_t001-ort01.
   ENDIF.
 
 * Buchungsdatum des Zahlungsbelegs (in Worten) -------------------------
 * posting date of payment document (in words) --------------------------
-  SELECT SINGLE * FROM t015m
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t015m
+*    WHERE spras EQ hlp_sprache
+*    AND   monum EQ reguh-zaldt+4(2).
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t015m
     WHERE spras EQ hlp_sprache
-    AND   monum EQ reguh-zaldt+4(2).
+    AND   monum EQ reguh-zaldt+4(2) ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0.
     regud-zaliw(2)   = reguh-zaldt+6(2).
     regud-zaliw+2(2) = '. '.
@@ -1989,9 +2291,20 @@ FORM zahlungs_daten_lesen_hlp.
 
 * Wechselausstellungsdatum (in Worten) ---------------------------------
 * bill of exchange issue date (in words) -------------------------------
-  SELECT SINGLE * FROM t015m
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t015m
+*    WHERE spras EQ hlp_sprache
+*    AND   monum EQ reguh-wdate+4(2).
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t015m
     WHERE spras EQ hlp_sprache
-    AND   monum EQ reguh-wdate+4(2).
+    AND   monum EQ reguh-wdate+4(2) ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0.
     regud-wdaiw(2)   = reguh-wdate+6(2).
     regud-wdaiw+2(2) = '. '.
@@ -2002,9 +2315,20 @@ FORM zahlungs_daten_lesen_hlp.
 
 * Wechselfälligkeitsdatum (in Worten) ----------------------------------
 * due date of the bill of exchange (in words) --------------------------
-  SELECT SINGLE * FROM t015m
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t015m
+*    WHERE spras EQ hlp_sprache
+*    AND   monum EQ reguh-wefae+4(2).
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t015m
     WHERE spras EQ hlp_sprache
-    AND   monum EQ reguh-wefae+4(2).
+    AND   monum EQ reguh-wefae+4(2) ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0.
     regud-wefiw(2)   = reguh-wefae+6(2).
     regud-wefiw+2(2) = '. '.
@@ -2094,9 +2418,20 @@ FORM hr_remittance_acknowledgement.
     hrxblnr-txerg EQ space AND hrxblnr-xhrfo EQ space,
     hrxblnr-remsn NE 0.
 
-  SELECT SINGLE * FROM bkpf WHERE bukrs EQ regup-bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM bkpf WHERE bukrs EQ regup-bukrs
+*                            AND   belnr EQ regup-belnr
+*                            AND   gjahr EQ regup-gjahr.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM bkpf WHERE bukrs EQ regup-bukrs
                             AND   belnr EQ regup-belnr
-                            AND   gjahr EQ regup-gjahr.
+                            AND   gjahr EQ regup-gjahr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF bkpf-awsys EQ t000-logsys OR bkpf-awsys IS INITIAL.
 
     DATA: l_import_tab       TYPE STANDARD TABLE OF rsimp WITH HEADER LINE,
@@ -2480,8 +2815,18 @@ FORM weisungsschluessel_lesen.
     up_dtaws = reguh-dtaws.
   ELSE.
     IF reguh-zbukr NE t012d-bukrs OR reguh-hbkid NE t012d-hbkid.
-      SELECT SINGLE * FROM t012d WHERE bukrs EQ reguh-zbukr
-                                 AND   hbkid EQ reguh-hbkid.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM t012d WHERE bukrs EQ reguh-zbukr
+*                                 AND   hbkid EQ reguh-hbkid.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM t012d WHERE bukrs EQ reguh-zbukr
+                                 AND   hbkid EQ reguh-hbkid ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc NE 0.
         CLEAR t012d.
       ENDIF.
@@ -2500,15 +2845,39 @@ FORM weisungsschluessel_lesen.
                                dtaws = up_dtaws
                           INTO t015w.
   CHECK sy-subrc NE 0.
-  SELECT SINGLE * FROM t015w
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t015w
+*          WHERE banks EQ reguh-ubnks
+*            AND zlsch EQ reguh-rzawe
+*            AND dtaws EQ up_dtaws.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t015w
           WHERE banks EQ reguh-ubnks
             AND zlsch EQ reguh-rzawe
-            AND dtaws EQ up_dtaws.
+            AND dtaws EQ up_dtaws ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc NE 0.                    "specified entry not found
-    SELECT SINGLE * FROM t015w
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t015w
+*            WHERE banks EQ space
+*              AND zlsch EQ space
+*              AND dtaws EQ up_dtaws.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t015w
             WHERE banks EQ space
               AND zlsch EQ space
-              AND dtaws EQ up_dtaws.
+              AND dtaws EQ up_dtaws ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc NE 0.                  "general (=old) entry not found
       err_kein_dtaws-banks = reguh-ubnks.
       err_kein_dtaws-zlsch = reguh-rzawe.
@@ -2673,8 +3042,18 @@ FORM laender_lesen USING value(land1).
     IF sy-subrc EQ 0.                  "entry was found
       t005 = tab_t005.
     ELSE.
-      SELECT SINGLE * FROM t005
-             WHERE land1 = land1.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM t005
+*             WHERE land1 = land1.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM t005
+             WHERE land1 = land1 ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc NE 0.                "no entry found in T005
         CLEAR t005.
       ELSE.                            "entry found-> store temporarily
@@ -2781,10 +3160,22 @@ FORM einzelpostenfelder_fuellen.
 
 * Text zum Buchungsschlüssel lesen
 * read text of posting key
-  SELECT SINGLE * FROM tbslt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM tbslt
+*    WHERE spras EQ hlp_sprache
+*      AND bschl EQ regup-bschl
+*      AND umskz EQ regup-umskz.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM tbslt
     WHERE spras EQ hlp_sprache
       AND bschl EQ regup-bschl
-      AND umskz EQ regup-umskz.
+      AND umskz EQ regup-umskz ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   regud-bschx = tbslt-ltext.
 
 * Betragsfelder (Abzüge und Netto) füllen ------------------------------
@@ -4172,11 +4563,23 @@ FORM zusatzfeld_fuellen USING zusatz kfzland.
     up_zusatz+5(1) = regud-xeinz.
 
   ELSEIF kfzland EQ 'ZA'.              "Südafrika
-    SELECT * FROM regut
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM regut
+*        WHERE banks EQ 'ZA'
+*          AND dtfor EQ hlp_dtfor       "Entweder nur ACB oder nur EFT
+*          AND laufd EQ reguh-laufd
+*          AND laufi EQ reguh-laufi.
+*
+* NEW CODE
+    SELECT *
+ FROM regut
         WHERE banks EQ 'ZA'
           AND dtfor EQ hlp_dtfor       "Entweder nur ACB oder nur EFT
           AND laufd EQ reguh-laufd
-          AND laufi EQ reguh-laufi.
+          AND laufi EQ reguh-laufi ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       EXIT.
     ENDSELECT.
     IF sy-subrc EQ 0.                  "Eintrag gefunden
@@ -4696,7 +5099,23 @@ FORM abschluss_regut.
 
   CALL FUNCTION 'DB_COMMIT'.
 
-  SELECT * FROM regut UP TO 1 ROWS     "Test, ob gerade ein Duplikat
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM regut UP TO 1 ROWS     "Test, ob gerade ein Duplikat
+*         WHERE zbukr = *regut-zbukr    "  erstellt worden ist
+*           AND banks = *regut-banks    "  (gleiche Attribute, aber
+*           AND laufd = *regut-laufd    "  andere Referenznummer)
+*           AND laufi = *regut-laufi
+*           AND xvorl = *regut-xvorl
+*           AND dtkey = *regut-dtkey
+*           AND waers = *regut-waers
+*           AND rbetr = *regut-rbetr
+*           AND dtfor = *regut-dtfor
+*           AND renum NE *regut-renum.
+*
+* NEW CODE
+  SELECT *
+ FROM regut UP TO 1 ROWS     "Test, ob gerade ein Duplikat
          WHERE zbukr = *regut-zbukr    "  erstellt worden ist
            AND banks = *regut-banks    "  (gleiche Attribute, aber
            AND laufd = *regut-laufd    "  andere Referenznummer)
@@ -4706,7 +5125,9 @@ FORM abschluss_regut.
            AND waers = *regut-waers
            AND rbetr = *regut-rbetr
            AND dtfor = *regut-dtfor
-           AND renum NE *regut-renum.
+           AND renum NE *regut-renum ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   ENDSELECT.
   IF sy-subrc EQ 0.
     fimsg-msgv1 = regut-renum.
@@ -4803,7 +5224,16 @@ FORM read_scb_indicator USING p_lzbkz LIKE t015l-lzbkz.
   READ TABLE tab_t015l INTO t015l WITH TABLE KEY lzbkz = p_lzbkz.
 
   IF sy-subrc NE 0.
-    SELECT SINGLE * FROM t015l WHERE lzbkz = p_lzbkz.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t015l WHERE lzbkz = p_lzbkz.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t015l WHERE lzbkz = p_lzbkz ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc EQ 0.
       INSERT t015l INTO TABLE tab_t015l.
     ELSE.
@@ -4844,11 +5274,23 @@ FORM get_value_date.
             OTHERS             = 5.
 
   IF sy-subrc NE 0.
-    SELECT * FROM t042v WHERE bukrs EQ reguh-zbukr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM t042v WHERE bukrs EQ reguh-zbukr
+*                          AND zlsch EQ reguh-rzawe
+*                          AND hbkid EQ reguh-hbkid
+*                          AND hktid EQ reguh-hktid
+*                          AND betrg GE reguh-rbetr.
+*
+* NEW CODE
+    SELECT *
+ FROM t042v WHERE bukrs EQ reguh-zbukr
                           AND zlsch EQ reguh-rzawe
                           AND hbkid EQ reguh-hbkid
                           AND hktid EQ reguh-hktid
-                          AND betrg GE reguh-rbetr.
+                          AND betrg GE reguh-rbetr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       EXIT.
     ENDSELECT.
     IF sy-subrc EQ 0.

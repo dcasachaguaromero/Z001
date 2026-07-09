@@ -14,21 +14,45 @@ PARAMETERS: pa_bukrs LIKE anek-bukrs DEFAULT '0001'.
 PARAMETERS: pa_gjahr LIKE anek-gjahr DEFAULT '2003'.
 PARAMETERS: pa_test  DEFAULT 'X'.
 
-SELECT * FROM anek INTO TABLE xanek
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*SELECT * FROM anek INTO TABLE xanek
+*  WHERE  awtyp  = pa_awtyp
+*    AND  gjahr  = pa_gjahr
+*    AND  bukrs  = pa_bukrs
+*    AND  xantei < '5'.
+*
+* NEW CODE
+SELECT *
+ FROM anek INTO TABLE xanek
   WHERE  awtyp  = pa_awtyp
     AND  gjahr  = pa_gjahr
     AND  bukrs  = pa_bukrs
-    AND  xantei < '5'.
+    AND  xantei < '5' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 LOOP AT xanek.
   ld_awkey+00(10) = xanek-belnr.
   ld_awkey+10(10) = xanek-aworg.
   ld_xblnr = xanek-xblnr.
-  SELECT xblnr FROM bkpf INTO xanek-xblnr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT xblnr FROM bkpf INTO xanek-xblnr
+*    WHERE awtyp = xanek-awtyp
+*      AND ( awsys = xanek-awsys
+*            OR awsys = '          ' )
+*      AND awkey = ld_awkey.
+*
+* NEW CODE
+  SELECT xblnr
+ FROM bkpf INTO xanek-xblnr
     WHERE awtyp = xanek-awtyp
       AND ( awsys = xanek-awsys
             OR awsys = '          ' )
-      AND awkey = ld_awkey.
+      AND awkey = ld_awkey ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   ENDSELECT.
   IF sy-subrc = 0.
     IF ld_xblnr = xanek-xblnr.

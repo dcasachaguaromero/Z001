@@ -149,10 +149,22 @@ data aa(4).
 *       Tag der Zahlung in Worten (Spanien)
 *       day of payment in words (Spain)
         CLEAR t015z.
-        SELECT SINGLE * FROM t015z
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM t015z
+*          WHERE spras EQ hlp_sprache
+*            AND einh  EQ reguh-zaldt+6(1)
+*            AND ziff  EQ reguh-zaldt+7(1).
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM t015z
           WHERE spras EQ hlp_sprache
             AND einh  EQ reguh-zaldt+6(1)
-            AND ziff  EQ reguh-zaldt+7(1).
+            AND ziff  EQ reguh-zaldt+7(1) ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc EQ 0.
           regud-text2 = t015z-wort.
           TRANSLATE regud-text2 TO LOWER CASE.           "#EC TRANSLANG
@@ -442,15 +454,39 @@ data aa(4).
                 v_cadena(10).
 
           IF reguh-empfg IS INITIAL.
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = reguh-lifnr.
+            WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ELSE.
             CLEAR: x, y.
@@ -461,15 +497,39 @@ data aa(4).
               ENDIF.
               y = y + 1.
             ENDDO.
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = v_cadena.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = v_cadena.
+            WHERE lifnr = v_cadena ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ENDIF.
 
@@ -868,10 +928,29 @@ FORM scheckdaten_eingabe USING p_rchk LIKE pcec-checl
             ENDIF.
           ELSE.
             IF pcec-zwels NE space.
-              SELECT SINGLE * FROM t001 WHERE bukrs EQ zw_zbukr-low.
-              SELECT * FROM t042z WHERE land1 EQ t001-land1
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE * FROM t001 WHERE bukrs EQ zw_zbukr-low.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM t001 WHERE bukrs EQ zw_zbukr-low ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*              SELECT * FROM t042z WHERE land1 EQ t001-land1
+*                                  AND   zlsch IN sel_zawe
+*                                  AND   progn EQ sy-repid.
+*
+* NEW CODE
+              SELECT *
+ FROM t042z WHERE land1 EQ t001-land1
                                   AND   zlsch IN sel_zawe
-                                  AND   progn EQ sy-repid.
+                                  AND   progn EQ sy-repid ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
                 IF pcec-zwels NA t042z-zlsch.
                   MESSAGE e665(fs) WITH t042z-zlsch p_stap pcec-zwels.
                 ENDIF.
@@ -921,13 +1000,27 @@ FORM scheckdaten_pruefen USING p_rchk LIKE pcec-checl
     "check print for a productive run
     IF p_rchk NE space.                "Restartfall
       flg_restart = 1.                 "restart mode
-      SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM payr
+*        WHERE zbukr EQ zw_zbukr-low
+*          AND hbkid EQ sel_hbki-low
+*          AND hktid EQ sel_hkti-low
+*          AND rzawe IN sel_zawe
+*          AND chect GE p_rchk
+*          AND checf EQ p_rchk.                            
+*
+* NEW CODE
+      SELECT *
+ FROM payr
         WHERE zbukr EQ zw_zbukr-low
           AND hbkid EQ sel_hbki-low
           AND hktid EQ sel_hkti-low
           AND rzawe IN sel_zawe
           AND chect GE p_rchk
-          AND checf EQ p_rchk.                            "#EC PORTABLE
+          AND checf EQ p_rchk ORDER BY PRIMARY KEY.                            
+
+* END. 07-07-2026 - ATC - ATC-03"#EC PORTABLE
       ENDSELECT.
       CASE payr-voidr.
         WHEN 0.
@@ -972,11 +1065,24 @@ FORM scheckdaten_pruefen USING p_rchk LIKE pcec-checl
         IF pcec-fstap IS INITIAL.
           EXIT.
         ENDIF.
-        SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM pcec
+*          WHERE zbukr EQ pcec-zbukr
+*            AND hbkid EQ pcec-hbkid
+*            AND hktid EQ pcec-hktid
+*            AND stapl EQ pcec-fstap.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM pcec
           WHERE zbukr EQ pcec-zbukr
             AND hbkid EQ pcec-hbkid
             AND hktid EQ pcec-hktid
-            AND stapl EQ pcec-fstap.
+            AND stapl EQ pcec-fstap ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc NE 0.
           EXIT.
         ENDIF.
@@ -998,11 +1104,24 @@ FORM scheckdaten_pruefen USING p_rchk LIKE pcec-checl
           STOP.
         ENDIF.
       ENDIF.
-      SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM pcec
+*        WHERE zbukr EQ zw_zbukr-low
+*          AND hbkid EQ sel_hbki-low
+*          AND hktid EQ sel_hkti-low
+*          AND stapl EQ p_stap.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM pcec
         WHERE zbukr EQ zw_zbukr-low
           AND hbkid EQ sel_hbki-low
           AND hktid EQ sel_hkti-low
-          AND stapl EQ p_stap.
+          AND stapl EQ p_stap ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
     IMPORT flg_local FROM MEMORY ID 'MFCHKFN0'.
     IF sy-subrc EQ 0.                  "bei Transaktion 'Scheck neu
@@ -1058,11 +1177,23 @@ FORM scheckinfo_pruefen.
   flg_pruefung EQ 1.                   "nicht beim 'Schecks neu drucken'
   "not in transaction reprint check
   IF hlp_laufk NE 'P'.                 "FI-Beleg vorhanden?
-    SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM payr
+*      WHERE zbukr EQ reguh-zbukr
+*      AND   vblnr EQ reguh-vblnr
+*      AND   gjahr EQ regud-gjahr
+*      AND   voidr EQ 0.
+*
+* NEW CODE
+    SELECT *
+ FROM payr
       WHERE zbukr EQ reguh-zbukr
       AND   vblnr EQ reguh-vblnr
       AND   gjahr EQ regud-gjahr
-      AND   voidr EQ 0.
+      AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     ENDSELECT.
     sy-msgv1 = reguh-zbukr.
     sy-msgv2 = regud-gjahr.
@@ -1070,7 +1201,15 @@ FORM scheckinfo_pruefen.
   ELSE.                                "HR-Abrechnung vorhanden?
     IF flg_neud NE 1.
       IF reguh-rwbtr EQ 0.                "PrÃ¼fung des Grundes fÃ¼r ZeroNet
-        SELECT * FROM tvoid WHERE sytyp EQ 4.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT * FROM tvoid WHERE sytyp EQ 4.
+*
+* NEW CODE
+        SELECT *
+ FROM tvoid WHERE sytyp EQ 4 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           EXIT.                          "Test that void reason code for
         ENDSELECT.                       "zero net checks exists
         IF sy-subrc NE 0.
@@ -1086,21 +1225,48 @@ FORM scheckinfo_pruefen.
       ENDIF.
     ENDIF.
     IF NOT reguh-seqnr IS INITIAL.
-      SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM payr
+*      WHERE pernr EQ reguh-pernr
+*      AND   seqnr EQ reguh-seqnr
+*      AND   btznr EQ reguh-btznr
+*      AND   voidr EQ 0.
+*
+* NEW CODE
+      SELECT *
+ FROM payr
       WHERE pernr EQ reguh-pernr
       AND   seqnr EQ reguh-seqnr
       AND   btznr EQ reguh-btznr
-      AND   voidr EQ 0.
+      AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       ENDSELECT.
     ELSE.                              "HR-Sonderfall Stammdatenabschlag
-      SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM payr
+*        WHERE pernr EQ reguh-pernr
+*        AND   seqnr EQ reguh-seqnr
+*        AND   btznr EQ reguh-btznr
+*        AND   zaldt EQ reguh-zaldt
+*        AND   rwbtr EQ reguh-rwbtr
+*        AND   waers EQ reguh-waers
+*        AND   voidr EQ 0.
+*
+* NEW CODE
+      SELECT *
+ FROM payr
         WHERE pernr EQ reguh-pernr
         AND   seqnr EQ reguh-seqnr
         AND   btznr EQ reguh-btznr
         AND   zaldt EQ reguh-zaldt
         AND   rwbtr EQ reguh-rwbtr
         AND   waers EQ reguh-waers
-        AND   voidr EQ 0.
+        AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       ENDSELECT.
     ENDIF.
     sy-msgv1 = reguh-pernr.
@@ -1195,11 +1361,24 @@ FORM schecknummern_sperren.
       IF pcec-fstap IS INITIAL.
         EXIT.
       ENDIF.
-      SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM pcec
+*                      WHERE zbukr EQ pcec-zbukr
+*                        AND hbkid EQ pcec-hbkid
+*                        AND hktid EQ pcec-hktid
+*                        AND stapl EQ pcec-fstap.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM pcec
                       WHERE zbukr EQ pcec-zbukr
                         AND hbkid EQ pcec-hbkid
                         AND hktid EQ pcec-hktid
-                        AND stapl EQ pcec-fstap.
+                        AND stapl EQ pcec-fstap ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc NE 0.
         EXIT.
       ENDIF.
@@ -1259,11 +1438,24 @@ FORM schecknummern_sperren.
           MESSAGE ID sy-msgid TYPE 'E' NUMBER sy-msgno WITH sy-msgv1.
         ENDIF.
       ENDIF.
-      SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM pcec
+*        WHERE zbukr = pcec-zbukr
+*        AND   hbkid = pcec-hbkid
+*        AND   hktid = pcec-hktid
+*        AND   stapl = pcec-stapl.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM pcec
         WHERE zbukr = pcec-zbukr
         AND   hbkid = pcec-hbkid
         AND   hktid = pcec-hktid
-        AND   stapl = pcec-stapl.
+        AND   stapl = pcec-stapl ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
     IF sy-batch NE space.
       MESSAGE s550(fs) WITH pcec-checl."Ausgabe des Nummernstandes
@@ -1385,41 +1577,94 @@ FORM schecknummer_ermitteln USING typ.
       regud-stapt = pcec-stapl.
     ELSE.
       IF hlp_laufk NE 'P'.             "FI-Beleg vorhanden
-        SELECT * FROM payr             "Scheck zum Zahlungsbeleg
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT * FROM payr             "Scheck zum Zahlungsbeleg
+*          WHERE zbukr EQ reguh-zbukr   "payment document's check
+*          AND   vblnr EQ reguh-vblnr
+*          AND   gjahr EQ regud-gjahr
+*          AND   voidr EQ 0.
+*
+* NEW CODE
+        SELECT *
+ FROM payr             "Scheck zum Zahlungsbeleg
           WHERE zbukr EQ reguh-zbukr   "payment document's check
           AND   vblnr EQ reguh-vblnr
           AND   gjahr EQ regud-gjahr
-          AND   voidr EQ 0.
+          AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
         ENDSELECT.
       ELSE.                            "HR-Abrechnung vorhanden
         IF NOT reguh-seqnr IS INITIAL.
-          SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          SELECT * FROM payr
+*          WHERE pernr EQ reguh-pernr
+*          AND   seqnr EQ reguh-seqnr
+*          AND   btznr EQ reguh-btznr
+*          AND   voidr EQ 0.
+*
+* NEW CODE
+          SELECT *
+ FROM payr
           WHERE pernr EQ reguh-pernr
           AND   seqnr EQ reguh-seqnr
           AND   btznr EQ reguh-btznr
-          AND   voidr EQ 0.
+          AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           ENDSELECT.
         ELSE.                          "HR-Sonderfall Stammdatenabschlag
-          SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          SELECT * FROM payr
+*            WHERE pernr EQ reguh-pernr
+*            AND   seqnr EQ reguh-seqnr
+*            AND   btznr EQ reguh-btznr
+*            AND   zaldt EQ reguh-zaldt
+*            AND   rwbtr EQ reguh-rwbtr
+*            AND   waers EQ reguh-waers
+*            AND   voidr EQ 0.
+*
+* NEW CODE
+          SELECT *
+ FROM payr
             WHERE pernr EQ reguh-pernr
             AND   seqnr EQ reguh-seqnr
             AND   btznr EQ reguh-btznr
             AND   zaldt EQ reguh-zaldt
             AND   rwbtr EQ reguh-rwbtr
             AND   waers EQ reguh-waers
-            AND   voidr EQ 0.
+            AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           ENDSELECT.
         ENDIF.
       ENDIF.
       IF typ EQ 2 AND payr-checv NE space.
         IF payr-checv NE '*'.
-          SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          SELECT * FROM payr
+*            WHERE zbukr EQ payr-zbukr
+*            AND   hbkid EQ payr-hbkiv
+*            AND   hktid EQ payr-hktiv
+*            AND   rzawe EQ payr-rzawe
+*            AND   chect EQ payr-checv
+*            AND   voidr EQ 2.
+*
+* NEW CODE
+          SELECT *
+ FROM payr
             WHERE zbukr EQ payr-zbukr
             AND   hbkid EQ payr-hbkiv
             AND   hktid EQ payr-hktiv
             AND   rzawe EQ payr-rzawe
             AND   chect EQ payr-checv
-            AND   voidr EQ 2.
+            AND   voidr EQ 2 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
             EXIT.
           ENDSELECT.
         ELSE.
@@ -1447,13 +1692,28 @@ FORM schecknummer_ermitteln USING typ.
               not_valid   = 4
               OTHERS      = 5.
           IF sy-subrc EQ 0.
-            SELECT SINGLE * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE * FROM payr
+*               WHERE zbukr EQ payr-zbukr
+*                 AND hbkid EQ payr-hbkid
+*                 AND hktid EQ payr-hktid
+*                 AND rzawe EQ payr-rzawe
+*                 AND chect EQ pcec-checl
+*                 AND voidr EQ 2.
+*
+* NEW CODE
+            SELECT *
+            UP TO 1 ROWS  FROM payr
                WHERE zbukr EQ payr-zbukr
                  AND hbkid EQ payr-hbkid
                  AND hktid EQ payr-hktid
                  AND rzawe EQ payr-rzawe
                  AND chect EQ pcec-checl
-                 AND voidr EQ 2.
+                 AND voidr EQ 2 ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
           ENDIF.
         ENDIF.
       ENDIF.
@@ -1713,12 +1973,25 @@ FORM scheckinfo_speichern USING typ.
 
 *   PrÃ¼fen, ob Eintrag bereits in PAYR vorhanden ist
 *   test that entry does not already exist in PAYR
-    SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM payr
+*      WHERE ichec EQ space
+*        AND zbukr EQ pcec-zbukr
+*        AND hbkid EQ pcec-hbkid
+*        AND hktid EQ pcec-hktid
+*        AND chect EQ up_chect.
+*
+* NEW CODE
+    SELECT *
+ FROM payr
       WHERE ichec EQ space
         AND zbukr EQ pcec-zbukr
         AND hbkid EQ pcec-hbkid
         AND hktid EQ pcec-hktid
-        AND chect EQ up_chect.
+        AND chect EQ up_chect ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     ENDSELECT.
     IF sy-subrc EQ 0.                  "Schecknummer bereits vorhanden
       CALL FUNCTION 'CLOSE_FORM'.      "check number already exists
@@ -1809,7 +2082,15 @@ FORM scheckinfo_speichern USING typ.
         ENDIF.
         IF payr-rwbtr EQ 0.            "zero net check with special
           IF tvoid-sytyp NE 4.         "void reason code
-            SELECT * FROM tvoid WHERE sytyp EQ 4.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*            SELECT * FROM tvoid WHERE sytyp EQ 4.
+**
+* NEW CODE
+            SELECT *
+ FROM tvoid WHERE sytyp EQ 4 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
               EXIT.
             ENDSELECT.
           ENDIF.
@@ -1869,17 +2150,47 @@ FORM scheckinfo_speichern USING typ.
 *         on the selection screen and set pointer to new check
           WHEN 2.
             IF hlp_laufk NE 'P'.
-              SELECT * FROM payr INTO *payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*              SELECT * FROM payr INTO *payr
+*                WHERE zbukr EQ payr-zbukr
+*                AND   vblnr EQ payr-vblnr
+*                AND   gjahr EQ payr-gjahr
+*                AND ( hbkid NE payr-hbkid
+*                   OR hktid NE payr-hktid
+*                   OR chect NE payr-chect ).
+*
+* NEW CODE
+              SELECT *
+ FROM payr INTO *payr
                 WHERE zbukr EQ payr-zbukr
                 AND   vblnr EQ payr-vblnr
                 AND   gjahr EQ payr-gjahr
                 AND ( hbkid NE payr-hbkid
                    OR hktid NE payr-hktid
-                   OR chect NE payr-chect ).
+                   OR chect NE payr-chect ) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
                 PERFORM scheck_entwerten.
               ENDSELECT.
             ELSE.
-              SELECT * FROM payr INTO *payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*              SELECT * FROM payr INTO *payr
+*                WHERE pernr EQ reguh-pernr
+*                AND   seqnr EQ reguh-seqnr
+*                AND   btznr EQ reguh-btznr
+*                AND   zaldt EQ reguh-zaldt
+*                AND   rwbtr EQ reguh-rwbtr
+*                AND   waers EQ reguh-waers
+*                AND ( zbukr NE payr-zbukr
+*                   OR hbkid NE payr-hbkid
+*                   OR hktid NE payr-hktid
+*                   OR chect NE payr-chect ).
+*
+* NEW CODE
+              SELECT *
+ FROM payr INTO *payr
                 WHERE pernr EQ reguh-pernr
                 AND   seqnr EQ reguh-seqnr
                 AND   btznr EQ reguh-btznr
@@ -1889,7 +2200,9 @@ FORM scheckinfo_speichern USING typ.
                 AND ( zbukr NE payr-zbukr
                    OR hbkid NE payr-hbkid
                    OR hktid NE payr-hktid
-                   OR chect NE payr-chect ).
+                   OR chect NE payr-chect ) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
                 PERFORM scheck_entwerten.
               ENDSELECT.
             ENDIF.

@@ -167,8 +167,17 @@ FORM proceso.
   REFRESH int_tabla.
   CLEAR int_tabla.
 
-  SELECT * FROM ztparamftp
-                WHERE zbukr = p_bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM ztparamftp
+*                WHERE zbukr = p_bukrs.
+*
+* NEW CODE
+  SELECT *
+ FROM ztparamftp
+                WHERE zbukr = p_bukrs ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     MOVE-CORRESPONDING ztparamftp TO int_tabla.
     APPEND int_tabla.
   ENDSELECT.

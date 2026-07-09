@@ -436,14 +436,33 @@ INITIALIZATION.
         MESSAGE e509(fs).
       ENDIF.
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-      SELECT SINGLE * FROM tvoid WHERE voidr EQ par_void.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM tvoid WHERE voidr EQ par_void.
+**
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM tvoid WHERE voidr EQ par_void ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc NE 0 OR tvoid-xsyse NE space.
         SET CURSOR FIELD 'PAR_VOID'.
         MESSAGE e539(fs).
       ELSE.
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-        SELECT SINGLE * FROM tvoit
-          WHERE langu EQ sy-langu AND voidr EQ par_void.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM tvoit
+*          WHERE langu EQ sy-langu AND voidr EQ par_void.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM tvoit
+          WHERE langu EQ sy-langu AND voidr EQ par_void ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         textvoid = tvoit-voidt.
       ENDIF.
     ENDIF.
@@ -524,17 +543,43 @@ START-OF-SELECTION.
 * igual llene las variables y borre las firmas al salir
 * CII - 20100817
 *************************************************************************
-  SELECT SINGLE tdname
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE tdname
+*    FROM zfirmadigital
+*    INTO fm1
+*    WHERE bukrs EQ zw_zbukr-low
+*    AND orden EQ 1.
+*
+* NEW CODE
+  SELECT tdname
+  UP TO 1 ROWS 
     FROM zfirmadigital
     INTO fm1
     WHERE bukrs EQ zw_zbukr-low
-    AND orden EQ 1.
+    AND orden EQ 1 ORDER BY PRIMARY KEY.
 
-  SELECT SINGLE tdname
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE tdname
+*    FROM zfirmadigital
+*    INTO fm2
+*    WHERE bukrs EQ zw_zbukr-low
+*    AND orden EQ 2.
+*
+* NEW CODE
+  SELECT tdname
+  UP TO 1 ROWS 
     FROM zfirmadigital
     INTO fm2
     WHERE bukrs EQ zw_zbukr-low
-    AND orden EQ 2.
+    AND orden EQ 2 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *************************************************************************
 
   PERFORM vorbereitung.
@@ -549,7 +594,21 @@ START-OF-SELECTION.
       tab_check-option = 'EQ'.
       tab_check-sign   = 'I'.
       tab_check-high   = space.
-      SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM payr
+*        WHERE zbukr EQ zw_zbukr-low
+*          AND hbkid EQ sel_hbki-low
+*          AND hktid EQ sel_hkti-low
+*          AND checf LE par_chkt
+*          AND chect GE par_chkf
+*          AND ichec EQ space
+*          AND voidr EQ 0
+*          AND xbanc EQ space.
+*
+* NEW CODE
+      SELECT *
+ FROM payr
         WHERE zbukr EQ zw_zbukr-low
           AND hbkid EQ sel_hbki-low
           AND hktid EQ sel_hkti-low
@@ -557,7 +616,9 @@ START-OF-SELECTION.
           AND chect GE par_chkf
           AND ichec EQ space
           AND voidr EQ 0
-          AND xbanc EQ space.
+          AND xbanc EQ space ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
         tab_check-low = payr-checf.
         APPEND tab_check.
       ENDSELECT.
@@ -567,7 +628,16 @@ START-OF-SELECTION.
       flg_neud = 2.
     ENDIF.
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-    SELECT SINGLE * FROM tvoid WHERE voidr EQ par_void.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM tvoid WHERE voidr EQ par_void.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM tvoid WHERE voidr EQ par_void ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 
   IF par_zdru EQ 'X'.
@@ -599,9 +669,20 @@ GET reguh.
   CLEAR titulo.
 
   tchq = 0.
-  SELECT SINGLE *  FROM zfipg002_det
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE *  FROM zfipg002_det
+*                              WHERE laufd = zw_laufd
+*                              AND   laufi = zw_laufi.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS   FROM zfipg002_det
                               WHERE laufd = zw_laufd
-                              AND   laufi = zw_laufi.
+                              AND   laufi = zw_laufi ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     IF  par_vari+13(1) = '1'.
       tchq = 99999.
@@ -611,9 +692,20 @@ GET reguh.
   ELSE.
     tchq = zfipg002_det-nchequ_s.
 
-    SELECT SINGLE descr INTO titulo  FROM zfipg002_cab
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE descr INTO titulo  FROM zfipg002_cab
+*                              WHERE bukrs    = zfipg002_det-bukrs
+*                              AND   nproceso = zfipg002_det-nproceso.
+*
+* NEW CODE
+    SELECT descr
+    UP TO 1 ROWS  INTO titulo  FROM zfipg002_cab
                               WHERE bukrs    = zfipg002_det-bukrs
-                              AND   nproceso = zfipg002_det-nproceso.
+                              AND   nproceso = zfipg002_det-nproceso ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF  par_vari+13(1) = '1'.
       CONCATENATE 'Cheques Individual'  zfipg002_det-hbkid titulo  INTO titulo SEPARATED BY space.
 ******modificacion herman flag
@@ -648,10 +740,29 @@ GET reguh.
     TABLES knb1.
     DATA ls_kna1 LIKE kna1.
     DATA ld_remit LIKE knb1-remit.
-    SELECT SINGLE remit INTO ld_remit FROM knb1
-         WHERE bukrs = reguh-absbu AND kunnr = reguh-kunnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE remit INTO ld_remit FROM knb1
+*         WHERE bukrs = reguh-absbu AND kunnr = reguh-kunnr.
+*
+* NEW CODE
+    SELECT remit
+    UP TO 1 ROWS  INTO ld_remit FROM knb1
+         WHERE bukrs = reguh-absbu AND kunnr = reguh-kunnr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0 AND ld_remit <> space.
-      SELECT SINGLE * FROM kna1 INTO ls_kna1 WHERE kunnr = ld_remit.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM kna1 INTO ls_kna1 WHERE kunnr = ld_remit.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM kna1 INTO ls_kna1 WHERE kunnr = ld_remit ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc = 0.
         reguh-zadnr = ls_kna1-adrnr.
         reguh-zanre = ls_kna1-anred.
@@ -701,12 +812,26 @@ END-OF-SELECTION.
 
   IF flg_selektiert NE 0.
 
-    SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE *
+*      FROM zconfchk
+*      INTO it_zconfchk
+*     WHERE zbukr EQ zw_zbukr-low
+*       AND hbkid EQ sel_hbki-low
+*       AND hktid EQ sel_hkti-low.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS 
       FROM zconfchk
       INTO it_zconfchk
      WHERE zbukr EQ zw_zbukr-low
        AND hbkid EQ sel_hbki-low
-       AND hktid EQ sel_hkti-low.
+       AND hktid EQ sel_hkti-low ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *      AND formulario EQ par_zfor.
 *
 

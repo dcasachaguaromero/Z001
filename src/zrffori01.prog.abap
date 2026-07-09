@@ -95,18 +95,44 @@ FORM scheck_new.
 
       DATA :p_bankl TYPE t012-bankl.
 
-      SELECT SINGLE bankl
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE bankl
+*           FROM  t012
+*           INTO  p_bankl
+*          WHERE  bukrs EQ reguh-zbukr
+*            AND  hbkid EQ reguh-hbkid.
+*
+* NEW CODE
+      SELECT bankl
+      UP TO 1 ROWS 
            FROM  t012
            INTO  p_bankl
           WHERE  bukrs EQ reguh-zbukr
-            AND  hbkid EQ reguh-hbkid.
+            AND  hbkid EQ reguh-hbkid ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc EQ 0.
-        SELECT SINGLE banka
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE banka
+*             FROM  bnka
+*             INTO  reguh-name4
+*            WHERE  banks EQ reguh-land1
+*              AND  bankl EQ p_bankl.
+*
+* NEW CODE
+        SELECT banka
+        UP TO 1 ROWS 
              FROM  bnka
              INTO  reguh-name4
             WHERE  banks EQ reguh-land1
-              AND  bankl EQ p_bankl.
+              AND  bankl EQ p_bankl ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       ENDIF.
       CLEAR v_nomban.
       v_nomban = reguh-name4.
@@ -215,8 +241,18 @@ FORM scheck_new.
         IF ( regup-bukrs NE reguh-zbukr OR flg_diff_bukrs EQ 1 ) AND
            ( reguh-absbu EQ space OR reguh-absbu EQ reguh-zbukr ).
           flg_diff_bukrs = 1.
-          SELECT SINGLE * FROM t001 INTO *t001
-            WHERE bukrs EQ regup-bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * FROM t001 INTO *t001
+*            WHERE bukrs EQ regup-bukrs.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM t001 INTO *t001
+            WHERE bukrs EQ regup-bukrs ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
           regud-abstx = *t001-butxt.
           regud-absor = *t001-ort01.
         ENDIF.
@@ -226,13 +262,28 @@ FORM scheck_new.
 
 *******************************************************************
 *LSS AMVC 29-OCT- 2009
-    SELECT SINGLE sgtxt INTO t_bseg-sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE sgtxt INTO t_bseg-sgtxt
+*            FROM  bsak
+*           WHERE  bukrs  EQ regup-bukrs
+*             AND  lifnr  EQ regup-lifnr
+*             AND  gjahr  EQ regup-gjahr
+*             AND  belnr  EQ regup-belnr
+*             AND  buzei  EQ regup-buzei.
+*
+* NEW CODE
+    SELECT sgtxt
+    UP TO 1 ROWS  INTO t_bseg-sgtxt
             FROM  bsak
            WHERE  bukrs  EQ regup-bukrs
              AND  lifnr  EQ regup-lifnr
              AND  gjahr  EQ regup-gjahr
              AND  belnr  EQ regup-belnr
-             AND  buzei  EQ regup-buzei.
+             AND  buzei  EQ regup-buzei ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
     AT daten.
@@ -405,18 +456,42 @@ FORM scheck_new.
                 v_cadena(10).
 
           IF reguh-empfg IS INITIAL.
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = reguh-lifnr.
+            WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
 * Modificación 23.02.2010
               CLEAR: v_znm1s.
 * FIN Modificación 23.02.2010
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ELSE.
             CLEAR: x, y.
@@ -428,18 +503,42 @@ FORM scheck_new.
               y = y + 1.
             ENDDO.
 
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = v_cadena.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = v_cadena.
+            WHERE lifnr = v_cadena ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
 * Modificación 23.02.2010
               CLEAR:  v_znm1s, v_znm2s.
 * FIN Modificación 23.02.2010
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ENDIF.
 
@@ -486,17 +585,43 @@ FORM scheck_new.
 ******************************************************************
 * Se rescata  nombre de cheque por sociedad.
 
-          SELECT SINGLE tdname
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE tdname
+*             FROM zfirmadigital
+*             INTO fm1
+*            WHERE bukrs EQ regup-zbukr
+*              AND orden EQ 1.
+*
+* NEW CODE
+          SELECT tdname
+          UP TO 1 ROWS 
              FROM zfirmadigital
              INTO fm1
             WHERE bukrs EQ regup-zbukr
-              AND orden EQ 1.
+              AND orden EQ 1 ORDER BY PRIMARY KEY.
 
-          SELECT SINGLE tdname
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE tdname
+*             FROM zfirmadigital
+*             INTO fm2
+*            WHERE bukrs EQ regup-zbukr
+*              AND orden EQ 2.
+*
+* NEW CODE
+          SELECT tdname
+          UP TO 1 ROWS 
              FROM zfirmadigital
              INTO fm2
             WHERE bukrs EQ regup-zbukr
-              AND orden EQ 2.
+              AND orden EQ 2 ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 ********************************************************************
 * Modificación 24.02.2010
@@ -506,22 +631,55 @@ FORM scheck_new.
           CLEAR v_desc_mot.
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-          SELECT SINGLE * FROM bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * FROM bseg
+*            WHERE bukrs = regup-bukrs
+*              AND belnr = regup-belnr
+*              AND gjahr = regup-gjahr
+*              AND buzei = regup-buzei.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM bseg
             WHERE bukrs = regup-bukrs
               AND belnr = regup-belnr
               AND gjahr = regup-gjahr
-              AND buzei = regup-buzei.
+              AND buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           IF sy-subrc EQ 0 AND bseg-xref3 = 'X'.
             v_cruzado = '| |'.
           ENDIF.
 
-          SELECT SINGLE zzdescr FROM zagencia
-            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE zzdescr FROM zagencia
+*            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia.
+*
+* NEW CODE
+          SELECT zzdescr
+          UP TO 1 ROWS  FROM zagencia
+            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
-          SELECT SINGLE zzdescr FROM zmot_emis
-             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE zzdescr FROM zmot_emis
+*             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis.
+*
+* NEW CODE
+          SELECT zzdescr
+          UP TO 1 ROWS  FROM zmot_emis
+             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 * FIN Modificación 24.02.2010
 
@@ -577,14 +735,37 @@ FORM scheck_new.
 
             ENDDO.
 
-            SELECT SINGLE butxt FROM t001
-              INTO zsociedad WHERE bukrs = reguh-zbukr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE butxt FROM t001
+*              INTO zsociedad WHERE bukrs = reguh-zbukr.
+*
+* NEW CODE
+            SELECT butxt
+            UP TO 1 ROWS  FROM t001
+              INTO zsociedad WHERE bukrs = reguh-zbukr ORDER BY PRIMARY KEY.
 
-            SELECT SINGLE text1 FROM t012t
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE text1 FROM t012t
+*              INTO zbanco WHERE spras = sy-langu
+*                          AND   bukrs = reguh-zbukr
+*              AND   hbkid   =  reguh-hbkid
+*              AND hktid     =  reguh-hktid.
+*
+* NEW CODE
+            SELECT text1
+            UP TO 1 ROWS  FROM t012t
               INTO zbanco WHERE spras = sy-langu
                           AND   bukrs = reguh-zbukr
               AND   hbkid   =  reguh-hbkid
-              AND hktid     =  reguh-hktid.
+              AND hktid     =  reguh-hktid ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 * Usa formulario alternativo a ZFORMCHE02 para evitar salto de cheques
             IF ncheques = 1 AND it_zconfchk-smartform = 'ZFORMCHE02'.
@@ -816,7 +997,16 @@ FORM scheck_new.
         ENDIF.
 
 
-        SELECT SINGLE * FROM zfipg003 WHERE bukrs = zw_zbukr-low.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM zfipg003 WHERE bukrs = zw_zbukr-low.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM zfipg003 WHERE bukrs = zw_zbukr-low ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc <> 0.
           CLEAR zfipg003.
@@ -834,8 +1024,18 @@ FORM scheck_new.
         ls_composer_param-bcs_langu = sy-langu.
 
         ls_composer_param-tddest = par_priz.
-        SELECT SINGLE * FROM tsp03
-                 WHERE padest EQ par_priz.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM tsp03
+*                 WHERE padest EQ par_priz.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM tsp03
+                 WHERE padest EQ par_priz ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         ls_composer_param-tdprinter = tsp03-patype.
         ls_control_param-no_dialog = 'X'.
@@ -1028,18 +1228,44 @@ FORM scheck.
 
       DATA :p_bankl TYPE t012-bankl.
 
-      SELECT SINGLE bankl
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE bankl
+*           FROM  t012
+*           INTO  p_bankl
+*          WHERE  bukrs EQ reguh-zbukr
+*            AND  hbkid EQ reguh-hbkid.
+*
+* NEW CODE
+      SELECT bankl
+      UP TO 1 ROWS 
            FROM  t012
            INTO  p_bankl
           WHERE  bukrs EQ reguh-zbukr
-            AND  hbkid EQ reguh-hbkid.
+            AND  hbkid EQ reguh-hbkid ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc EQ 0.
-        SELECT SINGLE banka
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE banka
+*             FROM  bnka
+*             INTO  reguh-name4
+*            WHERE  banks EQ reguh-land1
+*              AND  bankl EQ p_bankl.
+*
+* NEW CODE
+        SELECT banka
+        UP TO 1 ROWS 
              FROM  bnka
              INTO  reguh-name4
             WHERE  banks EQ reguh-land1
-              AND  bankl EQ p_bankl.
+              AND  bankl EQ p_bankl ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       ENDIF.
       CLEAR v_nomban.
       v_nomban = reguh-name4.
@@ -1246,10 +1472,22 @@ FORM scheck.
 *       day of payment in words (Spain)
         CLEAR t015z.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-        SELECT SINGLE * FROM t015z
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM t015z
+*          WHERE spras EQ hlp_sprache
+*            AND einh  EQ reguh-zaldt+6(1)
+*            AND ziff  EQ reguh-zaldt+7(1).
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM t015z
           WHERE spras EQ hlp_sprache
             AND einh  EQ reguh-zaldt+6(1)
-            AND ziff  EQ reguh-zaldt+7(1).
+            AND ziff  EQ reguh-zaldt+7(1) ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc EQ 0.
           regud-text2 = t015z-wort.
           TRANSLATE regud-text2 TO LOWER CASE.           "#EC TRANSLANG
@@ -1713,8 +1951,18 @@ FORM scheck.
         IF ( regup-bukrs NE reguh-zbukr OR flg_diff_bukrs EQ 1 ) AND
            ( reguh-absbu EQ space OR reguh-absbu EQ reguh-zbukr ).
           flg_diff_bukrs = 1.
-          SELECT SINGLE * FROM t001 INTO *t001
-            WHERE bukrs EQ regup-bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * FROM t001 INTO *t001
+*            WHERE bukrs EQ regup-bukrs.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM t001 INTO *t001
+            WHERE bukrs EQ regup-bukrs ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
           regud-abstx = *t001-butxt.
           regud-absor = *t001-ort01.
           CALL FUNCTION 'WRITE_FORM'
@@ -1737,13 +1985,28 @@ FORM scheck.
 
 *******************************************************************
 *LSS AMVC 29-OCT- 2009
-    SELECT SINGLE sgtxt INTO t_bseg-sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE sgtxt INTO t_bseg-sgtxt
+*            FROM  bsak
+*           WHERE  bukrs  EQ regup-bukrs
+*             AND  lifnr  EQ regup-lifnr
+*             AND  gjahr  EQ regup-gjahr
+*             AND  belnr  EQ regup-belnr
+*             AND  buzei  EQ regup-buzei.
+*
+* NEW CODE
+    SELECT sgtxt
+    UP TO 1 ROWS  INTO t_bseg-sgtxt
             FROM  bsak
            WHERE  bukrs  EQ regup-bukrs
              AND  lifnr  EQ regup-lifnr
              AND  gjahr  EQ regup-gjahr
              AND  belnr  EQ regup-belnr
-             AND  buzei  EQ regup-buzei.
+             AND  buzei  EQ regup-buzei ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 ****************************************************
 *-- Verarbeitung der Einzelposten-Informationen ------------------------
 *-- single item information --------------------------------------------
@@ -2084,19 +2347,43 @@ FORM scheck.
                 v_cadena(10).
 
           IF reguh-empfg IS INITIAL.
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = reguh-lifnr.
+            WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
 
 * Modificación 23.02.2010
               CLEAR: v_znm1s.
 * FIN Modificación 23.02.2010
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ELSE.
             CLEAR: x, y.
@@ -2108,18 +2395,42 @@ FORM scheck.
               y = y + 1.
             ENDDO.
 
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = v_cadena.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = v_cadena.
+            WHERE lifnr = v_cadena ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
 * Modificación 23.02.2010
               CLEAR:  v_znm1s, v_znm2s.
 * FIN Modificación 23.02.2010
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ENDIF.
 
@@ -2176,17 +2487,43 @@ FORM scheck.
 ******************************************************************
 * Se rescata  nombre de cheque por sociedad.
 
-          SELECT SINGLE tdname
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE tdname
+*             FROM zfirmadigital
+*             INTO fm1
+*            WHERE bukrs EQ regup-zbukr
+*              AND orden EQ 1.
+*
+* NEW CODE
+          SELECT tdname
+          UP TO 1 ROWS 
              FROM zfirmadigital
              INTO fm1
             WHERE bukrs EQ regup-zbukr
-              AND orden EQ 1.
+              AND orden EQ 1 ORDER BY PRIMARY KEY.
 
-          SELECT SINGLE tdname
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE tdname
+*             FROM zfirmadigital
+*             INTO fm2
+*            WHERE bukrs EQ regup-zbukr
+*              AND orden EQ 2.
+*
+* NEW CODE
+          SELECT tdname
+          UP TO 1 ROWS 
              FROM zfirmadigital
              INTO fm2
             WHERE bukrs EQ regup-zbukr
-              AND orden EQ 2.
+              AND orden EQ 2 ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 ********************************************************************
 * Modificación 24.02.2010
@@ -2196,22 +2533,55 @@ FORM scheck.
           CLEAR v_desc_mot.
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-          SELECT SINGLE * FROM bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * FROM bseg
+*            WHERE bukrs = regup-bukrs
+*              AND belnr = regup-belnr
+*              AND gjahr = regup-gjahr
+*              AND buzei = regup-buzei.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM bseg
             WHERE bukrs = regup-bukrs
               AND belnr = regup-belnr
               AND gjahr = regup-gjahr
-              AND buzei = regup-buzei.
+              AND buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           IF sy-subrc EQ 0 AND bseg-xref3 = 'X'.
             v_cruzado = '| |'.
           ENDIF.
 
-          SELECT SINGLE zzdescr FROM zagencia
-            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE zzdescr FROM zagencia
+*            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia.
+*
+* NEW CODE
+          SELECT zzdescr
+          UP TO 1 ROWS  FROM zagencia
+            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
-          SELECT SINGLE zzdescr FROM zmot_emis
-             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE zzdescr FROM zmot_emis
+*             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis.
+*
+* NEW CODE
+          SELECT zzdescr
+          UP TO 1 ROWS  FROM zmot_emis
+             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 * FIN Modificación 24.02.2010
 
@@ -2473,10 +2843,22 @@ FORM scheck.
 *Ciudad del Proveedor.
 *      t_bseg-stcd1 = ti_aviso-stcd1det.
 
-  SELECT SINGLE ort01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE ort01
+*  INTO t_bseg-ort01
+*  FROM lfa1
+*  WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+  SELECT ort01
+  UP TO 1 ROWS 
   INTO t_bseg-ort01
   FROM lfa1
-  WHERE lifnr = reguh-lifnr.
+  WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   IF v_aviso = 'X'.
     t042e-zforn     = 'ZFO_FI001_AVISOC'.
@@ -2551,10 +2933,22 @@ FORM scheck.
 *Ciudad del Proveedor.
       t_bseg-stcd1 = ti_aviso-stcd1det.
 
-      SELECT SINGLE ort01
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE ort01
+*      INTO t_bseg-ort01
+*      FROM lfa1
+*      WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+      SELECT ort01
+      UP TO 1 ROWS 
       INTO t_bseg-ort01
       FROM lfa1
-      WHERE lifnr = reguh-lifnr.
+      WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       regup-xblnr  = ti_aviso-xblnr.
       regup-zfbdt  = ti_aviso-zfbdt.
@@ -2755,10 +3149,22 @@ FORM scheck4.
 *       day of payment in words (Spain)
         CLEAR t015z.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-        SELECT SINGLE * FROM t015z
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM t015z
+*          WHERE spras EQ hlp_sprache
+*            AND einh  EQ reguh-zaldt+6(1)
+*            AND ziff  EQ reguh-zaldt+7(1).
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM t015z
           WHERE spras EQ hlp_sprache
             AND einh  EQ reguh-zaldt+6(1)
-            AND ziff  EQ reguh-zaldt+7(1).
+            AND ziff  EQ reguh-zaldt+7(1) ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc EQ 0.
           regud-text2 = t015z-wort.
           TRANSLATE regud-text2 TO LOWER CASE.           "#EC TRANSLANG
@@ -3056,15 +3462,39 @@ FORM scheck4.
                 v_cadena(10).
 
           IF reguh-empfg IS INITIAL.
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = reguh-lifnr.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = reguh-lifnr.
+            WHERE lifnr = reguh-lifnr ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ELSE.
             CLEAR: x, y.
@@ -3075,15 +3505,39 @@ FORM scheck4.
               ENDIF.
               y = y + 1.
             ENDDO.
-            SELECT SINGLE adrnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE adrnr
+*            INTO v_adrnr
+*            FROM lfa1
+*            WHERE lifnr = v_cadena.
+*
+* NEW CODE
+            SELECT adrnr
+            UP TO 1 ROWS 
             INTO v_adrnr
             FROM lfa1
-            WHERE lifnr = v_cadena.
+            WHERE lifnr = v_cadena ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             IF sy-subrc = 0.
-              SELECT SINGLE name1 name2
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE name1 name2
+*              INTO (v_znm1s, v_znm2s)
+*              FROM adrc
+*              WHERE addrnumber = v_adrnr.
+*
+* NEW CODE
+              SELECT name1 name2
+              UP TO 1 ROWS 
               INTO (v_znm1s, v_znm2s)
               FROM adrc
-              WHERE addrnumber = v_adrnr.
+              WHERE addrnumber = v_adrnr ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
             ENDIF.
           ENDIF.
 
@@ -3137,11 +3591,24 @@ FORM scheck4.
           CLEAR v_cruzado.
 
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES02 ECDK917080 *
-          SELECT SINGLE * FROM bseg
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE * FROM bseg
+*            WHERE bukrs = regup-bukrs
+*              AND belnr = regup-belnr
+*              AND gjahr = regup-gjahr
+*              AND buzei = regup-buzei.
+*
+* NEW CODE
+          SELECT *
+          UP TO 1 ROWS  FROM bseg
             WHERE bukrs = regup-bukrs
               AND belnr = regup-belnr
               AND gjahr = regup-gjahr
-              AND buzei = regup-buzei.
+              AND buzei = regup-buzei ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           IF sy-subrc EQ 0 AND bseg-xref3 = 'X'.
             v_cruzado = '| |'.
@@ -3153,11 +3620,31 @@ FORM scheck4.
 
 
 
-          SELECT SINGLE zzdescr FROM zagencia
-            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE zzdescr FROM zagencia
+*            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia.
+*
+* NEW CODE
+          SELECT zzdescr
+          UP TO 1 ROWS  FROM zagencia
+            INTO v_desc_agen WHERE zzcod_unidad = bseg-zz_agencia ORDER BY PRIMARY KEY.
 
-          SELECT SINGLE zzdescr FROM zmot_emis
-             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis.
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE zzdescr FROM zmot_emis
+*             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis.
+*
+* NEW CODE
+          SELECT zzdescr
+          UP TO 1 ROWS  FROM zmot_emis
+             INTO v_desc_mot WHERE zzmot_emis = bseg-zzmot_emis ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 
@@ -3203,17 +3690,43 @@ FORM scheck4.
 
 *********************************************************************+
 * Se rescata  nombre de cheque por sociedad.
-          SELECT SINGLE tdname
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE tdname
+*             FROM zfirmadigital
+*             INTO fm1
+*            WHERE bukrs EQ regup-zbukr
+*              AND orden EQ 1.
+*
+* NEW CODE
+          SELECT tdname
+          UP TO 1 ROWS 
              FROM zfirmadigital
              INTO fm1
             WHERE bukrs EQ regup-zbukr
-              AND orden EQ 1.
+              AND orden EQ 1 ORDER BY PRIMARY KEY.
 
-          SELECT SINGLE tdname
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE tdname
+*             FROM zfirmadigital
+*             INTO fm2
+*            WHERE bukrs EQ regup-zbukr
+*              AND orden EQ 2.
+*
+* NEW CODE
+          SELECT tdname
+          UP TO 1 ROWS 
              FROM zfirmadigital
              INTO fm2
             WHERE bukrs EQ regup-zbukr
-              AND orden EQ 2.
+              AND orden EQ 2 ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 ********************************************************************
 *ARVM 30102008.
           CLEAR v_banco.
@@ -3517,10 +4030,29 @@ FORM scheckdaten_eingabe USING p_rchk LIKE pcec-checl
             ENDIF.
           ELSE.
             IF pcec-zwels NE space.
-              SELECT SINGLE * FROM t001 WHERE bukrs EQ zw_zbukr-low.
-              SELECT * FROM t042z WHERE land1 EQ t001-land1
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*              SELECT SINGLE * FROM t001 WHERE bukrs EQ zw_zbukr-low.
+*
+* NEW CODE
+              SELECT *
+              UP TO 1 ROWS  FROM t001 WHERE bukrs EQ zw_zbukr-low ORDER BY PRIMARY KEY.
+
+              ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*              SELECT * FROM t042z WHERE land1 EQ t001-land1
+*                                  AND   zlsch IN sel_zawe
+*                                  AND   progn EQ sy-repid.
+*
+* NEW CODE
+              SELECT *
+ FROM t042z WHERE land1 EQ t001-land1
                                   AND   zlsch IN sel_zawe
-                                  AND   progn EQ sy-repid.
+                                  AND   progn EQ sy-repid ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
                 IF pcec-zwels NA t042z-zlsch.
                   MESSAGE e665(fs) WITH t042z-zlsch p_stap pcec-zwels.
                 ENDIF.
@@ -3570,13 +4102,27 @@ FORM scheckdaten_pruefen USING p_rchk LIKE pcec-checl
     "check print for a productive run
     IF p_rchk NE space.                "Restartfall
       flg_restart = 1.                 "restart mode
-      SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM payr
+*        WHERE zbukr EQ zw_zbukr-low
+*          AND hbkid EQ sel_hbki-low
+*          AND hktid EQ sel_hkti-low
+*          AND rzawe IN sel_zawe
+*          AND chect GE p_rchk
+*          AND checf EQ p_rchk.                            
+*
+* NEW CODE
+      SELECT *
+ FROM payr
         WHERE zbukr EQ zw_zbukr-low
           AND hbkid EQ sel_hbki-low
           AND hktid EQ sel_hkti-low
           AND rzawe IN sel_zawe
           AND chect GE p_rchk
-          AND checf EQ p_rchk.                            "#EC PORTABLE
+          AND checf EQ p_rchk ORDER BY PRIMARY KEY.                            
+
+* END. 07-07-2026 - ATC - ATC-03"#EC PORTABLE
       ENDSELECT.
       CASE payr-voidr.
         WHEN 0.
@@ -3621,11 +4167,24 @@ FORM scheckdaten_pruefen USING p_rchk LIKE pcec-checl
         IF pcec-fstap IS INITIAL.
           EXIT.
         ENDIF.
-        SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE * FROM pcec
+*          WHERE zbukr EQ pcec-zbukr
+*            AND hbkid EQ pcec-hbkid
+*            AND hktid EQ pcec-hktid
+*            AND stapl EQ pcec-fstap.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS  FROM pcec
           WHERE zbukr EQ pcec-zbukr
             AND hbkid EQ pcec-hbkid
             AND hktid EQ pcec-hktid
-            AND stapl EQ pcec-fstap.
+            AND stapl EQ pcec-fstap ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         IF sy-subrc NE 0.
           EXIT.
         ENDIF.
@@ -3647,11 +4206,24 @@ FORM scheckdaten_pruefen USING p_rchk LIKE pcec-checl
           STOP.
         ENDIF.
       ENDIF.
-      SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM pcec
+*        WHERE zbukr EQ zw_zbukr-low
+*          AND hbkid EQ sel_hbki-low
+*          AND hktid EQ sel_hkti-low
+*          AND stapl EQ p_stap.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM pcec
         WHERE zbukr EQ zw_zbukr-low
           AND hbkid EQ sel_hbki-low
           AND hktid EQ sel_hkti-low
-          AND stapl EQ p_stap.
+          AND stapl EQ p_stap ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
     IMPORT flg_local FROM MEMORY ID 'MFCHKFN0'.
     IF sy-subrc EQ 0.                  "bei Transaktion 'Scheck neu
@@ -3707,11 +4279,23 @@ FORM scheckinfo_pruefen.
   flg_pruefung EQ 1.                   "nicht beim 'Schecks neu drucken'
   "not in transaction reprint check
   IF hlp_laufk NE 'P'.                 "FI-Beleg vorhanden?
-    SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM payr
+*      WHERE zbukr EQ reguh-zbukr
+*      AND   vblnr EQ reguh-vblnr
+*      AND   gjahr EQ regud-gjahr
+*      AND   voidr EQ 0.
+*
+* NEW CODE
+    SELECT *
+ FROM payr
       WHERE zbukr EQ reguh-zbukr
       AND   vblnr EQ reguh-vblnr
       AND   gjahr EQ regud-gjahr
-      AND   voidr EQ 0.
+      AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     ENDSELECT.
     sy-msgv1 = reguh-zbukr.
     sy-msgv2 = regud-gjahr.
@@ -3738,21 +4322,48 @@ SELECT * FROM TVOID WHERE SYTYP EQ 4 ORDER BY PRIMARY KEY.
       ENDIF.
     ENDIF.
     IF NOT reguh-seqnr IS INITIAL.
-      SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM payr
+*      WHERE pernr EQ reguh-pernr
+*      AND   seqnr EQ reguh-seqnr
+*      AND   btznr EQ reguh-btznr
+*      AND   voidr EQ 0.
+*
+* NEW CODE
+      SELECT *
+ FROM payr
       WHERE pernr EQ reguh-pernr
       AND   seqnr EQ reguh-seqnr
       AND   btznr EQ reguh-btznr
-      AND   voidr EQ 0.
+      AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       ENDSELECT.
     ELSE.                              "HR-Sonderfall Stammdatenabschlag
-      SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM payr
+*        WHERE pernr EQ reguh-pernr
+*        AND   seqnr EQ reguh-seqnr
+*        AND   btznr EQ reguh-btznr
+*        AND   zaldt EQ reguh-zaldt
+*        AND   rwbtr EQ reguh-rwbtr
+*        AND   waers EQ reguh-waers
+*        AND   voidr EQ 0.
+*
+* NEW CODE
+      SELECT *
+ FROM payr
         WHERE pernr EQ reguh-pernr
         AND   seqnr EQ reguh-seqnr
         AND   btznr EQ reguh-btznr
         AND   zaldt EQ reguh-zaldt
         AND   rwbtr EQ reguh-rwbtr
         AND   waers EQ reguh-waers
-        AND   voidr EQ 0.
+        AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       ENDSELECT.
     ENDIF.
     sy-msgv1 = reguh-pernr.
@@ -3847,11 +4458,24 @@ FORM schecknummern_sperren.
       IF pcec-fstap IS INITIAL.
         EXIT.
       ENDIF.
-      SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM pcec
+*                      WHERE zbukr EQ pcec-zbukr
+*                        AND hbkid EQ pcec-hbkid
+*                        AND hktid EQ pcec-hktid
+*                        AND stapl EQ pcec-fstap.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM pcec
                       WHERE zbukr EQ pcec-zbukr
                         AND hbkid EQ pcec-hbkid
                         AND hktid EQ pcec-hktid
-                        AND stapl EQ pcec-fstap.
+                        AND stapl EQ pcec-fstap ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF sy-subrc NE 0.
         EXIT.
       ENDIF.
@@ -3911,11 +4535,24 @@ FORM schecknummern_sperren.
           MESSAGE ID sy-msgid TYPE 'E' NUMBER sy-msgno WITH sy-msgv1.
         ENDIF.
       ENDIF.
-      SELECT SINGLE * FROM pcec
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM pcec
+*        WHERE zbukr = pcec-zbukr
+*        AND   hbkid = pcec-hbkid
+*        AND   hktid = pcec-hktid
+*        AND   stapl = pcec-stapl.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM pcec
         WHERE zbukr = pcec-zbukr
         AND   hbkid = pcec-hbkid
         AND   hktid = pcec-hktid
-        AND   stapl = pcec-stapl.
+        AND   stapl = pcec-stapl ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     ENDIF.
     IF sy-batch NE space.
       MESSAGE s550(fs) WITH pcec-checl."Ausgabe des Nummernstandes
@@ -4037,41 +4674,94 @@ FORM schecknummer_ermitteln USING typ.
       regud-stapt = pcec-stapl.
     ELSE.
       IF hlp_laufk NE 'P'.             "FI-Beleg vorhanden
-        SELECT * FROM payr             "Scheck zum Zahlungsbeleg
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT * FROM payr             "Scheck zum Zahlungsbeleg
+*          WHERE zbukr EQ reguh-zbukr   "payment document's check
+*          AND   vblnr EQ reguh-vblnr
+*          AND   gjahr EQ regud-gjahr
+*          AND   voidr EQ 0.
+*
+* NEW CODE
+        SELECT *
+ FROM payr             "Scheck zum Zahlungsbeleg
           WHERE zbukr EQ reguh-zbukr   "payment document's check
           AND   vblnr EQ reguh-vblnr
           AND   gjahr EQ regud-gjahr
-          AND   voidr EQ 0.
+          AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
         ENDSELECT.
       ELSE.                            "HR-Abrechnung vorhanden
         IF NOT reguh-seqnr IS INITIAL.
-          SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          SELECT * FROM payr
+*          WHERE pernr EQ reguh-pernr
+*          AND   seqnr EQ reguh-seqnr
+*          AND   btznr EQ reguh-btznr
+*          AND   voidr EQ 0.
+*
+* NEW CODE
+          SELECT *
+ FROM payr
           WHERE pernr EQ reguh-pernr
           AND   seqnr EQ reguh-seqnr
           AND   btznr EQ reguh-btznr
-          AND   voidr EQ 0.
+          AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           ENDSELECT.
         ELSE.                          "HR-Sonderfall Stammdatenabschlag
-          SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          SELECT * FROM payr
+*            WHERE pernr EQ reguh-pernr
+*            AND   seqnr EQ reguh-seqnr
+*            AND   btznr EQ reguh-btznr
+*            AND   zaldt EQ reguh-zaldt
+*            AND   rwbtr EQ reguh-rwbtr
+*            AND   waers EQ reguh-waers
+*            AND   voidr EQ 0.
+*
+* NEW CODE
+          SELECT *
+ FROM payr
             WHERE pernr EQ reguh-pernr
             AND   seqnr EQ reguh-seqnr
             AND   btznr EQ reguh-btznr
             AND   zaldt EQ reguh-zaldt
             AND   rwbtr EQ reguh-rwbtr
             AND   waers EQ reguh-waers
-            AND   voidr EQ 0.
+            AND   voidr EQ 0 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
           ENDSELECT.
         ENDIF.
       ENDIF.
       IF typ EQ 2 AND payr-checv NE space.
         IF payr-checv NE '*'.
-          SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*          SELECT * FROM payr
+*            WHERE zbukr EQ payr-zbukr
+*            AND   hbkid EQ payr-hbkiv
+*            AND   hktid EQ payr-hktiv
+*            AND   rzawe EQ payr-rzawe
+*            AND   chect EQ payr-checv
+*            AND   voidr EQ 2.
+*
+* NEW CODE
+          SELECT *
+ FROM payr
             WHERE zbukr EQ payr-zbukr
             AND   hbkid EQ payr-hbkiv
             AND   hktid EQ payr-hktiv
             AND   rzawe EQ payr-rzawe
             AND   chect EQ payr-checv
-            AND   voidr EQ 2.
+            AND   voidr EQ 2 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
             EXIT.
           ENDSELECT.
         ELSE.
@@ -4099,13 +4789,28 @@ FORM schecknummer_ermitteln USING typ.
               not_valid   = 4
               OTHERS      = 5.
           IF sy-subrc EQ 0.
-            SELECT SINGLE * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE * FROM payr
+*               WHERE zbukr EQ payr-zbukr
+*                 AND hbkid EQ payr-hbkid
+*                 AND hktid EQ payr-hktid
+*                 AND rzawe EQ payr-rzawe
+*                 AND chect EQ pcec-checl
+*                 AND voidr EQ 2.
+*
+* NEW CODE
+            SELECT *
+            UP TO 1 ROWS  FROM payr
                WHERE zbukr EQ payr-zbukr
                  AND hbkid EQ payr-hbkid
                  AND hktid EQ payr-hktid
                  AND rzawe EQ payr-rzawe
                  AND chect EQ pcec-checl
-                 AND voidr EQ 2.
+                 AND voidr EQ 2 ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
           ENDIF.
         ENDIF.
       ENDIF.
@@ -4365,12 +5070,25 @@ FORM scheckinfo_speichern USING typ.
 
 *   PrÃ¼fen, ob Eintrag bereits in PAYR vorhanden ist
 *   test that entry does not already exist in PAYR
-    SELECT * FROM payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM payr
+*      WHERE ichec EQ space
+*        AND zbukr EQ pcec-zbukr
+*        AND hbkid EQ pcec-hbkid
+*        AND hktid EQ pcec-hktid
+*        AND chect EQ up_chect.
+*
+* NEW CODE
+    SELECT *
+ FROM payr
       WHERE ichec EQ space
         AND zbukr EQ pcec-zbukr
         AND hbkid EQ pcec-hbkid
         AND hktid EQ pcec-hktid
-        AND chect EQ up_chect.
+        AND chect EQ up_chect ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     ENDSELECT.
     IF sy-subrc EQ 0.                  "Schecknummer bereits vorhanden
       CALL FUNCTION 'CLOSE_FORM'.      "check number already exists
@@ -4524,17 +5242,47 @@ SELECT * FROM TVOID WHERE SYTYP EQ 4 ORDER BY PRIMARY KEY.
 *         on the selection screen and set pointer to new check
           WHEN 2.
             IF hlp_laufk NE 'P'.
-              SELECT * FROM payr INTO *payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*              SELECT * FROM payr INTO *payr
+*                WHERE zbukr EQ payr-zbukr
+*                AND   vblnr EQ payr-vblnr
+*                AND   gjahr EQ payr-gjahr
+*                AND ( hbkid NE payr-hbkid
+*                   OR hktid NE payr-hktid
+*                   OR chect NE payr-chect ).
+*
+* NEW CODE
+              SELECT *
+ FROM payr INTO *payr
                 WHERE zbukr EQ payr-zbukr
                 AND   vblnr EQ payr-vblnr
                 AND   gjahr EQ payr-gjahr
                 AND ( hbkid NE payr-hbkid
                    OR hktid NE payr-hktid
-                   OR chect NE payr-chect ).
+                   OR chect NE payr-chect ) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
                 PERFORM scheck_entwerten.
               ENDSELECT.
             ELSE.
-              SELECT * FROM payr INTO *payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*              SELECT * FROM payr INTO *payr
+*                WHERE pernr EQ reguh-pernr
+*                AND   seqnr EQ reguh-seqnr
+*                AND   btznr EQ reguh-btznr
+*                AND   zaldt EQ reguh-zaldt
+*                AND   rwbtr EQ reguh-rwbtr
+*                AND   waers EQ reguh-waers
+*                AND ( zbukr NE payr-zbukr
+*                   OR hbkid NE payr-hbkid
+*                   OR hktid NE payr-hktid
+*                   OR chect NE payr-chect ).
+*
+* NEW CODE
+              SELECT *
+ FROM payr INTO *payr
                 WHERE pernr EQ reguh-pernr
                 AND   seqnr EQ reguh-seqnr
                 AND   btznr EQ reguh-btznr
@@ -4544,7 +5292,9 @@ SELECT * FROM TVOID WHERE SYTYP EQ 4 ORDER BY PRIMARY KEY.
                 AND ( zbukr NE payr-zbukr
                    OR hbkid NE payr-hbkid
                    OR hktid NE payr-hktid
-                   OR chect NE payr-chect ).
+                   OR chect NE payr-chect ) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
                 PERFORM scheck_entwerten.
               ENDSELECT.
             ENDIF.

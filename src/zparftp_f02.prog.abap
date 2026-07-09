@@ -170,8 +170,17 @@ FORM valido_0200.
     ENDIF.
 
 
-    SELECT * FROM ztparamftp WHERE zbukr = ztparamftp_est-zbukr
-                             AND zprog = ztparamftp_est-zprog.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT * FROM ztparamftp WHERE zbukr = ztparamftp_est-zbukr
+*                             AND zprog = ztparamftp_est-zprog.
+*
+* NEW CODE
+    SELECT *
+ FROM ztparamftp WHERE zbukr = ztparamftp_est-zbukr
+                             AND zprog = ztparamftp_est-zprog ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     ENDSELECT.
     IF sy-subrc = 0.

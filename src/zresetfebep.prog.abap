@@ -50,25 +50,54 @@ START-OF-SELECTION.
         p_aznum to aznum_n.
 
   concatenate gjahr_n aznum_n into w_azidt.
-  select * from febko client specified into table it_febko
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * from febko client specified into table it_febko
+*      where mandt = sy-mandt
+*            and anwnd = '0001'
+*            and azidt = w_azidt
+*            and aznum = p_aznum
+*            and bukrs = p_bukrs
+*            and hbkid = p_hbkid
+*            and hktid = p_hktid.
+*
+* NEW CODE
+  SELECT *
+ from febko client specified into table it_febko
       where mandt = sy-mandt
             and anwnd = '0001'
             and azidt = w_azidt
             and aznum = p_aznum
             and bukrs = p_bukrs
             and hbkid = p_hbkid
-            and hktid = p_hktid.
+            and hktid = p_hktid ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   DESCRIBE TABLE it_febko LINES w_lines.
   if w_lines = 1.
     LOOP AT it_febko into wa_febko.
-        SELECT * from febep CLIENT SPECIFIED
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*        SELECT * from febep CLIENT SPECIFIED
+*         INTO TABLE it_febep
+*         where mandt = sy-mandt
+*            and kukey = wa_febko-kukey
+*            and esnum in s_esnum
+*            and belnr = ' '
+*            AND AK1BL = ' ' . 
+*
+* NEW CODE
+        SELECT *
+ from febep CLIENT SPECIFIED
          INTO TABLE it_febep
          where mandt = sy-mandt
             and kukey = wa_febko-kukey
             and esnum in s_esnum
             and belnr = ' '
-            AND AK1BL = ' ' . "OR belnr = w_belnr ).
+            AND AK1BL = ' '  ORDER BY PRIMARY KEY. 
+
+* END. 07-07-2026 - ATC - ATC-03"OR belnr = w_belnr ).
 
 *Begin of change: ReSQ Correction for MODIFY on an unsorted Internal Table 19/12/2019 EY_DES04 ECDK917080 *
 SORT IT_FEBEP .

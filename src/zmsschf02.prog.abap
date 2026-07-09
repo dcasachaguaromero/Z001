@@ -132,8 +132,24 @@ data:
   new_item          l_key 1 text-g04 ' '.
 
 * Generate standard text ID nodes
-  select * from ttxid into table g_ttxid where tdobject = 'TEXT'.
-  select * from ttxit into table l_ttxit where tdobject = 'TEXT'.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * from ttxid into table g_ttxid where tdobject = 'TEXT'.
+*
+* NEW CODE
+  SELECT *
+ from ttxid into table g_ttxid where tdobject = 'TEXT' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * from ttxit into table l_ttxit where tdobject = 'TEXT'.
+*
+* NEW CODE
+  SELECT *
+ from ttxit into table l_ttxit where tdobject = 'TEXT' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   clear l_prev_id_key.
   loop at g_ttxid.

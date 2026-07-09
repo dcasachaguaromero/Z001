@@ -57,17 +57,41 @@ r_hkont-high = '1011129009'.
 
 append r_hkont.
 
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from bsis
+*  into corresponding fields of table it_bsis
+*  where bukrs in s_bukrs
+*  and hkont in r_hkont.
+*
+* NEW CODE
+SELECT *
+
   from bsis
   into corresponding fields of table it_bsis
   where bukrs in s_bukrs
-  and hkont in r_hkont.
+  and hkont in r_hkont ORDER BY PRIMARY KEY.
 
-select *
+* END. 07-07-2026 - ATC - ATC-03
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from bsas
+*  into corresponding fields of table it_bsas
+*  where bukrs in s_bukrs
+*  and hkont in r_hkont.
+*
+* NEW CODE
+SELECT *
+
   from bsas
   into corresponding fields of table it_bsas
   where bukrs in s_bukrs
-  and hkont in r_hkont.
+  and hkont in r_hkont ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 exec sql.
   connect to 'SAPQAS' as 'con'

@@ -1122,7 +1122,15 @@ IF p_cb_est = 'X'.
       lf_subselect_count = wa_table-subselect.
 
 * Copy queried table into placeholder.
-      SELECT * FROM (mytab) INTO TABLE <lt_main_table> WHERE (lf_condition).
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT * FROM (mytab) INTO TABLE <lt_main_table> WHERE (lf_condition).
+*
+* NEW CODE
+      SELECT *
+ FROM (mytab) INTO TABLE <lt_main_table> WHERE (lf_condition) ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 * Count length in lines of copied table.
       DESCRIBE TABLE <lt_main_table>.
@@ -2359,10 +2367,22 @@ DATA: mess(256) TYPE c,
 * This cannot be avoided as it inserts the program that will perform the actual data extraction. This is required.
 INSERT REPORT progname FROM myprog UNICODE ENABLING 'X'.
 
-SELECT SINGLE *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*SELECT SINGLE *
+*       FROM trdir
+*       INTO dir
+*       WHERE name = progname.
+*
+* NEW CODE
+SELECT *
+UP TO 1 ROWS 
        FROM trdir
        INTO dir
-       WHERE name = progname.
+       WHERE name = progname ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 SYNTAX-CHECK FOR myprog MESSAGE mess LINE lin WORD wrd
        DIRECTORY ENTRY dir.

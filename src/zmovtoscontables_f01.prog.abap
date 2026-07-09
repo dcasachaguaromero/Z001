@@ -51,8 +51,38 @@ FORM get_documents .
     ENDLOOP.
   ENDIF.
 
-  SELECT
-      bukrs
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT
+*      bukrs
+*      gjahr
+*      budat
+*      blart
+*      belnr
+*      bldat
+*      xblnr
+*      bktxt
+*      waers
+*      stblg
+*      aedat
+*      usnam
+*      xref2_hd
+*     FROM bkpf
+*    INTO CORRESPONDING FIELDS OF TABLE gt_bkpf
+*** INI RVY 10.08.2023
+***    WHERE bukrs EQ p_bukrs
+***      AND gjahr EQ p_gjahr
+*    WHERE bukrs IN p_bukrs
+*      AND gjahr IN p_gjahr
+*** FIN RVY 10.08.2023
+*      AND belnr IN s_belnr
+*      AND blart IN p_brte_1
+*      AND bldat IN s_bldat
+*      AND xref2_hd IN s_xref2
+*      AND budat IN s_budat.
+*
+* NEW CODE
+  SELECT bukrs
       gjahr
       budat
       blart
@@ -65,6 +95,7 @@ FORM get_documents .
       aedat
       usnam
       xref2_hd
+
      FROM bkpf
     INTO CORRESPONDING FIELDS OF TABLE gt_bkpf
 ** INI RVY 10.08.2023
@@ -77,14 +108,64 @@ FORM get_documents .
       AND blart IN p_brte_1
       AND bldat IN s_bldat
       AND xref2_hd IN s_xref2
-      AND budat IN s_budat.
+      AND budat IN s_budat ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 *    AND stblg EQ space
 *    AND bstat EQ space.
 
   LOOP AT gt_bkpf INTO ls_bkpf.
 
-    SELECT
-          buzei
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    SELECT
+*          buzei
+*          koart
+*          bschl
+*          hkont
+*          shkzg
+*          mwskz
+*          qsskz
+*          wrbtr
+*          pswbt
+*          pswsl
+*          sgtxt
+*          zuonr
+*          kunnr
+*          lifnr
+*          kostl
+*          prctr
+*          zzprestac
+*          zzunid_pro
+*          zzdesc_est
+*          zzmot_emis
+*          zzrut_terc
+*          zz_agencia
+*          augdt
+*          augbl
+*          fdtag
+*          zfbdt
+*          zterm
+*          zbd1t
+*          xref1
+*          xref2
+*          xref3
+*          zlsch
+*          hbkid
+*          zlspr
+*          dmbtr   "V1- Waldo Alarcón - Visionone - 17-03-2022
+*       FROM bseg
+*        INTO CORRESPONDING FIELDS OF TABLE gt_bseg
+*        WHERE  bukrs EQ ls_bkpf-bukrs
+*           AND belnr EQ ls_bkpf-belnr
+*           AND gjahr EQ ls_bkpf-gjahr
+*           AND buzei IN s_buzei
+*           AND hkont IN s_hkont
+*           AND kostl IN s_kostl
+*           AND zzmot_emis IN s_zzmot.
+*
+* NEW CODE
+    SELECT buzei
           koart
           bschl
           hkont
@@ -119,6 +200,7 @@ FORM get_documents .
           hbkid
           zlspr
           dmbtr   "V1- Waldo Alarcón - Visionone - 17-03-2022
+
        FROM bseg
         INTO CORRESPONDING FIELDS OF TABLE gt_bseg
         WHERE  bukrs EQ ls_bkpf-bukrs
@@ -127,7 +209,9 @@ FORM get_documents .
            AND buzei IN s_buzei
            AND hkont IN s_hkont
            AND kostl IN s_kostl
-           AND zzmot_emis IN s_zzmot.
+           AND zzmot_emis IN s_zzmot ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     LOOP AT gt_bseg INTO ls_bseg.
 
@@ -140,21 +224,61 @@ FORM get_documents .
         MULTIPLY ls_outtab-dmbtr BY -1. "V1- Waldo Alarcón - Visionone - 17-03-2022
       ENDIF.
 
-      SELECT SINGLE  name1 stcd1 FROM lfa1 INTO (ls_outtab-name1, ls_outtab-stcd1)
-        WHERE lifnr EQ ls_outtab-lifnr.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE  name1 stcd1 FROM lfa1 INTO (ls_outtab-name1, ls_outtab-stcd1)
+*        WHERE lifnr EQ ls_outtab-lifnr.
+*
+* NEW CODE
+      SELECT name1 stcd1
+      UP TO 1 ROWS  FROM lfa1 INTO (ls_outtab-name1, ls_outtab-stcd1)
+        WHERE lifnr EQ ls_outtab-lifnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF ls_bseg-zzrut_terc <> ' '.
-         SELECT SINGLE  name1 FROM lfa1 INTO ls_outtab-name3
-           WHERE lifnr EQ ls_bseg-zzrut_terc.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*         SELECT SINGLE  name1 FROM lfa1 INTO ls_outtab-name3
+*           WHERE lifnr EQ ls_bseg-zzrut_terc.
+*
+* NEW CODE
+         SELECT name1
+         UP TO 1 ROWS  FROM lfa1 INTO ls_outtab-name3
+           WHERE lifnr EQ ls_bseg-zzrut_terc ORDER BY PRIMARY KEY.
+
+         ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
          IF sy-subrc <>  0.
-            SELECT SINGLE  name1 FROM lfa1 INTO ls_outtab-name3
-              WHERE STCD1 EQ ls_bseg-zzrut_terc.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*            SELECT SINGLE  name1 FROM lfa1 INTO ls_outtab-name3
+*              WHERE STCD1 EQ ls_bseg-zzrut_terc.
+*
+* NEW CODE
+            SELECT name1
+            UP TO 1 ROWS  FROM lfa1 INTO ls_outtab-name3
+              WHERE STCD1 EQ ls_bseg-zzrut_terc ORDER BY PRIMARY KEY.
+
+            ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
          endif.
       endif.
 
-      SELECT SINGLE txt50 FROM skat INTO ls_outtab-txt50
-        WHERE spras = 'S' AND ktopl = 'B100' AND saknr = ls_bseg-hkont.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE txt50 FROM skat INTO ls_outtab-txt50
+*        WHERE spras = 'S' AND ktopl = 'B100' AND saknr = ls_bseg-hkont.
+*
+* NEW CODE
+      SELECT txt50
+      UP TO 1 ROWS  FROM skat INTO ls_outtab-txt50
+        WHERE spras = 'S' AND ktopl = 'B100' AND saknr = ls_bseg-hkont ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       MOVE ls_bkpf-bukrs  TO ls_outtab-bukrs.
       MOVE ls_bkpf-gjahr  TO ls_outtab-gjahr.
@@ -176,16 +300,39 @@ FORM get_documents .
         MOVE wa_sociedad-waers       TO ls_outtab-pswsl.  "V1- Waldo Alarcón - Visionone - 17-03-2022
       ENDIF.
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-      SELECT SINGLE ltext INTO ls_outtab-ltext
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE ltext INTO ls_outtab-ltext
+*          FROM t003t
+*            WHERE spras = 'S'
+*             AND blart = ls_outtab-blart.
+*
+* NEW CODE
+      SELECT ltext
+      UP TO 1 ROWS  INTO ls_outtab-ltext
           FROM t003t
             WHERE spras = 'S'
-             AND blart = ls_outtab-blart.
+             AND blart = ls_outtab-blart ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
       IF ls_outtab-koart = 'D'.
-        SELECT SINGLE stcd1 name1 INTO (ls_outtab-stcd2, ls_outtab-name2)
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE stcd1 name1 INTO (ls_outtab-stcd2, ls_outtab-name2)
+*          FROM kna1
+*            WHERE kunnr = ls_outtab-kunnr.
+*
+* NEW CODE
+        SELECT stcd1 name1
+        UP TO 1 ROWS  INTO (ls_outtab-stcd2, ls_outtab-name2)
           FROM kna1
-            WHERE kunnr = ls_outtab-kunnr.
+            WHERE kunnr = ls_outtab-kunnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       ENDIF.
 
       REPLACE ALL OCCURRENCES OF '#' IN ls_outtab-sgtxt WITH ''.
@@ -1026,7 +1173,21 @@ FORM get_description_bukrs. "USING p_bukrs TYPE bukrs
          l_address_selection TYPE addr1_sel,
          l_zgiro             TYPE zfigiro.
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT bukrs butxt adrnr waers
+*    FROM t001
+*    INTO CORRESPONDING FIELDS OF TABLE ti_sociedad
+**    (p_butxt, l_adrnr, gv_waers)  "V1- Waldo Alarcon - Visionone - 17-03-2022
+*** INI RVY 10.08.2023
+**    WHERE bukrs EQ p_bukrs
+*    WHERE bukrs IN p_bukrs
+*** FIN RVY 10.08.2023
+*    AND spras EQ sy-langu.
+*
+* NEW CODE
   SELECT bukrs butxt adrnr waers
+
     FROM t001
     INTO CORRESPONDING FIELDS OF TABLE ti_sociedad
 *    (p_butxt, l_adrnr, gv_waers)  "V1- Waldo Alarcon - Visionone - 17-03-2022
@@ -1034,7 +1195,9 @@ FORM get_description_bukrs. "USING p_bukrs TYPE bukrs
 *    WHERE bukrs EQ p_bukrs
     WHERE bukrs IN p_bukrs
 ** FIN RVY 10.08.2023
-    AND spras EQ sy-langu.
+    AND spras EQ sy-langu ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   SORT ti_sociedad BY bukrs.
 
   LOOP AT ti_sociedad ASSIGNING FIELD-SYMBOL(<fs>).
@@ -1059,14 +1222,30 @@ FORM get_description_bukrs. "USING p_bukrs TYPE bukrs
     <fs>-name1 = g_address_value-name1.
 
 **ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-    SELECT SINGLE paval
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE paval
+*      FROM t001z
+*      INTO <fs>-paval
+*** INI RVY 10.08.2023
+**  WHERE bukrs EQ p_bukrs
+*    WHERE bukrs = <fs>-bukrs
+*** FIN RVY 10.08.2023
+*      AND party EQ 'TAXNR' .
+*
+* NEW CODE
+    SELECT paval
+    UP TO 1 ROWS 
       FROM t001z
       INTO <fs>-paval
 ** INI RVY 10.08.2023
 *  WHERE bukrs EQ p_bukrs
     WHERE bukrs = <fs>-bukrs
 ** FIN RVY 10.08.2023
-      AND party EQ 'TAXNR' .
+      AND party EQ 'TAXNR'  ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   ENDLOOP.
 
@@ -1080,11 +1259,23 @@ FORM get_description_bukrs. "USING p_bukrs TYPE bukrs
 *** FIN RVY 10.08.2023
 *    AND party EQ 'TAXNR' .
 
-  SELECT * FROM zfigiro
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM zfigiro
+*    INTO TABLE gt_zfigiro
+*** INI RVY 10.08.2023
+**    WHERE bukrs = p_bukrs.
+*    WHERE bukrs IN p_bukrs.
+*
+* NEW CODE
+  SELECT *
+ FROM zfigiro
     INTO TABLE gt_zfigiro
 ** INI RVY 10.08.2023
 *    WHERE bukrs = p_bukrs.
-    WHERE bukrs IN p_bukrs.
+    WHERE bukrs IN p_bukrs ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 ** FIN RVY 10.08.2023
   IF sy-subrc EQ 0.
     READ TABLE gt_zfigiro INTO l_zgiro INDEX 1.
@@ -1565,14 +1756,35 @@ FORM llena_tablas .
 ** FIN RVY 10.08.2023
         AND a~land1 = 'CL'.
 
-  SELECT spras ktopl saknr txt50 INTO CORRESPONDING FIELDS OF TABLE gt_skat
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT spras ktopl saknr txt50 INTO CORRESPONDING FIELDS OF TABLE gt_skat
+*    FROM skat
+*       WHERE spras = 'S'
+*         AND ktopl = 'B100'.
+*
+* NEW CODE
+  SELECT spras ktopl saknr txt50
+ INTO CORRESPONDING FIELDS OF TABLE gt_skat
     FROM skat
        WHERE spras = 'S'
-         AND ktopl = 'B100'.
+         AND ktopl = 'B100' ORDER BY PRIMARY KEY.
 
-  SELECT spras blart ltext INTO CORRESPONDING FIELDS OF TABLE gt_t003t
+* END. 07-07-2026 - ATC - ATC-03
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT spras blart ltext INTO CORRESPONDING FIELDS OF TABLE gt_t003t
+*      FROM t003t
+*    WHERE spras = 'S'.
+*
+* NEW CODE
+  SELECT spras blart ltext
+ INTO CORRESPONDING FIELDS OF TABLE gt_t003t
       FROM t003t
-    WHERE spras = 'S'.
+    WHERE spras = 'S' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
 ENDFORM.                    " LLENA_TABLAS

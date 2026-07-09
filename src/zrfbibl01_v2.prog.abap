@@ -1473,9 +1473,20 @@ FORM datensatz_transportieren.
           EXIT.
         ENDLOOP.
         IF sy-subrc NE 0.
-          SELECT SINGLE bukrs xjvaa INTO CORRESPONDING FIELDS OF xjva
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE bukrs xjvaa INTO CORRESPONDING FIELDS OF xjva
+*          FROM t001
+*          WHERE bukrs = bukrs.
+*
+* NEW CODE
+          SELECT bukrs xjvaa
+          UP TO 1 ROWS  INTO CORRESPONDING FIELDS OF xjva
           FROM t001
-          WHERE bukrs = bukrs.
+          WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
           CLEAR xjva-pm_active.
           IF xjva-xjvaa ne space.
@@ -1975,9 +1986,20 @@ FORM message_call_transaction.
   OR t100-arbgb NE sy-msgid
   OR t100-msgnr NE sy-msgno.
     CLEAR: text, text1, text2, text3, msgvn.
-    SELECT SINGLE * FROM t100 WHERE sprsl = sy-langu
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t100 WHERE sprsl = sy-langu
+*                              AND   arbgb = sy-msgid
+*                              AND   msgnr = sy-msgno.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t100 WHERE sprsl = sy-langu
                               AND   arbgb = sy-msgid
-                              AND   msgnr = sy-msgno.
+                              AND   msgnr = sy-msgno ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       text = t100-text.
       DO 4 TIMES VARYING msgvn FROM sy-msgv1 NEXT sy-msgv2.
@@ -2046,7 +2068,16 @@ FORM kontoart_ermitteln.
     EXIT.
   ENDLOOP.
   IF sy-subrc NE 0.
-    SELECT SINGLE * FROM tbsl WHERE bschl = bbseg-newbs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM tbsl WHERE bschl = bbseg-newbs.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM tbsl WHERE bschl = bbseg-newbs ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF sy-subrc = 0.
       xtbsl = tbsl.
       APPEND xtbsl.

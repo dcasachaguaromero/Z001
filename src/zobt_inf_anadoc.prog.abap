@@ -99,13 +99,27 @@ exec sql.
   commit
 endexec.
 
-select *
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*select *
+*  from bkpf
+*  into corresponding fields of table it_bkpf
+*  where bukrs in s_bukrs
+*  and budat ge p_fecini
+*  and budat lt p_fecfin
+*  and gjahr eq p_gjahr.
+*
+* NEW CODE
+SELECT *
+
   from bkpf
   into corresponding fields of table it_bkpf
   where bukrs in s_bukrs
   and budat ge p_fecini
   and budat lt p_fecfin
-  and gjahr eq p_gjahr.
+  and gjahr eq p_gjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 loop at it_bkpf.
     clear: izuonr,ihkont,iprctr,isgtxt,izzprestac,izzunid_pro,izzdesc_est,izzmot_emis,izzrut_terc,izz_agencia,ishkzg,idmbtr.
@@ -134,10 +148,22 @@ AND GJAHR EQ P_GJAHR ORDER BY PRIMARY KEY .
       clear: izznom_prov,izzrut_prov.
 
       if izzrut_terc ne ''.
-        select single *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single *
+*          into corresponding fields of it_lfa1
+*          from lfa1
+*          where lifnr eq izzrut_terc.
+*
+* NEW CODE
+        SELECT *
+        UP TO 1 ROWS 
           into corresponding fields of it_lfa1
           from lfa1
-          where lifnr eq izzrut_terc.
+          where lifnr eq izzrut_terc ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         izznom_prov = it_lfa1-name1.
         izzrut_prov = it_lfa1-stcd1.
