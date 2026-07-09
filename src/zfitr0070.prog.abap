@@ -760,9 +760,19 @@ ENDFORM.                    "FRM_PF_STATUS.
 FORM selecciona .
   ranges: r_hkont FOR bsis-hkont.
 
-  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+*       from ZFITR020_T05
+*       where bukrs in p_bukrs1.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
        from ZFITR020_T05
-       where bukrs in p_bukrs1.
+       where bukrs in p_bukrs1 ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
   loop at ti_ZFITR020_T05 into wa_ZFITR020_T05.
     CLEAR r_hkont.
@@ -826,18 +836,43 @@ FORM selecciona .
     APPEND r_hkont.
   ENDLOOP.
 
-  SELECT * into CORRESPONDING FIELDS OF TABLE ti_bsis
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * into CORRESPONDING FIELDS OF TABLE ti_bsis
+*    from bsis
+*    where bukrs in p_bukrs1
+*      and BELNR in p_belnr1
+*      and HKONT in r_hkont
+*      and GJaHR eq p_gjahr1-low.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_bsis
     from bsis
     where bukrs in p_bukrs1
       and BELNR in p_belnr1
       and HKONT in r_hkont
-      and GJaHR eq p_gjahr1-low.
+      and GJaHR eq p_gjahr1-low ORDER BY PRIMARY KEY.
 
-  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+* END. 07-07-2026 - ATC - ATC-03
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+*    from payr FOR ALL ENTRIES IN ti_bsis
+*    where zbukr = ti_bsis-BUKRS
+*      and vblnr = ti_bsis-belnr
+*      and gjahr = ti_bsis-gjahr.
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_payr
     from payr FOR ALL ENTRIES IN ti_bsis
     where zbukr = ti_bsis-BUKRS
       and vblnr = ti_bsis-belnr
-      and gjahr = ti_bsis-gjahr.
+      and gjahr = ti_bsis-gjahr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
 ENDFORM.                    "selecciona
@@ -890,19 +925,45 @@ ENDFORM.                    " CREA_ALV
 *--------------------------------------------------------------------*
 FORM SELECCIONA2 .
 
-  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_payr
+*    from payr
+*    where zbukr in p_bukrs2
+*      and HBKID in p_hbkid2
+*      and HKTID in p_hktid2
+*      and chect in p_chect2
+*      .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_payr
     from payr
     where zbukr in p_bukrs2
       and HBKID in p_hbkid2
       and HKTID in p_hktid2
       and chect in p_chect2
-      .
+       ORDER BY PRIMARY KEY.
 
-  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+* END. 07-07-2026 - ATC - ATC-03
+
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
+*      from ZFITR020_T05
+*      where bukrs in p_bukrs2
+*        and hbkid in p_hbkid2
+*        and hktid in p_hktid2 .
+*
+* NEW CODE
+  SELECT *
+ into CORRESPONDING FIELDS OF TABLE ti_ZFITR020_T05
       from ZFITR020_T05
       where bukrs in p_bukrs2
         and hbkid in p_hbkid2
-        and hktid in p_hktid2 .
+        and hktid in p_hktid2  ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 
 ENDFORM.                    " SELECCIONA2
@@ -1032,9 +1093,20 @@ FORM CONVIERTE_MENSAJE  USING    P_SY_MSGID like sy-msgid
                                  P_SY_MSGNO like sy-msgno
                         CHANGING RETURN_MESSAGE   .
 
-  SELECT SINGLE * FROM t100 WHERE sprsl = 'S'
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t100 WHERE sprsl = 'S'
+*                             AND   arbgb = sy-msgid
+*                             AND   msgnr = sy-msgno.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t100 WHERE sprsl = 'S'
                              AND   arbgb = sy-msgid
-                             AND   msgnr = sy-msgno.
+                             AND   msgnr = sy-msgno ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc = 0.
     return_message = t100-text.
     IF return_message CS '&1'.

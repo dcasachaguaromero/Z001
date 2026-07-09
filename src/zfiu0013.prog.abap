@@ -15,8 +15,18 @@ Parameters: soc like skb1-bukrs,
             PI like skb1-XOPVW.
 
 
-Select single * from skb1 where bukrs = soc and
-                                saknr = cta.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*Select single * from skb1 where bukrs = soc and
+*                                saknr = cta.
+*
+* NEW CODE
+SELECT *
+UP TO 1 ROWS  from skb1 where bukrs = soc and
+                                saknr = cta ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 if sy-subrc = 0.
