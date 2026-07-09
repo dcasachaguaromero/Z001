@@ -1,0 +1,1310 @@
+*&---------------------------------------------------------------------*
+*& Report  Z_DI_OBTIENE_BALANCE_LEDGER
+*&
+*&---------------------------------------------------------------------*
+*&
+*&REPORT  Z_DI_OBTIENE_BALANCE_LEDGER.
+
+*&---------------------------------------------------------------------*
+
+REPORT ZAL_ABAP message-id 26 line-size 255
+no standard page heading.
+* Z_DI_OBTIENE_BALANCE_LEDGER.
+PARAMETER DOWNLOAD(1) DEFAULT 'S' lower case. "N-svr,Y-clnt
+PARAMETER EXECMODE(1) DEFAULT 'D' lower case. "D-dlg,B-btch
+PARAMETER OUT_DIR(48) DEFAULT "output file dir
+'\\172.31.100.10\' lower case.
+PARAMETER IN_DIR(48) DEFAULT "input file dir
+'\\172.31.100.10\' lower case.
+PARAMETER P_DEST TYPE RFCDES-RFCDEST DEFAULT
+'NONE'.
+PARAMETER P_PROGID TYPE RFCOPT-RFCEXEC DEFAULT
+SPACE.
+PARAMETER P_GWHOST TYPE RFCOPT-RFCGWHOST DEFAULT
+SPACE.
+PARAMETER P_GWSERV TYPE RFCOPT-RFCGWSERV DEFAULT
+SPACE.
+PARAMETER P_SRVFM(30) DEFAULT "Server Callback function
+SPACE.
+PARAMETER P_PKGSZ TYPE I DEFAULT "Stream package size
+5000.
+PARAMETER P_SNC_ON(1) DEFAULT "X-on SPACE-off
+SPACE.
+
+PARAMETER $PARAM1 TYPE I.
+
+PARAMETER $PARAM2 TYPE I.
+
+PARAMETER $PARAM3(50) TYPE C.
+
+PARAMETER $PARAM4(4) TYPE C.
+
+PARAMETER P_DF_VK(40) DEFAULT "ABAP data flow object key
+'' lower case.
+PARAMETER P_DI_GEN(40) DEFAULT "DI version that generated ABAP
+'' lower case.
+
+*** Machine generated ABAP. Do not modify.            ***
+*** (C)Copyright Business Objects S.A.  All rights reserved. ***
+*
+* Date Time:
+*    09/29/17 12:35:43
+* SAP used for generated this ABAP:
+*    Release: 700
+*    Host   : 172.31.100.10
+*
+* ABAP Dataflow Name:
+*    FI_S_STG_SALDO_CONTABLE_PASO_1_R3_LEDGER
+* ABAP Dataflow comments:
+*  EXTRAE INFORMACION DE FAGLFLEXT
+* ABAP program name in SAP:
+*  Z_DI_OBTIENE_BALANCE_LEDGER
+* Generated ABAP file name:
+*  C:/ProgramData/SAP BusinessObjects/Data Services/workspace/Z_D
+*I_O
+*    BTIENE_BALANCE_LEDGER
+TABLES FAGLFLEXT.
+
+DATA: begin of ITAB2 occurs 0,
+RYEAR(4) TYPE N,
+DRCRK(1) TYPE C,
+RACCT(10) TYPE C,
+TSL01(16) TYPE P DECIMALS 2,
+TSL02(16) TYPE P DECIMALS 2,
+TSL03(16) TYPE P DECIMALS 2,
+TSL04(16) TYPE P DECIMALS 2,
+TSL05(16) TYPE P DECIMALS 2,
+TSL06(16) TYPE P DECIMALS 2,
+TSL07(16) TYPE P DECIMALS 2,
+TSL08(16) TYPE P DECIMALS 2,
+TSL09(16) TYPE P DECIMALS 2,
+TSL10(16) TYPE P DECIMALS 2,
+TSL11(16) TYPE P DECIMALS 2,
+TSL12(16) TYPE P DECIMALS 2,
+TSL01_1(16) TYPE P DECIMALS 2,
+TSL02_1(16) TYPE P DECIMALS 2,
+TSL03_1(16) TYPE P DECIMALS 2,
+TSL04_1(16) TYPE P DECIMALS 2,
+TSL05_1(16) TYPE P DECIMALS 2,
+TSL06_1(16) TYPE P DECIMALS 2,
+TSL07_1(16) TYPE P DECIMALS 2,
+TSL08_1(16) TYPE P DECIMALS 2,
+TSL09_1(16) TYPE P DECIMALS 2,
+TSL10_1(16) TYPE P DECIMALS 2,
+TSL11_1(16) TYPE P DECIMALS 2,
+TSL12_1(16) TYPE P DECIMALS 2,
+RLDNR(2) TYPE C,
+RBUKRS(4) TYPE C,
+SEGMENT(10) TYPE C,
+RBUSA(4) TYPE C,
+RCNTR(10) TYPE C,
+PRCTR(10) TYPE C,
+RRCTY(1) TYPE C,
+RTCUR(5) TYPE C,
+HSL01(16) TYPE P DECIMALS 2,
+HSL02(16) TYPE P DECIMALS 2,
+HSL03(16) TYPE P DECIMALS 2,
+HSL04(16) TYPE P DECIMALS 2,
+HSL05(16) TYPE P DECIMALS 2,
+HSL06(16) TYPE P DECIMALS 2,
+HSL07(16) TYPE P DECIMALS 2,
+HSL08(16) TYPE P DECIMALS 2,
+HSL09(16) TYPE P DECIMALS 2,
+HSL10(16) TYPE P DECIMALS 2,
+HSL11(16) TYPE P DECIMALS 2,
+HSL12(16) TYPE P DECIMALS 2.
+DATA: end of ITAB2.
+
+DATA: begin of ITAB3 occurs 0,
+RYEAR(4) TYPE N,
+RACCT(10) TYPE C,
+DRCRK(1) TYPE C,
+RLDNR(2) TYPE C,
+RBUKRS(4) TYPE C,
+PRCTR(10) TYPE C,
+RRCTY(1) TYPE C,
+SEGMENT(10) TYPE C,
+RCNTR(10) TYPE C,
+RTCUR(5) TYPE C,
+RBUSA(4) TYPE C,
+TSL01(16) TYPE P DECIMALS 2,
+TSL02(16) TYPE P DECIMALS 2,
+TSL03(16) TYPE P DECIMALS 2,
+TSL04(16) TYPE P DECIMALS 2,
+TSL05(16) TYPE P DECIMALS 2,
+TSL06(16) TYPE P DECIMALS 2,
+TSL07(16) TYPE P DECIMALS 2,
+TSL08(16) TYPE P DECIMALS 2,
+TSL09(16) TYPE P DECIMALS 2,
+TSL10(16) TYPE P DECIMALS 2,
+TSL11(16) TYPE P DECIMALS 2,
+TSL12(16) TYPE P DECIMALS 2,
+TSLVT(16) TYPE P DECIMALS 2,
+HSL01(16) TYPE P DECIMALS 2,
+HSL02(16) TYPE P DECIMALS 2,
+HSL03(16) TYPE P DECIMALS 2,
+HSL04(16) TYPE P DECIMALS 2,
+HSL05(16) TYPE P DECIMALS 2,
+HSL06(16) TYPE P DECIMALS 2,
+HSL07(16) TYPE P DECIMALS 2,
+HSL08(16) TYPE P DECIMALS 2,
+HSL09(16) TYPE P DECIMALS 2,
+HSL10(16) TYPE P DECIMALS 2,
+HSL11(16) TYPE P DECIMALS 2,
+HSL12(16) TYPE P DECIMALS 2.
+DATA: end of ITAB3.
+
+data: append_flag(1) value ' ',
+      cntbuf type i,
+      delimleng type i,last_batch(1) value ' '.
+
+CONSTANTS C_DF_VK(40) VALUE '333'.
+CONSTANTS C_DI_GEN(40) VALUE '14.2.7.1156'.
+DATA WARN_MSG(50).
+
+
+start-of-selection.
+
+
+  IF DOWNLOAD = 'S' OR
+     DOWNLOAD = 'N' OR
+     DOWNLOAD = 'Y'.
+      .
+  ELSE.
+     DATA: m_xfer_err_msg(700).
+     CONCATENATE
+'ABAP program does not recognize this new '
+'data transfer method: ' DOWNLOAD
+'. Regenerate the ABAP program and upload to this system.'
+     INTO m_xfer_err_msg.
+     MESSAGE  E240(S#) WITH m_xfer_err_msg.
+  ENDIF.
+
+  IF EXECMODE = 'B' OR
+     EXECMODE = 'D'.
+      .
+  ELSE.
+     DATA: m_exec_err_msg(700).
+     CONCATENATE
+'ABAP program does not recognize this new '
+'execution option: ' EXECMODE
+'. Regenerate the ABAP program and upload to this system.'
+     INTO m_exec_err_msg.
+     MESSAGE  E240(S#) WITH m_exec_err_msg.
+  ENDIF.
+
+  IF DOWNLOAD = 'S'.
+     PERFORM CONNECT_RFCDEST_TO_PROGID.
+  ENDIF.
+
+
+
+PERFORM FORM2.
+PERFORM FORM4.
+FREE ITAB3.
+last_batch = 'X'.
+PERFORM FORM3.
+FREE ITAB2.
+  IF DOWNLOAD = 'S'.
+     PERFORM DISCONNECT_RFCDEST_FROM_PROGID.
+  ENDIF.
+
+
+end-of-selection.
+
+CLEAR WARN_MSG.
+
+IF NOT P_DF_VK IS INITIAL.
+  IF P_DF_VK <> C_DF_VK.
+     CONCATENATE '$$Warning$'
+                 C_DF_VK
+                 '$' INTO WARN_MSG.
+  ENDIF.
+ENDIF.
+IF NOT P_DI_GEN IS INITIAL.
+  IF P_DI_GEN <> C_DI_GEN.
+     IF WARN_MSG IS INITIAL.
+       CONCATENATE '$$Warning$$'
+                   C_DI_GEN
+                   INTO WARN_MSG.
+     ELSE.
+       CONCATENATE WARN_MSG
+                   C_DI_GEN
+                   INTO WARN_MSG.
+     ENDIF.
+  ENDIF.
+ENDIF.
+
+IF NOT WARN_MSG IS INITIAL.
+  IF EXECMODE = 'D'.
+    WRITE WARN_MSG.
+    NEW-LINE.
+  ELSE.
+    MESSAGE S240(S#) with WARN_MSG.
+  ENDIF.
+ENDIF.
+
+
+write  '* Program Complete *'.
+write
+ '(C)Copyright Business Objects S.A.  All rights reserved.'.
+
+FORM FORM2.
+DATA ALTMP1(4) TYPE N.
+DATA ALTMP2(10) TYPE C.
+DATA ALTMP3(1) TYPE C.
+DATA ALTMP4(2) TYPE C.
+DATA ALTMP5(4) TYPE C.
+DATA ALTMP6(10) TYPE C.
+DATA ALTMP7(1) TYPE C.
+DATA ALTMP8(10) TYPE C.
+DATA ALTMP9(10) TYPE C.
+DATA ALTMP10(5) TYPE C.
+DATA ALTMP11(4) TYPE C.
+DATA ALTMP12(16) TYPE P DECIMALS 2.
+DATA ALTMP13(16) TYPE P DECIMALS 2.
+DATA ALTMP14(16) TYPE P DECIMALS 2.
+DATA ALTMP15(16) TYPE P DECIMALS 2.
+DATA ALTMP16(16) TYPE P DECIMALS 2.
+DATA ALTMP17(16) TYPE P DECIMALS 2.
+DATA ALTMP18(16) TYPE P DECIMALS 2.
+DATA ALTMP19(16) TYPE P DECIMALS 2.
+DATA ALTMP20(16) TYPE P DECIMALS 2.
+DATA ALTMP21(16) TYPE P DECIMALS 2.
+DATA ALTMP22(16) TYPE P DECIMALS 2.
+DATA ALTMP23(16) TYPE P DECIMALS 2.
+DATA ALTMP24(16) TYPE P DECIMALS 2.
+DATA ALTMP25(16) TYPE P DECIMALS 2.
+DATA ALTMP26(16) TYPE P DECIMALS 2.
+DATA ALTMP27(16) TYPE P DECIMALS 2.
+DATA ALTMP28(16) TYPE P DECIMALS 2.
+DATA ALTMP29(16) TYPE P DECIMALS 2.
+DATA ALTMP30(16) TYPE P DECIMALS 2.
+DATA ALTMP31(16) TYPE P DECIMALS 2.
+DATA ALTMP32(16) TYPE P DECIMALS 2.
+DATA ALTMP33(16) TYPE P DECIMALS 2.
+DATA ALTMP34(16) TYPE P DECIMALS 2.
+DATA ALTMP35(16) TYPE P DECIMALS 2.
+DATA ALTMP36(16) TYPE P DECIMALS 2.
+
+
+
+
+SELECT
+  RYEAR
+  RACCT
+  DRCRK
+  RLDNR
+  RBUKRS
+  PRCTR
+  RRCTY
+  SEGMENT
+  RCNTR
+  RTCUR
+  RBUSA
+  TSL01
+  TSL02
+  TSL03
+  TSL04
+  TSL05
+  TSL06
+  TSL07
+  TSL08
+  TSL09
+  TSL10
+  TSL11
+  TSL12
+  TSLVT
+  HSL01
+  HSL02
+  HSL03
+  HSL04
+  HSL05
+  HSL06
+  HSL07
+  HSL08
+  HSL09
+  HSL10
+  HSL11
+  HSL12
+INTO CORRESPONDING FIELDS OF FAGLFLEXT
+FROM FAGLFLEXT
+WHERE ( ( RLDNR = $PARAM4 )
+ AND ( ( RBUKRS = $PARAM3 )
+ AND ( ( RYEAR >= $PARAM2 )
+ AND ( RYEAR <= $PARAM1 ) ) ) ).
+ALTMP1 = FAGLFLEXT-RYEAR.
+ALTMP2 = FAGLFLEXT-RACCT.
+ALTMP3 = FAGLFLEXT-DRCRK.
+ALTMP4 = FAGLFLEXT-RLDNR.
+ALTMP5 = FAGLFLEXT-RBUKRS.
+ALTMP6 = FAGLFLEXT-PRCTR.
+ALTMP7 = FAGLFLEXT-RRCTY.
+ALTMP8 = FAGLFLEXT-SEGMENT.
+ALTMP9 = FAGLFLEXT-RCNTR.
+ALTMP10 = FAGLFLEXT-RTCUR.
+ALTMP11 = FAGLFLEXT-RBUSA.
+ALTMP12 = FAGLFLEXT-TSL01.
+ALTMP13 = FAGLFLEXT-TSL02.
+ALTMP14 = FAGLFLEXT-TSL03.
+ALTMP15 = FAGLFLEXT-TSL04.
+ALTMP16 = FAGLFLEXT-TSL05.
+ALTMP17 = FAGLFLEXT-TSL06.
+ALTMP18 = FAGLFLEXT-TSL07.
+ALTMP19 = FAGLFLEXT-TSL08.
+ALTMP20 = FAGLFLEXT-TSL09.
+ALTMP21 = FAGLFLEXT-TSL10.
+ALTMP22 = FAGLFLEXT-TSL11.
+ALTMP23 = FAGLFLEXT-TSL12.
+ALTMP24 = FAGLFLEXT-TSLVT.
+ALTMP25 = FAGLFLEXT-HSL01.
+ALTMP26 = FAGLFLEXT-HSL02.
+ALTMP27 = FAGLFLEXT-HSL03.
+ALTMP28 = FAGLFLEXT-HSL04.
+ALTMP29 = FAGLFLEXT-HSL05.
+ALTMP30 = FAGLFLEXT-HSL06.
+ALTMP31 = FAGLFLEXT-HSL07.
+ALTMP32 = FAGLFLEXT-HSL08.
+ALTMP33 = FAGLFLEXT-HSL09.
+ALTMP34 = FAGLFLEXT-HSL10.
+ALTMP35 = FAGLFLEXT-HSL11.
+ALTMP36 = FAGLFLEXT-HSL12.
+ move ALTMP1 to ITAB3-RYEAR.
+ move ALTMP2 to ITAB3-RACCT.
+ move ALTMP3 to ITAB3-DRCRK.
+ move ALTMP4 to ITAB3-RLDNR.
+ move ALTMP5 to ITAB3-RBUKRS.
+ move ALTMP6 to ITAB3-PRCTR.
+ move ALTMP7 to ITAB3-RRCTY.
+ move ALTMP8 to ITAB3-SEGMENT.
+ move ALTMP9 to ITAB3-RCNTR.
+ move ALTMP10 to ITAB3-RTCUR.
+ move ALTMP11 to ITAB3-RBUSA.
+ move ALTMP12 to ITAB3-TSL01.
+ move ALTMP13 to ITAB3-TSL02.
+ move ALTMP14 to ITAB3-TSL03.
+ move ALTMP15 to ITAB3-TSL04.
+ move ALTMP16 to ITAB3-TSL05.
+ move ALTMP17 to ITAB3-TSL06.
+ move ALTMP18 to ITAB3-TSL07.
+ move ALTMP19 to ITAB3-TSL08.
+ move ALTMP20 to ITAB3-TSL09.
+ move ALTMP21 to ITAB3-TSL10.
+ move ALTMP22 to ITAB3-TSL11.
+ move ALTMP23 to ITAB3-TSL12.
+ move ALTMP24 to ITAB3-TSLVT.
+ move ALTMP25 to ITAB3-HSL01.
+ move ALTMP26 to ITAB3-HSL02.
+ move ALTMP27 to ITAB3-HSL03.
+ move ALTMP28 to ITAB3-HSL04.
+ move ALTMP29 to ITAB3-HSL05.
+ move ALTMP30 to ITAB3-HSL06.
+ move ALTMP31 to ITAB3-HSL07.
+ move ALTMP32 to ITAB3-HSL08.
+ move ALTMP33 to ITAB3-HSL09.
+ move ALTMP34 to ITAB3-HSL10.
+ move ALTMP35 to ITAB3-HSL11.
+ move ALTMP36 to ITAB3-HSL12.
+ append ITAB3.
+ENDSELECT.
+ENDFORM.
+
+FORM FORM4.
+ DATA ALTMP37(4) TYPE N.
+ DATA ALTMP38(1) TYPE C.
+ DATA ALTMP39(10) TYPE C.
+ DATA ALTMP40(16) TYPE P DECIMALS 2.
+ DATA ALTMP41(16) TYPE P DECIMALS 2.
+ DATA ALTMP42(16) TYPE P DECIMALS 2.
+ DATA ALTMP43(16) TYPE P DECIMALS 2.
+ DATA ALTMP44(16) TYPE P DECIMALS 2.
+ DATA ALTMP45(16) TYPE P DECIMALS 2.
+ DATA ALTMP46(16) TYPE P DECIMALS 2.
+ DATA ALTMP47(16) TYPE P DECIMALS 2.
+ DATA ALTMP48(16) TYPE P DECIMALS 2.
+ DATA ALTMP49(16) TYPE P DECIMALS 2.
+ DATA ALTMP50(16) TYPE P DECIMALS 2.
+ DATA ALTMP51(16) TYPE P DECIMALS 2.
+ DATA ALTMP52(16) TYPE P DECIMALS 2.
+ DATA ALTMP53(16) TYPE P DECIMALS 2.
+ DATA ALTMP54(16) TYPE P DECIMALS 2.
+ DATA ALTMP55(16) TYPE P DECIMALS 2.
+ DATA ALTMP56(16) TYPE P DECIMALS 2.
+ DATA ALTMP57(16) TYPE P DECIMALS 2.
+ DATA ALTMP58(16) TYPE P DECIMALS 2.
+ DATA ALTMP59(16) TYPE P DECIMALS 2.
+ DATA ALTMP60(16) TYPE P DECIMALS 2.
+ DATA ALTMP61(16) TYPE P DECIMALS 2.
+ DATA ALTMP62(16) TYPE P DECIMALS 2.
+ DATA ALTMP63(16) TYPE P DECIMALS 2.
+ DATA ALTMP64(16) TYPE P DECIMALS 2.
+ DATA ALTMP65(16) TYPE P DECIMALS 2.
+ DATA ALTMP66(16) TYPE P DECIMALS 2.
+ DATA ALTMP67(16) TYPE P DECIMALS 2.
+ DATA ALTMP68(16) TYPE P DECIMALS 2.
+ DATA ALTMP69(16) TYPE P DECIMALS 2.
+ DATA ALTMP70(16) TYPE P DECIMALS 2.
+ DATA ALTMP71(16) TYPE P DECIMALS 2.
+ DATA ALTMP72(16) TYPE P DECIMALS 2.
+ DATA ALTMP73(16) TYPE P DECIMALS 2.
+ DATA ALTMP74(16) TYPE P DECIMALS 2.
+ DATA ALTMP75(16) TYPE P DECIMALS 2.
+ DATA ALTMP76(16) TYPE P DECIMALS 2.
+ DATA ALTMP77(16) TYPE P DECIMALS 2.
+ DATA ALTMP78(16) TYPE P DECIMALS 2.
+ DATA ALTMP79(16) TYPE P DECIMALS 2.
+ DATA ALTMP80(16) TYPE P DECIMALS 2.
+ DATA ALTMP81(16) TYPE P DECIMALS 2.
+ DATA ALTMP82(16) TYPE P DECIMALS 2.
+ DATA ALTMP83(16) TYPE P DECIMALS 2.
+ DATA ALTMP84(16) TYPE P DECIMALS 2.
+ DATA ALTMP85(16) TYPE P DECIMALS 2.
+ DATA ALTMP86(16) TYPE P DECIMALS 2.
+ DATA ALTMP87(16) TYPE P DECIMALS 2.
+ DATA ALTMP88(16) TYPE P DECIMALS 2.
+ DATA ALTMP89(16) TYPE P DECIMALS 2.
+ DATA ALTMP90(16) TYPE P DECIMALS 2.
+ DATA ALTMP91(16) TYPE P DECIMALS 2.
+ DATA ALTMP92(16) TYPE P DECIMALS 2.
+ DATA ALTMP93(16) TYPE P DECIMALS 2.
+ DATA ALTMP94(16) TYPE P DECIMALS 2.
+ DATA ALTMP95(16) TYPE P DECIMALS 2.
+ DATA ALTMP96(16) TYPE P DECIMALS 2.
+ DATA ALTMP97(16) TYPE P DECIMALS 2.
+ DATA ALTMP98(16) TYPE P DECIMALS 2.
+ DATA ALTMP99(16) TYPE P DECIMALS 2.
+ DATA ALTMP100(16) TYPE P DECIMALS 2.
+ DATA ALTMP101(16) TYPE P DECIMALS 2.
+ DATA ALTMP102(16) TYPE P DECIMALS 2.
+ DATA ALTMP103(16) TYPE P DECIMALS 2.
+ DATA ALTMP104(16) TYPE P DECIMALS 2.
+ DATA ALTMP105(16) TYPE P DECIMALS 2.
+ DATA ALTMP106(16) TYPE P DECIMALS 2.
+ DATA ALTMP107(16) TYPE P DECIMALS 2.
+ DATA ALTMP108(16) TYPE P DECIMALS 2.
+ DATA ALTMP109(16) TYPE P DECIMALS 2.
+ DATA ALTMP110(16) TYPE P DECIMALS 2.
+ DATA ALTMP111(16) TYPE P DECIMALS 2.
+ DATA ALTMP112(16) TYPE P DECIMALS 2.
+ DATA ALTMP113(16) TYPE P DECIMALS 2.
+ DATA ALTMP114(16) TYPE P DECIMALS 2.
+ DATA ALTMP115(16) TYPE P DECIMALS 2.
+ DATA ALTMP116(16) TYPE P DECIMALS 2.
+ DATA ALTMP117(16) TYPE P DECIMALS 2.
+ DATA ALTMP118(16) TYPE P DECIMALS 2.
+ DATA ALTMP119(16) TYPE P DECIMALS 2.
+ DATA ALTMP120(16) TYPE P DECIMALS 2.
+ DATA ALTMP121(16) TYPE P DECIMALS 2.
+ DATA ALTMP122(16) TYPE P DECIMALS 2.
+ DATA ALTMP123(16) TYPE P DECIMALS 2.
+ DATA ALTMP124(16) TYPE P DECIMALS 2.
+ DATA ALTMP125(16) TYPE P DECIMALS 2.
+ DATA ALTMP126(16) TYPE P DECIMALS 2.
+ DATA ALTMP127(16) TYPE P DECIMALS 2.
+ DATA ALTMP128(16) TYPE P DECIMALS 2.
+ DATA ALTMP129(16) TYPE P DECIMALS 2.
+ DATA ALTMP130(16) TYPE P DECIMALS 2.
+ DATA ALTMP131(16) TYPE P DECIMALS 2.
+ DATA ALTMP132(16) TYPE P DECIMALS 2.
+ DATA ALTMP133(16) TYPE P DECIMALS 2.
+ DATA ALTMP134(16) TYPE P DECIMALS 2.
+ DATA ALTMP135(16) TYPE P DECIMALS 2.
+ DATA ALTMP136(16) TYPE P DECIMALS 2.
+ DATA ALTMP137(16) TYPE P DECIMALS 2.
+ DATA ALTMP138(16) TYPE P DECIMALS 2.
+ DATA ALTMP139(16) TYPE P DECIMALS 2.
+ DATA ALTMP140(16) TYPE P DECIMALS 2.
+ DATA ALTMP141(16) TYPE P DECIMALS 2.
+ DATA ALTMP142(2) TYPE C.
+ DATA ALTMP143(4) TYPE C.
+ DATA ALTMP144(10) TYPE C.
+ DATA ALTMP145(4) TYPE C.
+ DATA ALTMP146(10) TYPE C.
+ DATA ALTMP147(10) TYPE C.
+ DATA ALTMP148(1) TYPE C.
+ DATA ALTMP149(5) TYPE C.
+ DATA ALTMP150(16) TYPE P DECIMALS 2.
+ DATA ALTMP151(16) TYPE P DECIMALS 2.
+ DATA ALTMP152(16) TYPE P DECIMALS 2.
+ DATA ALTMP153(16) TYPE P DECIMALS 2.
+ DATA ALTMP154(16) TYPE P DECIMALS 2.
+ DATA ALTMP155(16) TYPE P DECIMALS 2.
+ DATA ALTMP156(16) TYPE P DECIMALS 2.
+ DATA ALTMP157(16) TYPE P DECIMALS 2.
+ DATA ALTMP158(16) TYPE P DECIMALS 2.
+ DATA ALTMP159(16) TYPE P DECIMALS 2.
+ DATA ALTMP160(16) TYPE P DECIMALS 2.
+ DATA ALTMP161(16) TYPE P DECIMALS 2.
+ DATA count type i value 0.
+
+ data i type i value 0.
+ clear ALTMP40.
+ clear ALTMP41.
+ clear ALTMP42.
+ clear ALTMP43.
+ clear ALTMP44.
+ clear ALTMP45.
+ clear ALTMP46.
+ clear ALTMP47.
+ clear ALTMP48.
+ clear ALTMP49.
+ clear ALTMP50.
+ clear ALTMP51.
+ clear ALTMP53.
+ clear ALTMP56.
+ clear ALTMP60.
+ clear ALTMP65.
+ clear ALTMP71.
+ clear ALTMP78.
+ clear ALTMP86.
+ clear ALTMP95.
+ clear ALTMP105.
+ clear ALTMP116.
+ clear ALTMP128.
+ clear ALTMP141.
+ clear ALTMP150.
+ clear ALTMP151.
+ clear ALTMP152.
+ clear ALTMP153.
+ clear ALTMP154.
+ clear ALTMP155.
+ clear ALTMP156.
+ clear ALTMP157.
+ clear ALTMP158.
+ clear ALTMP159.
+ clear ALTMP160.
+ clear ALTMP161.
+
+sort ITAB3 by
+ RYEAR
+ RACCT
+ DRCRK
+ RLDNR
+ RBUKRS
+ PRCTR
+ RRCTY
+ SEGMENT
+ RCNTR
+ RTCUR
+ RBUSA.
+
+loop at ITAB3.
+on change of
+ ITAB3-RYEAR or
+ ITAB3-RACCT or
+ ITAB3-DRCRK or
+ ITAB3-RLDNR or
+ ITAB3-RBUKRS or
+ ITAB3-PRCTR or
+ ITAB3-RRCTY or
+ ITAB3-SEGMENT or
+ ITAB3-RCNTR or
+ ITAB3-RTCUR or
+ ITAB3-RBUSA.
+if count > 0.
+move ALTMP37 to ITAB2-RYEAR.
+move ALTMP38 to ITAB2-DRCRK.
+move ALTMP39 to ITAB2-RACCT.
+move ALTMP40 to ITAB2-TSL01.
+move ALTMP41 to ITAB2-TSL02.
+move ALTMP42 to ITAB2-TSL03.
+move ALTMP43 to ITAB2-TSL04.
+move ALTMP44 to ITAB2-TSL05.
+move ALTMP45 to ITAB2-TSL06.
+move ALTMP46 to ITAB2-TSL07.
+move ALTMP47 to ITAB2-TSL08.
+move ALTMP48 to ITAB2-TSL09.
+move ALTMP49 to ITAB2-TSL10.
+move ALTMP50 to ITAB2-TSL11.
+move ALTMP51 to ITAB2-TSL12.
+move ALTMP53 to ITAB2-TSL01_1.
+move ALTMP56 to ITAB2-TSL02_1.
+move ALTMP60 to ITAB2-TSL03_1.
+move ALTMP65 to ITAB2-TSL04_1.
+move ALTMP71 to ITAB2-TSL05_1.
+move ALTMP78 to ITAB2-TSL06_1.
+move ALTMP86 to ITAB2-TSL07_1.
+move ALTMP95 to ITAB2-TSL08_1.
+move ALTMP105 to ITAB2-TSL09_1.
+move ALTMP116 to ITAB2-TSL10_1.
+move ALTMP128 to ITAB2-TSL11_1.
+move ALTMP141 to ITAB2-TSL12_1.
+move ALTMP142 to ITAB2-RLDNR.
+move ALTMP143 to ITAB2-RBUKRS.
+move ALTMP144 to ITAB2-SEGMENT.
+move ALTMP145 to ITAB2-RBUSA.
+move ALTMP146 to ITAB2-RCNTR.
+move ALTMP147 to ITAB2-PRCTR.
+move ALTMP148 to ITAB2-RRCTY.
+move ALTMP149 to ITAB2-RTCUR.
+move ALTMP150 to ITAB2-HSL01.
+move ALTMP151 to ITAB2-HSL02.
+move ALTMP152 to ITAB2-HSL03.
+move ALTMP153 to ITAB2-HSL04.
+move ALTMP154 to ITAB2-HSL05.
+move ALTMP155 to ITAB2-HSL06.
+move ALTMP156 to ITAB2-HSL07.
+move ALTMP157 to ITAB2-HSL08.
+move ALTMP158 to ITAB2-HSL09.
+move ALTMP159 to ITAB2-HSL10.
+move ALTMP160 to ITAB2-HSL11.
+move ALTMP161 to ITAB2-HSL12.
+append ITAB2.
+clear ITAB2.
+clear count.
+endif.
+ clear ALTMP40.
+ clear ALTMP41.
+ clear ALTMP42.
+ clear ALTMP43.
+ clear ALTMP44.
+ clear ALTMP45.
+ clear ALTMP46.
+ clear ALTMP47.
+ clear ALTMP48.
+ clear ALTMP49.
+ clear ALTMP50.
+ clear ALTMP51.
+ clear ALTMP53.
+ clear ALTMP56.
+ clear ALTMP60.
+ clear ALTMP65.
+ clear ALTMP71.
+ clear ALTMP78.
+ clear ALTMP86.
+ clear ALTMP95.
+ clear ALTMP105.
+ clear ALTMP116.
+ clear ALTMP128.
+ clear ALTMP141.
+ clear ALTMP150.
+ clear ALTMP151.
+ clear ALTMP152.
+ clear ALTMP153.
+ clear ALTMP154.
+ clear ALTMP155.
+ clear ALTMP156.
+ clear ALTMP157.
+ clear ALTMP158.
+ clear ALTMP159.
+ clear ALTMP160.
+ clear ALTMP161.
+ALTMP37 = ITAB3-RYEAR.
+ALTMP38 = ITAB3-DRCRK.
+ALTMP39 = ITAB3-RACCT.
+ALTMP142 = ITAB3-RLDNR.
+ALTMP143 = ITAB3-RBUKRS.
+ALTMP144 = ITAB3-SEGMENT.
+ALTMP145 = ITAB3-RBUSA.
+ALTMP146 = ITAB3-RCNTR.
+ALTMP147 = ITAB3-PRCTR.
+ALTMP148 = ITAB3-RRCTY.
+ALTMP149 = ITAB3-RTCUR.
+endon.
+
+if ( i = 0 ).
+ALTMP37 = ITAB3-RYEAR.
+ALTMP38 = ITAB3-DRCRK.
+ALTMP39 = ITAB3-RACCT.
+ALTMP142 = ITAB3-RLDNR.
+ALTMP143 = ITAB3-RBUKRS.
+ALTMP144 = ITAB3-SEGMENT.
+ALTMP145 = ITAB3-RBUSA.
+ALTMP146 = ITAB3-RCNTR.
+ALTMP147 = ITAB3-PRCTR.
+ALTMP148 = ITAB3-RRCTY.
+ALTMP149 = ITAB3-RTCUR.
+i = 1.
+endif.
+ALTMP40 = ALTMP40 + ITAB3-TSL01.
+ALTMP41 = ALTMP41 + ITAB3-TSL02.
+ALTMP42 = ALTMP42 + ITAB3-TSL03.
+ALTMP43 = ALTMP43 + ITAB3-TSL04.
+ALTMP44 = ALTMP44 + ITAB3-TSL05.
+ALTMP45 = ALTMP45 + ITAB3-TSL06.
+ALTMP46 = ALTMP46 + ITAB3-TSL07.
+ALTMP47 = ALTMP47 + ITAB3-TSL08.
+ALTMP48 = ALTMP48 + ITAB3-TSL09.
+ALTMP49 = ALTMP49 + ITAB3-TSL10.
+ALTMP50 = ALTMP50 + ITAB3-TSL11.
+ALTMP51 = ALTMP51 + ITAB3-TSL12.
+ALTMP52 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP53 = ALTMP53 + ALTMP52.
+ALTMP54 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP55 = ( ALTMP54 + ITAB3-TSL02 ).
+ALTMP56 = ALTMP56 + ALTMP55.
+ALTMP57 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP58 = ( ALTMP57 + ITAB3-TSL02 ).
+ALTMP59 = ( ALTMP58 + ITAB3-TSL03 ).
+ALTMP60 = ALTMP60 + ALTMP59.
+ALTMP61 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP62 = ( ALTMP61 + ITAB3-TSL02 ).
+ALTMP63 = ( ALTMP62 + ITAB3-TSL03 ).
+ALTMP64 = ( ALTMP63 + ITAB3-TSL04 ).
+ALTMP65 = ALTMP65 + ALTMP64.
+ALTMP66 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP67 = ( ALTMP66 + ITAB3-TSL02 ).
+ALTMP68 = ( ALTMP67 + ITAB3-TSL03 ).
+ALTMP69 = ( ALTMP68 + ITAB3-TSL04 ).
+ALTMP70 = ( ALTMP69 + ITAB3-TSL05 ).
+ALTMP71 = ALTMP71 + ALTMP70.
+ALTMP72 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP73 = ( ALTMP72 + ITAB3-TSL02 ).
+ALTMP74 = ( ALTMP73 + ITAB3-TSL03 ).
+ALTMP75 = ( ALTMP74 + ITAB3-TSL04 ).
+ALTMP76 = ( ALTMP75 + ITAB3-TSL05 ).
+ALTMP77 = ( ALTMP76 + ITAB3-TSL06 ).
+ALTMP78 = ALTMP78 + ALTMP77.
+ALTMP79 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP80 = ( ALTMP79 + ITAB3-TSL02 ).
+ALTMP81 = ( ALTMP80 + ITAB3-TSL03 ).
+ALTMP82 = ( ALTMP81 + ITAB3-TSL04 ).
+ALTMP83 = ( ALTMP82 + ITAB3-TSL05 ).
+ALTMP84 = ( ALTMP83 + ITAB3-TSL06 ).
+ALTMP85 = ( ALTMP84 + ITAB3-TSL07 ).
+ALTMP86 = ALTMP86 + ALTMP85.
+ALTMP87 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP88 = ( ALTMP87 + ITAB3-TSL02 ).
+ALTMP89 = ( ALTMP88 + ITAB3-TSL03 ).
+ALTMP90 = ( ALTMP89 + ITAB3-TSL04 ).
+ALTMP91 = ( ALTMP90 + ITAB3-TSL05 ).
+ALTMP92 = ( ALTMP91 + ITAB3-TSL06 ).
+ALTMP93 = ( ALTMP92 + ITAB3-TSL07 ).
+ALTMP94 = ( ALTMP93 + ITAB3-TSL08 ).
+ALTMP95 = ALTMP95 + ALTMP94.
+ALTMP96 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP97 = ( ALTMP96 + ITAB3-TSL02 ).
+ALTMP98 = ( ALTMP97 + ITAB3-TSL03 ).
+ALTMP99 = ( ALTMP98 + ITAB3-TSL04 ).
+ALTMP100 = ( ALTMP99 + ITAB3-TSL05 ).
+ALTMP101 = ( ALTMP100 + ITAB3-TSL06 ).
+ALTMP102 = ( ALTMP101 + ITAB3-TSL07 ).
+ALTMP103 = ( ALTMP102 + ITAB3-TSL08 ).
+ALTMP104 = ( ALTMP103 + ITAB3-TSL09 ).
+ALTMP105 = ALTMP105 + ALTMP104.
+ALTMP106 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP107 = ( ALTMP106 + ITAB3-TSL02 ).
+ALTMP108 = ( ALTMP107 + ITAB3-TSL03 ).
+ALTMP109 = ( ALTMP108 + ITAB3-TSL04 ).
+ALTMP110 = ( ALTMP109 + ITAB3-TSL05 ).
+ALTMP111 = ( ALTMP110 + ITAB3-TSL06 ).
+ALTMP112 = ( ALTMP111 + ITAB3-TSL07 ).
+ALTMP113 = ( ALTMP112 + ITAB3-TSL08 ).
+ALTMP114 = ( ALTMP113 + ITAB3-TSL09 ).
+ALTMP115 = ( ALTMP114 + ITAB3-TSL10 ).
+ALTMP116 = ALTMP116 + ALTMP115.
+ALTMP117 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP118 = ( ALTMP117 + ITAB3-TSL02 ).
+ALTMP119 = ( ALTMP118 + ITAB3-TSL03 ).
+ALTMP120 = ( ALTMP119 + ITAB3-TSL04 ).
+ALTMP121 = ( ALTMP120 + ITAB3-TSL05 ).
+ALTMP122 = ( ALTMP121 + ITAB3-TSL06 ).
+ALTMP123 = ( ALTMP122 + ITAB3-TSL07 ).
+ALTMP124 = ( ALTMP123 + ITAB3-TSL08 ).
+ALTMP125 = ( ALTMP124 + ITAB3-TSL09 ).
+ALTMP126 = ( ALTMP125 + ITAB3-TSL10 ).
+ALTMP127 = ( ALTMP126 + ITAB3-TSL11 ).
+ALTMP128 = ALTMP128 + ALTMP127.
+ALTMP129 = ( ITAB3-TSLVT + ITAB3-TSL01 ).
+ALTMP130 = ( ALTMP129 + ITAB3-TSL02 ).
+ALTMP131 = ( ALTMP130 + ITAB3-TSL03 ).
+ALTMP132 = ( ALTMP131 + ITAB3-TSL04 ).
+ALTMP133 = ( ALTMP132 + ITAB3-TSL05 ).
+ALTMP134 = ( ALTMP133 + ITAB3-TSL06 ).
+ALTMP135 = ( ALTMP134 + ITAB3-TSL07 ).
+ALTMP136 = ( ALTMP135 + ITAB3-TSL08 ).
+ALTMP137 = ( ALTMP136 + ITAB3-TSL09 ).
+ALTMP138 = ( ALTMP137 + ITAB3-TSL10 ).
+ALTMP139 = ( ALTMP138 + ITAB3-TSL11 ).
+ALTMP140 = ( ALTMP139 + ITAB3-TSL12 ).
+ALTMP141 = ALTMP141 + ALTMP140.
+ALTMP150 = ALTMP150 + ITAB3-HSL01.
+ALTMP151 = ALTMP151 + ITAB3-HSL02.
+ALTMP152 = ALTMP152 + ITAB3-HSL03.
+ALTMP153 = ALTMP153 + ITAB3-HSL04.
+ALTMP154 = ALTMP154 + ITAB3-HSL05.
+ALTMP155 = ALTMP155 + ITAB3-HSL06.
+ALTMP156 = ALTMP156 + ITAB3-HSL07.
+ALTMP157 = ALTMP157 + ITAB3-HSL08.
+ALTMP158 = ALTMP158 + ITAB3-HSL09.
+ALTMP159 = ALTMP159 + ITAB3-HSL10.
+ALTMP160 = ALTMP160 + ITAB3-HSL11.
+ALTMP161 = ALTMP161 + ITAB3-HSL12.
+count = count + 1.
+endloop.
+
+if count > 0.
+move ALTMP37 to ITAB2-RYEAR.
+move ALTMP38 to ITAB2-DRCRK.
+move ALTMP39 to ITAB2-RACCT.
+move ALTMP40 to ITAB2-TSL01.
+move ALTMP41 to ITAB2-TSL02.
+move ALTMP42 to ITAB2-TSL03.
+move ALTMP43 to ITAB2-TSL04.
+move ALTMP44 to ITAB2-TSL05.
+move ALTMP45 to ITAB2-TSL06.
+move ALTMP46 to ITAB2-TSL07.
+move ALTMP47 to ITAB2-TSL08.
+move ALTMP48 to ITAB2-TSL09.
+move ALTMP49 to ITAB2-TSL10.
+move ALTMP50 to ITAB2-TSL11.
+move ALTMP51 to ITAB2-TSL12.
+move ALTMP53 to ITAB2-TSL01_1.
+move ALTMP56 to ITAB2-TSL02_1.
+move ALTMP60 to ITAB2-TSL03_1.
+move ALTMP65 to ITAB2-TSL04_1.
+move ALTMP71 to ITAB2-TSL05_1.
+move ALTMP78 to ITAB2-TSL06_1.
+move ALTMP86 to ITAB2-TSL07_1.
+move ALTMP95 to ITAB2-TSL08_1.
+move ALTMP105 to ITAB2-TSL09_1.
+move ALTMP116 to ITAB2-TSL10_1.
+move ALTMP128 to ITAB2-TSL11_1.
+move ALTMP141 to ITAB2-TSL12_1.
+move ALTMP142 to ITAB2-RLDNR.
+move ALTMP143 to ITAB2-RBUKRS.
+move ALTMP144 to ITAB2-SEGMENT.
+move ALTMP145 to ITAB2-RBUSA.
+move ALTMP146 to ITAB2-RCNTR.
+move ALTMP147 to ITAB2-PRCTR.
+move ALTMP148 to ITAB2-RRCTY.
+move ALTMP149 to ITAB2-RTCUR.
+move ALTMP150 to ITAB2-HSL01.
+move ALTMP151 to ITAB2-HSL02.
+move ALTMP152 to ITAB2-HSL03.
+move ALTMP153 to ITAB2-HSL04.
+move ALTMP154 to ITAB2-HSL05.
+move ALTMP155 to ITAB2-HSL06.
+move ALTMP156 to ITAB2-HSL07.
+move ALTMP157 to ITAB2-HSL08.
+move ALTMP158 to ITAB2-HSL09.
+move ALTMP159 to ITAB2-HSL10.
+move ALTMP160 to ITAB2-HSL11.
+move ALTMP161 to ITAB2-HSL12.
+append ITAB2.
+ endif.
+ENDFORM.
+
+FORM FORM3.
+data: outfile(512), ldfile(50).
+ldfile = 'FI_S_STG_SALDO_CONTABLE__PASO1_R3_LEDGER.dat'.
+concatenate out_dir ldfile into outfile
+  separated by '/'.
+  IF DOWNLOAD = 'S'.
+     DATA: error_message(700),mtext(800),iEOP(1).
+     CALL FUNCTION P_SRVFM
+          DESTINATION P_DEST
+          KEEPING LOGICAL UNIT OF WORK
+          EXPORTING
+            EOS = last_batch
+          IMPORTING
+            EOP = iEOP
+          TABLES
+            E_TABLE = ITAB2
+          EXCEPTIONS
+            READ_ERROR = 1
+            SYSTEM_FAILURE = 2
+            MESSAGE error_message
+            COMMUNICATION_FAILURE = 3
+            MESSAGE error_message
+            OTHERS = 4.
+
+     IF sy-subrc ne 0.
+        Case sy-subrc.
+        when 1.
+        CONCATENATE
+        'Data Services read error. '
+        'Check Data Services error log.'
+        INTO mtext.
+        MESSAGE  E240(S#) WITH mtext.
+        when 2.
+        CONCATENATE
+'SAP System Failure while calling DS remote function: '
+      error_message INTO mtext.
+        MESSAGE  E240(S#) WITH mtext.
+        when 3.
+        CONCATENATE
+'SAP System Failure while calling DS remote function: '
+      error_message INTO mtext.
+        MESSAGE  E240(S#) WITH mtext.
+        when 4.
+        MESSAGE  E240(S#) WITH
+'Other SAP System Failure while calling DS remote function.'.
+        endcase.
+      ENDIF.
+      IF iEOP = 'X'.
+         PERFORM DISCONNECT_RFCDEST_FROM_PROGID.
+         LEAVE PROGRAM.
+       ENDIF.
+  ELSE.
+data  dlmtlen type i value '1'.
+data xdlmtlen type i value '1'.
+data:
+  ht(1) type c,
+  xht(1) type x,
+  conv type ref to cl_abap_conv_in_ce.
+xht = '7F'.
+conv = cl_abap_conv_in_ce=>create(
+  encoding = '1100'
+  input = xht
+).
+call method conv->read(
+  exporting n    = xdlmtlen
+  importing data = ht
+            len = dlmtlen
+).
+data return_code type i.
+ perform write_delimited_file
+           tables   ITAB2
+           using    outfile
+                    append_flag
+                    ht
+                    dlmtlen
+                    download
+           changing return_code.
+
+  case return_code.
+    when 1.
+      IF EXECMODE = 'D'.
+        WRITE: /5 'No line selected'.
+      ELSE.
+        MESSAGE E047(S#).
+      ENDIF.
+    when 2.
+      IF EXECMODE = 'D'.
+        WRITE: /5 'Open File Error -- ', 25 OUTFILE.
+      ELSE.
+        MESSAGE  E084(E0) WITH OUTFILE.
+      ENDIF.
+    when 3.
+      IF EXECMODE = 'D'.
+        WRITE: /5 'Data exceed length limit (8192) '.
+      ELSE.
+        MESSAGE  E240(S#) WITH
+             'Data exceed length limit (8192) '.
+      ENDIF.
+    when 4.
+      IF EXECMODE = 'D'.
+        WRITE: /5 'Call function WS_DOWNLOAD error'.
+      ELSE.
+        MESSAGE  E240(S#) WITH
+             'Call function WS_DOWNLOAD error'.
+      ENDIF.
+  endcase.
+ ENDIF.
+ENDFORM.
+
+FORM SUBSTRING USING SRC BEG LEN CHANGING RET.
+
+DATA: VA1 TYPE I.
+DATA: VA2 TYPE I.
+DATA: VA3 TYPE I.
+
+VA3 = STRLEN( SRC ).
+
+IF  BEG = 0.   VA1 = 0.
+ELSE.
+  IF  BEG < 0.
+    VA1 = VA3 + BEG.
+    IF  VA1 < 0.   VA1 = 0.
+    ENDIF.
+  ELSE.          VA1 = BEG - 1.
+  ENDIF.
+ENDIF.
+
+IF  LEN < 0.   VA2 = 0.
+ELSE.          VA2 = VA3 - VA1.
+ENDIF.
+
+IF  VA2 > LEN. VA2 = LEN.
+ENDIF.
+
+IF  VA2 < 1.   MOVE ''           TO RET.
+ELSE.          MOVE SRC+VA1(VA2) TO RET.
+ENDIF.
+
+ENDFORM.
+
+form write_delimited_file
+           tables   datatab
+           using    file
+                    append
+                    delimit
+                    dlength
+                    dwnload
+          changing rc.
+
+  data: type1,
+        appd(1),
+        temp(32),
+        time1(8),
+        date1(10),
+        output(8192),
+        rcount type i,
+        offset type i,
+        tablen type i,
+        maxlen type i value '8192'.
+
+  data: begin of clientab occurs 0,
+             output(8192),
+          end of clientab.
+
+  field-symbols: <f>.
+  field-symbols <delim1>.
+  data delim2(16).
+  data l_filename type string.
+
+  appd = append.
+  if appd is not initial.
+     appd = 'X'.
+  endif.
+  move file to l_filename.
+  describe table datatab lines tablen.
+
+
+  if dwnload = 'Y'.
+     clear clientab. refresh clientab.
+     rcount = 0.
+  else.
+     if appd = space.
+   open dataset file for output in text mode ENCODING UTF-8.
+     else.
+    open dataset file for appending in text mode ENCODING UTF-8.
+
+     endif.
+     if sy-subrc <> 0.
+         rc = 2. exit.
+     endif.
+  endif.
+
+  loop at datatab.
+    clear: tablen, offset, output.
+    do.
+      assign component sy-index of
+         structure datatab to <f>.
+      if sy-subrc <> 0. exit. endif.
+      if sy-index > 1.
+         assign delimit(dlength) TO <delim1> CASTING TYPE C.
+         delim2 = <delim1>.
+         write delim2(dlength) to output+offset(dlength).
+         add dlength to offset.
+      endif.
+
+      describe field <f> type type1.
+
+      if type1 = 'I' or type1 = 'N'.
+          type1 = 'P'.
+      endif.
+
+      case type1.
+        when 'D'.
+          if <f> = '00000000'.
+             <f> = ' '.
+          else.
+             move <f> to time1.
+             assign time1 to <f>.
+          endif.
+        when 'F'.
+          if <f> = '0.0'.
+            temp = '0.0'.
+          else.
+             write <f> to temp exponent 0.
+          endif.
+          condense temp no-gaps.
+          translate temp using ',.'.
+          assign temp to <f>.
+        when 'P'.
+          if <f> < 0.
+             write '-' to output+offset(1).
+             add 1 to offset.
+             <f> = <f> * ( -1 ).
+          endif.
+          move <f> to temp.
+          condense temp no-gaps.
+          translate temp using ',.'.
+          assign temp to <f>.
+      endcase.
+
+      sy-fdpos = strlen( <f> ).
+
+      tablen = offset + sy-fdpos.
+      if tablen > maxlen.
+         rc = 3. exit.
+      endif.
+      write <f> to output+offset(sy-fdpos).
+      add sy-fdpos to offset.
+    enddo.
+
+    if dwnload = 'Y'.
+       clientab-output = output.
+       append clientab.
+       rcount = rcount + 1.
+       if rcount >= 50.
+          SY-BATCH = SPACE.
+          CALL FUNCTION 'GUI_DOWNLOAD'
+            EXPORTING
+              FILENAME = l_filename
+              FILETYPE = 'ASC'
+              CODEPAGE = '4110'
+              APPEND   = appd
+              WRITE_FIELD_SEPARATOR = 'X'
+*            IMPORTING
+*              FILELENGTH =
+            TABLES
+              DATA_TAB = clientab
+            EXCEPTIONS
+              OTHERS = 1.
+          if sy-subrc <> 0.
+             rc = 4.
+          endif.
+          clear clientab. refresh clientab.
+          rcount = 0. appd = 'A'.
+       endif.
+    else.
+       transfer output to file.
+    endif.
+  endloop.
+
+  if dwnload = 'Y'.
+       SY-BATCH = SPACE.
+       CALL FUNCTION 'GUI_DOWNLOAD'
+         EXPORTING
+           FILENAME = l_filename
+           FILETYPE = 'ASC'
+              CODEPAGE = '4110'
+           APPEND   = appd
+           WRITE_FIELD_SEPARATOR = 'X'
+*         IMPORTING
+*           FILELENGTH =
+         TABLES
+           DATA_TAB = clientab
+         EXCEPTIONS
+           OTHERS = 1.
+          if sy-subrc <> 0.
+             rc = 4.
+          endif.
+  else.
+       close dataset file.
+  endif.
+endform.
+
+FORM CONNECT_RFCDEST_TO_PROGID.
+ INCLUDE rfctypes.
+
+ DATA: len     type i,
+       R3NAME(4),
+       SYSTNR(2),
+       uid     LIKE SYS_UID,
+       options LIKE RFCOPT,
+       isunicode  TYPE n.
+
+ DATA: NTOTAL     LIKE GWY_STRUCT-NOREG,
+       GWY_GWHOST LIKE GWY_STRUCT-GWHOST,
+       GWY_GWSERV LIKE GWY_STRUCT-GWSERV,
+       GWY_TPNAME LIKE GWY_SYSTEM-TPNAME.
+
+ TABLES: RFCSI.
+
+* Check program ID
+ IF P_PROGID = SPACE.
+    RAISE INVALID_PROGRAM_ID.
+ ENDIF.
+
+* determine if the RFC destination authority
+  CALL FUNCTION 'RFC_READ_TCPIP_DESTINATION'
+       EXPORTING destination = P_DEST
+                 authority_check = 'X'
+  IMPORTING rfcunicode = isunicode.
+
+* Use current gateway if no info exits
+ IF P_GWHOST = SPACE OR P_GWSERV = SPACE.
+  CALL FUNCTION 'RFC_SYSTEM_INFO'
+      IMPORTING
+          RFCSI_EXPORT = RFCSI.
+
+  len = strlen( rfcsi-rfcdest ) - 2.
+  systnr = rfcsi-rfcdest+len.
+  len = len - 1 - 3.
+  r3name = rfcsi-rfcdest+len(3).
+  len = len - 1.
+  options-rfcgwhost = rfcsi-rfcdest(len).
+  CONCATENATE 'sapgw' SYSTNR INTO options-rfcgwserv.
+ ELSE.
+   options-rfcgwhost = P_GWHOST.
+   options-rfcgwserv = P_GWSERV.
+ ENDIF.
+
+* Parameters for GWY function call
+  GWY_GWHOST = OPTIONS-RFCGWHOST.
+  GWY_GWSERV = OPTIONS-RFCGWSERV.
+  GWY_TPNAME = P_PROGID.
+
+* Check gateway and server program registered
+  CALL FUNCTION 'GWY_GET_NO_REG_PROGRAMS'
+     EXPORTING
+        GWHOST      = GWY_GWHOST
+        GWSERV      = GWY_GWSERV
+        TPNAME      = GWY_TPNAME
+     IMPORTING
+        NOREG_TOTAL = NTOTAL
+     EXCEPTIONS
+        OTHERS      = 1.
+
+  IF sy-subrc NE 0.
+     raise CONNECT_TO_GATEWAY_FAILED.
+  ENDIF.
+
+  IF NTOTAL = 0.
+     raise SERVER_NOT_REGISTERED.
+  ENDIF.
+
+  IF NTOTAL GT 1.
+     raise DUPLICATE_REG_PROGRAMS.
+  ENDIF.
+
+* build new connection to a registered server
+  options-rfcexec   = gwy_tpname.
+  options-rfcgwhost = gwy_gwhost.
+  options-rfcgwserv = gwy_gwserv.
+  options-rfchost   = '%%RFCSERVER%%'.
+  IF P_SNC_ON = 'X'.
+    options-rfcsnc  = 'X'.
+  ENDIF.
+
+  CALL 'RFCControl' ID 'CODE' FIELD 'O'
+                    ID 'DESTINATION' FIELD P_DEST
+                    ID 'TYPE' FIELD rfctype_external_tcp
+                    ID 'OPTIONS' FIELD options.
+
+  IF sy-subrc NE 0.
+     RAISE CONNECT_TO_REG_SERVER_FAILED.
+   ENDIF.
+
+* and set exclusive mode to keep server owned
+  CALL FUNCTION 'SYSTEM_SET_REG_SERVER_PROPERTY'
+      EXPORTING  destination = P_DEST
+                 exclusiv    = 'Y'
+      EXCEPTIONS connect_to_reg_server_failed = 1
+                 exclusiv_not_supported       = 2.
+
+  IF SY-SUBRC NE 0.
+     CASE SY-SUBRC.
+          WHEN 1.
+              RAISE CONNECT_TO_REG_SERVER_FAILED.
+          WHEN 2.
+              RAISE EXCLUSIV_NOT_SUPPORTED.
+     ENDCASE.
+  ENDIF.
+
+ENDFORM.
+
+FORM DISCONNECT_RFCDEST_FROM_PROGID.
+* set exclusive mode to E to end the session
+  CALL FUNCTION 'SYSTEM_SET_REG_SERVER_PROPERTY'
+     EXPORTING
+         destination = P_DEST
+         exclusiv    = 'E'
+     EXCEPTIONS
+         connect_to_reg_server_failed = 1
+         exclusiv_not_supported       = 2.
+ENDFORM.
