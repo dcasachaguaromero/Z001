@@ -1,0 +1,76 @@
+*&---------------------------------------------------------------------*
+*& Report  ZCL_CREA_PEDIDOS
+*&
+*&---------------------------------------------------------------------*
+*& Modificacion: No graba registroscon documento core en Blaco
+*& Fecha       : 05-09-2014
+*& Empresa     : VisionOne
+*&
+*&---------------------------------------------------------------------*
+
+REPORT ZCL_CREA_PEDIDOS.
+
+INCLUDE ZCL_CREA_PEDIDOS_TOP.
+INCLUDE ZCL_CREA_PEDIDOS_SCR.
+INCLUDE ZCL_CREA_PEDIDOS_F01.
+
+INITIALIZATION.
+  P_DELDB = 'X'.
+  LOOP AT SCREEN.
+    CASE SCREEN-NAME.
+      WHEN '%_TXT_PRO_%_APP_%-TEXT'.
+        SCREEN-INPUT = 0.
+        SCREEN-ACTIVE = 0.
+      WHEN 'TXT_PRO'.
+        SCREEN-INPUT = 0.
+        SCREEN-DISPLAY_3D = 0.
+    ENDCASE.
+    MODIFY SCREEN.
+  ENDLOOP.
+
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_FILE.
+  PERFORM SHOW_DIR_LOC_FILE USING P_FILE.
+
+START-OF-SELECTION.
+
+  IF P_FILE NE SPACE AND P_LOCAL = 'X'.
+    PERFORM LOCAL.
+  ELSE.
+    PERFORM ORACLE.
+  ENDIF.
+
+END-OF-SELECTION.
+  SORT TI_PEDIDO BY SAPNUMFACTURA.
+  READ TABLE TI_PEDIDO INTO LS_PEDIDO INDEX 1.
+  IF SY-SUBRC NE 0.
+    MESSAGE I000(0K) WITH TEXT-001.
+  ELSE.
+    IF P_DELDB EQ 'X'.
+**add comment
+      DELETE FROM ZCABPEDEXT WHERE ZNUM_DOC_CORE NE SPACE. "#EC CI_NOFIELD
+      DELETE FROM ZDETPEDEXT WHERE ZNUM_DOC_CORE NE SPACE. "#EC CI_NOFIELD
+      COMMIT WORK.
+**add comment
+    ENDIF.
+    DO 3 TIMES.
+      PERFORM UPDATE_DATA_SAP.
+      READ TABLE TI_PEDIDO INTO LS_PEDIDO WITH KEY EST_PROC = 'EC'.
+      IF SY-SUBRC NE 0.
+        READ TABLE TI_PEDIDO INTO LS_PEDIDO WITH KEY EST_PROC = 'ED'.
+        IF SY-SUBRC NE 0.
+          EXIT.
+        ENDIF.
+      ENDIF.
+    ENDDO.
+  ENDIF.
+
+  IF P_FILE NE SPACE AND P_LOCAL = 'X'.
+  ELSE.
+    PERFORM DISCONNECT_DB.
+  ENDIF.
+  IF SY-BATCH EQ SPACE.
+    SORT TI_PEDIDO BY SAPNUMFACTURA.
+    PERFORM INIT_FIELDCAT.
+    PERFORM INIT_LAYOUT.
+    PERFORM LISTADO.
+  ENDIF.
