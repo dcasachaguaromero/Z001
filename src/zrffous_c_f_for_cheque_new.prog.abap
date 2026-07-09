@@ -38,11 +38,24 @@ FORM f_for_cheque.
 *Rut Sociedad.
       DATA: v_paval LIKE t001z-paval.
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-      SELECT SINGLE paval
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE paval
+*      INTO v_paval
+*      FROM t001z
+*      WHERE bukrs = reguh-zbukr
+*      AND   party = 'TAXNR'.
+*
+* NEW CODE
+      SELECT paval
+      UP TO 1 ROWS 
       INTO v_paval
       FROM t001z
       WHERE bukrs = reguh-zbukr
-      AND   party = 'TAXNR'.
+      AND   party = 'TAXNR' ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc = 0.
 *        reguh-stcd1 = v_paval.
@@ -89,10 +102,22 @@ FORM f_for_cheque.
 *Impresión de Cuenta Banco.
       v_xblnr = regup-xblnr.
       IF v_banco <> 'X'.
-        SELECT SINGLE txt20 INTO t_bseg-sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE txt20 INTO t_bseg-sgtxt
+*               FROM skat WHERE spras = sy-langu AND
+*                               ktopl = 'CL01' AND
+*                               saknr = reguh-ubhkt.
+*
+* NEW CODE
+        SELECT txt20
+        UP TO 1 ROWS  INTO t_bseg-sgtxt
                FROM skat WHERE spras = sy-langu AND
                                ktopl = 'CL01' AND
-                               saknr = reguh-ubhkt.
+                               saknr = reguh-ubhkt ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         CLEAR regup-xblnr.
         t_bseg-hkont = reguh-ubhkt.
@@ -122,10 +147,22 @@ FORM f_for_cheque.
 *******************************************************************
 *******************************************************************
 *DETALLE
-      SELECT SINGLE txt20 INTO t_bseg-sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE txt20 INTO t_bseg-sgtxt
+*               FROM skat WHERE spras = sy-langu AND
+*                               ktopl = 'CL01' AND
+*                               saknr = regup-hkont.
+*
+* NEW CODE
+      SELECT txt20
+      UP TO 1 ROWS  INTO t_bseg-sgtxt
                FROM skat WHERE spras = sy-langu AND
                                ktopl = 'CL01' AND
-                               saknr = regup-hkont.
+                               saknr = regup-hkont ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *Movemos el signo negativo hacia la Izquierda.
       IF regup-shkzg = 'S'.

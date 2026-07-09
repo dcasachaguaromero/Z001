@@ -397,9 +397,19 @@ FORM U204.
       IF BSEG-LIFNR <> '  '.
          move bseg-lifnr to bseg-zzrut_terc.
       else.
-         SELECT LIFNR INTO ls_rbkp_lifnr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*         SELECT LIFNR INTO ls_rbkp_lifnr
+*                      FROM EKKO
+*                      WHERE EBELN = BSEG-EBELN.
+*
+* NEW CODE
+         SELECT LIFNR
+ INTO ls_rbkp_lifnr
                       FROM EKKO
-                      WHERE EBELN = BSEG-EBELN.
+                      WHERE EBELN = BSEG-EBELN ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
          ENDSELECT.
          IF ls_rbkp_lifnr <> '  '.
             move ls_rbkp_lifnr to bseg-zzrut_terc.
@@ -407,9 +417,19 @@ FORM U204.
          else.
             if BSEG-bschl = '81' or
                bseg-bschl = '91'.
-               select paval into bseg-zzrut_terc
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*               select paval into bseg-zzrut_terc
+*                           from T001Z
+*                           WHERE bukrs = bseg-bukrs.
+*
+* NEW CODE
+               SELECT paval
+ into bseg-zzrut_terc
                            from T001Z
-                           WHERE bukrs = bseg-bukrs.
+                           WHERE bukrs = bseg-bukrs ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
                ENDSELECT.
             ENDIF.
 ** RVY 14-10-2020.
@@ -419,9 +439,19 @@ FORM U204.
    when '86' OR
         '96'.
 *
-     SELECT LIFNR INTO ls_rbkp_lifnr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*     SELECT LIFNR INTO ls_rbkp_lifnr
+*                  FROM EKKO
+*                  WHERE EBELN = BSEG-EBELN.
+*
+* NEW CODE
+     SELECT LIFNR
+ INTO ls_rbkp_lifnr
                   FROM EKKO
-                  WHERE EBELN = BSEG-EBELN.
+                  WHERE EBELN = BSEG-EBELN ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
      ENDSELECT.
 *
 *     SELECT STCD1 INTO ls_LFA1_stcd1
@@ -446,9 +476,20 @@ FORM u205.
   DATA : lv_ltx TYPE fcltx.
 *
   IF bkpf-monat IS NOT INITIAL.
-    SELECT SINGLE ltx INTO lv_ltx
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE ltx INTO lv_ltx
+*           FROM t247 WHERE spras EQ sy-langu AND
+*                           mnr   EQ bkpf-monat.
+*
+* NEW CODE
+    SELECT ltx
+    UP TO 1 ROWS  INTO lv_ltx
            FROM t247 WHERE spras EQ sy-langu AND
-                           mnr   EQ bkpf-monat.
+                           mnr   EQ bkpf-monat ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     CONCATENATE 'Compensación bono cruzado' lv_ltx INTO bseg-sgtxt
                                                    SEPARATED BY space.
   ENDIF.
@@ -473,20 +514,51 @@ FORM U207 USING ZBSEG_SGTXT.
 
   CASE BSEG-KOART .
     WHEN 'K'.
-         SELECT NAME1 INTO ZBSEG_SGTXT
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*         SELECT NAME1 INTO ZBSEG_SGTXT
+*                      FROM LFA1
+*                      WHERE LIFNR = BSEG-LIFNR.
+*
+* NEW CODE
+         SELECT NAME1
+ INTO ZBSEG_SGTXT
                       FROM LFA1
-                      WHERE LIFNR = BSEG-LIFNR.
+                      WHERE LIFNR = BSEG-LIFNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
          ENDSELECT.
    WHEN 'D'.
-         SELECT NAME1 INTO ZBSEG_SGTXT
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*         SELECT NAME1 INTO ZBSEG_SGTXT
+*                      FROM KNA1
+*                      WHERE KUNNR = BSEG-KUNNR.
+*
+* NEW CODE
+         SELECT NAME1
+ INTO ZBSEG_SGTXT
                       FROM KNA1
-                      WHERE KUNNR = BSEG-KUNNR.
+                      WHERE KUNNR = BSEG-KUNNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
          ENDSELECT.
    WHEN OTHERS.
-         SELECT TXT50 INTO ZBSEG_SGTXT
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*         SELECT TXT50 INTO ZBSEG_SGTXT
+*                      FROM SKAT
+*                      WHERE KTOPL = 'B100' AND
+*                            SAKNR = BSEG-HKONT.
+*
+* NEW CODE
+         SELECT TXT50
+ INTO ZBSEG_SGTXT
                       FROM SKAT
                       WHERE KTOPL = 'B100' AND
-                            SAKNR = BSEG-HKONT.
+                            SAKNR = BSEG-HKONT ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
          ENDSELECT.
   ENDCASE.
 *

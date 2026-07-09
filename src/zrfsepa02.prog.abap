@@ -212,12 +212,25 @@ TOP-OF-PAGE.
 *&---------------------------------------------------------------------*
 FORM SELECT_ITEMS USING TABLE TYPE C
                         FILL  LIKE SY-TFILL.
-  SELECT * FROM (TABLE) INTO TABLE T_BSXX
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM (TABLE) INTO TABLE T_BSXX
+**                         UP TO D_MAX ROWS
+*                       WHERE BUKRS EQ P_BUKRS
+*                         AND HKONT EQ P_SAKNR
+*                         AND BELNR IN P_BELNR
+*                         AND XOPVW EQ SPACE.
+*
+* NEW CODE
+  SELECT *
+ FROM (TABLE) INTO TABLE T_BSXX
 *                         UP TO D_MAX ROWS
                        WHERE BUKRS EQ P_BUKRS
                          AND HKONT EQ P_SAKNR
                          AND BELNR IN P_BELNR
-                         AND XOPVW EQ SPACE.
+                         AND XOPVW EQ SPACE ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   FILL = SY-DBCNT.
 *--- PROTOCOL ----------------------------------------------------------
   LOOP AT T_BSXX.
@@ -234,10 +247,22 @@ ENDFORM.                               " SELECT_ITEMS
 *&---------------------------------------------------------------------*
 FORM BSEG_UPDATE.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-  SELECT SINGLE * FROM BSEG WHERE BUKRS = T_BSXX-BUKRS
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM BSEG WHERE BUKRS = T_BSXX-BUKRS
+*                            AND   GJAHR = T_BSXX-GJAHR
+*                            AND   BELNR = T_BSXX-BELNR
+*                            AND   BUZEI = T_BSXX-BUZEI.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM BSEG WHERE BUKRS = T_BSXX-BUKRS
                             AND   GJAHR = T_BSXX-GJAHR
                             AND   BELNR = T_BSXX-BELNR
-                            AND   BUZEI = T_BSXX-BUZEI.
+                            AND   BUZEI = T_BSXX-BUZEI ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF BSEG-KTOSL = 'MVA' OR BSEG-KTOSL = 'VVA'.
     MESSAGE A145(FH) WITH BSEG-HKONT.
   ENDIF.
@@ -290,7 +315,16 @@ ENDFORM.                               " CHECK_ACCOUNT_BALANCE
 *&      Form  READ_T001
 *&---------------------------------------------------------------------*
 FORM READ_T001 USING BUKRS LIKE T001-BUKRS.
-  SELECT SINGLE * FROM T001 WHERE BUKRS = BUKRS.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM T001 WHERE BUKRS = BUKRS.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM T001 WHERE BUKRS = BUKRS ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF SY-SUBRC <> 0.
     MESSAGE E001 WITH BUKRS.
   ENDIF.
@@ -319,13 +353,27 @@ FORM READ_GLDB USING XBUKRS LIKE GLT0-BUKRS
                      XSAKNR LIKE GLT0-RACCT
                      XGJAHR LIKE GLT0-RYEAR.
 
-  SELECT * FROM GLT0
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM GLT0
+*           WHERE RLDNR = '00'
+*           AND   RRCTY = '0'
+*           AND   RVERS = '001'
+*           AND   BUKRS = XBUKRS
+*           AND   RYEAR = XGJAHR
+*           AND   RACCT = XSAKNR.
+*
+* NEW CODE
+  SELECT *
+ FROM GLT0
            WHERE RLDNR = '00'
            AND   RRCTY = '0'
            AND   RVERS = '001'
            AND   BUKRS = XBUKRS
            AND   RYEAR = XGJAHR
-           AND   RACCT = XSAKNR.
+           AND   RACCT = XSAKNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     PERFORM CALCULATE_BALANCE.
   ENDSELECT.
 
@@ -350,9 +398,19 @@ ENDFORM.                               " CALCULATE_BALANCE
 FORM READ_BSIS USING BUKRS LIKE BSIS-BUKRS
                      SAKNR LIKE BSIS-HKONT.
 
-  SELECT * FROM  BSIS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM  BSIS
+*         WHERE  BUKRS = BUKRS
+*         AND    HKONT = SAKNR.
+*
+* NEW CODE
+  SELECT *
+ FROM  BSIS
          WHERE  BUKRS = BUKRS
-         AND    HKONT = SAKNR.
+         AND    HKONT = SAKNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     IF BSIS-SHKZG = 'S'.
       BALANCE_ITEMS = BALANCE_ITEMS  + BSIS-DMBTR.
     ELSE.
@@ -726,17 +784,39 @@ FORM READ_BSIS_2 USING BUKRS LIKE BSIS-BUKRS
   CLEAR T_BALANCE_ITEMS_HW. REFRESH T_BALANCE_ITEMS_HW.
   CLEAR T_BALANCE_ITEMS_TW. REFRESH T_BALANCE_ITEMS_TW.
 
-  SELECT * FROM  BSIS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM  BSIS
+*         WHERE  BUKRS = BUKRS
+*         AND    HKONT = SAKNR.
+*
+* NEW CODE
+  SELECT *
+ FROM  BSIS
          WHERE  BUKRS = BUKRS
-         AND    HKONT = SAKNR.
+         AND    HKONT = SAKNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
     IF ( BSIS-PSWSL IS INITIAL OR BSIS-PSWBT IS INITIAL ) AND
          BSIS-XARCH NE 'X'.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-      SELECT SINGLE * FROM BSEG WHERE BUKRS = BSIS-BUKRS
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM BSEG WHERE BUKRS = BSIS-BUKRS
+*                                AND   BELNR = BSIS-BELNR
+*                                AND   GJAHR = BSIS-GJAHR
+*                                AND   BUZEI = BSIS-BUZEI.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM BSEG WHERE BUKRS = BSIS-BUKRS
                                 AND   BELNR = BSIS-BELNR
                                 AND   GJAHR = BSIS-GJAHR
-                                AND   BUZEI = BSIS-BUZEI.
+                                AND   BUZEI = BSIS-BUZEI ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF SY-SUBRC <> 0.
         MESSAGE A500(FE) WITH 'BSEG nicht gefunden'.        "#EC NOTEXT
       ENDIF.
@@ -783,9 +863,19 @@ FORM CHECK_ACCOUNT2.
   DATA: CHECK_BSCHL LIKE BSIS-BSCHL OCCURS 10 WITH HEADER LINE.
 
 * Belege schon archiviert?
-  SELECT * FROM BSIS WHERE BUKRS EQ P_BUKRS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM BSIS WHERE BUKRS EQ P_BUKRS
+*                     AND   HKONT EQ P_SAKNR
+*                     AND   XARCH EQ 'X'.
+*
+* NEW CODE
+  SELECT *
+ FROM BSIS WHERE BUKRS EQ P_BUKRS
                      AND   HKONT EQ P_SAKNR
-                     AND   XARCH EQ 'X'.
+                     AND   XARCH EQ 'X' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     MESSAGE E146.
 *    Es sind schon Belege archiviert worden. Änderung ist nicht möglich
   ENDSELECT.
@@ -802,15 +892,35 @@ AND ( KTOSL = 'MVA' OR KTOSL = 'VVA' ) ORDER BY PRIMARY KEY.
     ENDIF.
   ENDSELECT.
 * Buchungsschlüsseln dürfen nicht für KOART = M sein
-  SELECT BSCHL INTO TABLE CHECK_BSCHL FROM BSIS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT BSCHL INTO TABLE CHECK_BSCHL FROM BSIS
+*                                      WHERE BUKRS EQ P_BUKRS
+*                                      AND   HKONT EQ P_SAKNR.
+*
+* NEW CODE
+  SELECT BSCHL
+ INTO TABLE CHECK_BSCHL FROM BSIS
                                       WHERE BUKRS EQ P_BUKRS
-                                      AND   HKONT EQ P_SAKNR.
+                                      AND   HKONT EQ P_SAKNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   SORT CHECK_BSCHL.
   DELETE ADJACENT DUPLICATES FROM CHECK_BSCHL.
   LOOP AT CHECK_BSCHL.
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-    SELECT SINGLE KOART INTO TBSL-KOART FROM TBSL
-                                        WHERE BSCHL = CHECK_BSCHL.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE KOART INTO TBSL-KOART FROM TBSL
+*                                        WHERE BSCHL = CHECK_BSCHL.
+*
+* NEW CODE
+    SELECT KOART
+    UP TO 1 ROWS  INTO TBSL-KOART FROM TBSL
+                                        WHERE BSCHL = CHECK_BSCHL ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF SY-SUBRC NE 0.
       MESSAGE E143(FH) WITH CHECK_BSCHL.
 *      Verwendeter Buchungsschlüssel & ist nicht mehr in der Kontenfindu
@@ -869,13 +979,27 @@ FORM READ_LEDGER TABLES   RESULT      STRUCTURE T_BALANCE_ACCOUNT_TW
 
   READ TABLE XGLEDTAB INDEX 1.
 
-  SELECT * FROM GLT0
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT * FROM GLT0
+*           WHERE RLDNR = XGLEDTAB-RLDNR
+*           AND   RRCTY = '0'
+*           AND   RVERS = '001'
+*           AND   BUKRS = XBUKRS
+*           AND   RYEAR = XGJAHR
+*           AND   RACCT = XSAKNR.
+*
+* NEW CODE
+  SELECT *
+ FROM GLT0
            WHERE RLDNR = XGLEDTAB-RLDNR
            AND   RRCTY = '0'
            AND   RVERS = '001'
            AND   BUKRS = XBUKRS
            AND   RYEAR = XGJAHR
-           AND   RACCT = XSAKNR.
+           AND   RACCT = XSAKNR ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     CASE TYPE.
       WHEN 'TW'.
         RESULT-WAERS = GLT0-RTCUR.
@@ -939,9 +1063,20 @@ ENDFORM.                               " READ_LEDGER
 FORM BKPF_UPDATE.
 *--- Stornovormerkung löschen? -----------------------------------------
   CLEAR D_STORNO.
-  SELECT SINGLE * FROM BKPF WHERE BUKRS = T_BSXX-BUKRS
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM BKPF WHERE BUKRS = T_BSXX-BUKRS
+*                            AND   GJAHR = T_BSXX-GJAHR
+*                            AND   BELNR = T_BSXX-BELNR.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM BKPF WHERE BUKRS = T_BSXX-BUKRS
                             AND   GJAHR = T_BSXX-GJAHR
-                            AND   BELNR = T_BSXX-BELNR.
+                            AND   BELNR = T_BSXX-BELNR ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF BKPF-STBLG NE SPACE.
     D_STORNO = 'X'.
   ENDIF.

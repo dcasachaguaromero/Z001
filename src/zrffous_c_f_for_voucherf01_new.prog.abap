@@ -34,11 +34,24 @@ FORM f_for_voucher .
 *Rut Sociedad.
       DATA: v_paval LIKE t001z-paval.
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-      SELECT SINGLE paval
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE paval
+*      INTO v_paval
+*      FROM t001z
+*      WHERE bukrs = reguh-zbukr
+*      AND   party = 'TAXNR'.
+*
+* NEW CODE
+      SELECT paval
+      UP TO 1 ROWS 
       INTO v_paval
       FROM t001z
       WHERE bukrs = reguh-zbukr
-      AND   party = 'TAXNR'.
+      AND   party = 'TAXNR' ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc = 0.
 *        reguh-stcd1 = v_paval.
@@ -132,11 +145,24 @@ FORM f_for_voucher .
         ENDIF.
       ENDIF.
 *ResQ Comment:Correction not required as Select Single is used 20/12/2019 EY_DES04 ECDK917080 *
-      SELECT SINGLE LTEXT
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE LTEXT
+*        FROM T003T
+*        INTO REGUP-XREF3
+*      WHERE SPRAS EQ sy-langu
+*        and BLART EQ REGUP-BLART.
+*
+* NEW CODE
+      SELECT LTEXT
+      UP TO 1 ROWS 
         FROM T003T
         INTO REGUP-XREF3
       WHERE SPRAS EQ sy-langu
-        and BLART EQ REGUP-BLART.
+        and BLART EQ REGUP-BLART ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 
 *----------------------------------------------------------------

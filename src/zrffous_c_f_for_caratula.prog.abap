@@ -23,10 +23,21 @@ FORM f_for_caratula .
 *------------------------------------------ Rutina para impresion Comprobante
 
       REFRESH t_bseg.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*      SELECT belnr koart hkont dmbtr shkzg zfbdt
+*      FROM bseg INTO CORRESPONDING FIELDS OF TABLE t_bseg
+*         WHERE bukrs = reguh-zbukr AND
+*               belnr = reguh-vblnr.
+*
+* NEW CODE
       SELECT belnr koart hkont dmbtr shkzg zfbdt
+
       FROM bseg INTO CORRESPONDING FIELDS OF TABLE t_bseg
          WHERE bukrs = reguh-zbukr AND
-               belnr = reguh-vblnr.
+               belnr = reguh-vblnr ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
       DESCRIBE TABLE t_bseg.
       IF sy-tfill <> 0.
 
@@ -124,10 +135,22 @@ FORM f_for_caratula .
             CLEAR: regud-dmbtr.
 
           ENDIF.
-          SELECT SINGLE txt20 INTO t_bseg-sgtxt
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE txt20 INTO t_bseg-sgtxt
+*           FROM skat WHERE spras = sy-langu AND
+*                           ktopl = 'CL01' AND
+*                           saknr = t_bseg-hkont.
+*
+* NEW CODE
+          SELECT txt20
+          UP TO 1 ROWS  INTO t_bseg-sgtxt
            FROM skat WHERE spras = sy-langu AND
                            ktopl = 'CL01' AND
-                           saknr = t_bseg-hkont.
+                           saknr = t_bseg-hkont ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *Se controla impresión de la cuenta banco.
 
@@ -215,11 +238,24 @@ FORM f_for_caratula .
 *Rut Sociedad.
         DATA: v_paval LIKE t001z-paval.
 
-        SELECT SINGLE paval
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE paval
+*        INTO v_paval
+*        FROM t001z
+*        WHERE bukrs = reguh-zbukr
+*        AND   party = 'TAXNR'.
+*
+* NEW CODE
+        SELECT paval
+        UP TO 1 ROWS 
         INTO v_paval
         FROM t001z
         WHERE bukrs = reguh-zbukr
-        AND   party = 'TAXNR'.
+        AND   party = 'TAXNR' ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         IF sy-subrc = 0.
 *              REGUH-STCD1 = V_PAVAL.

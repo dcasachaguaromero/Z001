@@ -359,9 +359,19 @@ FORM u201  USING b_result.
   ENDSELECT.
 * fin Waldo ALarcón - Visionone - 20-06-2022
 
-  SELECT  valsign valoption valfrom valto INTO (pvalsign, pvaloption, pvalfrom, pvalto)
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT  valsign valoption valfrom valto INTO (pvalsign, pvaloption, pvalfrom, pvalto)
+*   FROM setleaf
+*  WHERE setname EQ 'ZFIBLART_K'.
+*
+* NEW CODE
+  SELECT valsign valoption val
+from valto INTO (pvalsign, pvaloption, pvalfrom, pvalto)
    FROM setleaf
-  WHERE setname EQ 'ZFIBLART_K'.
+  WHERE setname EQ 'ZFIBLART_K' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     MOVE: pvalsign TO pp_blart-sign,
           pvaloption TO pp_blart-option,
           pvalfrom   TO pp_blart-low,
@@ -467,9 +477,19 @@ FORM u203  USING b_result.
 * fin Waldo ALarcón - Visionone - 20-06-2022
 
 
-  SELECT  valsign valoption valfrom valto INTO (pvalsign, pvaloption, pvalfrom, pvalto)
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT  valsign valoption valfrom valto INTO (pvalsign, pvaloption, pvalfrom, pvalto)
+*   FROM setleaf
+*  WHERE setname EQ 'ZFIBLART_D'.
+*
+* NEW CODE
+  SELECT valsign valoption val
+from valto INTO (pvalsign, pvaloption, pvalfrom, pvalto)
    FROM setleaf
-  WHERE setname EQ 'ZFIBLART_D'.
+  WHERE setname EQ 'ZFIBLART_D' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
     MOVE: pvalsign TO pp_blart-sign,
           pvaloption TO pp_blart-option,
           pvalfrom   TO pp_blart-low,
