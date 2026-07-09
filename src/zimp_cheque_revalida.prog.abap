@@ -80,9 +80,20 @@ INITIALIZATION.
 
 AT SELECTION-SCREEN OUTPUT.
 
-  SELECT SINGLE nfirma3 dir_des3 dir_org3 FROM zfipg003
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE nfirma3 dir_des3 dir_org3 FROM zfipg003
+*  INTO (nfirma1, dir_des1, dir_org1)
+*  WHERE bukrs = bukrs.
+*
+* NEW CODE
+  SELECT nfirma3 dir_des3 dir_org3
+  UP TO 1 ROWS  FROM zfipg003
   INTO (nfirma1, dir_des1, dir_org1)
-  WHERE bukrs = bukrs.
+  WHERE bukrs = bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
   LOOP AT SCREEN.
     IF screen-name  = 'BUKRS'    OR
@@ -139,7 +150,16 @@ ENDFORM.                    "procesa
 *       text
 *----------------------------------------------------------------------*
 FORM sube_firmas.
-  SELECT SINGLE * FROM zfirmadigital WHERE bukrs EQ bukrs AND orden EQ 3.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM zfirmadigital WHERE bukrs EQ bukrs AND orden EQ 3.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM zfirmadigital WHERE bukrs EQ bukrs AND orden EQ 3 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc EQ 0.
     rfcdest = zfirmadigital-rfcdest.
 ****Firma1***************

@@ -331,12 +331,26 @@ FORM print_results .
 ENDFORM.                    "print_results
 form SELECT_DATA.
 
-Select BUKRS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*Select BUKRS
+*       TDNAME
+*       RFCDEST
+*  into corresponding fields of table  it_reporte
+*  from ZFIRMADIGITAL
+* WHERE BUKRS IN P_BUKRS
+*  .
+*
+* NEW CODE
+SELECT BUKRS
        TDNAME
        RFCDEST
+
   into corresponding fields of table  it_reporte
   from ZFIRMADIGITAL
  WHERE BUKRS IN P_BUKRS
-  .
+   ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 ENDFORM.

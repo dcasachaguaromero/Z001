@@ -47,13 +47,27 @@ WRITE: / 'Proceso finalizado. Numero propuestas procesadas:', VLINEA.
 *----------------------------------------------------------------------*
 FORM CONSULTA_PROPUESTAS .
 
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT LAUFD  LAUFI BUKRS
+*    FROM ZFIPG002_DET
+*    INTO TABLE GT_PROPUESTA
+*    WHERE BUKRS IN XZBUKR AND
+*          LAUFD IN XFECHA AND
+*          LAUFI IN XNOMINA AND
+*          ESTADO EQ 'P' .
+*
+* NEW CODE
   SELECT LAUFD  LAUFI BUKRS
+
     FROM ZFIPG002_DET
     INTO TABLE GT_PROPUESTA
     WHERE BUKRS IN XZBUKR AND
           LAUFD IN XFECHA AND
           LAUFI IN XNOMINA AND
-          ESTADO EQ 'P' .
+          ESTADO EQ 'P'  ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
   "AND
   "ZLSCH EQ 'T'.
 

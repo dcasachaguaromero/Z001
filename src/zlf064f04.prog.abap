@@ -747,7 +747,16 @@ form neuer_beleg.
 * We may have been called by FBL3N etc.                    "Note 313252
 * (del) l_tcode = sy-tcode.                                "Note 313252
   if t020-tcode ne sy-tcode.                               "Note 313252
-    select single * from t020 where tcode = sy-tcode.      "Note 313252
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    select single * from t020 where tcode = sy-tcode.      
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  from t020 where tcode = sy-tcode ORDER BY PRIMARY KEY.      
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01"Note 313252
   endif.                                                   "Note 313252
   if t020-aktyp = c_v.                                     "Note 313252
     l_tcode = 'FB02'.                                      "Note 313252
@@ -832,8 +841,18 @@ form reverse_document changing refresh type c.
 
 * ------ Determine document type for reversal document
 *        Notes (0390492 + 480960)
-  select single stbla into ld_stbla
-              from t003 where blart = xbkpf-blart.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single stbla into ld_stbla
+*              from t003 where blart = xbkpf-blart.
+*
+* NEW CODE
+  SELECT stbla
+  UP TO 1 ROWS  into ld_stbla
+              from t003 where blart = xbkpf-blart ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if sy-subrc = 0.
     if ld_stbla ne space.
       bkpf-blart = ld_stbla.
@@ -844,7 +863,16 @@ form reverse_document changing refresh type c.
     message e067 with xbkpf-blart.
   endif.
 
-  select single xsybl into ld_xsybl from t003 where blart = bkpf-blart.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single xsybl into ld_xsybl from t003 where blart = bkpf-blart.
+*
+* NEW CODE
+  SELECT xsybl
+  UP TO 1 ROWS  into ld_xsybl from t003 where blart = bkpf-blart ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if ld_xsybl = c_x.
     message i310(f5) with bkpf-blart.
     exit.
@@ -970,11 +998,24 @@ form reversal_text.
 
   check bkpf-stblg ne space.
 
- select single cpudt cputm into (t_reversed-date, t_reversed-time) from
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+* select single cpudt cputm into (t_reversed-date, t_reversed-time) from
+*        bkpf where bukrs eq bkpf-bukrs and
+*                   belnr eq bkpf-stblg and
+*                   gjahr eq bkpf-gjahr and
+*                   stblg eq bkpf-belnr.                    
+*
+* NEW CODE
+ SELECT cpudt cputm
+ UP TO 1 ROWS  into (t_reversed-date, t_reversed-time) from
         bkpf where bukrs eq bkpf-bukrs and
                    belnr eq bkpf-stblg and
                    gjahr eq bkpf-gjahr and
-                   stblg eq bkpf-belnr.                    "Note590739
+                   stblg eq bkpf-belnr ORDER BY PRIMARY KEY.                    
+
+ ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01"Note590739
 
 * Document might have been archived.....
   if sy-subrc eq 0.
@@ -1027,9 +1068,20 @@ if bkpf-tcode(2) = 'VF' and
    bkpf-tcode <> 'VF01' and
    bkpf-tcode <> 'VF11' and
    bkpf-tcode <> 'VF26'.
- select single sfakn into t_sfakn
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+* select single sfakn into t_sfakn
+*        from vbrk
+*        where vbeln = bkpf-awkey(10).
+*
+* NEW CODE
+ SELECT sfakn
+ UP TO 1 ROWS  into t_sfakn
         from vbrk
-        where vbeln = bkpf-awkey(10).
+        where vbeln = bkpf-awkey(10) ORDER BY PRIMARY KEY.
+
+ ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     if not t_sfakn is initial.
       rf05l-stotx = text-038.    " Reversal for ......
     else.

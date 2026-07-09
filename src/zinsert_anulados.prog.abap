@@ -77,7 +77,22 @@ SELECT-OPTIONS: s_zbukr FOR payr-ZBUKR,
 START-OF-SELECTION.
 
 
-    select * into wa_payr
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*    select * into wa_payr
+*      from payr client specified
+*      where mandt = sy-mandt
+*        and zbukr in s_zbukr
+*        and chect < 9000000000000
+**        and laufd = wa_reguh-laufd
+**        and laufi = wa_reguh-laufi
+**        and gjahr = w_gjahr
+*        and voidr in s_voidr
+*      .
+*
+* NEW CODE
+    SELECT *
+ into wa_payr
       from payr client specified
       where mandt = sy-mandt
         and zbukr in s_zbukr
@@ -86,7 +101,9 @@ START-OF-SELECTION.
 *        and laufi = wa_reguh-laufi
 *        and gjahr = w_gjahr
         and voidr in s_voidr
-      .
+       ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
         clear it_spins.
         clear w_gjahr.
@@ -99,14 +116,30 @@ START-OF-SELECTION.
         it_spins-vtipo      = wa_payr-rzawe.
 
         if wa_payr-checv = '*'.
-          select single chect into it_spins-vcheque_sus
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          select single chect into it_spins-vcheque_sus
+*            from payr client specified
+*            where mandt = sy-mandt
+*                and zbukr = wa_payr-zbukr
+*                and hbkid = wa_payr-hbkid
+*                and hktid = wa_payr-hktid
+*                and checv = wa_payr-chect
+*                .
+*
+* NEW CODE
+          SELECT chect
+          UP TO 1 ROWS  into it_spins-vcheque_sus
             from payr client specified
             where mandt = sy-mandt
                 and zbukr = wa_payr-zbukr
                 and hbkid = wa_payr-hbkid
                 and hktid = wa_payr-hktid
                 and checv = wa_payr-chect
-                .
+                 ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         else.
           it_spins-vcheque_sus 	=	wa_payr-checv.
         endif.
@@ -115,9 +148,20 @@ START-OF-SELECTION.
 *        it_spins-vctacte_sap  = wa_reguh-ubhkt.
 *        it_spins-vctacte_sap  = wa_payr-UBHKT.
 
-        select single stcd1 into it_spins-vrol_beneficiario
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single stcd1 into it_spins-vrol_beneficiario
+*          from lfa1
+*          where lifnr = wa_payr-lifnr.
+*
+* NEW CODE
+        SELECT stcd1
+        UP TO 1 ROWS  into it_spins-vrol_beneficiario
           from lfa1
-          where lifnr = wa_payr-lifnr.
+          where lifnr = wa_payr-lifnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         concatenate wa_payr-znme1 wa_payr-znme2 into it_spins-vbeneficiario.
 
         str = wa_payr-RWBTR.
@@ -133,7 +177,21 @@ START-OF-SELECTION.
                 w_gjahr	,
                 w_buzei	.
 
-        select single bukrs belnr gjahr buzei zz_agencia zfbdt zuonr xblnr zz_agencia zfbdt from bsak
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single bukrs belnr gjahr buzei zz_agencia zfbdt zuonr xblnr zz_agencia zfbdt from bsak
+*          into (w_bukrs, w_belnr, w_gjahr, w_buzei,it_spins-vlugar_pago, w_budat, it_spins-vnumero_asignacion, it_spins-vreferencia_docto, it_spins-vcheda_narea, w_venc)
+*          where bukrs = wa_payr-zbukr
+*                and belnr ne wa_payr-vblnr
+*                and lifnr = wa_payr-lifnr
+*                and gjahr = wa_payr-gjahr
+**                and augdt = wa_payr-zaldt
+*                and augbl = wa_payr-vblnr
+*                and xzahl ne 'X'.
+*
+* NEW CODE
+        SELECT bukrs belnr gjahr buzei zz_agencia zfbdt zuonr xblnr zz_agencia zfbdt
+        UP TO 1 ROWS  from bsak
           into (w_bukrs, w_belnr, w_gjahr, w_buzei,it_spins-vlugar_pago, w_budat, it_spins-vnumero_asignacion, it_spins-vreferencia_docto, it_spins-vcheda_narea, w_venc)
           where bukrs = wa_payr-zbukr
                 and belnr ne wa_payr-vblnr
@@ -141,15 +199,33 @@ START-OF-SELECTION.
                 and gjahr = wa_payr-gjahr
 *                and augdt = wa_payr-zaldt
                 and augbl = wa_payr-vblnr
-                and xzahl ne 'X'.
+                and xzahl ne 'X' ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *ResQ Comment:Correction not required as Select Single is used 24/12/2019 EY_DES04 ECDK917080 *
-        select single zzdesc_est zzmot_emis
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single zzdesc_est zzmot_emis
+*                 into (it_spins-vmotivo, it_spins-vcheda_nmotivo)
+*            from bseg
+*            where bukrs = w_bukrs
+*                  and belnr = w_belnr
+*                  and gjahr = w_gjahr
+*                  and buzei = w_buzei.
+*
+* NEW CODE
+        SELECT zzdesc_est zzmot_emis
+        UP TO 1 ROWS 
                  into (it_spins-vmotivo, it_spins-vcheda_nmotivo)
             from bseg
             where bukrs = w_bukrs
                   and belnr = w_belnr
                   and gjahr = w_gjahr
-                  and buzei = w_buzei.
+                  and buzei = w_buzei ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         it_spins-vfec_vencimiento     = w_venc.
 *        IT_SPINS-vCHEDA_NPROCESO	=	WA_REGUH-.
@@ -158,21 +234,48 @@ START-OF-SELECTION.
         it_spins-vfecha_contable = w_budat.
 
         CLEAR w_bankn.
-        select single bankn into w_bankn
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single bankn into w_bankn
+*          from t012k
+*          where
+*                BUKRS = wa_payr-zbukr
+*                and HBKID = wa_payr-hbkid
+*                and HKTID = wa_payr-hktid.
+*
+* NEW CODE
+        SELECT bankn
+        UP TO 1 ROWS  into w_bankn
           from t012k
           where
                 BUKRS = wa_payr-zbukr
                 and HBKID = wa_payr-hbkid
-                and HKTID = wa_payr-hktid.
+                and HKTID = wa_payr-hktid ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         it_spins-vctacte_sap = w_bankn.
 
         CLEAR w_bankl.
-        select single bankl into w_bankl
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single bankl into w_bankl
+*          from t012
+*          where
+*                BUKRS = wa_payr-zbukr
+*                and HBKID = wa_payr-hbkid.
+*
+* NEW CODE
+        SELECT bankl
+        UP TO 1 ROWS  into w_bankl
           from t012
           where
                 BUKRS = wa_payr-zbukr
-                and HBKID = wa_payr-hbkid.
+                and HBKID = wa_payr-hbkid ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
         it_spins-vcheda_nctacbo  	=	w_bankl.
 *        IT_SPINS-vCHEDA_CAGENCIA  = it_spins-vlugar_pago.

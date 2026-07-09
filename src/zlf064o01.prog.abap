@@ -11,9 +11,20 @@ MODULE read_recurring_doc_data OUTPUT.
                                     belnr = xbkpf-belnr AND
                                     gjahr = xbkpf-gjahr.
   ELSE.
-    SELECT SINGLE * FROM bkdf WHERE bukrs = xbkpf-bukrs AND
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM bkdf WHERE bukrs = xbkpf-bukrs AND
+*                                    belnr = xbkpf-belnr AND
+*                                    gjahr = xbkpf-gjahr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM bkdf WHERE bukrs = xbkpf-bukrs AND
                                     belnr = xbkpf-belnr AND
-                                    gjahr = xbkpf-gjahr.
+                                    gjahr = xbkpf-gjahr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ENDIF.
 
   rf05l-belnr = xbkpf-belnr.
@@ -64,8 +75,18 @@ ENDMODULE.                             " PFSTATUS_RECURR_DATA  OUTPUT
 *----------------------------------------------------------------------*
 MODULE kopf_modifikation OUTPUT.
   TABLES: ttypt.
-  SELECT SINGLE * FROM ttypt WHERE spras EQ sy-langu
-                             AND   awtyp EQ bkpf-awtyp.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM ttypt WHERE spras EQ sy-langu
+*                             AND   awtyp EQ bkpf-awtyp.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM ttypt WHERE spras EQ sy-langu
+                             AND   awtyp EQ bkpf-awtyp ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   t001-waers = bkpf-hwaer.                                  "Note 44129
   IF bkpf-waers = t001-waers.
     LOOP AT SCREEN.
@@ -81,7 +102,16 @@ MODULE kopf_modifikation OUTPUT.
   ENDIF.
 
 * read document type data:
-  SELECT SINGLE * FROM t003 WHERE blart = bkpf-blart.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM t003 WHERE blart = bkpf-blart.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM t003 WHERE blart = bkpf-blart ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *------- Aktivitaetstyp -----------------------------------------------*
   xbmodz = g_aktyp.
@@ -302,8 +332,18 @@ MODULE gjahr_vorschlagen OUTPUT.
   rf05l-gjahr = space.
   GET PARAMETER ID 'BUK' FIELD rf05l-bukrs.
   IF rf05l-bukrs NE space.
-    SELECT SINGLE * FROM t001
-      WHERE bukrs = rf05l-bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE * FROM t001
+*      WHERE bukrs = rf05l-bukrs.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  FROM t001
+      WHERE bukrs = rf05l-bukrs ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     IF t001-xgjrv = c_x
     OR sy-calld = c_x.
       GET PARAMETER ID 'GJR' FIELD rf05l-gjahr.

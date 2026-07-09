@@ -427,9 +427,20 @@ module d1120_read_text output.
   endif.
   if not uf05a-stgrd is initial and
     uf05a-stgrd ne t041ct-stgrd.
-    select single * from t041ct
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    select single * from t041ct
+*      where spras = sy-langu
+*        and stgrd = uf05a-stgrd.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  from t041ct
       where spras = sy-langu
-        and stgrd = uf05a-stgrd.
+        and stgrd = uf05a-stgrd ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     if sy-subrc ne 0.
       clear t041ct.
     endif.
@@ -437,9 +448,20 @@ module d1120_read_text output.
   if not rf05a-voidr is initial and
   rf05a-voidr ne tvoit-voidr.
 *ResQ Comment:Correction not required as Select Single is used 19/12/2019 EY_DES01 ECDK917080 *
-    select single * from tvoit
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    select single * from tvoit
+*      where langu = sy-langu
+*        and voidr = rf05a-voidr.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  from tvoit
       where langu = sy-langu
-        and voidr = rf05a-voidr.
+        and voidr = rf05a-voidr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     if sy-subrc ne 0.
       clear tvoit.
     endif.

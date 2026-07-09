@@ -81,9 +81,20 @@ FUNCTION zws_crea_clientes.
   ELSE.
     LOOP AT messtab INTO ls_mess WHERE msgtyp = 'E'.
       CLEAR return.
-      SELECT SINGLE text INTO return-message FROM t100 WHERE sprsl EQ sy-langu
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE text INTO return-message FROM t100 WHERE sprsl EQ sy-langu
+*                                                         AND arbgb EQ ls_mess-msgid
+*                                                         AND msgnr EQ ls_mess-msgnr.
+*
+* NEW CODE
+      SELECT text
+      UP TO 1 ROWS  INTO return-message FROM t100 WHERE sprsl EQ sy-langu
                                                          AND arbgb EQ ls_mess-msgid
-                                                         AND msgnr EQ ls_mess-msgnr.
+                                                         AND msgnr EQ ls_mess-msgnr ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       REPLACE '&1' INTO return-message WITH ls_mess-msgv1.
       REPLACE '&2' INTO return-message WITH ls_mess-msgv2.
       REPLACE '&3' INTO return-message WITH ls_mess-msgv3.

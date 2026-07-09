@@ -59,7 +59,16 @@ PARAMETERS: p_op1 TYPE c RADIOBUTTON GROUP g1,
 SELECTION-SCREEN END OF BLOCK b1.
 
 AT SELECTION-SCREEN ON bukrs.
-  SELECT SINGLE * FROM zfipg003 INTO zfipg003 WHERE bukrs EQ bukrs.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  SELECT SINGLE * FROM zfipg003 INTO zfipg003 WHERE bukrs EQ bukrs.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  FROM zfipg003 INTO zfipg003 WHERE bukrs EQ bukrs ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   IF sy-subrc <> 0.
     MESSAGE 'No existe la sociedad en la tabla de firmas' TYPE 'W'.
   ELSE.
@@ -104,10 +113,22 @@ END-OF-SELECTION.
 START-OF-SELECTION.
 "" AR INI ********************************
 *Desencripta la firma y la compara con el parmetro ingresado en la dynpro.
-  select single clave from zfirma_digital into v_clave
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single clave from zfirma_digital into v_clave
+*"                   where bukrs eq soc_pago and
+*                    where bukrs eq bukrs and
+*                         ruta_sap eq dir_org1.
+*
+* NEW CODE
+  SELECT clave
+  UP TO 1 ROWS  from zfirma_digital into v_clave
 "                   where bukrs eq soc_pago and
                     where bukrs eq bukrs and
-                         ruta_sap eq dir_org1.
+                         ruta_sap eq dir_org1 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if sy-subrc = 0.
 *Desencriptar la firma.
     l_encoded = v_clave.
@@ -139,10 +160,22 @@ START-OF-SELECTION.
       if sy-subrc = 0.
 
 *Busca el nombre del la imagen a cargar en la se78.
-        select single nfirma1 from zfipg003
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single nfirma1 from zfipg003
+*          into nfirma1
+*           where bukrs    = bukrs and
+*                 dir_org1 = dir_org1.
+*
+* NEW CODE
+        SELECT nfirma1
+        UP TO 1 ROWS  from zfipg003
           into nfirma1
            where bukrs    = bukrs and
-                 dir_org1 = dir_org1.
+                 dir_org1 = dir_org1 ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         perform borrar_firmas using nfirma1."Borra firma previo a su carga
         tdname_001   = nfirma1.
         filename_004 = file_p.
@@ -183,9 +216,20 @@ START-OF-SELECTION.
 ********************************************************************
 *Firma 2 ***********************************************************
 *Desencripta la firma y la compara con el parmetro ingresado en la dynpro.
-  select single clave from zfirma_digital into v_clave
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single clave from zfirma_digital into v_clave
+*                   where bukrs eq bukrs and
+*                         ruta_sap eq dir_org2.
+*
+* NEW CODE
+  SELECT clave
+  UP TO 1 ROWS  from zfirma_digital into v_clave
                    where bukrs eq bukrs and
-                         ruta_sap eq dir_org2.
+                         ruta_sap eq dir_org2 ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   if sy-subrc = 0.
 *Desencriptar la firma.
     l_encoded = v_clave.
@@ -214,10 +258,22 @@ START-OF-SELECTION.
       if sy-subrc = 0.
 
 *Busca el nombre del la imagen a cargar en la se78.
-        select single nfirma2 from zfipg003
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        select single nfirma2 from zfipg003
+*          into nfirma2
+*           where bukrs    = bukrs and
+*                 dir_org1 = dir_org2.
+*
+* NEW CODE
+        SELECT nfirma2
+        UP TO 1 ROWS  from zfipg003
           into nfirma2
            where bukrs    = bukrs and
-                 dir_org1 = dir_org2.
+                 dir_org1 = dir_org2 ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
         perform borrar_firmas using nfirma2."Borra firma previo a su carga
         tdname_001   = nfirma2.
         filename_004 = file_p.

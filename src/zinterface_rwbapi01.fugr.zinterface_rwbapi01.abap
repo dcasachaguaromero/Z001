@@ -49,9 +49,20 @@ FUNCTION zinterface_rwbapi01.
         it_accit-zzrut_terc =  atributo_5.
         it_accit-zz_agencia =  atributo_6.
         it_accit-fdlev      =  atributo_7.
-        SELECT SINGLE prefix_txt INTO it_accit-xref2_hd
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE prefix_txt INTO it_accit-xref2_hd
+*          FROM tsad4
+*          WHERE prefix_key = atributo_9.
+*
+* NEW CODE
+        SELECT prefix_txt
+        UP TO 1 ROWS  INTO it_accit-xref2_hd
           FROM tsad4
-          WHERE prefix_key = atributo_9.
+          WHERE prefix_key = atributo_9 ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 *      IT_ACCIT-XREF2_HD   =  ATRIBUTO_9.
         IF it_accit-kostl IS INITIAL AND atributo_10 IS NOT INITIAL.
           it_accit-kostl = atributo_10.

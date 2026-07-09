@@ -878,7 +878,30 @@ FORM select_JE .
 
 * Recherche des journal entries - données d'entêtes
   Clear t_bkpf.
-  select  BUKRS	
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select  BUKRS	
+*          BELNR
+*          GJAHR
+*          BLART
+*          BUDAT
+*          MONAT
+*          CPUDT
+*          CPUTM
+*          USNAM
+*          TCODE
+*          WAERS
+*          BKTXT
+*          BSTAT
+*          GRPID
+*  from    Bkpf into table t_bkpf
+*  where   BUKRS in S_BUKRS and
+*          GJAHR in S_GJAHR and
+**         BUDAT in S_BUDAT and
+*          MONAT in S_MONAT.
+*
+* NEW CODE
+  SELECT BUKRS	
           BELNR
           GJAHR
           BLART
@@ -892,11 +915,14 @@ FORM select_JE .
           BKTXT
           BSTAT
           GRPID
+
   from    Bkpf into table t_bkpf
   where   BUKRS in S_BUKRS and
           GJAHR in S_GJAHR and
 *         BUDAT in S_BUDAT and
-          MONAT in S_MONAT.
+          MONAT in S_MONAT ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 * Protocole
   if sy-subrc <> 0.
@@ -1028,11 +1054,23 @@ WHERE SPRAS = P_SPRAS ORDER BY PRIMARY KEY .
 
 * Recherche des données comptes (groupes)
   clear t_ska1.
-  select KTOPL
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select KTOPL
+*         SAKNR
+*         KTOKS
+*  from ska1 into table t_ska1
+*  where ktopl = p_ktopl.
+*
+* NEW CODE
+  SELECT KTOPL
          SAKNR
          KTOKS
+
   from ska1 into table t_ska1
-  where ktopl = p_ktopl.
+  where ktopl = p_ktopl ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 * Protocole
   if sy-subrc <> 0.
@@ -1048,12 +1086,25 @@ write 'No GL account information (SKA1) extracted' to t_protocole-text.
 
 * Recherche des données comptes - comptes automatiques ?
   clear t_skb1.
-  select BUkRS
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select BUkRS
+*         SAKNR
+*         MITKZ
+*         XINTB
+*  from skb1 into table t_skb1
+*  where bukrs in s_bukrs.
+*
+* NEW CODE
+  SELECT BUkRS
          SAKNR
          MITKZ
          XINTB
+
   from skb1 into table t_skb1
-  where bukrs in s_bukrs.
+  where bukrs in s_bukrs ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 * Protocole
   if sy-subrc <> 0.
@@ -1072,13 +1123,27 @@ write 'No GL account information (SKA1) extracted' to t_protocole-text.
 
 * Recherche des données comptes (description)
   clear t_skat.
-  select spras
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select spras
+*         KTOPL
+*         SAKNR
+*         TXT50
+*  from skat into table t_skat
+*  where spras = p_spras and
+*        ktopl = p_ktopl.
+*
+* NEW CODE
+  SELECT spras
          KTOPL
          SAKNR
          TXT50
+
   from skat into table t_skat
   where spras = p_spras and
-        ktopl = p_ktopl.
+        ktopl = p_ktopl ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 * Protocole
   if sy-subrc <> 0.

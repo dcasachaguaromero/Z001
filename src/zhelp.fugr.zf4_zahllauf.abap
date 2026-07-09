@@ -103,11 +103,24 @@ FUNCTION ZF4_ZAHLLAUF.
     SELECT * FROM REGUV where LAUFD > fecha ORDER BY LAUFD DESCENDING LAUFI ASCENDING.
       CHECK REGUV-LAUFI+5(1) IN RNG_LAUFK.
 
-      select single * from reguh
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      select single * from reguh
+*                     where laufd       = REGUV-LAUFD
+*                     and   laufi       = REGUV-LAUFI
+*                     and   ZBUKR       = bukrs
+*                     and   UBNKL       = BANCO .
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  from reguh
                      where laufd       = REGUV-LAUFD
                      and   laufi       = REGUV-LAUFI
                      and   ZBUKR       = bukrs
-                     and   UBNKL       = BANCO .
+                     and   UBNKL       = BANCO  ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       check sy-subrc = 0.
 

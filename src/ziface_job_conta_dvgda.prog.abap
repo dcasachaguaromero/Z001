@@ -27,10 +27,22 @@ CONCATENATE FEC_FIN(4) FEC_FIN+4(2) FEC_FIN+6(2) INTO SFEC_FIN.
 
 *Configuramos la conexion
 dbs = 'SAPCSC'.
-select single dbms
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*select single dbms
+*       from dbcon
+*       into dbtype
+*       where con_name = dbs.
+*
+* NEW CODE
+SELECT dbms
+UP TO 1 ROWS 
        from dbcon
        into dbtype
-       where con_name = dbs.
+       where con_name = dbs ORDER BY PRIMARY KEY.
+
+ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
 *Abrimos la conexion
 try.

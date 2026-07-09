@@ -45,13 +45,28 @@ FUNCTION zcta_cte.
 
   CASE gkoar.
     WHEN 'D'. " Deudores
-      SELECT SINGLE kunnr lifnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE kunnr lifnr
+*          INTO (kunnr, lifnr)
+*          FROM kna1 CLIENT SPECIFIED
+*          WHERE  mandt EQ sy-mandt AND
+*                 sortl IN lr_sortl AND
+*                 stcd1 EQ stcd3    AND
+*                 land1 EQ land1.
+*
+* NEW CODE
+      SELECT kunnr lifnr
+      UP TO 1 ROWS 
           INTO (kunnr, lifnr)
           FROM kna1 CLIENT SPECIFIED
           WHERE  mandt EQ sy-mandt AND
                  sortl IN lr_sortl AND
                  stcd1 EQ stcd3    AND
-                 land1 EQ land1.
+                 land1 EQ land1 ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc EQ 0.
         lv_ok = 'X'.
@@ -60,13 +75,28 @@ FUNCTION zcta_cte.
       ENDIF.
 
     WHEN 'K'. " Acreedores
-      SELECT SINGLE kunnr lifnr
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE kunnr lifnr
+*        INTO (kunnr, lifnr)
+*       FROM lfa1 CLIENT SPECIFIED
+*       WHERE  mandt = sy-mandt  AND
+*              sortl IN lr_sortl AND
+*              stcd1 EQ stcd3    AND
+*              land1 EQ land1.
+*
+* NEW CODE
+      SELECT kunnr lifnr
+      UP TO 1 ROWS 
         INTO (kunnr, lifnr)
        FROM lfa1 CLIENT SPECIFIED
        WHERE  mandt = sy-mandt  AND
               sortl IN lr_sortl AND
               stcd1 EQ stcd3    AND
-              land1 EQ land1.
+              land1 EQ land1 ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
 
       IF sy-subrc EQ 0.
         lv_ok = 'X'.
@@ -76,13 +106,28 @@ FUNCTION zcta_cte.
   ENDCASE.
 
   IF lv_ok IS NOT INITIAL.
-    SELECT SINGLE  lifnr banks bankl bankn bkont bvtyp xezer bkref
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    SELECT SINGLE  lifnr banks bankl bankn bkont bvtyp xezer bkref
+*                    koinh ebpp_accname  ebpp_bvstatus kovon kobis
+*             INTO (lifnr,  banks,  bankl,  bankn,  bkont,  bvtyp,  xezer, bkref,
+*                   koinh,  ebpp_accname, ebpp_bvstatus,  kovon,  kobis)
+*             FROM lfbk CLIENT SPECIFIED
+*             WHERE  mandt EQ sy-mandt AND
+*                    lifnr EQ lifnr.
+*
+* NEW CODE
+    SELECT lifnr banks bankl bankn bkont bvtyp xezer bkref
                     koinh ebpp_accname  ebpp_bvstatus kovon kobis
+    UP TO 1 ROWS 
              INTO (lifnr,  banks,  bankl,  bankn,  bkont,  bvtyp,  xezer, bkref,
                    koinh,  ebpp_accname, ebpp_bvstatus,  kovon,  kobis)
              FROM lfbk CLIENT SPECIFIED
              WHERE  mandt EQ sy-mandt AND
-                    lifnr EQ lifnr.
+                    lifnr EQ lifnr ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   ELSE.
 
   ENDIF.

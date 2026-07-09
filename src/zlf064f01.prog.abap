@@ -211,7 +211,16 @@ form pf_status_set using rtr_exctab type slis_t_extab.      "#EC CALLED
 * Posting correction request
 *----------------------------------------------------------------------
 
-    select single * from qisrpcrtype_scen where doctype = 'FI-GL'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*    select single * from qisrpcrtype_scen where doctype = 'FI-GL'.
+*
+* NEW CODE
+    SELECT *
+    UP TO 1 ROWS  from qisrpcrtype_scen where doctype = 'FI-GL' ORDER BY PRIMARY KEY.
+
+    ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
     if qisrpcrtype_scen-active = space.
       exc-fcode = 'CORR'.
       collect exc into rtr_exctab.
@@ -317,9 +326,20 @@ form kopf_anzeige.
 *------------ header line----------------------------------------------*
   new-line no-scrolling.
   write sy-vline.
-  select single * from  t003t
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from  t003t
+*         where  spras       = sy-langu
+*         and    blart       = bkpf-blart.
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from  t003t
          where  spras       = sy-langu
-         and    blart       = bkpf-blart.
+         and    blart       = bkpf-blart ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   format color col_heading intensified on.
   clear anzst.
   domvalue = bkpf-bstat.

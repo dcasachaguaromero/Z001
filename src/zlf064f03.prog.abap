@@ -22,7 +22,15 @@ form read_cross_company_documents using p_bvorg like bkpf-bvorg.
   refresh xbkpf.
   refresh xbseg.
   refresh gt_missing_auth.
-  select * from bvor into table ybvor where bvorg = p_bvorg.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  select * from bvor into table ybvor where bvorg = p_bvorg.
+*
+* NEW CODE
+  SELECT *
+ from bvor into table ybvor where bvorg = p_bvorg ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
 
 * ---- Read  completely archived cross company documents  (Note 0424402)
   if sy-dbcnt eq 0.
@@ -288,9 +296,20 @@ form display_cc_header.
 *---------- Allgemeine Infos -------------------------------------------
   new-line no-scrolling.
   write sy-vline.
-  select single * from  t003t
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*  select single * from  t003t
+*         where  spras       = sy-langu
+*         and    blart       = bkpf-blart     .
+*
+* NEW CODE
+  SELECT *
+  UP TO 1 ROWS  from  t003t
          where  spras       = sy-langu
-         and    blart       = bkpf-blart     .
+         and    blart       = bkpf-blart      ORDER BY PRIMARY KEY.
+
+  ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
   format color col_heading intensified on.
   write at 3(80)  t003t-ltext.
   write at 86 sy-vline.

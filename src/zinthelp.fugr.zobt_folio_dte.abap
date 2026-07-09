@@ -26,9 +26,20 @@ FUNCTION ZOBT_FOLIO_DTE.
   CASE SY-SUBRC.
     WHEN 0.
 * Obtiene el último folio utilizado
-      SELECT SINGLE * FROM IDCN_BOMA WHERE BUKRS = I_BUKRS
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE * FROM IDCN_BOMA WHERE BUKRS = I_BUKRS
+*                                       AND LOTNO = I_LOTNO
+*                                       AND BOKNO = I_BOKNO.
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS  FROM IDCN_BOMA WHERE BUKRS = I_BUKRS
                                        AND LOTNO = I_LOTNO
-                                       AND BOKNO = I_BOKNO.
+                                       AND BOKNO = I_BOKNO ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
       IF SY-SUBRC = 0.
         IF IDCN_BOMA-INVFR > IDCN_BOMA-LIINV.
           H_NIINV = IDCN_BOMA-INVFR.
