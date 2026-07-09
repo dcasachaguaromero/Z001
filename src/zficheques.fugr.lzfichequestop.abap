@@ -1,2 +1,0 @@
-FUNCTION-POOL ZFICHEQUES.                   "MESSAGE-ID ..
-

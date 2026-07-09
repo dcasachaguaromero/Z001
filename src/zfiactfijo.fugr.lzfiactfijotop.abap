@@ -1,1 +1,0 @@
-FUNCTION-POOL ZFIACTFIJO.                    "MESSAGE-ID ..
