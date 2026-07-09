@@ -1,0 +1,437 @@
+*&---------------------------------------------------------------------*
+*& Report: < ZEY_GDS_CORRECTION > *
+*& Author: < EY_DES01 > *
+*& Description: < ReSQ Correction > *
+*& Date: <19-12-2019> *
+*& Transport Number: < ECDK917080 > *
+*&---------------------------------------------------------------------*
+FUNCTION zinserta_cheques.
+*"----------------------------------------------------------------------
+*"*"Interfase local
+*"  IMPORTING
+*"     REFERENCE(BUKRS) TYPE  DZBUKR
+*"     REFERENCE(V_FECHA) TYPE  LAUFD
+*"     REFERENCE(V_NOMINA) TYPE  LAUFI
+*"  EXPORTING
+*"     REFERENCE(STATUS) TYPE  FLAG
+*"------------------------------- ---------------------------------------
+  TYPE-POOLS: slis.
+  TABLES : reguh,   "  Datos de pago del programa de pagos              02
+           regup,
+           bseg,    "  Segmento de documento de Contabilidad            02
+           lfa1,    "  Maestro de proveedores (parte general)           02
+           lfb1,
+           t001,
+           bnka,    "  Maestro de banco                                 02
+           bsak,    "  índice secundario para acreedores (part.comp.)   02
+           bkpf.    "  Cabecera de documento para Contabilidad          02
+
+  TYPES: BEGIN OF sp_insert,
+            vempresa    TYPE  string  ,
+            vnumero     TYPE  p ,
+            vtipo               TYPE  string  ,
+            vctacte_sap TYPE  string  ,
+            vrol_beneficiario   TYPE  string  ,
+            vbeneficiario   TYPE  string  ,
+            vvalor  TYPE  p ,
+            vfec_emision  TYPE  string  ,
+            vfec_vencimiento    TYPE  string  ,
+            vfec_retira   TYPE  string  ,
+            vcheque_sus   TYPE  string  ,
+            vnum_opago  TYPE  i ,
+            vmotivo   TYPE  string  ,
+            vlugar_pago         TYPE  string  ,
+            vcheda_nproceso TYPE  i ,
+            vcheda_narea  TYPE  string  ,
+            vcheda_nmotivo    TYPE  string  ,
+            vcheda_nctacbo    TYPE  i ,
+            vcheda_cagencia TYPE  i ,
+            vcheda_ntraspaso  TYPE  i ,
+            vcheda_ftraspaso  TYPE  string  ,
+            vcheda_cusuario TYPE  string  ,
+            vfec_propuesta_sap TYPE string,
+            vid_propuesta_sap TYPE  string,
+            vfecha_contable TYPE string,
+            vnumero_asignacion TYPE string,
+            vreferencia_docto TYPE string,
+            codigo_banco_dep TYPE string,
+            codigo_cta_dep TYPE string,
+            xref2  TYPE string,
+         END OF sp_insert.
+  DATA: it_spins TYPE STANDARD TABLE OF sp_insert WITH HEADER LINE.
+  DATA: wa_payr TYPE payr,
+        it_payr TYPE payr,
+        wa_reguh TYPE reguh,
+        str TYPE string,
+        w_budat LIKE bsak-budat,
+        w_fecha TYPE string,
+        w_venc LIKE bsak-zfbdt.
+  DATA: it_reguh TYPE STANDARD TABLE OF reguh.
+  DATA: w_bukrs LIKE  bseg-bukrs,
+        w_belnr LIKE bseg-belnr,
+        w_gjahr LIKE bseg-gjahr,
+        w_buzei LIKE bseg-buzei.
+data oref type ref to cx_root.
+data observacion(100).
+  w_fecha = v_fecha.
+  CONCATENATE w_fecha+6(2) '.' w_fecha+4(2) '.' w_fecha+0(4) INTO w_fecha.
+* BEGIN. 07-07-2026 - ATC - ATC-03
+* OLD CODE
+*  SELECT
+*          laufd
+*          laufi
+*          xvorl
+*          zbukr
+*          lifnr
+*          kunnr
+*          empfg
+*          vblnr
+*          avisg
+*          waers
+*          srtgb
+*          anred
+*          name1
+*          name4
+*          ort01
+*          stras
+*          stcd1
+*          zspra
+*          zaldt
+*          rzawe
+*          hktid
+*          hbkid
+*          ubknt
+*          ubnks
+*          ubnkl
+*          ubhkt
+*          valut
+*          rbetr
+*          abwae
+*          paygr
+*          zbnky
+*          ubnky
+*    FROM reguh INTO CORRESPONDING FIELDS OF TABLE it_reguh
+*    WHERE laufd = v_fecha
+*      AND laufi = v_nomina
+*      AND zbukr = bukrs
+*      AND xvorl NE 'X'.
+*
+* NEW CODE
+  SELECT laufd
+          laufi
+          xvorl
+          zbukr
+          lifnr
+          kunnr
+          empfg
+          vblnr
+          avisg
+          waers
+          srtgb
+          anred
+          name1
+          name4
+          ort01
+          stras
+          stcd1
+          zspra
+          zaldt
+          rzawe
+          hktid
+          hbkid
+          ubknt
+          ubnks
+          ubnkl
+          ubhkt
+          valut
+          rbetr
+          abwae
+          paygr
+          zbnky
+          ubnky
+
+    FROM reguh INTO CORRESPONDING FIELDS OF TABLE it_reguh
+    WHERE laufd = v_fecha
+      AND laufi = v_nomina
+      AND zbukr = bukrs
+      AND xvorl NE 'X' ORDER BY PRIMARY KEY.
+
+* END. 07-07-2026 - ATC - ATC-03
+
+*obtener numero de cheque
+  LOOP AT it_reguh INTO wa_reguh.
+    CLEAR it_spins.
+    IF wa_reguh-rzawe EQ 'C'.
+      CLEAR w_gjahr.
+      CALL FUNCTION 'GET_CURRENT_YEAR'
+       EXPORTING
+         bukrs         = wa_reguh-zbukr
+         date          = wa_reguh-zaldt
+       IMPORTING
+*       CURRM         =
+         curry         = w_gjahr
+*       PREVM         =
+*       PREVY         =
+                .
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*      SELECT SINGLE *
+*        INTO wa_payr
+*        FROM payr CLIENT SPECIFIED
+*        WHERE mandt = sy-mandt
+*          AND zbukr = wa_reguh-zbukr
+*          AND hbkid = wa_reguh-hbkid
+*          AND hktid = wa_reguh-hktid
+*          AND vblnr = wa_reguh-vblnr
+**        and laufd = wa_reguh-laufd
+**        and laufi = wa_reguh-laufi
+*          AND gjahr = w_gjahr
+*          AND voidr EQ 0
+*        .
+*
+* NEW CODE
+      SELECT *
+      UP TO 1 ROWS 
+        INTO wa_payr
+        FROM payr CLIENT SPECIFIED
+        WHERE mandt = sy-mandt
+          AND zbukr = wa_reguh-zbukr
+          AND hbkid = wa_reguh-hbkid
+          AND hktid = wa_reguh-hktid
+          AND vblnr = wa_reguh-vblnr
+*        and laufd = wa_reguh-laufd
+*        and laufi = wa_reguh-laufi
+          AND gjahr = w_gjahr
+          AND voidr EQ 0
+         ORDER BY PRIMARY KEY.
+
+      ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+      IF sy-subrc EQ 0.
+*        check wa_payr-voidr eq 0.
+        it_spins-vempresa  	=	wa_reguh-zbukr.
+        it_spins-vnumero   	=	wa_payr-chect.
+        it_spins-vtipo      = wa_reguh-rzawe.
+
+        IF wa_payr-checv = '*'.
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*          SELECT SINGLE chect INTO it_spins-vcheque_sus
+*            FROM payr CLIENT SPECIFIED
+*            WHERE mandt = sy-mandt
+*                AND zbukr = wa_payr-zbukr
+*                AND hbkid = wa_payr-hbkid
+*                AND hktid = wa_payr-hktid
+*                AND checv = wa_payr-chect
+*                .
+*
+* NEW CODE
+          SELECT chect
+          UP TO 1 ROWS  INTO it_spins-vcheque_sus
+            FROM payr CLIENT SPECIFIED
+            WHERE mandt = sy-mandt
+                AND zbukr = wa_payr-zbukr
+                AND hbkid = wa_payr-hbkid
+                AND hktid = wa_payr-hktid
+                AND checv = wa_payr-chect
+                 ORDER BY PRIMARY KEY.
+
+          ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+        ELSE.
+          it_spins-vcheque_sus 	=	wa_payr-checv.
+        ENDIF.
+
+*        IT_SPINS-vCTACTE_SAP  = WA_REGUH-HKONT.
+*        it_spins-vctacte_sap  = wa_reguh-ubhkt.
+        it_spins-vctacte_sap  = wa_reguh-ubknt.
+        it_spins-vrol_beneficiario 	=	wa_reguh-stcd1.
+        CONCATENATE wa_payr-znme1 wa_payr-znme2 INTO it_spins-vbeneficiario.
+
+        str = wa_reguh-rbetr.
+        REPLACE ALL OCCURRENCES OF '.' IN str WITH ''.
+        it_spins-vvalor   = str.
+        it_spins-vfec_emision   = wa_payr-zaldt.
+*        IT_SPINS-vFEC_RETIRA   = WA_REGUH-.
+*        IT_SPINS-vNUM_OPAGO 	=	WA_REGUH-.
+*        IT_SPINS-vMOTIVO   = WA_REGUH-.
+        CLEAR w_venc.
+        CLEAR:  w_bukrs	,
+                w_belnr	,
+                w_gjahr	,
+                w_buzei	.
+
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE bukrs belnr gjahr buzei zz_agencia zfbdt zuonr xblnr xref1 zfbdt FROM bsak
+*          INTO (w_bukrs, w_belnr, w_gjahr, w_buzei,it_spins-vlugar_pago, w_budat, it_spins-vnumero_asignacion, it_spins-vreferencia_docto, it_spins-vcheda_narea, w_venc)
+*          WHERE bukrs = wa_payr-zbukr
+*                AND lifnr = wa_payr-lifnr
+**                and augdt = wa_payr-zaldt
+*                AND augbl = wa_payr-vblnr
+**               and gjahr = wa_payr-gjahr
+*                AND belnr NE wa_payr-vblnr
+*                AND xzahl NE 'X'.
+*
+* NEW CODE
+        SELECT bukrs belnr gjahr buzei zz_agencia zfbdt zuonr xblnr xref1 zfbdt
+        UP TO 1 ROWS  FROM bsak
+          INTO (w_bukrs, w_belnr, w_gjahr, w_buzei,it_spins-vlugar_pago, w_budat, it_spins-vnumero_asignacion, it_spins-vreferencia_docto, it_spins-vcheda_narea, w_venc)
+          WHERE bukrs = wa_payr-zbukr
+                AND lifnr = wa_payr-lifnr
+*                and augdt = wa_payr-zaldt
+                AND augbl = wa_payr-vblnr
+*               and gjahr = wa_payr-gjahr
+                AND belnr NE wa_payr-vblnr
+                AND xzahl NE 'X' ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+*ResQ Comment:Correction not required as Select Single is used 19/12/2019 EY_DES01 ECDK917080 *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE zzdesc_est zzmot_emis
+*                 INTO (it_spins-vmotivo, it_spins-vcheda_nmotivo)
+*            FROM bseg
+*            WHERE bukrs = w_bukrs
+*                  AND belnr = w_belnr
+*                  AND gjahr = w_gjahr
+*                  AND buzei = w_buzei.
+*
+* NEW CODE
+        SELECT zzdesc_est zzmot_emis
+        UP TO 1 ROWS 
+                 INTO (it_spins-vmotivo, it_spins-vcheda_nmotivo)
+            FROM bseg
+            WHERE bukrs = w_bukrs
+                  AND belnr = w_belnr
+                  AND gjahr = w_gjahr
+                  AND buzei = w_buzei ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+
+        it_spins-vfec_vencimiento     = w_venc.
+*        IT_SPINS-vCHEDA_NPROCESO	=	WA_REGUH-.
+*        IT_SPINS-vCHEDA_NMOTIVO    = WA_REGUH-.
+        it_spins-vfecha_contable = w_budat.
+        it_spins-vcheda_nctacbo  	=	wa_reguh-ubnkl.
+*        IT_SPINS-vCHEDA_CAGENCIA  = it_spins-vlugar_pago.
+        it_spins-vcheda_cagencia  = 0.
+        it_spins-vcheda_ntraspaso   = wa_reguh-vblnr.
+        it_spins-vcheda_ftraspaso	=	wa_reguh-laufd.
+        it_spins-vcheda_cusuario  = wa_payr-prius.
+        it_spins-vfec_propuesta_sap = wa_reguh-laufd.
+        CONCATENATE it_spins-vfec_propuesta_sap+6(2) '.' it_spins-vfec_propuesta_sap+4(2) '.' it_spins-vfec_propuesta_sap+0(4)   INTO it_spins-vfec_propuesta_sap.
+        it_spins-vid_propuesta_sap = wa_reguh-laufi.
+        it_spins-codigo_banco_dep = wa_reguh-zbnkl.
+        it_spins-codigo_cta_dep = wa_reguh-zbnkn.
+        it_spins-xref2 = ''.
+*ResQ Comment:Correction not required as Select Single is used 19/12/2019 EY_DES01 ECDK917080 *
+* BEGIN. 07-07-2026 - ATC - ATC-01
+* OLD CODE
+*        SELECT SINGLE xref2 INTO it_spins-xref2 FROM  regup
+*                      WHERE laufd = wa_reguh-laufd
+*                      AND   laufi = wa_reguh-laufi
+*                      AND   xvorl = wa_reguh-xvorl
+*                      AND   zbukr = wa_reguh-zbukr
+*                      AND   lifnr = wa_reguh-lifnr
+*                      AND   kunnr = wa_reguh-kunnr
+*                      AND   empfg = wa_reguh-empfg
+*                      AND   vblnr = wa_reguh-vblnr.
+*
+* NEW CODE
+        SELECT xref2
+        UP TO 1 ROWS  INTO it_spins-xref2 FROM  regup
+                      WHERE laufd = wa_reguh-laufd
+                      AND   laufi = wa_reguh-laufi
+                      AND   xvorl = wa_reguh-xvorl
+                      AND   zbukr = wa_reguh-zbukr
+                      AND   lifnr = wa_reguh-lifnr
+                      AND   kunnr = wa_reguh-kunnr
+                      AND   empfg = wa_reguh-empfg
+                      AND   vblnr = wa_reguh-vblnr ORDER BY PRIMARY KEY.
+
+        ENDSELECT.
+* END. 07-07-2026 - ATC - ATC-01
+        IF sy-subrc <> 0.
+          it_spins-xref2 = ''.
+        ENDIF.
+
+        APPEND it_spins.
+      ENDIF.
+    ENDIF.
+  ENDLOOP.
+
+  EXEC SQL.
+    connect to 'SAPCSC' as 'con'
+  ENDEXEC.
+
+  EXEC SQL.
+    set connection 'con'
+  ENDEXEC.
+*         execute procedure pkg_sap_cargas.sap_carga_detalle_gasto ( IN :hkont )
+  TRY.
+      EXEC SQL.
+        EXECUTE PROCEDURE csc_sap_cheques.sp_delete_tes_docpago_sap(
+                                                                    IN :BUKRS  ,
+                                                                    IN :w_fecha  ,
+                                                                    IN :V_NOMINA,
+                                                                    IN :SY-UNAME
+                                                                    )
+      ENDEXEC.
+
+*    EXECUTE PROCEDURE csc_sap_cheques.SP_INSERT_TES_DOCPAGO_SAP
+      LOOP AT it_spins.
+        EXEC SQL.
+         EXECUTE PROCEDURE csc_sap_cheques.SP_INSERT_TES_DOCPAGO_SAP_V2(
+                                                                      IN :IT_spins-vEMPRESA  ,
+                                                                      IN :IT_spins-vNUMERO   ,
+                                                                      IN :IT_spins-vTipo             ,
+                                                                      IN :IT_spins-vCTACTE_SAP,
+                                                                      IN :IT_spins-vROL_BENEFICIARIO ,
+                                                                      IN :IT_spins-vBENEFICIARIO ,
+                                                                      IN :IT_spins-vVALOR ,
+                                                                      IN :IT_spins-vFEC_EMISION ,
+                                                                      IN :IT_spins-vFEC_VENCIMIENTO   ,
+                                                                      IN :IT_spins-vFEC_RETIRA ,
+                                                                      IN :IT_spins-vcheque_sus ,
+                                                                      IN :IT_spins-vNUM_OPAGO ,
+                                                                      IN :IT_spins-vMOTIVO ,
+                                                                      IN :IT_spins-vLUGAR_PAGO       ,
+                                                                      IN :IT_spins-vCHEDA_NPROCESO,
+                                                                      IN :IT_spins-vCHEDA_NAREA ,
+                                                                      IN :IT_spins-vCHEDA_NMOTIVO  ,
+                                                                      IN :IT_spins-vCHEDA_NCTACBO  ,
+                                                                      IN :IT_spins-vCHEDA_CAGENCIA,
+                                                                      IN :IT_spins-vCHEDA_NTRASPASO ,
+                                                                      IN :IT_spins-vCHEDA_FTRASPASO,
+                                                                      IN :IT_spins-vCHEDA_CUSUARIO,
+                                                                      IN :IT_spins-vFEC_PROPUESTA_SAP,
+                                                                      IN :IT_spins-vID_PROPUESTA_SAP,
+                                                                      IN :IT_spins-vfecha_contable,
+                                                                      IN :IT_spins-vnumero_asignacion,
+                                                                      IN :IT_spins-vreferencia_docto,
+                                                                      IN :IT_spins-codigo_banco_dep,
+                                                                      IN :IT_spins-codigo_cta_dep,
+                                                                      IN :IT_spins-xref2
+                                                                      )
+
+        ENDEXEC.
+        status = 'X'.
+      ENDLOOP.
+    CATCH cx_sy_native_sql_error into oref.
+      observacion = oref->get_text( ).
+      status = ' '.
+*  message text-001 type 'I'.
+*  message `Error in Native SQL.` type 'I'.
+  ENDTRY.
+
+  EXEC SQL.
+    SET CONNECTION DEFAULT
+  ENDEXEC.
+
+
+
+ENDFUNCTION.
