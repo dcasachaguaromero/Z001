@@ -1,4 +1,0 @@
-PROCESS BEFORE OUTPUT.
-  module status_2005.
-*
-PROCESS AFTER INPUT.

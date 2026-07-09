@@ -1,2 +1,0 @@
-FUNCTION-POOL ZAUXILIARES.                  "MESSAGE-ID ..
-
